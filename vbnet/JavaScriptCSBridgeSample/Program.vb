@@ -61,7 +61,7 @@ Namespace JavaScriptCSBridgeSample
 						Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
 						value.Invoke("ShowData", person)
 
-						Console.WriteLine(vbTab & "Browser title: {browser.Title}")
+						Console.WriteLine(vbTab & "Browser title: " & browser.Title)
 					End Using
 				End Using
 			Catch e As Exception

@@ -73,7 +73,7 @@ Namespace DefaultMediaStreamDeviceSample
 		End Sub
 
 		Private Shared Function SelectDevice(ByVal arg As SelectMediaDeviceParams) As MediaDevice
-			Console.WriteLine(vbLf & "Requested device type: {arg.Type}")
+			Console.WriteLine(vbLf & "Requested device type: "& arg.Type.ToString())
 			' Set first available device as default.
 			Dim availableDevices As IEnumerable(Of MediaDevice) = arg.Devices
 			Dim defaultDevice As MediaDevice = availableDevices.FirstOrDefault()

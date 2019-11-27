@@ -69,7 +69,7 @@ Namespace WPF.UIAutomationSample
                     Log("ProgrammaticName: " & prop.ProgrammaticName)
                     Log(vbTab & "Property Name: " & Automation.PropertyName(prop))
                     Dim currentPropertyValue = chromiumElement.GetCurrentPropertyValue(prop)
-                    Log(vbTab & "Property Value: " & currentPropertyValue)
+                    Log(vbTab & "Property Value: " & Convert.ToString(currentPropertyValue))
                 Next prop
                 Log("-- Element Patterns --")
                 Dim patterns() As AutomationPattern = chromiumElement.GetSupportedPatterns()
