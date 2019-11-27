@@ -101,3 +101,6 @@ UpgradeLog*.htm
 #License files
 *.licenses
 /.vs
+
+# Ignore custom NuGet configurations
+/NuGet.Config
