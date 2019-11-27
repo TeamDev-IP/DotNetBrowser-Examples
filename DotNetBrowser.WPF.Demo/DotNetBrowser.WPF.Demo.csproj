@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net45;netcoreapp3.0</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>DotNetBrowser.WPF.Demo</RootNamespace>
+    <ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotNetBrowser.WPF" Version="2.0.0" />
+    <PackageReference Include="protobuf-net" Version="2.4.4" />
+    <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='netcoreapp3.0'" />
+  </ItemGroup>
+</Project>
