@@ -1,0 +1,34 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XPath_Sample_WPF_RF"
+        xmlns:WPF="clr-namespace:DotNetBrowser.WPF;assembly=DotNetBrowser" x:Class="XPath_Sample_WPF_RF.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="572.956" Width="1128.245" Closing="Window_Closing">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="98*"/>
+            <ColumnDefinition Width="179*"/>
+            <ColumnDefinition Width="175*"/>
+            <ColumnDefinition Width="65*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="446*"/>
+        </Grid.RowDefinitions>
+        <Grid Name="mainLayout" Grid.Row="2" Grid.ColumnSpan="4">
+
+        </Grid>
+
+        <Label x:Name="label1" Content="Label" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.ColumnSpan="2" />
+        <Label x:Name="label2" Content="Label" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="0"/>
+        <Label x:Name="label3" Content="Label" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left"  VerticalAlignment="Center" Height="26" Width="359"/>
+        <Button x:Name="button1" Content="Button" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" Click="button1_Click" Width="96"  Grid.RowSpan="2" Margin="0,28,0,20" />
+        <Label x:Name="label4" Content="Label" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="153" Margin="0,9,0,8"/>
+        <Label x:Name="label5" Content="Label" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Height="26" Width="153" Margin="0,9,0,8"/>
+
+    </Grid>
+</Window>

@@ -1,0 +1,33 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF.FindTextSample"
+        xmlns:WPF="clr-namespace:DotNetBrowser.WPF;assembly=DotNetBrowser" x:Class="WPF.FindTextSample.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="677" Width="1269" Closing="Window_Closing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="30
+                           "/>
+        </Grid.RowDefinitions>
+
+        <WPF:WPFBrowserView Name="browserView" Grid.Row="0" />
+
+        <Grid Name="gridPanel" Grid.Row="1" Height="30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150*"/>
+                <ColumnDefinition Width="76"/>
+                <ColumnDefinition Width="76"/>
+                <ColumnDefinition Width="400*"/>
+
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="textBox" Grid.Column="0"  Height="22" TextWrapping="Wrap"  Margin="20, 4, 15, 4"/>
+            <Button x:Name="findButton" Grid.Column="1" Content="Find/Next" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Height="22" Click="findButton_Click" Margin="0,0,1,0"/>
+            <Button x:Name="clearButton" Grid.Column="2" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Height="22" Click="clearButton_Click" Margin="1,0,0,0"/>
+
+        </Grid>
+    </Grid>
+</Window>
