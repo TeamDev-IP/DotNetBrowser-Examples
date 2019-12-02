@@ -46,8 +46,8 @@ namespace CertificateErrorSample
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        browser.CertificateErrorHandler =
-                            new Handler<CertificateErrorParameters, CertificateErrorAction>(HandleCertError);
+                        engine.NetworkService.VerifyCertificateHandler =
+                            new Handler<CertificateVerifyHandlerParameters, CertificateVerifyResult>(HandleCertError);
                         browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/")
                                .Wait();
                     }
@@ -61,11 +61,14 @@ namespace CertificateErrorSample
             Console.ReadKey();
         }
 
-        private static CertificateErrorAction HandleCertError(CertificateErrorParameters errorParams)
+        private static CertificateVerifyResult HandleCertError(CertificateVerifyHandlerParameters errorParams)
         {
             Certificate certificate = errorParams.Certificate;
-
-            Console.WriteLine("ErrorCode = " + errorParams.CertificateError);
+            foreach (CertificateVerifyStatus status in errorParams.VerifyStatuses)
+            {
+                Console.WriteLine("CertificateVerifyStatus = " + status);
+            }
+            
             Console.WriteLine("SerialNumber = " + certificate.SerialNumber);
             Console.WriteLine("FingerPrint = " + certificate.Fingerprint);
             Console.WriteLine("CAFingerPrint = " + certificate.CaFingerPrint);
@@ -81,8 +84,8 @@ namespace CertificateErrorSample
 
             Console.WriteLine("Expired = " + certificate.Expired);
 
-            // Return Allow to ignore certificate error.
-            return CertificateErrorAction.Allow;
+            // Return Valid to ignore certificate error.
+            return CertificateVerifyResult.Valid;
         }
 
         #endregion

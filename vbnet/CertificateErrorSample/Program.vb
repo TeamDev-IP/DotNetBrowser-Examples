@@ -40,7 +40,7 @@ Namespace CertificateErrorSample
 
 					Using browser As IBrowser = engine.CreateBrowser()
 						Console.WriteLine("Browser created")
-						browser.CertificateErrorHandler = New Handler(Of CertificateErrorParameters, CertificateErrorAction)(AddressOf HandleCertError)
+						engine.NetworkService.VerifyCertificateHandler = New Handler(Of CertificateVerifyHandlerParameters, CertificateVerifyResult)(AddressOf HandleCertError)
 						browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait()
 					End Using
 				End Using
@@ -51,10 +51,13 @@ Namespace CertificateErrorSample
 			Console.ReadKey()
 		End Sub
 
-		Private Shared Function HandleCertError(ByVal errorParams As CertificateErrorParameters) As CertificateErrorAction
+		Private Shared Function HandleCertError(ByVal errorParams As CertificateVerifyHandlerParameters) As CertificateVerifyResult
 			Dim certificate As Certificate = errorParams.Certificate
 
-			Console.WriteLine("ErrorCode = " & errorParams.CertificateError)
+			For Each status As CertificateVerifyStatus In errorParams.VerifyStatuses
+                Console.WriteLine("CertificateVerifyStatus = " & status.ToString())
+            Next
+            
 			Console.WriteLine("SerialNumber = " & certificate.SerialNumber)
 			Console.WriteLine("FingerPrint = " & certificate.Fingerprint)
 			Console.WriteLine("CAFingerPrint = " & certificate.CaFingerPrint)
@@ -70,8 +73,8 @@ Namespace CertificateErrorSample
 
 			Console.WriteLine("Expired = " & certificate.Expired)
 
-			' Return Allow to ignore certificate error.
-			Return CertificateErrorAction.Allow
+			' Return Valid to ignore certificate error.
+			Return CertificateVerifyResult.Valid
 		End Function
 
 		#End Region
