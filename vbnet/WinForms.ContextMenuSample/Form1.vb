@@ -47,7 +47,7 @@ Namespace WinForms.ContextMenuSample
 		Public Sub New()
 			LoggerProvider.Instance.Level = SourceLevels.Verbose
 			LoggerProvider.Instance.FileLoggingEnabled = True
-			LoggerProvider.Instance.OutputFile = "C:\log.txt"
+			LoggerProvider.Instance.OutputFile = "log.txt"
 			webView = New BrowserView With {.Dock = DockStyle.Fill}
 			Task.Run(Sub()
 					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())

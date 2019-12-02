@@ -60,38 +60,40 @@ Namespace WPF.UIAutomationSample
 
         Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
             TextOutput.Clear()
-            Dim currentProcess As Process = Process.GetCurrentProcess()
-            Dim chromiumElement As AutomationElement = GetChromiumElement(currentProcess)
-            If chromiumElement IsNot Nothing Then
-                Log("-- Element Properties --")
-                Dim properties() As AutomationProperty = chromiumElement.GetSupportedProperties()
-                For Each prop As AutomationProperty In properties
-                    Log("ProgrammaticName: " & prop.ProgrammaticName)
-                    Log(vbTab & "Property Name: " & Automation.PropertyName(prop))
-                    Dim currentPropertyValue = chromiumElement.GetCurrentPropertyValue(prop)
-                    Log(vbTab & "Property Value: " & Convert.ToString(currentPropertyValue))
-                Next prop
-                Log("-- Element Patterns --")
-                Dim patterns() As AutomationPattern = chromiumElement.GetSupportedPatterns()
-                For Each pattern As AutomationPattern In patterns
-                    Log("ProgrammaticName: " & pattern.ProgrammaticName)
-                    Log(vbTab & "Pattern Name: " & Automation.PatternName(pattern))
-                    Dim currentPattern = chromiumElement.GetCurrentPattern(pattern)
-                    Log(vbTab & "Pattern Value: " & currentPattern.ToString())
-                    If TypeOf currentPattern Is ValuePattern Then
-                        Dim valuePattern = TryCast(currentPattern, ValuePattern)
-                        Dim value As String = valuePattern.Current.Value
-                        Log(vbTab & "ValuePattern Value: " & value)
-                    End If
-                Next pattern
+            Task.Run(Sub()
+                Dim currentProcess As Process = Process.GetCurrentProcess()
+                Dim chromiumElement As AutomationElement = GetChromiumElement(currentProcess)
+                If chromiumElement IsNot Nothing Then
+                    Log("-- Element Properties --")
+                    Dim properties() As AutomationProperty = chromiumElement.GetSupportedProperties()
+                    For Each prop As AutomationProperty In properties
+                        Log("ProgrammaticName: " & prop.ProgrammaticName)
+                        Log(vbTab & "Property Name: " & Automation.PropertyName(prop))
+                        Dim currentPropertyValue = chromiumElement.GetCurrentPropertyValue(prop)
+                        Log(vbTab & "Property Value: " & Convert.ToString(currentPropertyValue))
+                    Next prop
+                    Log("-- Element Patterns --")
+                    Dim patterns() As AutomationPattern = chromiumElement.GetSupportedPatterns()
+                    For Each pattern As AutomationPattern In patterns
+                        Log("ProgrammaticName: " & pattern.ProgrammaticName)
+                        Log(vbTab & "Pattern Name: " & Automation.PatternName(pattern))
+                        Dim currentPattern = chromiumElement.GetCurrentPattern(pattern)
+                        Log(vbTab & "Pattern Value: " & currentPattern.ToString())
+                        If TypeOf currentPattern Is ValuePattern Then
+                            Dim valuePattern = TryCast(currentPattern, ValuePattern)
+                            Dim value As String = valuePattern.Current.Value
+                            Log(vbTab & "ValuePattern Value: " & value)
+                        End If
+                    Next pattern
 
-                Dim children = chromiumElement.FindAll(TreeScope.Descendants, Condition.TrueCondition)
-                Log("-- Element Children --")
-                Log("Children count: " & children.Count)
-                Log("-- End --")
-            Else
-                Log("-- Chromium automation element not found --")
-            End If
+                    Dim children = chromiumElement.FindAll(TreeScope.Descendants, Condition.TrueCondition)
+                    Log("-- Element Children --")
+                    Log("Children count: " & children.Count)
+                    Log("-- End --")
+                Else
+                    Log("-- Chromium automation element not found --")
+                End If
+            End Sub)
         End Sub
 
         Private Shared Function GetChromiumElement(process As Process) As AutomationElement

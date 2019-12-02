@@ -48,7 +48,7 @@ namespace WinForms.ContextMenuSample
         {
             LoggerProvider.Instance.Level = SourceLevels.Verbose;
             LoggerProvider.Instance.FileLoggingEnabled = true;
-            LoggerProvider.Instance.OutputFile = "C:\\log.txt";
+            LoggerProvider.Instance.OutputFile = "log.txt";
             webView = new BrowserView {Dock = DockStyle.Fill};
             Task.Run(() =>
                  {
