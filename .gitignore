@@ -107,3 +107,5 @@ NuGet.Config
 #Ignore Visual Studio cache
 /csharp/.vs
 /vbnet/.vs
+/csharp/MyOutlookAddIn/.vs
+/vbnet/MyOutlookAddIn/.vs
