@@ -99,7 +99,7 @@ UpgradeLog*.XML
 UpgradeLog*.htm
 
 #License files
-*.licenses
+*.license
 
 # Ignore custom NuGet configurations
 NuGet.Config
