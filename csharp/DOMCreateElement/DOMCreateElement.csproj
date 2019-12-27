@@ -7,8 +7,8 @@
     <ProjectGuid>{C7FBB67B-34CD-4FD1-8DBE-8BD1389E3584}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DOMCreateElementSample</RootNamespace>
-    <AssemblyName>DOMCreateElementSample</AssemblyName>
+    <RootNamespace>DomCreateElement</RootNamespace>
+    <AssemblyName>DomCreateElement</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>

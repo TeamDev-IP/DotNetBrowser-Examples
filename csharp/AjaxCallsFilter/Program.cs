@@ -29,7 +29,7 @@ using DotNetBrowser.Frames;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Net.Handlers;
 
-namespace AjaxCallsFilterSample
+namespace AjaxCallsFilter
 {
     internal class Program
     {

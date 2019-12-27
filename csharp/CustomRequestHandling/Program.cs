@@ -28,7 +28,7 @@ using DotNetBrowser.Engine;
 using DotNetBrowser.Navigation;
 using DotNetBrowser.Net;
 
-namespace CustomRequestHandlingSample
+namespace CustomRequestHandling
 {
     internal class Program
     {

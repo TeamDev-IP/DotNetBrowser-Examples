@@ -7,8 +7,8 @@
     <ProjectGuid>{38B56C8B-DA70-4C96-8CAD-C08092AA1924}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CookieSample</RootNamespace>
-    <AssemblyName>CookieSample</AssemblyName>
+    <RootNamespace>Cookies</RootNamespace>
+    <AssemblyName>Cookies</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

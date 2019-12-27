@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinForms.ContextMenuSample;
 
-namespace WinForms.ContextMenuSample
+namespace ContextMenu.WinForms
 {
     static class Program
     {

@@ -26,7 +26,7 @@ using DotNetBrowser.Browser;
 using DotNetBrowser.Cookies;
 using DotNetBrowser.Engine;
 
-namespace CookieSample
+namespace Cookies
 {
     internal class Program
     {

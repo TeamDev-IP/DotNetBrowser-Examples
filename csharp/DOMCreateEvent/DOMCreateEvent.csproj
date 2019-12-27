@@ -7,8 +7,8 @@
     <ProjectGuid>{0DC1A4C3-2B9A-4086-9C2F-B1DDB13FEE78}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DOMCreateEventSample</RootNamespace>
-    <AssemblyName>DOMCreateEventSample</AssemblyName>
+    <RootNamespace>DomCreateEvent</RootNamespace>
+    <AssemblyName>DomCreateEvent</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>

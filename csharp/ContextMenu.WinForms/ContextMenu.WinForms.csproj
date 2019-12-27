@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{142C8F5F-F844-4625-8167-52BA548337E9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WinForms.ContextMenuSample</RootNamespace>
-    <AssemblyName>WinForms.ContextMenuSample</AssemblyName>
+    <RootNamespace>ContextMenu.WinForms</RootNamespace>
+    <AssemblyName>ContextMenu.WinForms</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -88,6 +88,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

@@ -25,7 +25,7 @@ using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
 
-namespace DOMCreateElementSample
+namespace DomCreateElement
 {
     internal class Program
     {

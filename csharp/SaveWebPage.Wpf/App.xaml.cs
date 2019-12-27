@@ -22,7 +22,7 @@
 
 using System.Windows;
 
-namespace WPF.LoadHTML
+namespace WPF.SaveWebPage
 {
     /// <summary>
     ///     Interaction logic for App.xaml

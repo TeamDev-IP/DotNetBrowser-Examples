@@ -28,7 +28,7 @@ using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation;
 
-namespace CertificateVerifierSample
+namespace CertificateVerifier
 {
     /// <summary>
     ///     The sample demonstrates how to accept/reject SSL certificates using

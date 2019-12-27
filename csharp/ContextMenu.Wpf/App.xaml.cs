@@ -22,7 +22,7 @@
 
 using System.Windows;
 
-namespace WPF.ContextMenuSample
+namespace ContextMenu.Wpf
 {
     /// <summary>
     ///     Interaction logic for App.xaml

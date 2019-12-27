@@ -29,7 +29,7 @@ using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Media;
 
-namespace DefaultMediaStreamDeviceSample
+namespace DefaultMediaStreamDevice
 {
     /// <summary>
     ///     The sample demonstrates how to get list of available audio and video capture devices,

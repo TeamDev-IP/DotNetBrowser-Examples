@@ -7,8 +7,8 @@
     <ProjectGuid>{BA64CB0A-4863-4733-AA2E-A25A74755A66}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AccessingHTTPResponseData</RootNamespace>
-    <AssemblyName>AccessingHTTPResponseData</AssemblyName>
+    <RootNamespace>AccessingHttpResponseData</RootNamespace>
+    <AssemblyName>AccessingHttpResponseData</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -69,11 +69,6 @@
   <ItemGroup>
     <None Include="..\App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\teamdev.licenses">
-      <Link>teamdev.licenses</Link>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

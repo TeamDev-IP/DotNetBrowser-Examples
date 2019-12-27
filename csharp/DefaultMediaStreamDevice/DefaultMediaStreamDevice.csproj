@@ -7,8 +7,8 @@
     <ProjectGuid>{DE80A948-FFDF-476D-BA6F-1B9146C02767}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DefaultMediaStreamDeviceSample</RootNamespace>
-    <AssemblyName>DefaultMediaStreamDeviceSample</AssemblyName>
+    <RootNamespace>DefaultMediaStreamDevice</RootNamespace>
+    <AssemblyName>DefaultMediaStreamDevice</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>

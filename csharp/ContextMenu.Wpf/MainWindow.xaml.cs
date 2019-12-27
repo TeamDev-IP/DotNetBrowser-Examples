@@ -30,7 +30,7 @@ using DotNetBrowser.ContextMenu;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 
-namespace WPF.ContextMenuSample
+namespace ContextMenu.Wpf
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -82,7 +82,7 @@ namespace WPF.ContextMenuSample
             TaskCompletionSource<ContextMenuResponse> tcs = new TaskCompletionSource<ContextMenuResponse>();
             webView.Dispatcher?.BeginInvoke(new Action(() =>
             {
-                ContextMenu popupMenu = new ContextMenu();
+                System.Windows.Controls.ContextMenu popupMenu = new System.Windows.Controls.ContextMenu();
 
                 if (!string.IsNullOrEmpty(parameters.LinkText))
                 {

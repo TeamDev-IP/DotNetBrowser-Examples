@@ -28,7 +28,7 @@ using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation;
 using DotNetBrowser.Net.Handlers;
 
-namespace CookieFilterSample
+namespace CookieFilter
 {
     /// <summary>
     ///     The sample demonstrates how to suppress/filter incoming and outgoing cookies.

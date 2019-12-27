@@ -27,7 +27,7 @@ using DotNetBrowser.Engine;
 using DotNetBrowser.Net;
 using DotNetBrowser.Net.Events;
 
-namespace AccessingHTTPResponseData
+namespace AccessingHttpResponseData
 {
     internal class Program
     {

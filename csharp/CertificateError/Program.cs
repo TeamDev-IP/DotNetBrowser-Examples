@@ -26,7 +26,7 @@ using DotNetBrowser.Certificates;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 
-namespace CertificateErrorSample
+namespace CertificateError
 {
     /// <summary>
     ///     Demonstrates how to handle SSL certificate errors.

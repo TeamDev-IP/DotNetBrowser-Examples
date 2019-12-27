@@ -27,7 +27,7 @@ using DotNetBrowser.Dom;
 using DotNetBrowser.Dom.Events;
 using DotNetBrowser.Engine;
 
-namespace DOMCreateEventSample
+namespace DomCreateEvent
 {
     internal class Program
     {
