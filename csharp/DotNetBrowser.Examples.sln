@@ -77,9 +77,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.KeyboardEventSimulate",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.SaveWebPage", "WPF.SaveWebPage\WPF.SaveWebPage.csproj", "{D0862B7E-0647-4BB5-ADC5-CDB7BBF504FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.FindText", "WPF.FindText\WPF.FindText.csproj", "{94489912-48C0-407C-8325-0AFE0C885C51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindText.Wpf", "FindText.Wpf\FindText.Wpf.csproj", "{94489912-48C0-407C-8325-0AFE0C885C51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.ContextMenu", "WPF.ContextMenu\WPF.ContextMenu.csproj", "{1D9BE0E6-50EB-40DC-9444-FB6351F00A64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.Wpf", "ContextMenu.Wpf\ContextMenu.Wpf.csproj", "{1D9BE0E6-50EB-40DC-9444-FB6351F00A64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.WinForms", "ContextMenu.WinForms\ContextMenu.WinForms.csproj", "{142C8F5F-F844-4625-8167-52BA548337E9}"
 EndProject
