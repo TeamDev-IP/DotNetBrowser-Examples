@@ -47,7 +47,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect", "Inspect\Inspect.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetSelectedText", "GetSelectedText\GetSelectedText.csproj", "{FBE75C67-FCBC-483E-8892-BE2CE397E53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptCSBridge", "JavaScriptCSBridge\JavaScriptCSBridge.csproj", "{6467C661-37EC-4AD3-8438-FCFC241C64BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge", "JavaScriptBridge\JavaScriptBridge.csproj", "{6467C661-37EC-4AD3-8438-FCFC241C64BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptObjects", "JavaScriptObjects\JavaScriptObjects.csproj", "{C22E7525-8342-41A7-9B88-18A53CAD40B5}"
 EndProject
@@ -81,7 +81,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.FindText", "WPF.FindTex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.ContextMenu", "WPF.ContextMenu\WPF.ContextMenu.csproj", "{1D9BE0E6-50EB-40DC-9444-FB6351F00A64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForms.ContextMenu", "WinForms.ContextMenu\WinForms.ContextMenu.csproj", "{142C8F5F-F844-4625-8167-52BA548337E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.WinForms", "ContextMenu.WinForms\ContextMenu.WinForms.csproj", "{142C8F5F-F844-4625-8167-52BA548337E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
