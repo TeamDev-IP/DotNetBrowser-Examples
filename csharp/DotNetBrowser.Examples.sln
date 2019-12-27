@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessingHTTPResponseData", "AccessingHTTPResponseData\AccessingHTTPResponseData.csproj", "{BA64CB0A-4863-4733-AA2E-A25A74755A66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessingHttpResponseData", "AccessingHttpResponseData\AccessingHttpResponseData.csproj", "{BA64CB0A-4863-4733-AA2E-A25A74755A66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxCallsFilter", "AjaxCallsFilter\AjaxCallsFilter.csproj", "{F5825CA8-12CB-4CAC-92D7-BDFCDDCFDC81}"
 EndProject
@@ -21,17 +21,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultMediaStreamDevice", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFD68302-C4FF-4DE0-A0A3-992118BE7F66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMCreateElement", "DOMCreateElement\DOMCreateElement.csproj", "{C7FBB67B-34CD-4FD1-8DBE-8BD1389E3584}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomCreateElement", "DomCreateElement\DomCreateElement.csproj", "{C7FBB67B-34CD-4FD1-8DBE-8BD1389E3584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMCreateEvent", "DOMCreateEvent\DOMCreateEvent.csproj", "{0DC1A4C3-2B9A-4086-9C2F-B1DDB13FEE78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomCreateEvent", "DomCreateEvent\DomCreateEvent.csproj", "{0DC1A4C3-2B9A-4086-9C2F-B1DDB13FEE78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMForm", "DOMForm\DOMForm.csproj", "{1A51E8BF-2FA4-4657-BD75-5852ABA9516F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomForm", "DomForm\DomForm.csproj", "{1A51E8BF-2FA4-4657-BD75-5852ABA9516F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMGetAttributes", "DOMGetAttributes\DOMGetAttributes.csproj", "{B14CF41A-2304-449C-9D1E-F170B3419DA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomGetAttributes", "DomGetAttributes\DomGetAttributes.csproj", "{B14CF41A-2304-449C-9D1E-F170B3419DA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMGetElements", "DOMGetElements\DOMGetElements.csproj", "{80EC3E0D-6382-4557-B1A8-D63C49C68B0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomGetElements", "DomGetElements\DomGetElements.csproj", "{80EC3E0D-6382-4557-B1A8-D63C49C68B0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMQuerySelector", "DOMQuerySelector\DOMQuerySelector.csproj", "{763C0AE0-79D4-4449-9F8A-E000C1759C87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomQuerySelector", "DomQuerySelector\DomQuerySelector.csproj", "{763C0AE0-79D4-4449-9F8A-E000C1759C87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteCommand", "ExecuteCommand\ExecuteCommand.csproj", "{D902D0F3-0D4A-4B41-ACD5-040302076E6E}"
 EndProject
@@ -41,7 +41,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindText", "FindText\FindTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetFrames", "GetFrames\GetFrames.csproj", "{AB482FF6-16F1-471A-85C2-A93F5C709E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetHTML", "GetHTML\GetHTML.csproj", "{E1D75E04-4876-452D-A789-62F6385013A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetHtml", "GetHtml\GetHtml.csproj", "{E1D75E04-4876-452D-A789-62F6385013A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect", "Inspect\Inspect.csproj", "{BDF3F15D-797E-4FB3-933A-C7A7DFBD3A72}"
 EndProject
@@ -57,7 +57,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadEvents", "LoadEvents\Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkHandlers", "NetworkHandlers\NetworkHandlers.csproj", "{C6D7D9C6-4B5E-4C42-905B-D91836890516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTMLToImage", "HTMLToImage\HTMLToImage.csproj", "{56A0C281-58BC-4E95-BDBB-39578949874B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlToImage", "HtmlToImage\HtmlToImage.csproj", "{56A0C281-58BC-4E95-BDBB-39578949874B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostData", "PostData\PostData.csproj", "{4282C874-0DDA-4DF5-8504-B3E932E667A9}"
 EndProject
@@ -65,17 +65,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeparateEngines", "Separate
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPath", "XPath\XPath.csproj", "{27FFE185-8A89-4951-9157-C291D154ED97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.UIAutomation", "WPF.UIAutomation\WPF.UIAutomation.csproj", "{1C2D3702-4EBE-4DA0-9601-B3D56A79B01B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiAutomation.Wpf", "UiAutomation.Wpf\UiAutomation.Wpf.csproj", "{1C2D3702-4EBE-4DA0-9601-B3D56A79B01B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.TransparentPage", "WPF.TransparentPage\WPF.TransparentPage.csproj", "{45AFA345-DDE4-4DBA-951E-9509BE1264FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransparentWebPage.Wpf", "TransparentWebPage.Wpf\TransparentWebPage.Wpf.csproj", "{45AFA345-DDE4-4DBA-951E-9509BE1264FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoom", "Zoom\Zoom.csproj", "{D48B18E4-F996-4CA0-9FC4-C1CA355B7F19}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStorage", "WebStorage\WebStorage.csproj", "{2B5E51D8-EDC9-4710-8D6C-D1232C075FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.KeyboardEventSimulate", "WPF.KeyboardEventSimulate\WPF.KeyboardEventSimulate.csproj", "{7E1F9DC2-B639-441F-97ED-BAE0DE84E8B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardEventSimulation.Wpf", "KeyboardEventSimulation.Wpf\KeyboardEventSimulation.Wpf.csproj", "{7E1F9DC2-B639-441F-97ED-BAE0DE84E8B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.SaveWebPage", "WPF.SaveWebPage\WPF.SaveWebPage.csproj", "{D0862B7E-0647-4BB5-ADC5-CDB7BBF504FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveWebPage.Wpf", "SaveWebPage.Wpf\SaveWebPage.Wpf.csproj", "{D0862B7E-0647-4BB5-ADC5-CDB7BBF504FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindText.Wpf", "FindText.Wpf\FindText.Wpf.csproj", "{94489912-48C0-407C-8325-0AFE0C885C51}"
 EndProject
