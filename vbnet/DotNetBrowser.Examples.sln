@@ -31,7 +31,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DomGetAttributes", "DomGetA
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DomGetElements", "DomGetElements\DomGetElements.vbproj", "{80EC3E0D-6382-4557-B1A8-D63C49C68B0E}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DOMQuerySelector", "DomQuerySelector\DomQuerySelector.vbproj", "{763C0AE0-79D4-4449-9F8A-E000C1759C87}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DomQuerySelector", "DomQuerySelector\DomQuerySelector.vbproj", "{763C0AE0-79D4-4449-9F8A-E000C1759C87}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ExecuteCommand", "ExecuteCommand\ExecuteCommand.vbproj", "{D902D0F3-0D4A-4B41-ACD5-040302076E6E}"
 EndProject
