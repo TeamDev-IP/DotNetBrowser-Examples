@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF.NETCore30", "WPF.NETCore30\WPF.NETCore30.csproj", "{E48617C2-75F2-48A5-92DD-BAFF7D73C7D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.NETCore30", "Wpf.NETCore30\Wpf.NETCore30.csproj", "{E48617C2-75F2-48A5-92DD-BAFF7D73C7D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForms.NETCore30", "WinForms.NETCore30\WinForms.NETCore30.csproj", "{CA24C25C-AA78-4469-84D5-CA0791935038}"
 EndProject
