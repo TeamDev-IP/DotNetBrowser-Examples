@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateVerifier", "Cert
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieFilter", "CookieFilter\CookieFilter.csproj", "{F6586FF8-DD18-4192-BF36-FBB694F6C049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookie", "Cookie\Cookie.csproj", "{38B56C8B-DA70-4C96-8CAD-C08092AA1924}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookies", "Cookies\Cookies.csproj", "{38B56C8B-DA70-4C96-8CAD-C08092AA1924}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomRequestHandling", "CustomRequestHandling\CustomRequestHandling.csproj", "{00E35EF8-8D35-4E71-91D9-E33838E472B3}"
 EndProject
