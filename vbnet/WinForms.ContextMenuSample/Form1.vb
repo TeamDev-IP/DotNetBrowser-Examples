@@ -34,7 +34,7 @@ Imports DotNetBrowser.Logging
 Imports DotNetBrowser.SpellCheck
 Imports DotNetBrowser.WinForms
 
-Namespace WinForms.ContextMenuSample
+Namespace ContextMenu.WinForms
 	Partial Public Class Form1
 		Inherits Form
 

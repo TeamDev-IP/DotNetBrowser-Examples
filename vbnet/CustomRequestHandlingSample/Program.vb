@@ -28,7 +28,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
 
-Namespace CustomRequestHandlingSample
+Namespace CustomRequestHandling
 	Friend Class Program
 		#Region "Methods"
 

@@ -29,7 +29,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.WPF
 
-Namespace WPF.SaveWebPage
+Namespace SaveWebPage.Wpf
 	''' <summary>
 	'''     Demonstrates how to embed WPF BrowserView component into WPF Application,
 	'''     load and display HTML content from string.

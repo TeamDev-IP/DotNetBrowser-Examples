@@ -27,7 +27,7 @@ Imports System.Windows
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
-Namespace WPF.TransparentPageSample
+Namespace TransparentWebPage.Wpf
 	''' <summary>
 	'''     Interaction logic for MainWindow.xaml
 	''' </summary>

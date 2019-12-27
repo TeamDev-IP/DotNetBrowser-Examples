@@ -25,7 +25,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.JS
 
-Namespace JavaScriptObjectsSample
+Namespace JavaScriptObjects
 	Friend Class Program
 		#Region "Methods"
 

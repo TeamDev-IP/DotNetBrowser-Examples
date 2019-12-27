@@ -22,7 +22,7 @@
 
 Imports System.Windows
 
-Namespace WPF.KeyboardEventSimulateSample
+Namespace KeyboardEventSimulation.Wpf
 	''' <summary>
 	'''     Interaction logic for App.xaml
 	''' </summary>

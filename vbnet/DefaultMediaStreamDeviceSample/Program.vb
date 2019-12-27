@@ -29,7 +29,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Media
 
-Namespace DefaultMediaStreamDeviceSample
+Namespace DefaultMediaStreamDevice
 	''' <summary>
 	'''     The sample demonstrates how to get list of available audio and video capture devices,
 	'''     register own SelectMediaDeviceHandler to provide Chromium with default audio/video capture

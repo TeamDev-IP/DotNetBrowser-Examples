@@ -26,7 +26,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 
-Namespace ExecuteCommandSample
+Namespace ExecuteCommand
 	''' <summary>
 	'''     This sample demonstrates how to execute Browser commands such as Cut, Copy,
 	'''     Paste, Undo, SelectAll, InsertText etc.

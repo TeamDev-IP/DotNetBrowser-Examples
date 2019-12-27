@@ -29,7 +29,7 @@ Imports DotNetBrowser.Frames
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Net.Handlers
 
-Namespace AjaxCallsFilterSample
+Namespace AjaxCallsFilter
 	Friend Class Program
 		#Region "Methods"
 

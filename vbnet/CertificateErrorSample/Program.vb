@@ -26,7 +26,7 @@ Imports DotNetBrowser.Certificates
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 
-Namespace CertificateErrorSample
+Namespace CertificateError
 	''' <summary>
 	'''     Demonstrates how to handle SSL certificate errors.
 	''' </summary>

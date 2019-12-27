@@ -28,7 +28,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Search
 
-Namespace WPF.FindTextSample
+Namespace FindText.Wpf
 	''' <summary>
 	'''     Interaction logic for MainWindow.xaml
 	''' </summary>

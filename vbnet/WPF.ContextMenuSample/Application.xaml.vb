@@ -22,7 +22,7 @@
 
 Imports System.Windows
 
-Namespace WPF.ContextMenuSample
+Namespace ContextMenu.Wpf
 	''' <summary>
 	'''     Interaction logic for App.xaml
 	''' </summary>

@@ -29,7 +29,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports Size = DotNetBrowser.Geometry.Size
 
-Namespace HTMLToImageSample
+Namespace HTMLToImage
 	Friend Class Program
 		#Region "Methods"
 

@@ -22,7 +22,7 @@
 
 Imports System.Windows
 
-Namespace WPF.UIAutomationSample
+Namespace UiAutomation.Wpf
 	''' <summary>
 	'''     Interaction logic for App.xaml
 	''' </summary>

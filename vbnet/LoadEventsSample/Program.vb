@@ -25,7 +25,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation.Events
 
-Namespace LoadEventsSample
+Namespace LoadEvents
 	Friend Class Program
 		#Region "Methods"
 

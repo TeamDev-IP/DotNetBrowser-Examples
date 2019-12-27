@@ -25,7 +25,7 @@ Imports System.Windows.Automation
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
-Namespace WPF.UIAutomationSample
+Namespace UiAutomation.Wpf
     Partial Public Class MainWindow
         Inherits Window
 

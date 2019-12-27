@@ -26,7 +26,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 Imports DotNetBrowser.Geometry
 
-Namespace GetFramesSample
+Namespace GetFrames
 	Friend Class Program
 		#Region "Methods"
 

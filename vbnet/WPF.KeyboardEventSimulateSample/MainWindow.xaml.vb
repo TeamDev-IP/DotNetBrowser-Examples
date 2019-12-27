@@ -31,7 +31,7 @@ Imports DotNetBrowser.Input.Keyboard
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.WPF
 
-Namespace WPF.KeyboardEventSimulateSample
+Namespace KeyboardEventSimulation.Wpf
 	''' <summary>
 	'''     Interaction logic for MainWindow.xaml
 	''' </summary>

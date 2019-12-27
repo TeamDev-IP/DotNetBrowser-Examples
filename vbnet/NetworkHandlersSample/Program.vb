@@ -29,7 +29,7 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
-Namespace NetworkHandlersSample
+Namespace NetworkHandlers
 	Friend Class Program
 		#Region "Methods"
 

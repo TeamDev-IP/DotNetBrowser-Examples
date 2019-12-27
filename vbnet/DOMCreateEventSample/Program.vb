@@ -27,7 +27,7 @@ Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Dom.Events
 Imports DotNetBrowser.Engine
 
-Namespace DOMCreateEventSample
+Namespace DOMCreateEvent
 	Friend Class Program
 		#Region "Methods"
 

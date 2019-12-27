@@ -27,7 +27,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Zoom
 Imports DotNetBrowser.Zoom.Events
 
-Namespace ZoomSample
+Namespace Zoom
 	Friend Class Program
 		#Region "Methods"
 

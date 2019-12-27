@@ -22,7 +22,7 @@
 
 Imports System.Windows
 
-Namespace WPF.LoadHTML
+Namespace SaveWebPage.Wpf
 	''' <summary>
 	'''     Interaction logic for App.xaml
 	''' </summary>

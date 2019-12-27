@@ -25,7 +25,7 @@ Imports System.IO
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
-Namespace SeparateEnginesSample
+Namespace SeparateEngines
 	Friend Class Program
 		#Region "Methods"
 

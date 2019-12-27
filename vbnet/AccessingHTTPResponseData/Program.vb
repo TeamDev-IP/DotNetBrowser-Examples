@@ -27,7 +27,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Events
 
-Namespace AccessingHTTPResponseData
+Namespace AccessingHttpResponseData
 	Friend Class Program
 		#Region "Methods"
 

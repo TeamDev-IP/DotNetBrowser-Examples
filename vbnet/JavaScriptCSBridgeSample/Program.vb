@@ -29,7 +29,7 @@ Imports DotNetBrowser.Geometry
 Imports DotNetBrowser.JS
 Imports DotNetBrowser.Logging
 
-Namespace JavaScriptCSBridgeSample
+Namespace JavaScriptBridge
 	Friend Class Program
 		#Region "Methods"
 

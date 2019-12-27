@@ -28,7 +28,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
 
-Namespace CertificateVerifierSample
+Namespace CertificateVerifier
 	''' <summary>
 	'''     The sample demonstrates how to accept/reject SSL certificates using
 	'''     custom SSL certificate verifier.

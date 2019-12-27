@@ -26,7 +26,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Cookies
 Imports DotNetBrowser.Engine
 
-Namespace CookieSample
+Namespace Cookies
 	Friend Class Program
 		Private Const Url As String = "http://google.com"
 

@@ -1,5 +1,4 @@
-﻿Namespace WinForms.ContextMenuSample
-	Partial Public Class Form1
+﻿Namespace ContextMenu.WinForms Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.
 		''' </summary>

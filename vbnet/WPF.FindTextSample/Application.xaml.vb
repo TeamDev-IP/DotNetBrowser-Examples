@@ -22,7 +22,7 @@
 
 Imports System.Windows
 
-Namespace WPF.FindTextSample
+Namespace FindText.Wpf
 	''' <summary>
 	'''     Interaction logic for App.xaml
 	''' </summary>

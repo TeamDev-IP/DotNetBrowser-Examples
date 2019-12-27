@@ -27,7 +27,7 @@ Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
-Namespace PostDataSample
+Namespace PostData
 	''' <summary>
 	'''     This sample demonstrates how to read and modify POST parameters using BeforeSendUploadDataHandler.
 	''' </summary>

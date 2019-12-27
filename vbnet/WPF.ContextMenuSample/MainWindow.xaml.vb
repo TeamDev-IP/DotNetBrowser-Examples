@@ -30,7 +30,7 @@ Imports DotNetBrowser.ContextMenu
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 
-Namespace WPF.ContextMenuSample
+Namespace ContextMenu.Wpf
 	''' <summary>
 	'''     Interaction logic for MainWindow.xaml
 	''' </summary>

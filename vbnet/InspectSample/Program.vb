@@ -25,7 +25,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
-Namespace InspectSample
+Namespace Inspect
 	''' <summary>
 	'''     This sample demonstrates how to get DOM Node at a specific point on the web page.
 	''' </summary>

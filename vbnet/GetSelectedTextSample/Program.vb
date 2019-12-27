@@ -26,7 +26,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 Imports DotNetBrowser.Geometry
 
-Namespace GetSelectedTextSample
+Namespace GetSelectedText
 	''' <summary>
 	'''     The sample demonstrates how to get selected text on a web page.
 	''' </summary>

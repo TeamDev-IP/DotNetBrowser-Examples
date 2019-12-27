@@ -22,7 +22,7 @@
 
 Imports System.Windows
 
-Namespace WPF.TransparentPageSample
+Namespace TransparentWebPage.Wpf
 	''' <summary>
 	'''     Interaction logic for App.xaml
 	''' </summary>

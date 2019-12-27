@@ -27,7 +27,7 @@ Imports DotNetBrowser.Dom.XPath
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
-Namespace XPathSample
+Namespace XPath
 	Friend Class Program
 		#Region "Methods"
 

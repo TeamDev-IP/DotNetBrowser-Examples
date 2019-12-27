@@ -27,7 +27,7 @@ Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
-Namespace DOMGetElementsSample
+Namespace DOMGetElements
 	Friend Class Program
 		#Region "Methods"
 

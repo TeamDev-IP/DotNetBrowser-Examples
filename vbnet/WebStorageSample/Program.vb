@@ -26,7 +26,7 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 Imports DotNetBrowser.JS
 
-Namespace WebStorageSample
+Namespace WebStorage
 	''' <summary>
 	'''     The sample demonstrates how to access WebStorage on
 	'''     the loaded web page using DotNetBrowser API.

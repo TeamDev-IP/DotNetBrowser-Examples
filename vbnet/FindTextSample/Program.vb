@@ -29,7 +29,7 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Search
 Imports DotNetBrowser.Search.Handlers
 
-Namespace FindTextSample
+Namespace FindText
 	Friend Class Program
 		#Region "Methods"
 

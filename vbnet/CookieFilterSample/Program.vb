@@ -28,7 +28,7 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net.Handlers
 
-Namespace CookieFilterSample
+Namespace CookieFilter
 	''' <summary>
 	'''     The sample demonstrates how to suppress/filter incoming and outgoing cookies.
 	''' </summary>
