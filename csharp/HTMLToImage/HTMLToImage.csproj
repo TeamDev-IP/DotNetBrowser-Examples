@@ -7,8 +7,8 @@
     <ProjectGuid>{56A0C281-58BC-4E95-BDBB-39578949874B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HTMLToImageSample</RootNamespace>
-    <AssemblyName>HTMLToImageSample</AssemblyName>
+    <RootNamespace>HTMLToImage</RootNamespace>
+    <AssemblyName>HTMLToImage</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

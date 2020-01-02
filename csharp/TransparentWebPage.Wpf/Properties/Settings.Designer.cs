@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPF.TransparentPageSample.Properties
+namespace TransparentWebPage.Wpf.Properties
 {
 
 

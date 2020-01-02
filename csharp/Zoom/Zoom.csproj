@@ -7,8 +7,8 @@
     <ProjectGuid>{D48B18E4-F996-4CA0-9FC4-C1CA355B7F19}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZoomSample</RootNamespace>
-    <AssemblyName>ZoomSample</AssemblyName>
+    <RootNamespace>Zoom</RootNamespace>
+    <AssemblyName>Zoom</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

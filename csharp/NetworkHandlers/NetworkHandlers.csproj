@@ -7,8 +7,8 @@
     <ProjectGuid>{C6D7D9C6-4B5E-4C42-905B-D91836890516}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NetworkHandlersSample</RootNamespace>
-    <AssemblyName>NetworkHandlersSample</AssemblyName>
+    <RootNamespace>NetworkHandlers</RootNamespace>
+    <AssemblyName>NetworkHandlers</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

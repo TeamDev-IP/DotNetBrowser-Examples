@@ -7,8 +7,8 @@
     <ProjectGuid>{80EC3E0D-6382-4557-B1A8-D63C49C68B0E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DOMGetElementsSample</RootNamespace>
-    <AssemblyName>DOMGetElementsSample</AssemblyName>
+    <RootNamespace>DomGetElements</RootNamespace>
+    <AssemblyName>DomGetElements</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

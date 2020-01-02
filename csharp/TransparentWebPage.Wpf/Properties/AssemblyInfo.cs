@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2019, TeamDev. All rights reserved.
+// Copyright © 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -27,12 +27,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WPF.TransparentPageSample")]
+[assembly: AssemblyTitle("TransparentWebPage.Wpf")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TeamDev Ltd.")]
-[assembly: AssemblyProduct("WPF.TransparentPageSample")]
-[assembly: AssemblyCopyright("Copyright © TeamDev Ltd. 2017")]
+[assembly: AssemblyCompany("TeamDev")]
+[assembly: AssemblyProduct("TransparentWebPage.Wpf")]
+[assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

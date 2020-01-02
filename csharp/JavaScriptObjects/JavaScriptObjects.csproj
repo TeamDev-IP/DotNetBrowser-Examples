@@ -7,8 +7,8 @@
     <ProjectGuid>{C22E7525-8342-41A7-9B88-18A53CAD40B5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JavaScriptObjectsSample</RootNamespace>
-    <AssemblyName>JavaScriptObjectsSample</AssemblyName>
+    <RootNamespace>JavaScriptObjects</RootNamespace>
+    <AssemblyName>JavaScriptObjects</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using WinForms.ContextMenuSample;
 
 namespace ContextMenu.WinForms
 {

@@ -7,8 +7,8 @@
     <ProjectGuid>{AB482FF6-16F1-471A-85C2-A93F5C709E01}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GetFramesSample</RootNamespace>
-    <AssemblyName>GetFramesSample</AssemblyName>
+    <RootNamespace>GetFrames</RootNamespace>
+    <AssemblyName>GetFrames</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

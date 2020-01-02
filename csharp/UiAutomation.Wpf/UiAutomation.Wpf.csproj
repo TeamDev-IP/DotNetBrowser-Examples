@@ -7,8 +7,8 @@
     <ProjectGuid>{1C2D3702-4EBE-4DA0-9601-B3D56A79B01B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WPF.UIAutomationSample</RootNamespace>
-    <AssemblyName>WPF.UIAutomationSample</AssemblyName>
+    <RootNamespace>UiAutomation.Wpf</RootNamespace>
+    <AssemblyName>UiAutomation.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

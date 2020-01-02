@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WPF.UIAutomationSample.Properties
+namespace UiAutomation.Wpf.Properties
 {
 
 

@@ -7,8 +7,8 @@
     <ProjectGuid>{2B5E51D8-EDC9-4710-8D6C-D1232C075FFC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebStorageSample</RootNamespace>
-    <AssemblyName>WebStorageSample</AssemblyName>
+    <RootNamespace>WebStorage</RootNamespace>
+    <AssemblyName>WebStorage</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>

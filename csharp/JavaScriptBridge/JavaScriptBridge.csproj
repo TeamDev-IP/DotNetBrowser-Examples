@@ -7,8 +7,8 @@
     <ProjectGuid>{6467C661-37EC-4AD3-8438-FCFC241C64BB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JavaScriptCSBridgeSample</RootNamespace>
-    <AssemblyName>JavaScriptCSBridgeSample</AssemblyName>
+    <RootNamespace>JavaScriptBridge</RootNamespace>
+    <AssemblyName>JavaScriptBridge</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

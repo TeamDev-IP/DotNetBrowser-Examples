@@ -7,8 +7,8 @@
     <ProjectGuid>{FBE75C67-FCBC-483E-8892-BE2CE397E53C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GetSelectedTextSample</RootNamespace>
-    <AssemblyName>GetSelectedTextSample</AssemblyName>
+    <RootNamespace>GetSelectedText</RootNamespace>
+    <AssemblyName>GetSelectedText</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>

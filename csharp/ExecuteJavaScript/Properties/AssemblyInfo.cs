@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright 2019, TeamDev. All rights reserved.
+// Copyright © 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,9 +29,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ExecuteJavaScript")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TeamDev Ltd.")]
+[assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("DotNetBrowser")]
-[assembly: AssemblyCopyright("Copyright � TeamDev Ltd. 2017")]
+[assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

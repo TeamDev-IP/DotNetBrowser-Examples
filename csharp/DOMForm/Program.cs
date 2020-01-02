@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2019, TeamDev. All rights reserved.
+// Copyright © 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -26,7 +26,7 @@ using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
 
-namespace DOMFormSample
+namespace DomForm
 {
     internal class Program
     {

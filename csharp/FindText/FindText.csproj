@@ -7,8 +7,8 @@
     <ProjectGuid>{E6745717-7D8E-4EB7-9C55-DD6A4DF23D16}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FindTextSample</RootNamespace>
-    <AssemblyName>FindTextSample</AssemblyName>
+    <RootNamespace>FindText</RootNamespace>
+    <AssemblyName>FindText</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

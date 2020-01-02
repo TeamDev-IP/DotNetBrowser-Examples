@@ -7,8 +7,8 @@
     <ProjectGuid>{45AFA345-DDE4-4DBA-951E-9509BE1264FB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WPF.TransparentPageSample</RootNamespace>
-    <AssemblyName>WPF.TransparentPageSample</AssemblyName>
+    <RootNamespace>TransparentWebPage.Wpf</RootNamespace>
+    <AssemblyName>TransparentWebPage.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

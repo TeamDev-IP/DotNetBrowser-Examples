@@ -7,8 +7,8 @@
     <ProjectGuid>{4282C874-0DDA-4DF5-8504-B3E932E667A9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PostDataSample</RootNamespace>
-    <AssemblyName>PostDataSample</AssemblyName>
+    <RootNamespace>PostData</RootNamespace>
+    <AssemblyName>PostData</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
