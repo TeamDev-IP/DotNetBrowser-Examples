@@ -1,4 +1,4 @@
-﻿'====================================================================================================
+'====================================================================================================
 'The Free Edition of Instant VB limits conversion output to 100 lines per file.
 
 'To subscribe to the Premium Edition, visit our website:

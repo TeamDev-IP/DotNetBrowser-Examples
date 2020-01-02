@@ -1,6 +1,6 @@
-﻿#Region "Copyright"
+#Region "Copyright"
 
-' Copyright 2019, TeamDev. All rights reserved.
+' Copyright © 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -32,7 +32,7 @@ Imports System.Windows
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev Ltd.")>
 <Assembly: AssemblyProduct("WPF.UIAutomationSample")>
-<Assembly: AssemblyCopyright("Copyright © TeamDev Ltd. 2017")>
+<Assembly: AssemblyCopyright("Copyright � TeamDev Ltd. 2017")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
