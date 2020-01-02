@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System
 Imports System.Net
 Imports System.Text
 Imports DotNetBrowser.Browser
@@ -29,50 +28,50 @@ Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
 
 Namespace CustomRequestHandling
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					engine.NetworkService.UrlRequestHandler = New CustomUrlRequestHandler()
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
-						Console.WriteLine("Load result: " & loadResult)
-						Console.WriteLine("HTML: " & browser.MainFrame.Html)
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                    engine.NetworkService.UrlRequestHandler = New CustomUrlRequestHandler()
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
+                        Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
+                        Console.WriteLine("Load result: " & loadResult)
+                        Console.WriteLine("HTML: " & browser.MainFrame.Html)
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		#End Region
+#End Region
 
-		Private Class CustomUrlRequestHandler
-			Implements IUrlRequestHandler
+        Private Class CustomUrlRequestHandler
+            Implements IUrlRequestHandler
 
-			#Region "Methods"
+#Region "Methods"
 
-			Public Sub HandleRequest(ByVal interceptedRequest As IInterceptedUrlRequest) Implements IUrlRequestHandler.HandleRequest
-				Console.WriteLine("Intercepted request to URL:" & interceptedRequest.UrlRequest.Url)
-				interceptedRequest.Write(Encoding.UTF8.GetBytes("Hello world!"))
-				interceptedRequest.Complete()
-			End Sub
+            Public Sub HandleRequest(ByVal interceptedRequest As IInterceptedUrlRequest) Implements IUrlRequestHandler.HandleRequest
+                Console.WriteLine("Intercepted request to URL:" & interceptedRequest.UrlRequest.Url)
+                interceptedRequest.Write(Encoding.UTF8.GetBytes("Hello world!"))
+                interceptedRequest.Complete()
+            End Sub
 
             Public Function InterceptRequest(ByVal request As UrlRequestData) As InterceptUrlRequestResult Implements IUrlRequestHandler.InterceptRequest
-				If request.Request.Url.StartsWith("myscheme") Then
-					Return InterceptUrlRequestResult.Intercept(HttpStatusCode.OK)
-				End If
-				Return InterceptUrlRequestResult.Continue()
-			End Function
+                If request.Request.Url.StartsWith("myscheme") Then
+                    Return InterceptUrlRequestResult.Intercept(HttpStatusCode.OK)
+                End If
+                Return InterceptUrlRequestResult.Continue()
+            End Function
 
-			#End Region
-		End Class
-	End Class
+#End Region
+        End Class
+    End Class
 End Namespace

@@ -20,48 +20,47 @@
 
 #End Region
 
-Imports System
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
 Namespace DomForm
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
 
-						browser.MainFrame.LoadHtml("<html><body><form name=""myForm"">" & "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" & "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" & "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" & "<input type='button' id='saveButton' value=""Save"" onclick=""" & "if(document.getElementById('agreement').checked){" & "    console.log(document.getElementById('firstName').value +' '+" & "document.getElementById('lastName').value);}" & """/>" & "</form></body></html>").Wait()
-						Dim document As IDocument = browser.MainFrame.Document
-						Dim firstName As IInputElement = DirectCast(document.GetElementByName("firstName"), IInputElement)
-						Dim lastName As IInputElement = DirectCast(document.GetElementByName("lastName"), IInputElement)
-						Dim agreement As IInputElement = DirectCast(document.GetElementByName("agreement"), IInputElement)
+                        browser.MainFrame.LoadHtml("<html><body><form name=""myForm"">" & "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" & "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" & "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" & "<input type='button' id='saveButton' value=""Save"" onclick=""" & "if(document.getElementById('agreement').checked){" & "    console.log(document.getElementById('firstName').value +' '+" & "document.getElementById('lastName').value);}" & """/>" & "</form></body></html>").Wait()
+                        Dim document As IDocument = browser.MainFrame.Document
+                        Dim firstName As IInputElement = DirectCast(document.GetElementByName("firstName"), IInputElement)
+                        Dim lastName As IInputElement = DirectCast(document.GetElementByName("lastName"), IInputElement)
+                        Dim agreement As IInputElement = DirectCast(document.GetElementByName("agreement"), IInputElement)
 
-						firstName.Value = "John"
-						lastName.Value = "Doe"
-						agreement.Checked = True
+                        firstName.Value = "John"
+                        lastName.Value = "Doe"
+                        agreement.Checked = True
 
-						AddHandler browser.ConsoleMessage, Sub(sender, args)
-							Console.WriteLine("JS Console: < " & args.Message)
-						End Sub
-						document.GetElementById("saveButton").Click()
-						Thread.Sleep(3000)
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                        AddHandler browser.ConsoleMessage, Sub(sender, args)
+                                                               Console.WriteLine("JS Console: < " & args.Message)
+                                                           End Sub
+                        document.GetElementById("saveButton").Click()
+                        Thread.Sleep(3000)
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

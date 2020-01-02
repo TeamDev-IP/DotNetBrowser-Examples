@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System
-Imports System.Linq
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
@@ -30,43 +28,43 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Net.Handlers
 
 Namespace AjaxCallsFilter
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						engine.NetworkService.ResourceHandler = New Handler(Of ResourceParameters, ResourceLoadStatus)(AddressOf CanLoadResource)
-						browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").Wait()
-						Dim demoFrame As IFrame = browser.AllFrames.FirstOrDefault(Function(f) f.Document.GetElementById("demo") IsNot Nothing)
-						If demoFrame IsNot Nothing Then
-							Console.WriteLine("Demo frame found")
-							demoFrame.Document.GetElementByTagName("button").Click()
-						End If
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
+                        engine.NetworkService.ResourceHandler = New Handler(Of ResourceParameters, ResourceLoadStatus)(AddressOf CanLoadResource)
+                        browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").Wait()
+                        Dim demoFrame As IFrame = browser.AllFrames.FirstOrDefault(Function(f) f.Document.GetElementById("demo") IsNot Nothing)
+                        If demoFrame IsNot Nothing Then
+                            Console.WriteLine("Demo frame found")
+                            demoFrame.Document.GetElementByTagName("button").Click()
+                        End If
 
-						Thread.Sleep(5000)
-						Console.WriteLine("Demo HTML: " & demoFrame?.Document.GetElementById("demo").InnerHtml)
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                        Thread.Sleep(5000)
+                        Console.WriteLine("Demo HTML: " & demoFrame?.Document.GetElementById("demo").InnerHtml)
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		Private Shared Function CanLoadResource(ByVal arg As ResourceParameters) As ResourceLoadStatus
-			If arg.ResourceType = ResourceType.Xhr Then
-				Console.WriteLine("Suppress ajax call - " & arg.Url)
-				Return ResourceLoadStatus.Cancel
-			End If
-			Return ResourceLoadStatus.Continue
-		End Function
+        Private Shared Function CanLoadResource(ByVal arg As ResourceParameters) As ResourceLoadStatus
+            If arg.ResourceType = ResourceType.Xhr Then
+                Console.WriteLine("Suppress ajax call - " & arg.Url)
+                Return ResourceLoadStatus.Cancel
+            End If
+            Return ResourceLoadStatus.Continue
+        End Function
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

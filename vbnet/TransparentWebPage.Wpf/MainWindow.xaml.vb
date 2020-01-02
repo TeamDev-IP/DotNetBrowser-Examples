@@ -20,50 +20,47 @@
 
 #End Region
 
-Imports System
-Imports System.Diagnostics
 Imports System.Threading.Tasks
-Imports System.Windows
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
 Namespace TransparentWebPage.Wpf
-	''' <summary>
-	'''     Interaction logic for MainWindow.xaml
-	''' </summary>
-	Partial Public Class MainWindow
-		Inherits Window
+    ''' <summary>
+    '''     Interaction logic for MainWindow.xaml
+    ''' </summary>
+    Partial Public Class MainWindow
+        Inherits Window
 
-		Private browser As IBrowser
-		Private engine As IEngine
+        Private browser As IBrowser
+        Private engine As IEngine
 
-		#Region "Constructors"
+#Region "Constructors"
 
-		Public Sub New()
-			Try
-				Task.Run(Sub()
-						engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-						browser = engine.CreateBrowser()
-						browser.Settings.TransparentBackgroundEnabled = True
-				End Sub).ContinueWith(Sub(t)
-						WebBrowser1.InitializeFrom(browser)
-						browser.MainFrame.LoadHtml("<html>" & vbLf & "     <body>" & "         <div style='background: yellow; opacity: 0.7;'>" & vbLf & "             This text is in the yellow half-transparent div." & "        </div>" & vbLf & "         <div style='background: red;'>" & vbLf & "             This text is in the red opaque div and should appear as is." & "        </div>" & vbLf & "         <div>" & vbLf & "             This text is in the non-styled div and should appear as a text on the completely transparent background." & "        </div>" & vbLf & "    </body>" & vbLf & " </html>")
-				End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+        Public Sub New()
+            Try
+                Task.Run(Sub()
+                             engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+                             browser = engine.CreateBrowser()
+                             browser.Settings.TransparentBackgroundEnabled = True
+                         End Sub).ContinueWith(Sub(t)
+                                                   WebBrowser1.InitializeFrom(browser)
+                                                   browser.MainFrame.LoadHtml("<html>" & vbLf & "     <body>" & "         <div style='background: yellow; opacity: 0.7;'>" & vbLf & "             This text is in the yellow half-transparent div." & "        </div>" & vbLf & "         <div style='background: red;'>" & vbLf & "             This text is in the red opaque div and should appear as is." & "        </div>" & vbLf & "         <div>" & vbLf & "             This text is in the non-styled div and should appear as a text on the completely transparent background." & "        </div>" & vbLf & "    </body>" & vbLf & " </html>")
+                                               End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-				InitializeComponent()
-			Catch exception As Exception
-				Debug.WriteLine(exception)
-			End Try
-		End Sub
+                InitializeComponent()
+            Catch exception As Exception
+                Debug.WriteLine(exception)
+            End Try
+        End Sub
 
-		#End Region
+#End Region
 
-		#Region "Methods"
+#Region "Methods"
 
-		Private Sub Window_Closed(ByVal sender As Object, ByVal e As EventArgs)
-			engine?.Dispose()
-		End Sub
+        Private Sub Window_Closed(ByVal sender As Object, ByVal e As EventArgs)
+            engine?.Dispose()
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

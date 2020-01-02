@@ -20,63 +20,60 @@
 
 #End Region
 
-Imports System
 Imports System.ComponentModel
 Imports System.Threading.Tasks
-Imports System.Windows
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
-Imports DotNetBrowser.Search
 
 Namespace FindText.Wpf
-	''' <summary>
-	'''     Interaction logic for MainWindow.xaml
-	''' </summary>
-	Partial Public Class MainWindow
-		Inherits Window
+    ''' <summary>
+    '''     Interaction logic for MainWindow.xaml
+    ''' </summary>
+    Partial Public Class MainWindow
+        Inherits Window
 
-		Private browser As IBrowser
-		Private engine As IEngine
+        Private browser As IBrowser
+        Private engine As IEngine
 
-		#Region "Constructors"
+#Region "Constructors"
 
-		Public Sub New()
-			Task.Run(Sub()
-					engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen} .Build())
-					browser = engine.CreateBrowser()
-			End Sub).ContinueWith(Sub(t)
-					browserView.InitializeFrom(browser)
+        Public Sub New()
+            Task.Run(Sub()
+                         engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+                         browser = engine.CreateBrowser()
+                     End Sub).ContinueWith(Sub(t)
+                                               browserView.InitializeFrom(browser)
 
-					browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser")
-			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+                                               browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser")
+                                           End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-			InitializeComponent()
-		End Sub
+            InitializeComponent()
+        End Sub
 
-		#End Region
+#End Region
 
-		#Region "Methods"
+#Region "Methods"
 
-		Private Sub clearButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
-			browser.TextFinder.StopFinding()
-			textBox.Text = ""
-		End Sub
+        Private Sub clearButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+            browser.TextFinder.StopFinding()
+            textBox.Text = ""
+        End Sub
 
-		Private Sub findButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
-			If textBox.Text <> String.Empty Then
-				browser.TextFinder.Find(textBox.Text).ContinueWith(Sub(t)
-					If t.Result.NumberOfMatches = 0 Then
-						MessageBox.Show("No matches!")
-					End If
-				End Sub, TaskScheduler.FromCurrentSynchronizationContext())
-			End If
-		End Sub
+        Private Sub findButton_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+            If textBox.Text <> String.Empty Then
+                browser.TextFinder.Find(textBox.Text).ContinueWith(Sub(t)
+                                                                       If t.Result.NumberOfMatches = 0 Then
+                                                                           MessageBox.Show("No matches!")
+                                                                       End If
+                                                                   End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+            End If
+        End Sub
 
-		Private Sub Window_Closing(ByVal sender As Object, ByVal e As CancelEventArgs)
-			browser.Dispose()
-			engine.Dispose()
-		End Sub
+        Private Sub Window_Closing(ByVal sender As Object, ByVal e As CancelEventArgs)
+            browser.Dispose()
+            engine.Dispose()
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

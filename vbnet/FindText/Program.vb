@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
@@ -30,50 +29,50 @@ Imports DotNetBrowser.Search
 Imports DotNetBrowser.Search.Handlers
 
 Namespace FindText
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						browser.Size = New Size(700, 500)
-						browser.MainFrame.LoadHtml("<html><body><p>Find me</p><p>Find me</p></body></html>").Wait()
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
+                        browser.Size = New Size(700, 500)
+                        browser.MainFrame.LoadHtml("<html><body><p>Find me</p><p>Find me</p></body></html>").Wait()
 
-						Thread.Sleep(2000)
-						' Find text from the beginning of the loaded web page.
-						Dim searchText As String = "find me"
-						Dim requestId As Integer = 0
-						Dim intermediateResultsHandler As IHandler(Of FindResultReceivedParameters) = New Handler(Of FindResultReceivedParameters)(AddressOf ProcessSearchResults)
-						Console.WriteLine("Find text (1/2)")
-						Dim findResult As FindResult = browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
-						Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
-						Console.WriteLine("Find text (2/2)")
-						findResult = browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
-						Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
-						browser.TextFinder.StopFinding()
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                        Thread.Sleep(2000)
+                        ' Find text from the beginning of the loaded web page.
+                        Dim searchText As String = "find me"
+                        Dim requestId As Integer = 0
+                        Dim intermediateResultsHandler As IHandler(Of FindResultReceivedParameters) = New Handler(Of FindResultReceivedParameters)(AddressOf ProcessSearchResults)
+                        Console.WriteLine("Find text (1/2)")
+                        Dim findResult As FindResult = browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
+                        Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
+                        Console.WriteLine("Find text (2/2)")
+                        findResult = browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
+                        Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
+                        browser.TextFinder.StopFinding()
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		Private Shared Sub ProcessSearchResults(ByVal args As FindResultReceivedParameters)
-			Dim result As FindResult = args.FindResult
+        Private Shared Sub ProcessSearchResults(ByVal args As FindResultReceivedParameters)
+            Dim result As FindResult = args.FindResult
 
-			If args.Finished Then
-				Console.Out.WriteLine("Found: " & result.SelectedMatch & "/" & result.NumberOfMatches)
-			Else
-				Console.Out.WriteLine("Search in progress... Found " & result.SelectedMatch & "/" & result.NumberOfMatches)
-			End If
-		End Sub
+            If args.Finished Then
+                Console.Out.WriteLine("Found: " & result.SelectedMatch & "/" & result.NumberOfMatches)
+            Else
+                Console.Out.WriteLine("Search in progress... Found " & result.SelectedMatch & "/" & result.NumberOfMatches)
+            End If
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

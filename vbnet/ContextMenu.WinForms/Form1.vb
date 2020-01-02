@@ -20,12 +20,7 @@
 
 #End Region
 
-Imports System
-Imports System.Collections.Generic
-Imports System.Diagnostics
-Imports System.Drawing
 Imports System.Threading.Tasks
-Imports System.Windows.Forms
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.ContextMenu
 Imports DotNetBrowser.Engine
@@ -35,27 +30,27 @@ Imports DotNetBrowser.SpellCheck
 Imports DotNetBrowser.WinForms
 
 Namespace ContextMenu.WinForms
-	Partial Public Class Form1
-		Inherits Form
+    Partial Public Class Form1
+        Inherits Form
 
-		Private browser As IBrowser
-		Private engine As IEngine
-		Private ReadOnly webView As BrowserView
+        Private browser As IBrowser
+        Private engine As IEngine
+        Private ReadOnly webView As BrowserView
 
-		#Region "Constructors"
+#Region "Constructors"
 
-		Public Sub New()
-			LoggerProvider.Instance.Level = SourceLevels.Verbose
-			LoggerProvider.Instance.FileLoggingEnabled = True
-			LoggerProvider.Instance.OutputFile = "log.txt"
-			webView = New BrowserView With {.Dock = DockStyle.Fill}
-			Task.Run(Sub()
-					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
-					 browser = engine.CreateBrowser()
-			End Sub).ContinueWith(Sub(t)
-					 webView.InitializeFrom(browser)
-					 browser.ContextMenuHandler = New AsyncHandler(Of ContextMenuParameters, ContextMenuResponse)(AddressOf ShowMenu)
-					 browser.MainFrame.LoadHtml("<html>
+        Public Sub New()
+            LoggerProvider.Instance.Level = SourceLevels.Verbose
+            LoggerProvider.Instance.FileLoggingEnabled = True
+            LoggerProvider.Instance.OutputFile = "log.txt"
+            webView = New BrowserView With {.Dock = DockStyle.Fill}
+            Task.Run(Sub()
+                         engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated}.Build())
+                         browser = engine.CreateBrowser()
+                     End Sub).ContinueWith(Sub(t)
+                                               webView.InitializeFrom(browser)
+                                               browser.ContextMenuHandler = New AsyncHandler(Of ContextMenuParameters, ContextMenuResponse)(AddressOf ShowMenu)
+                                               browser.MainFrame.LoadHtml("<html>
 <head>
   <meta charset='UTF-8'>
 </head>
@@ -63,66 +58,66 @@ Namespace ContextMenu.WinForms
 <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
 </body>
 </html>")
-			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
-			InitializeComponent()
-			AddHandler Me.FormClosing, AddressOf Form1_FormClosing
-			Controls.Add(webView)
-		End Sub
+                                           End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+            InitializeComponent()
+            AddHandler Me.FormClosing, AddressOf Form1_FormClosing
+            Controls.Add(webView)
+        End Sub
 
-		#End Region
+#End Region
 
-		#Region "Methods"
+#Region "Methods"
 
-		Private Function BuildMenuItem(ByVal item As String, ByVal isEnabled As Boolean, ByVal clickHandler As EventHandler) As MenuItem
-			Dim result As New MenuItem()
-			result.Text = item
-			result.Enabled = isEnabled
-			AddHandler result.Click, clickHandler
+        Private Function BuildMenuItem(ByVal item As String, ByVal isEnabled As Boolean, ByVal clickHandler As EventHandler) As MenuItem
+            Dim result As New MenuItem()
+            result.Text = item
+            result.Enabled = isEnabled
+            AddHandler result.Click, clickHandler
 
-			Return result
-		End Function
+            Return result
+        End Function
 
-		Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
-			browser?.Dispose()
-			engine?.Dispose()
-		End Sub
+        Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
+            browser?.Dispose()
+            engine?.Dispose()
+        End Sub
 
-		Private Function ShowMenu(ByVal parameters As ContextMenuParameters) As Task(Of ContextMenuResponse)
-			Dim tcs As New TaskCompletionSource(Of ContextMenuResponse)()
-			Dim spellCheckMenu As SpellCheckMenu = parameters.SpellCheckMenu
-			If spellCheckMenu IsNot Nothing Then
-				BeginInvoke(New Action(Sub()
+        Private Function ShowMenu(ByVal parameters As ContextMenuParameters) As Task(Of ContextMenuResponse)
+            Dim tcs As New TaskCompletionSource(Of ContextMenuResponse)()
+            Dim spellCheckMenu As SpellCheckMenu = parameters.SpellCheckMenu
+            If spellCheckMenu IsNot Nothing Then
+                BeginInvoke(New Action(Sub()
                                            Dim popupMenu As New Windows.Forms.ContextMenu()
                                            Dim suggestions As IEnumerable(Of String) = spellCheckMenu.DictionarySuggestions
-					If suggestions IsNot Nothing Then
-						For Each suggestion As String In suggestions
-							popupMenu.MenuItems.Add(BuildMenuItem(suggestion, True, Sub()
-								browser.ReplaceMisspelledWord(suggestion)
-								tcs.TrySetResult(ContextMenuResponse.Close())
-							End Sub))
-						Next suggestion
-					End If
+                                           If suggestions IsNot Nothing Then
+                                               For Each suggestion As String In suggestions
+                                                   popupMenu.MenuItems.Add(BuildMenuItem(suggestion, True, Sub()
+                                                                                                               browser.ReplaceMisspelledWord(suggestion)
+                                                                                                               tcs.TrySetResult(ContextMenuResponse.Close())
+                                                                                                           End Sub))
+                                               Next suggestion
+                                           End If
 
-					Dim addToDictionary As String = If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
-					popupMenu.MenuItems.Add(BuildMenuItem(addToDictionary, True, Sub()
-						engine.SpellCheckService?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
-						tcs.TrySetResult(ContextMenuResponse.Close())
-					End Sub))
-					AddHandler popupMenu.Collapse, Sub(sender, args)
-						tcs.TrySetResult(ContextMenuResponse.Close())
-					End Sub
+                                           Dim addToDictionary As String = If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
+                                           popupMenu.MenuItems.Add(BuildMenuItem(addToDictionary, True, Sub()
+                                                                                                            engine.SpellCheckService?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
+                                                                                                            tcs.TrySetResult(ContextMenuResponse.Close())
+                                                                                                        End Sub))
+                                           AddHandler popupMenu.Collapse, Sub(sender, args)
+                                                                              tcs.TrySetResult(ContextMenuResponse.Close())
+                                                                          End Sub
 
-					Dim location_Conflict As New Point(parameters.Location.X, parameters.Location.Y)
-					popupMenu.Show(Me, location_Conflict)
-					tcs.TrySetResult(ContextMenuResponse.Close())
-				End Sub))
-			Else
-				tcs.TrySetResult(ContextMenuResponse.Close())
-			End If
+                                           Dim location_Conflict As New Point(parameters.Location.X, parameters.Location.Y)
+                                           popupMenu.Show(Me, location_Conflict)
+                                           tcs.TrySetResult(ContextMenuResponse.Close())
+                                       End Sub))
+            Else
+                tcs.TrySetResult(ContextMenuResponse.Close())
+            End If
 
-			Return tcs.Task
-		End Function
+            Return tcs.Task
+        End Function
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

@@ -20,35 +20,34 @@
 
 #End Region
 
-Imports System
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
 Namespace GetHtml
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						browser.Size = New Size(700, 500)
-						browser.Navigation.LoadUrl("http://www.teamdev.com").Wait()
-						' Get HTML of the loaded web page and write it to Console.
-						Console.WriteLine(browser.MainFrame.Html)
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
+                        browser.Size = New Size(700, 500)
+                        browser.Navigation.LoadUrl("http://www.teamdev.com").Wait()
+                        ' Get HTML of the loaded web page and write it to Console.
+                        Console.WriteLine(browser.MainFrame.Html)
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

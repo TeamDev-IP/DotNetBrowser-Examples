@@ -20,47 +20,43 @@
 
 #End Region
 
-Imports System
-Imports System.Linq
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Events
 
-Namespace AccessingHttpResponseData
-	Friend Class Program
-		#Region "Methods"
+Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						AddHandler engine.NetworkService.ResponseBytesReceived, AddressOf OnResponseBytesReceived
-						browser.Navigation.LoadUrl("https://teamdev.com").Wait()
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    AddHandler engine.NetworkService.ResponseBytesReceived, AddressOf OnResponseBytesReceived
+                    browser.Navigation.LoadUrl("https://teamdev.com").Wait()
 
-						Console.WriteLine("URL loaded")
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                    Console.WriteLine("URL loaded")
+                End Using
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 
-		Private Shared Sub OnResponseBytesReceived(ByVal sender As Object, ByVal eventArgs As ResponseBytesReceivedEventArgs)
-			If eventArgs.MimeType.Equals(MimeType.TextHtml) Then
-				Console.WriteLine($"MimeType = {eventArgs.MimeType}")
-				Console.WriteLine($"Charset = {eventArgs.UrlRequest.Method}")
-				Dim data As String = eventArgs.Data.Aggregate(Of String)(Nothing, Function(current, t) current + ChrW(t))
-				Console.WriteLine($"Data = {data}" & vbLf)
-			End If
-		End Sub
+    Private Shared Sub OnResponseBytesReceived(ByVal sender As Object, ByVal eventArgs As ResponseBytesReceivedEventArgs)
+        If eventArgs.MimeType.Equals(MimeType.TextHtml) Then
+            Console.WriteLine($"MimeType = {eventArgs.MimeType}")
+            Console.WriteLine($"Charset = {eventArgs.UrlRequest.Method}")
+            Dim data As String = eventArgs.Data.Aggregate(Of String)(Nothing, Function(current, t) current + ChrW(t))
+            Console.WriteLine($"Data = {data}" & vbLf)
+        End If
+    End Sub
 
-		#End Region
-	End Class
-End Namespace
+#End Region
+End Class

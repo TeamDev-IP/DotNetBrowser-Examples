@@ -20,43 +20,42 @@
 
 #End Region
 
-Imports System
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
 Namespace DomCreateElement
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
 
-						browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>").Wait()
-						Console.WriteLine("Initial HTML: " & browser.MainFrame.Html)
-						Dim document As IDocument = browser.MainFrame.Document
+                        browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>").Wait()
+                        Console.WriteLine("Initial HTML: " & browser.MainFrame.Html)
+                        Dim document As IDocument = browser.MainFrame.Document
 
-						Dim root As INode = document.GetElementById("root")
-						Dim textNode As INode = document.CreateTextNode("Some text")
-						Dim paragraph As IElement = document.CreateElement("p")
-						paragraph.Children.Append(textNode)
-						root.Children.Append(paragraph)
+                        Dim root As INode = document.GetElementById("root")
+                        Dim textNode As INode = document.CreateTextNode("Some text")
+                        Dim paragraph As IElement = document.CreateElement("p")
+                        paragraph.Children.Append(textNode)
+                        root.Children.Append(paragraph)
 
-						Console.WriteLine("Updated HTML: " & browser.MainFrame.Html)
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                        Console.WriteLine("Updated HTML: " & browser.MainFrame.Html)
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

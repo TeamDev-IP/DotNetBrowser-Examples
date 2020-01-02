@@ -20,41 +20,39 @@
 
 #End Region
 
-Imports System
-Imports System.Collections.Generic
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
 Namespace DomGetAttributes
-	Friend Class Program
-		#Region "Methods"
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
 
-						browser.MainFrame.LoadHtml("<html><body><a href='#' id='link' title='link title'></a></body></html>").Wait()
-						Dim document As IDocument = browser.MainFrame.Document
-						Dim link As IElement = document.GetElementById("link")
-						Dim attributes As IDictionary(Of String, String) = link.Attributes
-						Console.WriteLine("Link attributes: ")
-						For Each attribute In attributes
-							Console.WriteLine($"- {attribute.Key} = {attribute.Value}")
-						Next attribute
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                        browser.MainFrame.LoadHtml("<html><body><a href='#' id='link' title='link title'></a></body></html>").Wait()
+                        Dim document As IDocument = browser.MainFrame.Document
+                        Dim link As IElement = document.GetElementById("link")
+                        Dim attributes As IDictionary(Of String, String) = link.Attributes
+                        Console.WriteLine("Link attributes: ")
+                        For Each attribute In attributes
+                            Console.WriteLine($"- {attribute.Key} = {attribute.Value}")
+                        Next attribute
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

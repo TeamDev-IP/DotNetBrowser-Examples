@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System
-Imports System.Linq
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
@@ -29,43 +27,43 @@ Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net.Handlers
 
 Namespace CookieFilter
-	''' <summary>
-	'''     The sample demonstrates how to suppress/filter incoming and outgoing cookies.
-	''' </summary>
-	Friend Class Program
-		#Region "Methods"
+    ''' <summary>
+    '''     The sample demonstrates how to suppress/filter incoming and outgoing cookies.
+    ''' </summary>
+    Friend Class Program
+#Region "Methods"
 
-		Public Shared Sub Main()
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+        Public Shared Sub Main()
+            Try
+                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                    Console.WriteLine("Engine created")
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						engine.NetworkService.CanGetCookiesHandler = New Handler(Of CanGetCookiesHandlerParameters, CookiesPermission)(AddressOf CanGetCookies)
-						engine.NetworkService.CanSetCookieHandler = New Handler(Of CanSetCookieHandlerParameters, CookiesPermission)(AddressOf CanSetCookie)
-						Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
-						Console.WriteLine("LoadResult: " & result)
-					End Using
-				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
+                    Using browser As IBrowser = engine.CreateBrowser()
+                        Console.WriteLine("Browser created")
+                        engine.NetworkService.CanGetCookiesHandler = New Handler(Of CanGetCookiesHandlerParameters, CookiesPermission)(AddressOf CanGetCookies)
+                        engine.NetworkService.CanSetCookieHandler = New Handler(Of CanSetCookieHandlerParameters, CookiesPermission)(AddressOf CanSetCookie)
+                        Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
+                        Console.WriteLine("LoadResult: " & result)
+                    End Using
+                End Using
+            Catch e As Exception
+                Console.WriteLine(e)
+            End Try
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-		Private Shared Function CanGetCookies(ByVal arg As CanGetCookiesHandlerParameters) As CookiesPermission
-			Dim cookies As String = arg.Cookies.Aggregate(String.Empty, Function(current, cookie) current + (cookie.ToString() & vbLf))
-			Console.WriteLine("CanGetCookies: " & cookies)
-			Return CookiesPermission.Denied
-		End Function
+        Private Shared Function CanGetCookies(ByVal arg As CanGetCookiesHandlerParameters) As CookiesPermission
+            Dim cookies As String = arg.Cookies.Aggregate(String.Empty, Function(current, cookie) current + (cookie.ToString() & vbLf))
+            Console.WriteLine("CanGetCookies: " & cookies)
+            Return CookiesPermission.Denied
+        End Function
 
-		Private Shared Function CanSetCookie(ByVal arg As CanSetCookieHandlerParameters) As CookiesPermission
-			Console.WriteLine("CanSetCookie: " & arg.Cookie.ToString())
-			Return CookiesPermission.Denied
-		End Function
+        Private Shared Function CanSetCookie(ByVal arg As CanSetCookieHandlerParameters) As CookiesPermission
+            Console.WriteLine("CanSetCookie: " & arg.Cookie.ToString())
+            Return CookiesPermission.Denied
+        End Function
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace
