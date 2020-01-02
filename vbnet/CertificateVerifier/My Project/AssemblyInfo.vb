@@ -31,7 +31,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev Ltd.")>
 <Assembly: AssemblyProduct("CertificateVerifierSample")>
-<Assembly: AssemblyCopyright("Copyright ? TeamDev Ltd. 2017")>
+<Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

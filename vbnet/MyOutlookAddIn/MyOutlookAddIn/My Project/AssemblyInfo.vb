@@ -11,7 +11,7 @@ Imports System.Security
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("MyOutlookAddIn")>
-<Assembly: AssemblyCopyright("Copyright ©  2019")>
+<Assembly: AssemblyCopyright("Copyright Â© 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
