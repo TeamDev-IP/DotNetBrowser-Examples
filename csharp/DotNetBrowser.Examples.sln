@@ -3,85 +3,85 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.779
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessingHTTPResponseDataSample", "AccessingHTTPResponseData\AccessingHTTPResponseDataSample.csproj", "{BA64CB0A-4863-4733-AA2E-A25A74755A66}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessingHttpResponseData", "AccessingHttpResponseData\AccessingHttpResponseData.csproj", "{BA64CB0A-4863-4733-AA2E-A25A74755A66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxCallsFilterSample", "AjaxCallsFilterSample\AjaxCallsFilterSample.csproj", "{F5825CA8-12CB-4CAC-92D7-BDFCDDCFDC81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AjaxCallsFilter", "AjaxCallsFilter\AjaxCallsFilter.csproj", "{F5825CA8-12CB-4CAC-92D7-BDFCDDCFDC81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateErrorSample", "CertificateErrorSample\CertificateErrorSample.csproj", "{EBF2F76D-599F-4D9C-BF44-C1415D4552E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateError", "CertificateError\CertificateError.csproj", "{EBF2F76D-599F-4D9C-BF44-C1415D4552E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateVerifierSample", "CertificateVerifierSample\CertificateVerifierSample.csproj", "{A890572D-1225-4601-820B-A8016A59000F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CertificateVerifier", "CertificateVerifier\CertificateVerifier.csproj", "{A890572D-1225-4601-820B-A8016A59000F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieFilterSample", "CookieFilterSample\CookieFilterSample.csproj", "{F6586FF8-DD18-4192-BF36-FBB694F6C049}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieFilter", "CookieFilter\CookieFilter.csproj", "{F6586FF8-DD18-4192-BF36-FBB694F6C049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookieSample", "CookieSample\CookieSample.csproj", "{38B56C8B-DA70-4C96-8CAD-C08092AA1924}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cookies", "Cookies\Cookies.csproj", "{38B56C8B-DA70-4C96-8CAD-C08092AA1924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomRequestHandlingSample", "CustomRequestHandlingSample\CustomRequestHandlingSample.csproj", "{00E35EF8-8D35-4E71-91D9-E33838E472B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomRequestHandling", "CustomRequestHandling\CustomRequestHandling.csproj", "{00E35EF8-8D35-4E71-91D9-E33838E472B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultMediaStreamDeviceSample", "DefaultMediaStreamDeviceSample\DefaultMediaStreamDeviceSample.csproj", "{DE80A948-FFDF-476D-BA6F-1B9146C02767}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultMediaStreamDevice", "DefaultMediaStreamDevice\DefaultMediaStreamDevice.csproj", "{DE80A948-FFDF-476D-BA6F-1B9146C02767}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFD68302-C4FF-4DE0-A0A3-992118BE7F66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMCreateElementSample", "DOMCreateElementSample\DOMCreateElementSample.csproj", "{C7FBB67B-34CD-4FD1-8DBE-8BD1389E3584}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomCreateElement", "DomCreateElement\DomCreateElement.csproj", "{C7FBB67B-34CD-4FD1-8DBE-8BD1389E3584}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMCreateEventSample", "DOMCreateEventSample\DOMCreateEventSample.csproj", "{0DC1A4C3-2B9A-4086-9C2F-B1DDB13FEE78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomCreateEvent", "DomCreateEvent\DomCreateEvent.csproj", "{0DC1A4C3-2B9A-4086-9C2F-B1DDB13FEE78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMFormSample", "DOMFormSample\DOMFormSample.csproj", "{1A51E8BF-2FA4-4657-BD75-5852ABA9516F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomForm", "DomForm\DomForm.csproj", "{1A51E8BF-2FA4-4657-BD75-5852ABA9516F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMGetAttributesSample", "DOMGetAttributesSample\DOMGetAttributesSample.csproj", "{B14CF41A-2304-449C-9D1E-F170B3419DA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomGetAttributes", "DomGetAttributes\DomGetAttributes.csproj", "{B14CF41A-2304-449C-9D1E-F170B3419DA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMGetElementsSample", "DOMGetElementsSample\DOMGetElementsSample.csproj", "{80EC3E0D-6382-4557-B1A8-D63C49C68B0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomGetElements", "DomGetElements\DomGetElements.csproj", "{80EC3E0D-6382-4557-B1A8-D63C49C68B0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOMQuerySelectorSample", "DOMQuerySelectorSample\DOMQuerySelectorSample.csproj", "{763C0AE0-79D4-4449-9F8A-E000C1759C87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomQuerySelector", "DomQuerySelector\DomQuerySelector.csproj", "{763C0AE0-79D4-4449-9F8A-E000C1759C87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteCommandSample", "ExecuteCommandSample\ExecuteCommandSample.csproj", "{D902D0F3-0D4A-4B41-ACD5-040302076E6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteCommand", "ExecuteCommand\ExecuteCommand.csproj", "{D902D0F3-0D4A-4B41-ACD5-040302076E6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteJavaScriptSample", "ExecuteJavaScript\ExecuteJavaScriptSample.csproj", "{688EEECA-30EF-472E-B664-971404FE1FA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteJavaScript", "ExecuteJavaScript\ExecuteJavaScript.csproj", "{688EEECA-30EF-472E-B664-971404FE1FA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindTextSample", "FindTextSample\FindTextSample.csproj", "{E6745717-7D8E-4EB7-9C55-DD6A4DF23D16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindText", "FindText\FindText.csproj", "{E6745717-7D8E-4EB7-9C55-DD6A4DF23D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetFramesSample", "GetFramesSample\GetFramesSample.csproj", "{AB482FF6-16F1-471A-85C2-A93F5C709E01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetFrames", "GetFrames\GetFrames.csproj", "{AB482FF6-16F1-471A-85C2-A93F5C709E01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetHTMLSample", "GetHTML\GetHTMLSample.csproj", "{E1D75E04-4876-452D-A789-62F6385013A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetHtml", "GetHtml\GetHtml.csproj", "{E1D75E04-4876-452D-A789-62F6385013A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InspectSample", "InspectSample\InspectSample.csproj", "{BDF3F15D-797E-4FB3-933A-C7A7DFBD3A72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect", "Inspect\Inspect.csproj", "{BDF3F15D-797E-4FB3-933A-C7A7DFBD3A72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetSelectedTextSample", "GetSelectedTextSample\GetSelectedTextSample.csproj", "{FBE75C67-FCBC-483E-8892-BE2CE397E53C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetSelectedText", "GetSelectedText\GetSelectedText.csproj", "{FBE75C67-FCBC-483E-8892-BE2CE397E53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptCSBridgeSample", "JavaScriptCSBridgeSample\JavaScriptCSBridgeSample.csproj", "{6467C661-37EC-4AD3-8438-FCFC241C64BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge", "JavaScriptBridge\JavaScriptBridge.csproj", "{6467C661-37EC-4AD3-8438-FCFC241C64BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptObjectsSample", "JavaScriptObjectsSample\JavaScriptObjectsSample.csproj", "{C22E7525-8342-41A7-9B88-18A53CAD40B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptObjects", "JavaScriptObjects\JavaScriptObjects.csproj", "{C22E7525-8342-41A7-9B88-18A53CAD40B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptSample", "JavaScriptSample\JavaScriptSample.csproj", "{BB852F7F-A1CC-4FE3-9E29-09AE2A46F6EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScript", "JavaScript\JavaScript.csproj", "{BB852F7F-A1CC-4FE3-9E29-09AE2A46F6EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadEventsSample", "LoadEventsSample\LoadEventsSample.csproj", "{A21276A8-B981-4AD1-9309-8BF35B6ABEB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadEvents", "LoadEvents\LoadEvents.csproj", "{A21276A8-B981-4AD1-9309-8BF35B6ABEB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkHandlersSample", "NetworkHandlersSample\NetworkHandlersSample.csproj", "{C6D7D9C6-4B5E-4C42-905B-D91836890516}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkHandlers", "NetworkHandlers\NetworkHandlers.csproj", "{C6D7D9C6-4B5E-4C42-905B-D91836890516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HTMLToImageSample", "HTMLToImageSample\HTMLToImageSample.csproj", "{56A0C281-58BC-4E95-BDBB-39578949874B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlToImage", "HtmlToImage\HtmlToImage.csproj", "{56A0C281-58BC-4E95-BDBB-39578949874B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostDataSample", "PostDataSample\PostDataSample.csproj", "{4282C874-0DDA-4DF5-8504-B3E932E667A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostData", "PostData\PostData.csproj", "{4282C874-0DDA-4DF5-8504-B3E932E667A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeparateEnginesSample", "SeparateEnginesSample\SeparateEnginesSample.csproj", "{29102023-CB49-4162-BAC0-D892D9A76179}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeparateEngines", "SeparateEngines\SeparateEngines.csproj", "{29102023-CB49-4162-BAC0-D892D9A76179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPathSample", "XPathSample\XPathSample.csproj", "{27FFE185-8A89-4951-9157-C291D154ED97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPath", "XPath\XPath.csproj", "{27FFE185-8A89-4951-9157-C291D154ED97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.UIAutomationSample", "WPF.UIAutomationSample\WPF.UIAutomationSample.csproj", "{1C2D3702-4EBE-4DA0-9601-B3D56A79B01B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UiAutomation.Wpf", "UiAutomation.Wpf\UiAutomation.Wpf.csproj", "{1C2D3702-4EBE-4DA0-9601-B3D56A79B01B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.TransparentPageSample", "WPF.TransparentPageSample\WPF.TransparentPageSample.csproj", "{45AFA345-DDE4-4DBA-951E-9509BE1264FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransparentWebPage.Wpf", "TransparentWebPage.Wpf\TransparentWebPage.Wpf.csproj", "{45AFA345-DDE4-4DBA-951E-9509BE1264FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZoomSample", "ZoomSample\ZoomSample.csproj", "{D48B18E4-F996-4CA0-9FC4-C1CA355B7F19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zoom", "Zoom\Zoom.csproj", "{D48B18E4-F996-4CA0-9FC4-C1CA355B7F19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStorageSample", "WebStorageSample\WebStorageSample.csproj", "{2B5E51D8-EDC9-4710-8D6C-D1232C075FFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStorage", "WebStorage\WebStorage.csproj", "{2B5E51D8-EDC9-4710-8D6C-D1232C075FFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.KeyboardEventSimulateSample", "WPF.KeyboardEventSimulateSample\WPF.KeyboardEventSimulateSample.csproj", "{7E1F9DC2-B639-441F-97ED-BAE0DE84E8B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardEventSimulation.Wpf", "KeyboardEventSimulation.Wpf\KeyboardEventSimulation.Wpf.csproj", "{7E1F9DC2-B639-441F-97ED-BAE0DE84E8B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.SaveWebPageSample", "WPF.SaveWebPage\WPF.SaveWebPageSample.csproj", "{D0862B7E-0647-4BB5-ADC5-CDB7BBF504FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveWebPage.Wpf", "SaveWebPage.Wpf\SaveWebPage.Wpf.csproj", "{D0862B7E-0647-4BB5-ADC5-CDB7BBF504FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.FindTextSample", "WPF.FindTextSample\WPF.FindTextSample.csproj", "{94489912-48C0-407C-8325-0AFE0C885C51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindText.Wpf", "FindText.Wpf\FindText.Wpf.csproj", "{94489912-48C0-407C-8325-0AFE0C885C51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF.ContextMenuSample", "WPF.ContextMenuSample\WPF.ContextMenuSample.csproj", "{1D9BE0E6-50EB-40DC-9444-FB6351F00A64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.Wpf", "ContextMenu.Wpf\ContextMenu.Wpf.csproj", "{1D9BE0E6-50EB-40DC-9444-FB6351F00A64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForms.ContextMenuSample", "WinForms.ContextMenuSample\WinForms.ContextMenuSample.csproj", "{142C8F5F-F844-4625-8167-52BA548337E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.WinForms", "ContextMenu.WinForms\ContextMenu.WinForms.csproj", "{142C8F5F-F844-4625-8167-52BA548337E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
