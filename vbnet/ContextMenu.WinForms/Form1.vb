@@ -92,8 +92,8 @@ Namespace ContextMenu.WinForms
 			Dim spellCheckMenu As SpellCheckMenu = parameters.SpellCheckMenu
 			If spellCheckMenu IsNot Nothing Then
 				BeginInvoke(New Action(Sub()
-					Dim popupMenu As New ContextMenu()
-					Dim suggestions As IEnumerable(Of String) = spellCheckMenu.DictionarySuggestions
+                                           Dim popupMenu As New Windows.Forms.ContextMenu()
+                                           Dim suggestions As IEnumerable(Of String) = spellCheckMenu.DictionarySuggestions
 					If suggestions IsNot Nothing Then
 						For Each suggestion As String In suggestions
 							popupMenu.MenuItems.Add(BuildMenuItem(suggestion, True, Sub()

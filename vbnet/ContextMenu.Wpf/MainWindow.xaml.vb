@@ -73,9 +73,9 @@ Namespace ContextMenu.Wpf
 		Private Function ShowMenu(ByVal parameters As ContextMenuParameters) As Task(Of ContextMenuResponse)
 			Dim tcs As New TaskCompletionSource(Of ContextMenuResponse)()
 			webView.Dispatcher?.BeginInvoke(New Action(Sub()
-				Dim popupMenu As New ContextMenu()
+                                                           Dim popupMenu As New Controls.ContextMenu()
 
-				If Not String.IsNullOrEmpty(parameters.LinkText) Then
+                                                           If Not String.IsNullOrEmpty(parameters.LinkText) Then
 					popupMenu.Items.Add(BuildMenuItem("Open link in new window", True, Visibility.Visible, Sub()
 						Dim linkURL As String = parameters.LinkUrl
 						Console.WriteLine($"linkURL = {linkURL}")
