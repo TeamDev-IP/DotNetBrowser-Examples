@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 16.0.0.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF.NETCore30", "WPF.NETCore30\WPF.NETCore30.csproj", "{E48617C2-75F2-48A5-92DD-BAFF7D73C7D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.NETCore30", "Wpf.NETCore30\Wpf.NETCore30.csproj", "{E48617C2-75F2-48A5-92DD-BAFF7D73C7D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WinForms.NETCore30", "WinForms.NETCore30\WinForms.NETCore30.csproj", "{CA24C25C-AA78-4469-84D5-CA0791935038}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBrowser.WPF.Demo", "DotNetBrowser.WPF.Demo\DotNetBrowser.WPF.Demo.csproj", "{9EE463AF-76B9-4845-A7A0-0E4EDF9CEBD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Wpf", "Demo.Wpf\Demo.Wpf.csproj", "{9EE463AF-76B9-4845-A7A0-0E4EDF9CEBD1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBrowser.WinForms.Demo", "DotNetBrowser.WinForms.Demo\DotNetBrowser.WinForms.Demo.csproj", "{9A4D0005-2CD1-408D-B442-BD80D60AE4B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.WinForms", "Demo.WinForms\Demo.WinForms.csproj", "{9A4D0005-2CD1-408D-B442-BD80D60AE4B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
