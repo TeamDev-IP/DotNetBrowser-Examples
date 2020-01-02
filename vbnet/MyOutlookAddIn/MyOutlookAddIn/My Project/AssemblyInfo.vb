@@ -9,7 +9,7 @@ Imports System.Security
 <Assembly: AssemblyTitle("MyOutlookAddIn")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("MyOutlookAddIn")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>

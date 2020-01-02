@@ -30,7 +30,7 @@ Imports System.Windows
 <Assembly: AssemblyTitle("WPF.UIAutomationSample")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("TeamDev Ltd.")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("WPF.UIAutomationSample")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>

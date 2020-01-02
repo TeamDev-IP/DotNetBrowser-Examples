@@ -30,7 +30,7 @@ Imports System.Windows
 <Assembly: AssemblyTitle("AjaxCallsFilterSample")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("TeamDev Ltd.")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("AjaxCallsFilterSample")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>

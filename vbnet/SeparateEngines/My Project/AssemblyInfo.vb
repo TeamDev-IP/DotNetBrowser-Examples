@@ -29,7 +29,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("SeparateEnginesSample")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("SeparateEnginesSample")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>

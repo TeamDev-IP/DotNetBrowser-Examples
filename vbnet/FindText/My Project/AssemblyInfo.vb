@@ -29,7 +29,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("FindTextSample")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("TeamDev Ltd.")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("FindTextSample")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>

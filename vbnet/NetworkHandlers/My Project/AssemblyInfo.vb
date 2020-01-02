@@ -29,7 +29,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("NetworkDelegateSample")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("TeamDev Ltd.")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("NetworkDelegateSample")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
