@@ -105,7 +105,7 @@ namespace ContextMenu.WinForms
             {
                 BeginInvoke(new Action(() =>
                 {
-                    ContextMenu popupMenu = new ContextMenu();
+                    System.Windows.Forms.ContextMenu popupMenu = new System.Windows.Forms.ContextMenu();
                     IEnumerable<string> suggestions = spellCheckMenu.DictionarySuggestions;
                     if (suggestions != null)
                     {
