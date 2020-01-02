@@ -25,7 +25,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
-Namespace GetHTML
+Namespace GetHtml
 	Friend Class Program
 		#Region "Methods"
 

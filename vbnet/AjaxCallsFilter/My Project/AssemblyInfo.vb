@@ -27,11 +27,11 @@ Imports System.Windows
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
-<Assembly: AssemblyTitle("AjaxCallsFilterSample")>
+<Assembly: AssemblyTitle("AjaxCallsFilter")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
-<Assembly: AssemblyProduct("AjaxCallsFilterSample")>
+<Assembly: AssemblyProduct("AjaxCallsFilter")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>

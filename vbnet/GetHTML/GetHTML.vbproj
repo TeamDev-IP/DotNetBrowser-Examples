@@ -7,7 +7,7 @@
     <ProjectGuid>{E1D75E04-4876-452D-A789-62F6385013A5}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace></RootNamespace>
-    <AssemblyName>GetHTML</AssemblyName>
+    <AssemblyName>GetHtml</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

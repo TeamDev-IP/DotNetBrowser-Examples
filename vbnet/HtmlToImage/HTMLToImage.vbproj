@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>
     </RootNamespace>
-    <AssemblyName>HTMLToImage</AssemblyName>
+    <AssemblyName>HtmlToImage</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

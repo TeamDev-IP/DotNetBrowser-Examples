@@ -26,11 +26,11 @@ Imports System.Runtime.InteropServices
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
-<Assembly: AssemblyTitle("JavaScriptObjectsSample")>
+<Assembly: AssemblyTitle("JavaScriptObjects")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
-<Assembly: AssemblyProduct("JavaScriptObjectsSample")>
+<Assembly: AssemblyProduct("JavaScriptObjects")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>

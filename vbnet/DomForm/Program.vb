@@ -26,7 +26,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
-Namespace DOMForm
+Namespace DomForm
 	Friend Class Program
 		#Region "Methods"
 

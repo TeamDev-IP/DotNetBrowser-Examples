@@ -27,11 +27,11 @@ Imports System.Windows
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
-<Assembly: AssemblyTitle("WPF.FindTextSample")>
+<Assembly: AssemblyTitle("FindText.Wpf")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
-<Assembly: AssemblyProduct("WPF.FindTextSample")>
+<Assembly: AssemblyProduct("FindText.Wpf")>
 <Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>

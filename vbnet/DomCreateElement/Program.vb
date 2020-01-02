@@ -25,7 +25,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
-Namespace DOMCreateElement
+Namespace DomCreateElement
 	Friend Class Program
 		#Region "Methods"
 

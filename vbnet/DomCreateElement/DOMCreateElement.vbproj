@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>
     </RootNamespace>
-    <AssemblyName>DOMCreateElement</AssemblyName>
+    <AssemblyName>DomCreateElement</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
