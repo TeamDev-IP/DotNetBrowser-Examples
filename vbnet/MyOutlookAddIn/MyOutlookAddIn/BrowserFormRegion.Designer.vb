@@ -1,4 +1,4 @@
-﻿Namespace MyOutlookAddIn
+Namespace MyOutlookAddIn
 	<System.ComponentModel.ToolboxItemAttribute(False)>
 	Partial Friend Class BrowserFormRegion
 		Inherits Microsoft.Office.Tools.Outlook.FormRegionBase

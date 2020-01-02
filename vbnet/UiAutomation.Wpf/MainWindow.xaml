@@ -1,0 +1,21 @@
+﻿<Window x:Class="UiAutomation.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="clr-namespace:DotNetBrowser.WPF;assembly=DotNetBrowser.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="800" Closed="Window_Closed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="199*" />
+            <RowDefinition Height="88*" />
+            <RowDefinition Height="29" />
+        </Grid.RowDefinitions>
+        <wpf:BrowserView Grid.Row="0" Name="BrowserView" />
+        <TextBox Name="TextOutput" Grid.Row="1" VerticalScrollBarVisibility="Auto" />
+        <Button Grid.Row="2" Name="Button"
+                Content="Access DotNetBrowser contents via UI Automation"
+                Click="Button_Click" />
+    </Grid>
+</Window>
