@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -31,6 +31,9 @@ using Condition = System.Windows.Automation.Condition;
 
 namespace UiAutomation.Wpf
 {
+    /// <summary>
+    ///     The sample demonstrates how to use automation with DotNetBrowser.
+    /// </summary>
     public partial class MainWindow : Window
     {
         private IBrowser browser;
@@ -43,19 +46,19 @@ namespace UiAutomation.Wpf
             try
             {
                 Task.Run(() =>
-                    {
-                        engine = EngineFactory.Create(new EngineOptions.Builder
-                        {
-                            RenderingMode = RenderingMode.HardwareAccelerated,
-                            ChromiumSwitches = {"--force-renderer-accessibility"}
-                        }.Build());
-                        browser = engine.CreateBrowser();
-                    })
+                     {
+                         engine = EngineFactory.Create(new EngineOptions.Builder
+                         {
+                             RenderingMode = RenderingMode.HardwareAccelerated,
+                             ChromiumSwitches = {"--force-renderer-accessibility"}
+                         }.Build());
+                         browser = engine.CreateBrowser();
+                     })
                     .ContinueWith(t =>
-                    {
-                        BrowserView.InitializeFrom(browser);
-                        browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                     {
+                         BrowserView.InitializeFrom(browser);
+                         browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
+                     }, TaskScheduler.FromCurrentSynchronizationContext());
 
                 InitializeComponent();
             }
@@ -98,7 +101,7 @@ namespace UiAutomation.Wpf
                     {
                         Log("ProgrammaticName: " + pattern.ProgrammaticName);
                         Log("\tPattern Name: " + Automation.PatternName(pattern));
-                        var currentPattern = chromiumElement.GetCurrentPattern(pattern);
+                        object currentPattern = chromiumElement.GetCurrentPattern(pattern);
                         Log("\tPattern Value: " + currentPattern);
                         if (currentPattern is ValuePattern)
                         {
@@ -108,8 +111,7 @@ namespace UiAutomation.Wpf
                         }
                     }
 
-                    var children = chromiumElement.FindAll(
-                                                           TreeScope.Descendants,
+                    var children = chromiumElement.FindAll(TreeScope.Descendants,
                                                            Condition.TrueCondition);
                     Log("-- Element Children --");
                     Log("Children count: " + children.Count);
@@ -133,28 +135,23 @@ namespace UiAutomation.Wpf
                 {
                     return null;
                 }
+
                 Condition conditions =
-                    new AndCondition(
-                                     new PropertyCondition(
-                                                           AutomationElement.ClassNameProperty,
+                    new AndCondition(new PropertyCondition(AutomationElement.ClassNameProperty,
                                                            "Chrome_RenderWidgetHostHWND"),
-                                     new PropertyCondition(
-                                                           AutomationElement.ControlTypeProperty,
+                                     new PropertyCondition(AutomationElement.ControlTypeProperty,
                                                            ControlType.Document)
-                                    );
-                element = rootElement.FindFirst(
-                                                TreeScope.Descendants,
-                                                conditions);
+                                     );
+                element = rootElement
+                   .FindFirst(TreeScope.Descendants, conditions);
             }
+
             return element;
         }
 
         private void Log(string text)
         {
-            Dispatcher.BeginInvoke(
-                                   (Action) (
-                                                () => TextOutput.AppendText(text + Environment.NewLine))
-                                  );
+            Dispatcher?.BeginInvoke((Action) (() => TextOutput.AppendText(text + Environment.NewLine)));
         }
 
         private void Window_Closed(object sender, EventArgs e)

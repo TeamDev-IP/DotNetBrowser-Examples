@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -26,14 +26,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using DotNetBrowser.Browser;
-using DotNetBrowser.ContextMenu;
+using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 
 namespace ContextMenu.Wpf
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     The sample demonstrates how to create a context menu
+    ///     for a Browser instance.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -45,17 +46,22 @@ namespace ContextMenu.Wpf
         public MainWindow()
         {
             Task.Run(() =>
-                {
-                    engine = EngineFactory.Create(new EngineOptions.Builder {RenderingMode = RenderingMode.OffScreen}
-                                                      .Build());
-                    browser = engine.CreateBrowser();
-                })
+                 {
+                     engine = EngineFactory
+                        .Create(new EngineOptions.Builder
+                                    {
+                                        RenderingMode = RenderingMode.OffScreen
+                                    }
+                                   .Build());
+                     browser = engine.CreateBrowser();
+                 })
                 .ContinueWith(t =>
-                {
-                    webView.InitializeFrom(browser);
-                    browser.ContextMenuHandler = new AsyncHandler<ContextMenuParameters, ContextMenuResponse>(ShowMenu);
-                    browser.Navigation.LoadUrl("https://www.google.com/");
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                 {
+                     WebView.InitializeFrom(browser);
+                     browser.ShowContextMenuHandler =
+                         new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse>(ShowContextMenu);
+                     browser.Navigation.LoadUrl("https://www.google.com/");
+                 }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }
@@ -64,33 +70,36 @@ namespace ContextMenu.Wpf
 
         #region Methods
 
-        private MenuItem BuildMenuItem(string item, bool isEnabled, Visibility IsVisible,
+        private MenuItem BuildMenuItem(string item, bool isEnabled, Visibility isVisible,
                                        RoutedEventHandler clickHandler)
         {
-            MenuItem result = new MenuItem();
-            result.Header = item;
-            result.Visibility = Visibility.Collapsed;
-            result.Visibility = IsVisible;
+            MenuItem result = new MenuItem
+            {
+                Header = item,
+                Visibility = Visibility.Collapsed
+            };
+            result.Visibility = isVisible;
             result.IsEnabled = isEnabled;
             result.Click += clickHandler;
 
             return result;
         }
 
-        private Task<ContextMenuResponse> ShowMenu(ContextMenuParameters parameters)
+        private Task<ShowContextMenuResponse> ShowContextMenu(ShowContextMenuParameters parameters)
         {
-            TaskCompletionSource<ContextMenuResponse> tcs = new TaskCompletionSource<ContextMenuResponse>();
-            webView.Dispatcher?.BeginInvoke(new Action(() =>
+            TaskCompletionSource<ShowContextMenuResponse> tcs = new TaskCompletionSource<ShowContextMenuResponse>();
+            WebView.Dispatcher?.BeginInvoke(new Action(() =>
             {
                 System.Windows.Controls.ContextMenu popupMenu = new System.Windows.Controls.ContextMenu();
 
                 if (!string.IsNullOrEmpty(parameters.LinkText))
                 {
-                    popupMenu.Items.Add(BuildMenuItem("Open link in new window", true, Visibility.Visible, delegate
+                    popupMenu.Items.Add(BuildMenuItem("Show the URL link", true, Visibility.Visible, delegate
                     {
                         string linkURL = parameters.LinkUrl;
                         Console.WriteLine($"linkURL = {linkURL}");
-                        tcs.TrySetResult(ContextMenuResponse.Close());
+                        MessageBox.Show(linkURL, "URL");
+                        tcs.TrySetResult(ShowContextMenuResponse.Close());
                     }));
                 }
 
@@ -98,9 +107,9 @@ namespace ContextMenu.Wpf
                 {
                     Console.WriteLine("Reload current web page");
                     browser.Navigation.Reload();
-                    tcs.TrySetResult(ContextMenuResponse.Close());
+                    tcs.TrySetResult(ShowContextMenuResponse.Close());
                 }));
-                popupMenu.Closed += (sender, args) => { tcs.TrySetResult(ContextMenuResponse.Close()); };
+                popupMenu.Closed += (sender, args) => { tcs.TrySetResult(ShowContextMenuResponse.Close()); };
                 popupMenu.IsOpen = true;
             }));
             return tcs.Task;

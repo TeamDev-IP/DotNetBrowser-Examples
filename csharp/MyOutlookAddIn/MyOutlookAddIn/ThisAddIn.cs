@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -21,28 +21,24 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using DotNetBrowser.Logging;
-using Outlook = Microsoft.Office.Interop.Outlook;
 using Office = Microsoft.Office.Core;
 
 namespace MyOutlookAddIn
 {
     public partial class ThisAddIn
     {
-        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        private void ThisAddIn_Startup(object sender, EventArgs e)
         {
             LoggerProvider.Instance.Level = SourceLevels.Verbose;
             LoggerProvider.Instance.FileLoggingEnabled = true;
-            LoggerProvider.Instance.OutputFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DotNetBrowser.log");
+            LoggerProvider.Instance.OutputFile =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "DotNetBrowser.log");
         }
 
-        private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
+        private void ThisAddIn_Shutdown(object sender, EventArgs e)
         {
             // Note: Outlook no longer raises this event. If you have code that 
             //    must run when Outlook shuts down, see https://go.microsoft.com/fwlink/?LinkId=506785
@@ -51,15 +47,15 @@ namespace MyOutlookAddIn
         #region VSTO generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        ///     Required method for Designer support - do not modify
+        ///     the contents of this method with the code editor.
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(ThisAddIn_Startup);
-            this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
+            Startup += ThisAddIn_Startup;
+            Shutdown += ThisAddIn_Shutdown;
         }
-        
+
         #endregion
     }
 }

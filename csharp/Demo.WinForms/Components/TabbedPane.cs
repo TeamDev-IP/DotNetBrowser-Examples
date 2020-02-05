@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -34,6 +34,16 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private readonly List<Tab> tabs = new List<Tab>();
         private Tab selectedTab;
 
+        #region Constructors
+
+        public TabbedPane()
+        {
+            InitializeComponent();
+            AddTab(new Tab());
+        }
+
+        #endregion
+
         #region Properties
 
         public RenderingMode RenderingMode { get; set; }
@@ -49,18 +59,9 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     DeselectTab(selectedTab);
                     SelectTab(value);
                 }
+
                 selectedTab = value;
             }
-        }
-
-        #endregion
-
-        #region Constructors
-
-        public TabbedPane()
-        {
-            InitializeComponent();
-            AddTab(new Tab());
         }
 
         #endregion
@@ -98,7 +99,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             AddTab(tab);
             Task.Run(() => Engine?.CreateBrowser())
                 .ContinueWith(t => { tab.Contents.Browser = t.Result; },
-                              TaskScheduler.FromCurrentSynchronizationContext());
+                    TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void captions_Resize(object sender, EventArgs e)
@@ -155,6 +156,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 return;
             }
+
             int paddings = count * 25 + 37;
             int width = (Width - paddings) / count;
 

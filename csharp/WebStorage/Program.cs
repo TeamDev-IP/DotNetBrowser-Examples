@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -24,7 +24,7 @@ using System;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Frames;
-using DotNetBrowser.JS;
+using DotNetBrowser.Js;
 
 namespace WebStorage
 {
@@ -48,16 +48,16 @@ namespace WebStorage
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame.LoadHtml(new LoadHtmlParameters(
-                                                                          "<html><body>"
-                                                                          + "<script>localStorage.myKey = \"Initial Value\";"
-                                                                          + "function myFunction(){return localStorage.myKey;}"
-                                                                          + "</script></body></html>"
-                                                                           )
-                            {
-                                BaseUrl = "http://teamdev.com",
-                                Replace = true
-                            })
+                        browser.MainFrame
+                               .LoadHtml(new LoadHtmlParameters("<html><body>"
+                                                                + "<script>localStorage.myKey = \"Initial Value\";"
+                                                                + "function myFunction(){return localStorage.myKey;}"
+                                                                + "</script></body></html>"
+                                                                )
+                                {
+                                    BaseUrl = "https://teamdev.com",
+                                    Replace = true
+                                })
                                .Wait();
                         IWebStorage webStorage = browser.MainFrame.LocalStorage;
                         // Read and display the 'myKey' storage value.
@@ -74,6 +74,7 @@ namespace WebStorage
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

@@ -20,44 +20,46 @@
 
 #endregion
 
-using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using System.Windows;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 
-namespace ExecuteJavaScript
+namespace NETCore30.Wpf
 {
-    internal class Program
+    /// <summary>
+    ///     Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        #region Methods
+        private IBrowser browser;
+        private IEngine engine;
 
-        public static void Main()
+        public MainWindow()
         {
-            try
-            {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
+            Task.Run(() =>
                 {
-                    Console.WriteLine("Engine created");
+                    engine = EngineFactory.Create(new EngineOptions.Builder
+                        {
+                            RenderingMode = RenderingMode.HardwareAccelerated
+                        }
+                        .Build());
+                    browser = engine.CreateBrowser();
+                })
+                .ContinueWith(t =>
+                {
+                    WebView.InitializeFrom(browser);
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/");
+                }, TaskScheduler.FromCurrentSynchronizationContext());
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-
-                        browser.Navigation.LoadUrl("https://www.google.com").Wait();
-                        // Execute JavaScript code and get return value from JavaScript.
-                        string title = browser.MainFrame.ExecuteJavaScript<string>("document.title").Result;
-                        Console.Out.WriteLine($"The \"document.title\" JavaScript code returns \"{title}\"");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            Console.WriteLine("Press any key to terminate...");
-            Console.ReadKey();
+            InitializeComponent();
         }
 
-        #endregion
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            browser.Dispose();
+            engine.Dispose();
+        }
     }
 }

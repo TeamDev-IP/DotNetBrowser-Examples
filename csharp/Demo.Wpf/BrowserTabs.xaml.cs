@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -25,13 +25,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using DotNetBrowser.Downloads;
 using DotNetBrowser.Engine;
-using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
-using DotNetBrowser.WPF.Dialogs;
+using DotNetBrowser.Wpf.Dialogs;
 
-namespace DotNetBrowser.WPF.Demo
+namespace Demo.Wpf
 {
     /// <inheritdoc cref="TabControl" />
     /// <summary>
@@ -87,8 +85,8 @@ namespace DotNetBrowser.WPF.Demo
                 {
                     RenderingMode = renderingMode
                 }.Build());
-                engine.DownloadService.StartDownloadHandler = new DefaultStartDownloadHandler(this);
-                engine.NetworkService.AuthenticationHandler = new DefaultAuthenticationHandler(this);
+                engine.Downloads.StartDownloadHandler = new DefaultStartDownloadHandler(this);
+                engine.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
                 engine.Disposed += (sender, args) =>
                 {
                     if (args.ExitCode != 0)

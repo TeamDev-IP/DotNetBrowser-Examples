@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -20,18 +20,16 @@
 
 #endregion
 
-using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
-using DotNetBrowser.Search;
 
 namespace FindText.Wpf
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     This example demonstrates how to find text on the loaded web page.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -43,17 +41,19 @@ namespace FindText.Wpf
         public MainWindow()
         {
             Task.Run(() =>
-                {
-                    engine = EngineFactory.Create(new EngineOptions.Builder {RenderingMode = RenderingMode.OffScreen}
+                 {
+                     engine = EngineFactory.Create(new EngineOptions.Builder
+                                                       {
+                                                           RenderingMode = RenderingMode.OffScreen
+                                                       }
                                                       .Build());
-                    browser = engine.CreateBrowser();
-                })
+                     browser = engine.CreateBrowser();
+                 })
                 .ContinueWith(t =>
-                {
-                    browserView.InitializeFrom(browser);
-
-                    browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                 {
+                     browserView.InitializeFrom(browser);
+                     browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
+                 }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }
@@ -70,15 +70,16 @@ namespace FindText.Wpf
 
         private void findButton_Click(object sender, RoutedEventArgs e)
         {
-            if (textBox.Text != string.Empty)
+            if (!string.IsNullOrEmpty(textBox.Text))
             {
-                browser.TextFinder.Find(textBox.Text).ContinueWith((t) =>
-                {
-                    if (t.Result.NumberOfMatches == 0)
-                    {
-                        MessageBox.Show("No matches!");
-                    }
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                browser.TextFinder.Find(textBox.Text)
+                       .ContinueWith(t =>
+                        {
+                            if (t.Result.NumberOfMatches == 0)
+                            {
+                                MessageBox.Show("No matches!");
+                            }
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 

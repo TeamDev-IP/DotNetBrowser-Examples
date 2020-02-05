@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,18 +28,18 @@ using System.Windows;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Input.Keyboard;
+using DotNetBrowser.Input.Keyboard.Events;
 using DotNetBrowser.Navigation;
-using DotNetBrowser.WPF;
+using DotNetBrowser.Wpf;
 
 namespace KeyboardEventSimulation.Wpf
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     This example demonstrates how to simulate keypress.
     /// </summary>
     public partial class MainWindow : Window
     {
         private IBrowser browser;
-        private BrowserView browserView;
         private IEngine engine;
 
         #region Constructors
@@ -49,31 +49,31 @@ namespace KeyboardEventSimulation.Wpf
             try
             {
                 Task.Run(() =>
-                    {
-                        engine = EngineFactory.Create(new EngineOptions.Builder
- {
-                                                              RenderingMode = RenderingMode.OffScreen
-                                                          }
+                     {
+                         engine = EngineFactory.Create(new EngineOptions.Builder
+                                                           {
+                                                               RenderingMode = RenderingMode.OffScreen
+                                                           }
                                                           .Build());
-                        browser = engine.CreateBrowser();
-                    })
+
+                         browser = engine.CreateBrowser();
+                     })
                     .ContinueWith(t =>
-                    {
-                        browserView = new BrowserView();
-                        // Embed BrowserView component into main layout.
-                        mainLayout.Children.Add(browserView);
-
-                        browserView.InitializeFrom(browser);
-
-                        browser.MainFrame.LoadHtml(@"<html>
+                     {
+                         BrowserView browserView = new BrowserView();
+                         // Embed BrowserView component into main layout.
+                         MainLayout.Children.Add(browserView);
+                         browserView.InitializeFrom(browser);
+                         browser.MainFrame
+                                .LoadHtml(@"<html>
                                             <body>
                                                 <input type='text' autofocus></input>
                                             </body>
                                            </html>")
-                               .ContinueWith(SimulateInput);
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                                .ContinueWith(SimulateInput);
+                     }, TaskScheduler.FromCurrentSynchronizationContext());
 
-                // Initialize WPF Application UI.
+                // Initialize Wpf Application UI.
                 InitializeComponent();
             }
             catch (Exception exception)
@@ -102,25 +102,25 @@ namespace KeyboardEventSimulation.Wpf
 
         private static void SimulateKey(IKeyboard keyboard, KeyCode key, string keyChar)
         {
-            KeyDownEventArgs keyDownEventArgs = new KeyDownEventArgs
+            KeyPressedEventArgs keyDownEventArgs = new KeyPressedEventArgs
             {
                 KeyChar = keyChar,
                 VirtualKey = key
             };
 
-            KeyPressEventArgs keyPressEventArgs = new KeyPressEventArgs
+            KeyTypedEventArgs keyPressEventArgs = new KeyTypedEventArgs
             {
                 KeyChar = keyChar,
                 VirtualKey = key
             };
-            KeyUpEventArgs keyUpEventArgs = new KeyUpEventArgs
+            KeyReleasedEventArgs keyUpEventArgs = new KeyReleasedEventArgs
             {
                 VirtualKey = key
             };
 
-            keyboard.KeyDown.Raise(keyDownEventArgs);
-            keyboard.KeyPress.Raise(keyPressEventArgs);
-            keyboard.KeyUp.Raise(keyUpEventArgs);
+            keyboard.KeyPressed.Raise(keyDownEventArgs);
+            keyboard.KeyTyped.Raise(keyPressEventArgs);
+            keyboard.KeyReleased.Raise(keyUpEventArgs);
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)

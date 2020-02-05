@@ -1,4 +1,4 @@
-﻿namespace WinForms.NETCore30
+﻿namespace NETCore30.WinForms
 {
     partial class Form1
     {

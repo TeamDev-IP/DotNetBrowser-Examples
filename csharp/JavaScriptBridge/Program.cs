@@ -26,11 +26,15 @@ using System.Diagnostics;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Geometry;
-using DotNetBrowser.JS;
+using DotNetBrowser.Js;
 using DotNetBrowser.Logging;
 
 namespace JavaScriptBridge
 {
+    /// <summary>
+    ///     This example demonstrates how to inject a .Net object into JavaScript and tell JavaScript
+    ///     which public methods of the injected .Net object JavaScript can invoke.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -55,15 +59,21 @@ namespace JavaScriptBridge
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
                                             {
-                                                 document.title = a.get_FullName() + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
-                                                                + ' ' + a.get_Children().get_Item(1).get_FullName() + ' ' + a.get_Children().get_Item(1).get_Age();
+                                                 document.title = a.get_FullName() 
+                                                                + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
+                                                                + ' ' + a.get_Children().get_Item(1).get_FullName() 
+                                                                + ' ' + a.get_Children().get_Item(1).get_Age();
                                             };
                                         </script>
                                      </body>
                                    </html>")
                                .Wait();
-                        var person = new Person("Jack", 30, true);
-                        person.Children = new Dictionary<double, Person>();
+
+                        Person person = new Person("Jack", 30, true)
+                        {
+                            Children = new Dictionary<double, Person>()
+                        };
+
                         person.Children.Add(1.0, new Person("Oliver", 10, true));
                         IJsObject value = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
                         value.Invoke("ShowData", person);
@@ -90,6 +100,7 @@ namespace JavaScriptBridge
             public double Age { get; }
 
             public IDictionary<double, Person> Children { get; set; }
+
             public string FullName { get; }
 
             public bool Gender { get; }
@@ -110,7 +121,7 @@ namespace JavaScriptBridge
             #region Methods
 
             public string Walk(Person withPerson)
-                => string.Format("{0} is walking with {1}!", Gender ? "He" : "She", withPerson.FullName);
+                => $"{(Gender ? "He" : "She")} is walking with {withPerson.FullName}!";
 
             #endregion
         }

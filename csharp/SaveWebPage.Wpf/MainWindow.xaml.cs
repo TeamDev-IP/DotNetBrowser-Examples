@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -27,18 +27,17 @@ using System.Windows;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Navigation;
-using DotNetBrowser.WPF;
+using DotNetBrowser.Wpf;
 
 namespace WPF.SaveWebPage
 {
     /// <summary>
-    ///     Demonstrates how to embed WPF BrowserView component into WPF Application,
-    ///     load and display HTML content from string.
+    ///     Demonstrates how to embed Wpf BrowserView component into Wpf Application,
+    ///     load and display Html content from string.
     /// </summary>
     public partial class MainWindow : Window
     {
         private IBrowser browser;
-        private BrowserView browserView;
         private IEngine engine;
 
         #region Constructors
@@ -46,23 +45,27 @@ namespace WPF.SaveWebPage
         public MainWindow()
         {
             Task.Run(() =>
-                {
-                    engine = EngineFactory.Create(new EngineOptions.Builder {RenderingMode = RenderingMode.OffScreen}
+                 {
+                     engine = EngineFactory.Create(new EngineOptions.Builder
+                                                       {
+                                                           RenderingMode = RenderingMode.OffScreen
+                                                       }
                                                       .Build());
-                    browser = engine.CreateBrowser();
-                })
+
+                     browser = engine.CreateBrowser();
+                 })
                 .ContinueWith(t =>
-                {
-                    // Create WPF BrowserView component.
-                    browserView = new BrowserView();
-                    // Embed BrowserView component into main layout.
-                    mainLayout.Children.Add(browserView);
+                 {
+                     // Create WPF BrowserView component.
+                     BrowserView browserView = new BrowserView();
+                     // Embed BrowserView component into main layout.
+                     mainLayout.Children.Add(browserView);
 
-                    browserView.InitializeFrom(browser);
+                     browserView.InitializeFrom(browser);
 
-                    browser.Navigation.LoadUrl("https://www.teamdev.com/")
-                           .ContinueWith(SaveWebPage);
-                }, TaskScheduler.FromCurrentSynchronizationContext());
+                     browser.Navigation.LoadUrl("https://www.teamdev.com/")
+                            .ContinueWith(SaveWebPage);
+                 }, TaskScheduler.FromCurrentSynchronizationContext());
             // Initialize WPF Application UI.
             InitializeComponent();
         }

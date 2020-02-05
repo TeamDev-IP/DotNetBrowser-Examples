@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -27,6 +27,9 @@ using DotNetBrowser.Engine;
 
 namespace DomCreateElement
 {
+    /// <summary>
+    ///     This example demonstrates how to create a DOM element.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -43,8 +46,7 @@ namespace DomCreateElement
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>")
-                               .Wait();
+                        browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>").Wait();
                         Console.WriteLine("Initial HTML: " + browser.MainFrame.Html);
                         IDocument document = browser.MainFrame.Document;
 
@@ -62,6 +64,7 @@ namespace DomCreateElement
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

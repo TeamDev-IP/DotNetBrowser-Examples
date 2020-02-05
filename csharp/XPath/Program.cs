@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,6 +29,10 @@ using DotNetBrowser.Geometry;
 
 namespace XPath
 {
+    /// <summary>
+    ///     The sample demonstrates how to evaluate a DOM HTML document
+    ///     and get an XPath result.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -46,18 +50,17 @@ namespace XPath
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(1024, 768);
 
-                        browser.Navigation.LoadUrl("http://www.teamdev.com/dotnetbrowser").Wait();
+                        browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait();
                         IDocument document = browser.MainFrame.Document;
-
-
-                        var expression = "count(//div)";
+                        
+                        string expression = "count(//div)";
                         Console.WriteLine($"Evaluating \'{expression}\'");
                         IXPathResult result = document.Evaluate(expression);
                         // If the expression is not a valid XPath expression or the document
                         // element is not available, we'll get an error.
-                        if (result.IsError)
+                        if (result.Type == XPathResultType.Unspecified)
                         {
-                            Console.WriteLine("Error: " + result.ErrorMessage);
+                            Console.WriteLine("The evaluation error occurred");
                             return;
                         }
 
@@ -73,6 +76,7 @@ namespace XPath
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

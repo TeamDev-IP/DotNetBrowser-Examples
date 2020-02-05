@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -47,7 +47,7 @@ namespace GetSelectedText
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        browser.Navigation.LoadUrl("http://www.teamdev.com").Wait();
+                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
 
                         browser.MainFrame.Execute(EditorCommand.SelectAll());
 
@@ -62,6 +62,7 @@ namespace GetSelectedText
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

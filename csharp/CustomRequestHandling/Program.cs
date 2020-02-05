@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -21,15 +21,19 @@
 #endregion
 
 using System;
-using System.Net;
 using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation;
 using DotNetBrowser.Net;
+using DotNetBrowser.Net.Handlers;
 
 namespace CustomRequestHandling
 {
+    /// <summary>
+    ///     This example demonstrates how to intercept all URL requests and handle a custom protocol.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -42,7 +46,9 @@ namespace CustomRequestHandling
                 {
                     Console.WriteLine("Engine created");
 
-                    engine.NetworkService.UrlRequestHandler = new CustomUrlRequestHandler();
+                    engine.Network.InterceptRequestHandler =
+                        new Handler<InterceptRequestParameters, InterceptRequestResponse>(OnInterceptRequest);
+
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
@@ -56,33 +62,28 @@ namespace CustomRequestHandling
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        #endregion
-
-        private class CustomUrlRequestHandler : IUrlRequestHandler
+        private static InterceptRequestResponse OnInterceptRequest(InterceptRequestParameters parameters)
         {
-            #region Methods
-
-            public void HandleRequest(IInterceptedUrlRequest interceptedRequest)
+            // If URL protocol equals to the custom "myscheme" protocol, then intercept this
+            // request and reply with a custom response.
+            if (parameters.UrlRequest.Url.StartsWith("myscheme"))
             {
-                Console.WriteLine("Intercepted request to URL:" + interceptedRequest.UrlRequest.Url);
-                interceptedRequest.Write(Encoding.UTF8.GetBytes("Hello world!"));
-                interceptedRequest.Complete();
+                Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url);
+                UrlRequestJob urlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest);
+                urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"));
+                urlRequestJob.Complete();
+                return InterceptRequestResponse.Intercept(urlRequestJob);
             }
 
-            public InterceptUrlRequestResult InterceptRequest(UrlRequestData request)
-            {
-                if (request.Request.Url.StartsWith("myscheme"))
-                {
-                    return InterceptUrlRequestResult.Intercept(HttpStatusCode.OK);
-                }
-                return InterceptUrlRequestResult.Continue();
-            }
-
-            #endregion
+            // Otherwise proceed the request using default behavior.
+            return InterceptRequestResponse.Proceed();
         }
+
+        #endregion
     }
 }

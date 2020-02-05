@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,6 +29,9 @@ using DotNetBrowser.Geometry;
 
 namespace DomGetElements
 {
+    /// <summary>
+    ///     This example demonstrates how to get the list of specified HTML elements.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -45,7 +48,7 @@ namespace DomGetElements
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.Navigation.LoadUrl("http://www.google.com")
+                        browser.Navigation.LoadUrl("https://www.google.com")
                                .Wait();
                         IDocument document = browser.MainFrame.Document;
                         IEnumerable<INode> divs = document.GetElementsByTagName("div");
@@ -55,13 +58,17 @@ namespace DomGetElements
                             {
                                 Rectangle boundingClientRect = divElement.BoundingClientRect;
                                 Console
-                                    .Out.WriteLine(@"class = {0}; boundingClientRect.Top = {1}; boundingClientRect.Left = {2}; boundingClientRect.Width = {3}; boundingClientRect.Height = {4}"
-                                                   , divElement.Attributes["class"]
-                                                   , boundingClientRect.OriginPoint.Y
-                                                   , boundingClientRect.OriginPoint.X
-                                                   , boundingClientRect.Size.Width
-                                                   , boundingClientRect.Size.Height
-                                                  );
+                                   .Out.WriteLine(@"class = {0};"
+                                                + " boundingClientRect.Top = {1};"
+                                                + " boundingClientRect.Left = {2};"
+                                                + " boundingClientRect.Width = {3};"
+                                                + " boundingClientRect.Height = {4}"
+                                                , divElement.Attributes["class"]
+                                                , boundingClientRect.Origin.Y
+                                                , boundingClientRect.Origin.X
+                                                , boundingClientRect.Size.Width
+                                                , boundingClientRect.Size.Height
+                                                 );
                             }
                         }
                     }
@@ -71,6 +78,7 @@ namespace DomGetElements
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

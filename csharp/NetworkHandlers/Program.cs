@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -31,6 +31,10 @@ using DotNetBrowser.Net.Handlers;
 
 namespace NetworkHandlers
 {
+    /// <summary>
+    ///     This example demonstrates how to intercept a URL request and override the response data in the
+    ///     separate thread.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -45,13 +49,13 @@ namespace NetworkHandlers
 
                     using (IBrowser browser = engine.CreateBrowser())
                     {
-                        engine.NetworkService.BeforeUrlRequestHandler =
-                            new Handler<BeforeUrlRequestParameters, BeforeUrlRequestResponse>(OnBeforeURLRequest);
-                        engine.NetworkService.BeforeSendHeadersHandler =
-                            new Handler<BeforeSendHeadersParameters, BeforeSendHeadersResponse>(OnBeforeSendHeaders);
+                        engine.Network.SendUrlRequestHandler =
+                            new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(OnSendUrlRequest);
+                        engine.Network.SendHeadersHandler =
+                            new Handler<SendHeadersParameters, SendHeadersResponse>(OnSendHeaders);
 
-                        Console.WriteLine("Loading http://www.teamdev.com/");
-                        browser.Navigation.LoadUrl("http://www.teamdev.com/").Wait();
+                        Console.WriteLine("Loading https://www.teamdev.com/");
+                        browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait();
                         Console.WriteLine($"Loaded URL: {browser.Url}");
                     }
                 }
@@ -60,31 +64,34 @@ namespace NetworkHandlers
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        public static BeforeSendHeadersResponse OnBeforeSendHeaders(BeforeSendHeadersParameters parameters)
+        public static SendHeadersResponse OnSendHeaders(SendHeadersParameters parameters)
         {
             // If navigate to google.com, then print User-Agent header value.
-            if (parameters.UrlRequest.Url == "http://www.google.com/")
+            if (parameters.UrlRequest.Url == "https://www.google.com/")
             {
                 IEnumerable<IHttpHeader> headers = parameters.Headers;
                 Console.WriteLine("User-Agent: "
                                   + headers.FirstOrDefault(h => h.Name.Equals("User-Agent"))?.Values.FirstOrDefault());
             }
-            return BeforeSendHeadersResponse.Ignore();
+
+            return SendHeadersResponse.Continue();
         }
 
-        public static BeforeUrlRequestResponse OnBeforeURLRequest(BeforeUrlRequestParameters parameters)
+        public static SendUrlRequestResponse OnSendUrlRequest(SendUrlRequestParameters parameters)
         {
             // If navigate to teamdev.com, then change URL to google.com.
-            if (parameters.UrlRequest.Url == "http://www.teamdev.com/")
+            if (parameters.UrlRequest.Url == "https://www.teamdev.com/")
             {
-                Console.WriteLine("Redirecting to  http://www.google.com/");
-                return BeforeUrlRequestResponse.Redirect("http://www.google.com");
+                Console.WriteLine("Redirecting to  https://www.google.com/");
+                return SendUrlRequestResponse.Override("https://www.google.com");
             }
-            return BeforeUrlRequestResponse.Ignore();
+
+            return SendUrlRequestResponse.Continue();
         }
 
         #endregion
