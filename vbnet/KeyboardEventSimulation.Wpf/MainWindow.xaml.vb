@@ -29,88 +29,86 @@ Imports DotNetBrowser.Input.Keyboard.Events
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Wpf
 
-Namespace KeyboardEventSimulation.Wpf
-    ''' <summary>
-    '''     Interaction logic for MainWindow.xaml
-    ''' </summary>
-    Partial Public Class MainWindow
-        Inherits Window
+''' <summary>
+'''     Interaction logic for MainWindow.xaml
+''' </summary>
+Partial Public Class MainWindow
+    Inherits Window
 
-        Private browser As IBrowser
-        Private browserView As BrowserView
-        Private engine As IEngine
+    Private browser As IBrowser
+    Private browserView As BrowserView
+    Private engine As IEngine
 
 #Region "Constructors"
 
-        Public Sub New()
-            Try
-                Task.Run(Sub()
-                    engine =
-                            EngineFactory.Create(
-                                New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-                    browser = engine.CreateBrowser()
-                End Sub).ContinueWith(Sub(t)
-                    browserView = New BrowserView()
-                    ' Embed BrowserView component into main layout.
-                    mainLayout.Children.Add(browserView)
+    Public Sub New()
+        Try
+            Task.Run(Sub()
+                engine =
+                        EngineFactory.Create(
+                            New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+                browser = engine.CreateBrowser()
+            End Sub).ContinueWith(Sub(t)
+                browserView = New BrowserView()
+                ' Embed BrowserView component into main layout.
+                mainLayout.Children.Add(browserView)
 
-                    browserView.InitializeFrom(browser)
+                browserView.InitializeFrom(browser)
 
-                    browser.MainFrame.LoadHtml(
-                        "<html>
+                browser.MainFrame.LoadHtml(
+                    "<html>
                                             <body>
                                                 <input type='text' autofocus></input>
                                             </body>
                                            </html>") _
-                                         .ContinueWith(AddressOf SimulateInput)
-                End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+                                     .ContinueWith(AddressOf SimulateInput)
+            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-                ' Initialize WPF Application UI.
-                InitializeComponent()
-            Catch exception As Exception
-                Debug.WriteLine(exception)
-            End Try
-        End Sub
+            ' Initialize WPF Application UI.
+            InitializeComponent()
+        Catch exception As Exception
+            Debug.WriteLine(exception)
+        End Try
+    End Sub
 
 #End Region
 
 #Region "Methods"
 
-        Private Async Sub SimulateInput(e As Task(Of LoadResult))
-            If e.Result = LoadResult.Completed Then
-                Await Task.Delay(2000)
-                Dim keyboard As IKeyboard = browser.Keyboard
-                SimulateKey(keyboard, KeyCode.VkH, "H")
-                SimulateKey(keyboard, KeyCode.VkE, "e")
-                SimulateKey(keyboard, KeyCode.VkL, "l")
-                SimulateKey(keyboard, KeyCode.VkL, "l")
-                SimulateKey(keyboard, KeyCode.VkO, "o")
-            End If
-        End Sub
+    Private Async Sub SimulateInput(e As Task(Of LoadResult))
+        If e.Result = LoadResult.Completed Then
+            Await Task.Delay(2000)
+            Dim keyboard As IKeyboard = browser.Keyboard
+            SimulateKey(keyboard, KeyCode.VkH, "H")
+            SimulateKey(keyboard, KeyCode.VkE, "e")
+            SimulateKey(keyboard, KeyCode.VkL, "l")
+            SimulateKey(keyboard, KeyCode.VkL, "l")
+            SimulateKey(keyboard, KeyCode.VkO, "o")
+        End If
+    End Sub
 
-        Private Shared Sub SimulateKey(keyboard As IKeyboard, key As KeyCode, keyChar As String)
-            Dim keyPressedEventArgs = New KeyPressedEventArgs With {
-                    .KeyChar = keyChar,
-                    .VirtualKey = key
-                    }
+    Private Shared Sub SimulateKey(keyboard As IKeyboard, key As KeyCode, keyChar As String)
+        Dim keyPressedEventArgs = New KeyPressedEventArgs With {
+                .KeyChar = keyChar,
+                .VirtualKey = key
+                }
 
-            Dim keyTypedEventArgs = New KeyTypedEventArgs With {
-                    .KeyChar = keyChar,
-                    .VirtualKey = key
-                    }
-            Dim keyReleasedEventArgs = New KeyReleasedEventArgs With {.VirtualKey = key}
+        Dim keyTypedEventArgs = New KeyTypedEventArgs With {
+                .KeyChar = keyChar,
+                .VirtualKey = key
+                }
+        Dim keyReleasedEventArgs = New KeyReleasedEventArgs With {.VirtualKey = key}
 
-            keyboard.KeyPressed.Raise(keyPressedEventArgs)
-            keyboard.KeyTyped.Raise(keyTypedEventArgs)
-            keyboard.KeyReleased.Raise(keyReleasedEventArgs)
-        End Sub
+        keyboard.KeyPressed.Raise(keyPressedEventArgs)
+        keyboard.KeyTyped.Raise(keyTypedEventArgs)
+        keyboard.KeyReleased.Raise(keyReleasedEventArgs)
+    End Sub
 
-        Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
-            ' Dispose browser and engine when close app window.
-            browser.Dispose()
-            engine.Dispose()
-        End Sub
+    Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
+        ' Dispose browser and engine when close app window.
+        browser.Dispose()
+        engine.Dispose()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

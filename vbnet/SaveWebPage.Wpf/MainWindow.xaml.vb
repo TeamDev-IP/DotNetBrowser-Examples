@@ -28,57 +28,55 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Wpf
 
-Namespace SaveWebPage.Wpf
-    ''' <summary>
-    '''     Demonstrates how to embed WPF BrowserView component into WPF Application,
-    '''     load and display HTML content from string.
-    ''' </summary>
-    Partial Public Class MainWindow
-        Inherits Window
+''' <summary>
+'''     Demonstrates how to embed WPF BrowserView component into WPF Application,
+'''     load and display HTML content from string.
+''' </summary>
+Partial Public Class MainWindow
+    Inherits Window
 
-        Private browser As IBrowser
-        Private browserView As BrowserView
-        Private engine As IEngine
+    Private browser As IBrowser
+    Private browserView As BrowserView
+    Private engine As IEngine
 
 #Region "Constructors"
 
-        Public Sub New()
-            Task.Run(Sub()
-                engine =
-                        EngineFactory.Create(
-                            New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-                browser = engine.CreateBrowser()
-            End Sub).ContinueWith(Sub(t)
-                ' Create WPF BrowserView component.
-                browserView = New BrowserView()
-                ' Embed BrowserView component into main layout.
-                mainLayout.Children.Add(browserView)
+    Public Sub New()
+        Task.Run(Sub()
+            engine =
+                    EngineFactory.Create(
+                        New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+            browser = engine.CreateBrowser()
+        End Sub).ContinueWith(Sub(t)
+            ' Create WPF BrowserView component.
+            browserView = New BrowserView()
+            ' Embed BrowserView component into main layout.
+            mainLayout.Children.Add(browserView)
 
-                browserView.InitializeFrom(browser)
+            browserView.InitializeFrom(browser)
 
-                browser.Navigation.LoadUrl("https://www.teamdev.com/").ContinueWith(AddressOf SaveWebPage)
-            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
-            ' Initialize WPF Application UI.
-            InitializeComponent()
-        End Sub
+            browser.Navigation.LoadUrl("https://www.teamdev.com/").ContinueWith(AddressOf SaveWebPage)
+        End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+        ' Initialize WPF Application UI.
+        InitializeComponent()
+    End Sub
 
 #End Region
 
 #Region "Methods"
 
-        Private Sub SaveWebPage(obj As Task(Of LoadResult))
-            Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
-            Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
-            Directory.CreateDirectory(dirPath)
-            browser.SaveWebPage(filePath, dirPath, SavePageType.CompletePage)
-        End Sub
+    Private Sub SaveWebPage(obj As Task(Of LoadResult))
+        Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
+        Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
+        Directory.CreateDirectory(dirPath)
+        browser.SaveWebPage(filePath, dirPath, SavePageType.CompletePage)
+    End Sub
 
-        Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
-            ' Dispose browser and engine when close app window.
-            browser.Dispose()
-            engine.Dispose()
-        End Sub
+    Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
+        ' Dispose browser and engine when close app window.
+        browser.Dispose()
+        engine.Dispose()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

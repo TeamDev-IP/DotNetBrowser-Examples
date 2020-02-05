@@ -28,44 +28,42 @@ Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
-Namespace CustomRequestHandling
-    Friend Class Program
+Friend Class Program
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    engine.Network.InterceptRequestHandler =
-                        New Handler(Of InterceptRequestParameters,  InterceptRequestResponse)(
-                            AddressOf OnInterceptRequest)
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
-                        Console.WriteLine("Load result: " & loadResult.ToString())
-                        Console.WriteLine("HTML: " & browser.MainFrame.Html)
-                    End Using
+                engine.Network.InterceptRequestHandler =
+                    New Handler(Of InterceptRequestParameters,  InterceptRequestResponse)(
+                        AddressOf OnInterceptRequest)
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
+                    Console.WriteLine("Load result: " & loadResult.ToString())
+                    Console.WriteLine("HTML: " & browser.MainFrame.Html)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
-        Private Shared Function OnInterceptRequest(parameters As InterceptRequestParameters) As InterceptRequestResponse
-            If parameters.UrlRequest.Url.StartsWith("myscheme") Then
-                Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url)
-                Dim urlRequestJob As UrlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest)
-                urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"))
-                urlRequestJob.Complete()
-                return InterceptRequestResponse.Intercept(urlRequestJob)
-            End If
-            Return InterceptRequestResponse.Proceed()
-        End Function
+    Private Shared Function OnInterceptRequest(parameters As InterceptRequestParameters) As InterceptRequestResponse
+        If parameters.UrlRequest.Url.StartsWith("myscheme") Then
+            Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url)
+            Dim urlRequestJob As UrlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest)
+            urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"))
+            urlRequestJob.Complete()
+            return InterceptRequestResponse.Intercept(urlRequestJob)
+        End If
+        Return InterceptRequestResponse.Proceed()
+    End Function
 
 #End Region
-    End Class
-End Namespace
+End Class

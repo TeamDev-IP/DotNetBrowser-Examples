@@ -26,45 +26,43 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net.Handlers
 
-Namespace CertificateVerifier
-    ''' <summary>
-    '''     The sample demonstrates how to accept/reject SSL certificates using
-    '''     custom SSL certificate verifier.
-    ''' </summary>
-    Public Class WindowMain
-        Inherits Window
+''' <summary>
+'''     The sample demonstrates how to accept/reject SSL certificates using
+'''     custom SSL certificate verifier.
+''' </summary>
+Public Class WindowMain
+    Inherits Window
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        engine.Network.VerifyCertificateHandler =
-                            New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
-                        Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
-                        Console.WriteLine("LoadResult: " & result)
-                    End Using
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    engine.Network.VerifyCertificateHandler =
+                        New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
+                    Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
+                    Console.WriteLine("LoadResult: " & result)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
-        Private Shared Function VerifyCert(parameters As VerifyCertificateParameters) As VerifyCertificateResponse
-            ' Reject SSL certificate for all "google.com" hosts.
-            If parameters.HostName.Contains("google.com") Then
-                Console.WriteLine("Rejected certificate for " & parameters.HostName)
-                Return VerifyCertificateResponse.Invalid()
-            End If
-            Return VerifyCertificateResponse.Default()
-        End Function
+    Private Shared Function VerifyCert(parameters As VerifyCertificateParameters) As VerifyCertificateResponse
+        ' Reject SSL certificate for all "google.com" hosts.
+        If parameters.HostName.Contains("google.com") Then
+            Console.WriteLine("Rejected certificate for " & parameters.HostName)
+            Return VerifyCertificateResponse.Invalid()
+        End If
+        Return VerifyCertificateResponse.Default()
+    End Function
 
 #End Region
-    End Class
-End Namespace
+End Class

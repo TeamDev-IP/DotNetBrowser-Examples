@@ -26,47 +26,45 @@ Imports DotNetBrowser.Dom.XPath
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
-Namespace XPath
-    Friend Class Program
+Friend Class Program
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        browser.Size = New Size(1024, 768)
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    browser.Size = New Size(1024, 768)
 
-                        browser.Navigation.LoadUrl("http://www.teamdev.com/dotnetbrowser").Wait()
-                        Dim document As IDocument = browser.MainFrame.Document
+                    browser.Navigation.LoadUrl("http://www.teamdev.com/dotnetbrowser").Wait()
+                    Dim document As IDocument = browser.MainFrame.Document
 
 
-                        Dim expression = "count(//div)"
-                        Console.WriteLine($"Evaluating '{expression}'")
-                        Dim result As IXPathResult = document.Evaluate(expression)
-                        ' If the expression is not a valid XPath expression or the document
-                        ' element is not available, we'll get an error.
-                        If result.Type = XPathResultType.Unspecified Then
-                            Console.WriteLine("The evaluation error occurred")
-                            Return
-                        End If
+                    Dim expression = "count(//div)"
+                    Console.WriteLine($"Evaluating '{expression}'")
+                    Dim result As IXPathResult = document.Evaluate(expression)
+                    ' If the expression is not a valid XPath expression or the document
+                    ' element is not available, we'll get an error.
+                    If result.Type = XPathResultType.Unspecified Then
+                        Console.WriteLine("The evaluation error occurred")
+                        Return
+                    End If
 
-                        ' Make sure that result is a number.
-                        If result.Type = XPathResultType.Number Then
-                            Console.WriteLine("Result: " & result.Numeric)
-                        End If
-                    End Using
+                    ' Make sure that result is a number.
+                    If result.Type = XPathResultType.Number Then
+                        Console.WriteLine("Result: " & result.Numeric)
+                    End If
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

@@ -25,42 +25,40 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 
-Namespace ExecuteCommand
-    ''' <summary>
-    '''     This sample demonstrates how to execute Browser commands such as Cut, Copy,
-    '''     Paste, Undo, SelectAll, InsertText etc.
-    ''' </summary>
-    Friend Class Program
+''' <summary>
+'''     This sample demonstrates how to execute Browser commands such as Cut, Copy,
+'''     Paste, Undo, SelectAll, InsertText etc.
+''' </summary>
+Friend Class Program
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
 
-                        browser.Navigation.LoadUrl("http://www.google.com").Wait()
-                        ' Inserts "TeamDev DotNetBrowser" text into Google Search field.
-                        browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"))
-                        ' Inserts a new line into Google Search field to simulate Enter.
-                        browser.MainFrame.Execute(EditorCommand.InsertNewLine())
+                    browser.Navigation.LoadUrl("http://www.google.com").Wait()
+                    ' Inserts "TeamDev DotNetBrowser" text into Google Search field.
+                    browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"))
+                    ' Inserts a new line into Google Search field to simulate Enter.
+                    browser.MainFrame.Execute(EditorCommand.InsertNewLine())
 
-                        Thread.Sleep(3000)
-                        ' The page will now contain search results.
-                        Console.WriteLine("Page contents:")
-                        Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
-                    End Using
+                    Thread.Sleep(3000)
+                    ' The page will now contain search results.
+                    Console.WriteLine("Page contents:")
+                    Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

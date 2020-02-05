@@ -25,48 +25,46 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 Imports DotNetBrowser.Js
 
-Namespace WebStorage
-    ''' <summary>
-    '''     The sample demonstrates how to access WebStorage on
-    '''     the loaded web page using DotNetBrowser API.
-    ''' </summary>
-    Friend Class Program
+''' <summary>
+'''     The sample demonstrates how to access WebStorage on
+'''     the loaded web page using DotNetBrowser API.
+''' </summary>
+Friend Class Program
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
 
-                        browser.MainFrame.LoadHtml(
-                            New LoadHtmlParameters(
-                                "<html><body>" & "<script>localStorage.myKey = ""Initial Value"";" &
-                                "function myFunction(){return localStorage.myKey;}" & "</script></body></html>") With {
-                                                      .BaseUrl = "http://teamdev.com",
-                                                      .Replace = True
-                                                      }).Wait()
-                        Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
-                        ' Read and display the 'myKey' storage value.
-                        Console.Out.WriteLine("The initial myKey value: " & webStorage("myKey"))
-                        ' Modify the 'myKey' storage value.
-                        webStorage("myKey") = "Hello from Local Storage"
-                        Dim updatedValue =
-                                browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result.Invoke (Of String)(
-                                    "myFunction")
-                        Console.Out.WriteLine("The updated myKey value: " & updatedValue)
-                    End Using
+                    browser.MainFrame.LoadHtml(
+                        New LoadHtmlParameters(
+                            "<html><body>" & "<script>localStorage.myKey = ""Initial Value"";" &
+                            "function myFunction(){return localStorage.myKey;}" & "</script></body></html>") With {
+                                                  .BaseUrl = "http://teamdev.com",
+                                                  .Replace = True
+                                                  }).Wait()
+                    Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
+                    ' Read and display the 'myKey' storage value.
+                    Console.Out.WriteLine("The initial myKey value: " & webStorage("myKey"))
+                    ' Modify the 'myKey' storage value.
+                    webStorage("myKey") = "Hello from Local Storage"
+                    Dim updatedValue =
+                            browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result.Invoke (Of String)(
+                                "myFunction")
+                    Console.Out.WriteLine("The updated myKey value: " & updatedValue)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

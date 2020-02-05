@@ -25,43 +25,41 @@ Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
-Namespace DomGetElements
-    Friend Class Program
+Friend Class Program
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
 
-                        browser.Navigation.LoadUrl("http://www.google.com").Wait()
-                        Dim document As IDocument = browser.MainFrame.Document
-                        Dim divs As IEnumerable(Of INode) = document.GetElementsByTagName("div")
-                        For Each div As INode In divs
-                            Dim tempVar As Boolean = TypeOf div Is IElement
-                            Dim divElement As IElement = If(tempVar, CType(div, IElement), Nothing)
-                            If tempVar Then
-                                Dim boundingClientRect As Rectangle = divElement.BoundingClientRect
-                                Console.Out.WriteLine(
-                                    "class = {0}; boundingClientRect.Top = {1}; boundingClientRect.Left = {2}; boundingClientRect.Width = {3}; boundingClientRect.Height = {4}",
-                                    divElement.Attributes("class"), boundingClientRect.Origin.Y,
-                                    boundingClientRect.Origin.X, boundingClientRect.Size.Width,
-                                    boundingClientRect.Size.Height)
-                            End If
-                        Next div
-                    End Using
+                    browser.Navigation.LoadUrl("http://www.google.com").Wait()
+                    Dim document As IDocument = browser.MainFrame.Document
+                    Dim divs As IEnumerable(Of INode) = document.GetElementsByTagName("div")
+                    For Each div As INode In divs
+                        Dim tempVar As Boolean = TypeOf div Is IElement
+                        Dim divElement As IElement = If(tempVar, CType(div, IElement), Nothing)
+                        If tempVar Then
+                            Dim boundingClientRect As Rectangle = divElement.BoundingClientRect
+                            Console.Out.WriteLine(
+                                "class = {0}; boundingClientRect.Top = {1}; boundingClientRect.Left = {2}; boundingClientRect.Width = {3}; boundingClientRect.Height = {4}",
+                                divElement.Attributes("class"), boundingClientRect.Origin.Y,
+                                boundingClientRect.Origin.X, boundingClientRect.Size.Width,
+                                boundingClientRect.Size.Height)
+                        End If
+                    Next div
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

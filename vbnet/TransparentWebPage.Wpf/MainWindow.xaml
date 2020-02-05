@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
-    x:Class="TransparentWebPage.Wpf.MainWindow"
+    x:Class="MainWindow"
     Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen" AllowsTransparency="True"
     WindowStyle="None" Background="Transparent" Closed="Window_Closed">
     <Grid Background="Transparent">

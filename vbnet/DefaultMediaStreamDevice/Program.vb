@@ -26,63 +26,61 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Media
 Imports DotNetBrowser.Media.Handlers
 
-Namespace DefaultMediaStreamDevice
-    ''' <summary>
-    '''     The sample demonstrates how to get list of available audio and video capture devices,
-    '''     register own SelectMediaDeviceHandler to provide Chromium with default audio/video capture
-    '''     device to be used on a web page for working with webcam and accessing microphone.
-    ''' </summary>
-    Public Class WindowMain
-        Inherits Window
+''' <summary>
+'''     The sample demonstrates how to get list of available audio and video capture devices,
+'''     register own SelectMediaDeviceHandler to provide Chromium with default audio/video capture
+'''     device to be used on a web page for working with webcam and accessing microphone.
+''' </summary>
+Public Class WindowMain
+    Inherits Window
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
 
-                        Dim mediaDevices As IMediaDevices = engine.MediaDevices
-                        Console.WriteLine(vbLf & "Available audio capture devices:")
-                        PrintDevices(mediaDevices.AudioCaptureDevices)
-                        Console.WriteLine(vbLf & "Available video capture devices:")
-                        PrintDevices(mediaDevices.VideoCaptureDevices)
+                    Dim mediaDevices As IMediaDevices = engine.MediaDevices
+                    Console.WriteLine(vbLf & "Available audio capture devices:")
+                    PrintDevices(mediaDevices.AudioCaptureDevices)
+                    Console.WriteLine(vbLf & "Available video capture devices:")
+                    PrintDevices(mediaDevices.VideoCaptureDevices)
 
-                        mediaDevices.SelectMediaDeviceHandler =
-                            New Handler(Of SelectMediaDeviceParameters, SelectMediaDeviceResponse)(
-                                AddressOf SelectDevice)
+                    mediaDevices.SelectMediaDeviceHandler =
+                        New Handler(Of SelectMediaDeviceParameters, SelectMediaDeviceResponse)(
+                            AddressOf SelectDevice)
 
-                        browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html") _
-                            .Wait()
-                    End Using
+                    browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html") _
+                        .Wait()
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
-        Private Shared Sub PrintDevices(devices As IEnumerable(Of MediaDevice))
-            For Each device As MediaDevice In devices
-                Console.WriteLine($"- {device.Name}")
-            Next device
-        End Sub
+    Private Shared Sub PrintDevices(devices As IEnumerable(Of MediaDevice))
+        For Each device As MediaDevice In devices
+            Console.WriteLine($"- {device.Name}")
+        Next device
+    End Sub
 
-        Private Shared Function SelectDevice(arg As SelectMediaDeviceParameters) As SelectMediaDeviceResponse
-            Console.WriteLine(vbLf & "Requested device type: " & arg.Type.ToString())
-            ' Set first available device as default.
-            Dim availableDevices As IEnumerable(Of MediaDevice) = arg.Devices
-            Dim defaultDevice As MediaDevice = availableDevices.FirstOrDefault()
-            If defaultDevice IsNot Nothing Then
-                Console.WriteLine($"Default device is set to {defaultDevice.Name}")
-            End If
-            Return SelectMediaDeviceResponse.Select(defaultDevice)
-        End Function
+    Private Shared Function SelectDevice(arg As SelectMediaDeviceParameters) As SelectMediaDeviceResponse
+        Console.WriteLine(vbLf & "Requested device type: " & arg.Type.ToString())
+        ' Set first available device as default.
+        Dim availableDevices As IEnumerable(Of MediaDevice) = arg.Devices
+        Dim defaultDevice As MediaDevice = availableDevices.FirstOrDefault()
+        If defaultDevice IsNot Nothing Then
+            Console.WriteLine($"Default device is set to {defaultDevice.Name}")
+        End If
+        Return SelectMediaDeviceResponse.Select(defaultDevice)
+    End Function
 
 #End Region
-    End Class
-End Namespace
+End Class

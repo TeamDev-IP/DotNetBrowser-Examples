@@ -24,35 +24,33 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Cookies
 Imports DotNetBrowser.Engine
 
-Namespace Cookies
-    Friend Class Program
-        Private Const Url As String = "http://google.com"
+Friend Class Program
+    Private Const Url As String = "http://google.com"
 
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+                Console.WriteLine("Engine created")
 
-                    Dim cookieStorage As ICookieStore = engine.CookieStore
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        browser.Navigation.LoadUrl(Url).Wait()
+                Dim cookieStorage As ICookieStore = engine.CookieStore
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    browser.Navigation.LoadUrl(Url).Wait()
 
-                        Dim cookies As IEnumerable(Of Cookie) = cookieStorage.GetAllCookies(Url).Result
-                        For Each cookie As Cookie In cookies
-                            Console.WriteLine("cookie = " & cookie.ToString())
-                        Next cookie
-                    End Using
+                    Dim cookies As IEnumerable(Of Cookie) = cookieStorage.GetAllCookies(Url).Result
+                    For Each cookie As Cookie In cookies
+                        Console.WriteLine("cookie = " & cookie.ToString())
+                    Next cookie
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class
