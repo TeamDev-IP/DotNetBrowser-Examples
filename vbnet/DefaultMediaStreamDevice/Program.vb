@@ -24,6 +24,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Media
+Imports DotNetBrowser.Media.Handlers
 
 Namespace DefaultMediaStreamDevice
     ''' <summary>
@@ -50,9 +51,12 @@ Namespace DefaultMediaStreamDevice
                         Console.WriteLine(vbLf & "Available video capture devices:")
                         PrintDevices(mediaDevices.VideoCaptureDevices)
 
-                        mediaDevices.SelectMediaDeviceHandler = New Handler(Of SelectMediaDeviceParams, MediaDevice)(AddressOf SelectDevice)
+                        mediaDevices.SelectMediaDeviceHandler =
+                            New Handler(Of SelectMediaDeviceParameters, SelectMediaDeviceResponse)(
+                                AddressOf SelectDevice)
 
-                        browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html").Wait()
+                        browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html") _
+                            .Wait()
                     End Using
                 End Using
             Catch e As Exception
@@ -62,13 +66,13 @@ Namespace DefaultMediaStreamDevice
             Console.ReadKey()
         End Sub
 
-        Private Shared Sub PrintDevices(ByVal devices As IEnumerable(Of MediaDevice))
+        Private Shared Sub PrintDevices(devices As IEnumerable(Of MediaDevice))
             For Each device As MediaDevice In devices
                 Console.WriteLine($"- {device.Name}")
             Next device
         End Sub
 
-        Private Shared Function SelectDevice(ByVal arg As SelectMediaDeviceParams) As MediaDevice
+        Private Shared Function SelectDevice(arg As SelectMediaDeviceParameters) As SelectMediaDeviceResponse
             Console.WriteLine(vbLf & "Requested device type: " & arg.Type.ToString())
             ' Set first available device as default.
             Dim availableDevices As IEnumerable(Of MediaDevice) = arg.Devices
@@ -76,7 +80,7 @@ Namespace DefaultMediaStreamDevice
             If defaultDevice IsNot Nothing Then
                 Console.WriteLine($"Default device is set to {defaultDevice.Name}")
             End If
-            Return defaultDevice
+            Return SelectMediaDeviceResponse.Select(defaultDevice)
         End Function
 
 #End Region

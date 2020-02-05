@@ -29,6 +29,7 @@ Imports DotNetBrowser.Net.Handlers
 
 Namespace AjaxCallsFilter
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -38,9 +39,13 @@ Namespace AjaxCallsFilter
 
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        engine.NetworkService.ResourceHandler = New Handler(Of ResourceParameters, ResourceLoadStatus)(AddressOf CanLoadResource)
-                        browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").Wait()
-                        Dim demoFrame As IFrame = browser.AllFrames.FirstOrDefault(Function(f) f.Document.GetElementById("demo") IsNot Nothing)
+                        engine.Network.LoadResourceHandler =
+                            New Handler(Of LoadResourceParameters, LoadResourceResponse)(AddressOf CanLoadResource)
+                        browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").
+                            Wait()
+                        Dim demoFrame As IFrame =
+                                browser.AllFrames.FirstOrDefault(
+                                    Function(f) f.Document.GetElementById("demo") IsNot Nothing)
                         If demoFrame IsNot Nothing Then
                             Console.WriteLine("Demo frame found")
                             demoFrame.Document.GetElementByTagName("button").Click()
@@ -57,12 +62,12 @@ Namespace AjaxCallsFilter
             Console.ReadKey()
         End Sub
 
-        Private Shared Function CanLoadResource(ByVal arg As ResourceParameters) As ResourceLoadStatus
+        Private Shared Function CanLoadResource(arg As LoadResourceParameters) As LoadResourceResponse
             If arg.ResourceType = ResourceType.Xhr Then
                 Console.WriteLine("Suppress ajax call - " & arg.Url)
-                Return ResourceLoadStatus.Cancel
+                Return LoadResourceResponse.Cancel()
             End If
-            Return ResourceLoadStatus.Continue
+            Return LoadResourceResponse.Continue()
         End Function
 
 #End Region

@@ -27,6 +27,7 @@ Imports DotNetBrowser.Geometry
 
 Namespace DomGetElements
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -45,7 +46,11 @@ Namespace DomGetElements
                             Dim divElement As IElement = If(tempVar, CType(div, IElement), Nothing)
                             If tempVar Then
                                 Dim boundingClientRect As Rectangle = divElement.BoundingClientRect
-                                Console.Out.WriteLine("class = {0}; boundingClientRect.Top = {1}; boundingClientRect.Left = {2}; boundingClientRect.Width = {3}; boundingClientRect.Height = {4}", divElement.Attributes("class"), boundingClientRect.OriginPoint.Y, boundingClientRect.OriginPoint.X, boundingClientRect.Size.Width, boundingClientRect.Size.Height)
+                                Console.Out.WriteLine(
+                                    "class = {0}; boundingClientRect.Top = {1}; boundingClientRect.Left = {2}; boundingClientRect.Width = {3}; boundingClientRect.Height = {4}",
+                                    divElement.Attributes("class"), boundingClientRect.Origin.Y,
+                                    boundingClientRect.Origin.X, boundingClientRect.Size.Width,
+                                    boundingClientRect.Size.Height)
                             End If
                         Next div
                     End Using

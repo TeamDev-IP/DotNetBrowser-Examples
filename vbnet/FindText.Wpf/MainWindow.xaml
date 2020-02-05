@@ -4,7 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:FindText.Wpf"
-    xmlns:WPF="clr-namespace:DotNetBrowser.WPF;assembly=DotNetBrowser.WPF" x:Class="FindText.Wpf.MainWindow"
+    xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
+    x:Class="FindText.Wpf.MainWindow"
     mc:Ignorable="d"
     Title="MainWindow" Height="677" Width="1269" Closing="Window_Closing">
     <Grid>
@@ -14,7 +15,7 @@
                            " />
         </Grid.RowDefinitions>
 
-        <WPF:BrowserView Name="browserView" Grid.Row="0" />
+        <wpf:BrowserView Name="browserView" Grid.Row="0" />
 
         <Grid Name="gridPanel" Grid.Row="1" Height="30">
             <Grid.ColumnDefinitions>

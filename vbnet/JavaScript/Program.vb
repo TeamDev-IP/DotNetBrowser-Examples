@@ -25,6 +25,7 @@ Imports DotNetBrowser.Engine
 
 Namespace JavaScript
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -36,14 +37,18 @@ Namespace JavaScript
                         Console.WriteLine("Browser created")
 
                         ' Executes the passed JavaScript code asynchronously.
-                        browser.MainFrame.ExecuteJavaScript("document.write('<html><title>" & "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');")
+                        browser.MainFrame.ExecuteJavaScript(
+                            "document.write('<html><title>" &
+                            "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');")
 
                         ' Executes the passed JavaScript code and returns the result value.
-                        Dim documentTitle As String = browser.MainFrame.ExecuteJavaScript(Of String)("document.title").Result
+                        Dim documentTitle As String =
+                                browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
                         Console.Out.WriteLine("Document Title = " & documentTitle)
 
 
-                        Dim documentContent As String = browser.MainFrame.ExecuteJavaScript(Of String)("document.body.innerText").Result
+                        Dim documentContent As String =
+                                browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
                         Console.Out.WriteLine("New content: " & documentContent)
                     End Using
                 End Using

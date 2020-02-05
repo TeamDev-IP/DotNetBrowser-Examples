@@ -26,7 +26,7 @@ Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation
-Imports DotNetBrowser.WPF
+Imports DotNetBrowser.Wpf
 
 Namespace SaveWebPage.Wpf
     ''' <summary>
@@ -44,18 +44,20 @@ Namespace SaveWebPage.Wpf
 
         Public Sub New()
             Task.Run(Sub()
-                         engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-                         browser = engine.CreateBrowser()
-                     End Sub).ContinueWith(Sub(t)
-                                               ' Create WPF BrowserView component.
-                                               browserView = New BrowserView()
-                                               ' Embed BrowserView component into main layout.
-                                               mainLayout.Children.Add(browserView)
+                engine =
+                        EngineFactory.Create(
+                            New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+                browser = engine.CreateBrowser()
+            End Sub).ContinueWith(Sub(t)
+                ' Create WPF BrowserView component.
+                browserView = New BrowserView()
+                ' Embed BrowserView component into main layout.
+                mainLayout.Children.Add(browserView)
 
-                                               browserView.InitializeFrom(browser)
+                browserView.InitializeFrom(browser)
 
-                                               browser.Navigation.LoadUrl("https://www.teamdev.com/").ContinueWith(AddressOf SaveWebPage)
-                                           End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+                browser.Navigation.LoadUrl("https://www.teamdev.com/").ContinueWith(AddressOf SaveWebPage)
+            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
             ' Initialize WPF Application UI.
             InitializeComponent()
         End Sub
@@ -64,14 +66,14 @@ Namespace SaveWebPage.Wpf
 
 #Region "Methods"
 
-        Private Sub SaveWebPage(ByVal obj As Task(Of LoadResult))
+        Private Sub SaveWebPage(obj As Task(Of LoadResult))
             Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
             Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
             Directory.CreateDirectory(dirPath)
             browser.SaveWebPage(filePath, dirPath, SavePageType.CompletePage)
         End Sub
 
-        Private Sub Window_Closing(ByVal sender As Object, ByVal e As CancelEventArgs)
+        Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
             ' Dispose browser and engine when close app window.
             browser.Dispose()
             engine.Dispose()

@@ -24,10 +24,12 @@ Imports System.Drawing.Imaging
 Imports System.Runtime.InteropServices
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
-Imports Size = DotNetBrowser.Geometry.Size
+Imports DotNetBrowser.Geometry
+Imports DotNetBrowser.Ui
 
 Namespace HtmlToImage
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -54,11 +56,11 @@ Namespace HtmlToImage
 
                         ' 3. Take the bitmap of the currently loaded web page. Its size will be 
                         ' equal to the current browser's size.
-                        Dim image As DotNetBrowser.UI.Bitmap = browser.CreateBrowserImage()
+                        Dim image As Bitmap = browser.TakeImage()
                         Console.WriteLine("Browser image taken")
 
                         ' 4. Convert the bitmap to the required format and save it.
-                        Dim bitmap As Bitmap = ToBitmap(image)
+                        Dim bitmap As Drawing.Bitmap = ToBitmap(image)
                         bitmap.Save("screenshot.png", ImageFormat.Png)
                         Console.WriteLine("Browser image saved")
                     End Using
@@ -70,13 +72,14 @@ Namespace HtmlToImage
             Console.ReadKey()
         End Sub
 
-        Public Shared Function ToBitmap(ByVal bitmap As DotNetBrowser.UI.Bitmap) As Bitmap
-            Dim width As Integer = CInt(bitmap.Size.Width)
-            Dim height As Integer = CInt(bitmap.Size.Height)
+        Public Shared Function ToBitmap(bitmap As Bitmap) As Drawing.Bitmap
+            Dim width = CInt(bitmap.Size.Width)
+            Dim height = CInt(bitmap.Size.Height)
 
             Dim data() As Byte = bitmap.Pixels.ToArray()
-            Dim bmp As New Bitmap(width, height, PixelFormat.Format32bppRgb)
-            Dim bmpData As BitmapData = bmp.LockBits(New Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat)
+            Dim bmp As New Drawing.Bitmap(width, height, PixelFormat.Format32bppRgb)
+            Dim bmpData As BitmapData = bmp.LockBits(New Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+                                                     ImageLockMode.WriteOnly, bmp.PixelFormat)
 
             Marshal.Copy(data, 0, bmpData.Scan0, data.Length)
             bmp.UnlockBits(bmpData)

@@ -27,6 +27,7 @@ Imports DotNetBrowser.Geometry
 
 Namespace GetFrames
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -37,7 +38,8 @@ Namespace GetFrames
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
                         browser.Size = New Size(700, 500)
-                        browser.Navigation.LoadUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols").Wait()
+                        browser.Navigation.LoadUrl(
+                            "https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols").Wait()
 
                         PrintFrameHierarhy(browser.MainFrame)
                     End Using
@@ -49,7 +51,7 @@ Namespace GetFrames
             Console.ReadKey()
         End Sub
 
-        Public Shared Sub PrintFrameHierarhy(ByVal frame As IFrame, Optional ByVal padding As Integer = 0)
+        Public Shared Sub PrintFrameHierarhy(frame As IFrame, Optional ByVal padding As Integer = 0)
             If frame IsNot Nothing Then
                 Dim indent As String = String.Empty.PadLeft(padding)
                 Console.WriteLine($"{indent}Frame '{frame.Name}'" & (If(frame.IsMain, "(main)", String.Empty)))

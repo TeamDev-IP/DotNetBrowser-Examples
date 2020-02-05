@@ -21,15 +21,17 @@
 #End Region
 
 Imports DotNetBrowser.Browser
-Imports DotNetBrowser.Certificates
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
+Imports DotNetBrowser.Net.Certificates
+Imports DotNetBrowser.Net.Handlers
 
 Namespace CertificateError
     ''' <summary>
     '''     Demonstrates how to handle SSL certificate errors.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -39,7 +41,9 @@ Namespace CertificateError
 
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        engine.NetworkService.VerifyCertificateHandler = New Handler(Of CertificateVerifyHandlerParameters, CertificateVerifyResult)(AddressOf HandleCertError)
+                        engine.Network.VerifyCertificateHandler =
+                            New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(
+                                AddressOf HandleCertError)
                         browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait()
                     End Using
                 End Using
@@ -50,10 +54,10 @@ Namespace CertificateError
             Console.ReadKey()
         End Sub
 
-        Private Shared Function HandleCertError(ByVal errorParams As CertificateVerifyHandlerParameters) As CertificateVerifyResult
+        Private Shared Function HandleCertError(errorParams As VerifyCertificateParameters) As VerifyCertificateResponse
             Dim certificate As Certificate = errorParams.Certificate
 
-            For Each status As CertificateVerifyStatus In errorParams.VerifyStatuses
+            For Each status As CertificateVerificationStatus In errorParams.VerifyStatuses
                 Console.WriteLine("CertificateVerifyStatus = " & status.ToString())
             Next
 
@@ -73,7 +77,7 @@ Namespace CertificateError
             Console.WriteLine("Expired = " & certificate.Expired)
 
             ' Return Valid to ignore certificate error.
-            Return CertificateVerifyResult.Valid
+            Return VerifyCertificateResponse.Valid()
         End Function
 
 #End Region

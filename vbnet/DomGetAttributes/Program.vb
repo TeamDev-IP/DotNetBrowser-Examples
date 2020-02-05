@@ -26,6 +26,7 @@ Imports DotNetBrowser.Engine
 
 Namespace DomGetAttributes
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -36,7 +37,8 @@ Namespace DomGetAttributes
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
 
-                        browser.MainFrame.LoadHtml("<html><body><a href='#' id='link' title='link title'></a></body></html>").Wait()
+                        browser.MainFrame.LoadHtml(
+                            "<html><body><a href='#' id='link' title='link title'></a></body></html>").Wait()
                         Dim document As IDocument = browser.MainFrame.Document
                         Dim link As IElement = document.GetElementById("link")
                         Dim attributes As IDictionary(Of String, String) = link.Attributes

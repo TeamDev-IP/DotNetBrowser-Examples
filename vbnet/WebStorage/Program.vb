@@ -23,7 +23,7 @@
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
-Imports DotNetBrowser.JS
+Imports DotNetBrowser.Js
 
 Namespace WebStorage
     ''' <summary>
@@ -31,6 +31,7 @@ Namespace WebStorage
     '''     the loaded web page using DotNetBrowser API.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -41,16 +42,21 @@ Namespace WebStorage
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
 
-                        browser.MainFrame.LoadHtml(New LoadHtmlParameters("<html><body>" & "<script>localStorage.myKey = ""Initial Value"";" & "function myFunction(){return localStorage.myKey;}" & "</script></body></html>") With {
-                            .BaseUrl = "http://teamdev.com",
-                            .Replace = True
-                        }).Wait()
+                        browser.MainFrame.LoadHtml(
+                            New LoadHtmlParameters(
+                                "<html><body>" & "<script>localStorage.myKey = ""Initial Value"";" &
+                                "function myFunction(){return localStorage.myKey;}" & "</script></body></html>") With {
+                                                      .BaseUrl = "http://teamdev.com",
+                                                      .Replace = True
+                                                      }).Wait()
                         Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
                         ' Read and display the 'myKey' storage value.
                         Console.Out.WriteLine("The initial myKey value: " & webStorage("myKey"))
                         ' Modify the 'myKey' storage value.
                         webStorage("myKey") = "Hello from Local Storage"
-                        Dim updatedValue As String = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result.Invoke(Of String)("myFunction")
+                        Dim updatedValue =
+                                browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result.Invoke (Of String)(
+                                    "myFunction")
                         Console.Out.WriteLine("The updated myKey value: " & updatedValue)
                     End Using
                 End Using

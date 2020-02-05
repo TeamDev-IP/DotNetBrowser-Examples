@@ -31,6 +31,7 @@ Namespace ExecuteCommand
     '''     Paste, Undo, SelectAll, InsertText etc.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()

@@ -29,6 +29,7 @@ Namespace Inspect
     '''     This sample demonstrates how to get DOM Node at a specific point on the web page.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -47,7 +48,8 @@ Namespace Inspect
                         Console.WriteLine(vbTab & "AbsoluteImageUrl: {pointInspection.AbsoluteImageUrl}")
                         Console.WriteLine(vbTab & "AbsoluteLinkUrl: {pointInspection.AbsoluteLinkUrl}")
                         If pointInspection.LocalPoint IsNot Nothing Then
-                            Console.WriteLine(vbTab & "LocalPoint: ({pointInspection.LocalPoint.X},{pointInspection.LocalPoint.Y})")
+                            Console.WriteLine(
+                                vbTab & "LocalPoint: ({pointInspection.LocalPoint.X},{pointInspection.LocalPoint.Y})")
                         End If
                         Console.WriteLine(vbTab & "Node: {pointInspection.Node?.NodeName}")
                         Console.WriteLine(vbTab & "UrlNode: {pointInspection.UrlNode?.NodeName}")

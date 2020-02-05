@@ -28,6 +28,7 @@ Imports DotNetBrowser.Engine
 
 Namespace DomCreateEvent
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -47,14 +48,14 @@ Namespace DomCreateEvent
                         Dim root As INode = document.GetElementById("root")
 
                         Dim domEventHandler As EventHandler(Of DomEventArgs) = Sub(s, e)
-                                                                                   If e.Event.Type Is eventType Then
-                                                                                       Console.WriteLine("DOM event received: " & eventType.Value)
-                                                                                       Dim textNode As INode = document.CreateTextNode("Some text")
-                                                                                       Dim paragraph As IElement = document.CreateElement("p")
-                                                                                       paragraph.Children.Append(textNode)
-                                                                                       root.Children.Append(paragraph)
-                                                                                   End If
-                                                                               End Sub
+                            If e.Event.Type Is eventType Then
+                                Console.WriteLine("DOM event received: " & eventType.Value)
+                                Dim textNode As INode = document.CreateTextNode("Some text")
+                                Dim paragraph As IElement = document.CreateElement("p")
+                                paragraph.Children.Append(textNode)
+                                root.Children.Append(paragraph)
+                            End If
+                        End Sub
 
                         AddHandler root.Events(eventType).EventReceived, domEventHandler
                         Console.WriteLine("Dispatch custom DOM event: " & eventType.Value)

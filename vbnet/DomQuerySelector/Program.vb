@@ -26,6 +26,7 @@ Imports DotNetBrowser.Engine
 
 Namespace DomQuerySelector
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -36,7 +37,9 @@ Namespace DomQuerySelector
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
 
-                        browser.MainFrame.LoadHtml("<html><body><div id='root'>" & "<p>paragraph1</p>" & "<p>paragraph2</p>" & "<p>paragraph3</p>" & "</div></body></html>").Wait()
+                        browser.MainFrame.LoadHtml(
+                            "<html><body><div id='root'>" & "<p>paragraph1</p>" & "<p>paragraph2</p>" &
+                            "<p>paragraph3</p>" & "</div></body></html>").Wait()
                         Dim document As IDocument = browser.MainFrame.Document
                         Dim documentElement As IElement = document.DocumentElement
                         ' Get the div with id = "root".

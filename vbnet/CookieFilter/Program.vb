@@ -31,6 +31,7 @@ Namespace CookieFilter
     '''     The sample demonstrates how to suppress/filter incoming and outgoing cookies.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -40,8 +41,10 @@ Namespace CookieFilter
 
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        engine.NetworkService.CanGetCookiesHandler = New Handler(Of CanGetCookiesHandlerParameters, CookiesPermission)(AddressOf CanGetCookies)
-                        engine.NetworkService.CanSetCookieHandler = New Handler(Of CanSetCookieHandlerParameters, CookiesPermission)(AddressOf CanSetCookie)
+                        engine.Network.CanGetCookiesHandler =
+                            New Handler(Of CanGetCookiesParameters, CanGetCookiesResponse)(AddressOf CanGetCookies)
+                        engine.Network.CanSetCookieHandler =
+                            New Handler(Of CanSetCookieParameters, CanSetCookieResponse)(AddressOf CanSetCookie)
                         Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
                         Console.WriteLine("LoadResult: " & result)
                     End Using
@@ -53,15 +56,16 @@ Namespace CookieFilter
             Console.ReadKey()
         End Sub
 
-        Private Shared Function CanGetCookies(ByVal arg As CanGetCookiesHandlerParameters) As CookiesPermission
-            Dim cookies As String = arg.Cookies.Aggregate(String.Empty, Function(current, cookie) current + (cookie.ToString() & vbLf))
+        Private Shared Function CanGetCookies(arg As CanGetCookiesParameters) As CanGetCookiesResponse
+            Dim cookies As String = arg.Cookies.Aggregate(String.Empty,
+                                                          Function(current, cookie) current + (cookie.ToString() & vbLf))
             Console.WriteLine("CanGetCookies: " & cookies)
-            Return CookiesPermission.Denied
+            Return CanGetCookiesResponse.Deny()
         End Function
 
-        Private Shared Function CanSetCookie(ByVal arg As CanSetCookieHandlerParameters) As CookiesPermission
+        Private Shared Function CanSetCookie(arg As CanSetCookieParameters) As CanSetCookieResponse
             Console.WriteLine("CanSetCookie: " & arg.Cookie.ToString())
-            Return CookiesPermission.Denied
+            Return CanSetCookieResponse.Deny()
         End Function
 
 #End Region

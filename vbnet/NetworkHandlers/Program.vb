@@ -28,6 +28,7 @@ Imports DotNetBrowser.Net.Handlers
 
 Namespace NetworkHandlers
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -36,8 +37,10 @@ Namespace NetworkHandlers
                     Console.WriteLine("Engine created")
 
                     Using browser As IBrowser = engine.CreateBrowser()
-                        engine.NetworkService.BeforeUrlRequestHandler = New Handler(Of BeforeUrlRequestParameters, BeforeUrlRequestResponse)(AddressOf OnBeforeURLRequest)
-                        engine.NetworkService.BeforeSendHeadersHandler = New Handler(Of BeforeSendHeadersParameters, BeforeSendHeadersResponse)(AddressOf OnBeforeSendHeaders)
+                        engine.Network.SendUrlRequestHandler =
+                            New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
+                        engine.Network.SendHeadersHandler =
+                            New Handler(Of SendHeadersParameters, SendHeadersResponse)(AddressOf OnSendHeaders)
 
                         Console.WriteLine("Loading http://www.teamdev.com/")
                         browser.Navigation.LoadUrl("http://www.teamdev.com/").Wait()
@@ -51,22 +54,24 @@ Namespace NetworkHandlers
             Console.ReadKey()
         End Sub
 
-        Public Shared Function OnBeforeSendHeaders(ByVal parameters As BeforeSendHeadersParameters) As BeforeSendHeadersResponse
+        Public Shared Function OnSendHeaders(parameters As SendHeadersParameters) As SendHeadersResponse
             ' If navigate to google.com, then print User-Agent header value.
             If parameters.UrlRequest.Url = "http://www.google.com/" Then
                 Dim headers As IEnumerable(Of IHttpHeader) = parameters.Headers
-                Console.WriteLine("User-Agent: " & headers.FirstOrDefault(Function(h) h.Name.Equals("User-Agent"))?.Values.FirstOrDefault())
+                Console.WriteLine(
+                    "User-Agent: " &
+                    headers.FirstOrDefault(Function(h) h.Name.Equals("User-Agent"))?.Values.FirstOrDefault())
             End If
-            Return BeforeSendHeadersResponse.Ignore()
+            Return SendHeadersResponse.Continue()
         End Function
 
-        Public Shared Function OnBeforeURLRequest(ByVal parameters As BeforeUrlRequestParameters) As BeforeUrlRequestResponse
+        Public Shared Function OnSendUrlRequest(parameters As SendUrlRequestParameters) As SendUrlRequestResponse
             ' If navigate to teamdev.com, then change URL to google.com.
             If parameters.UrlRequest.Url = "http://www.teamdev.com/" Then
                 Console.WriteLine("Redirecting to  http://www.google.com/")
-                Return BeforeUrlRequestResponse.Redirect("http://www.google.com")
+                Return SendUrlRequestResponse.Override("http://www.google.com")
             End If
-            Return BeforeUrlRequestResponse.Ignore()
+            Return SendUrlRequestResponse.Continue()
         End Function
 
 #End Region

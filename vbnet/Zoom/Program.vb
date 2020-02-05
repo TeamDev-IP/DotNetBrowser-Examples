@@ -28,6 +28,7 @@ Imports DotNetBrowser.Zoom.Events
 
 Namespace Zoom
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -37,14 +38,14 @@ Namespace Zoom
 
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        AddHandler engine.ZoomService.LevelChanged, Sub(sender As Object, e As ZoomLevelChangedEventArgs)
-                                                                        Console.Out.WriteLine("e.Host = " & e.Host)
-                                                                        Console.Out.WriteLine("e.ZoomLevel = " & e.ZoomLevel.ToString())
-                                                                    End Sub
+                        AddHandler engine.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
+                            Console.Out.WriteLine("e.Host = " & e.Host)
+                            Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
+                        End Sub
 
                         browser.Navigation.LoadUrl("http://www.teamdev.com").Wait()
                         Console.WriteLine("Updating zoom level")
-                        browser.Zoom.Level = ZoomLevel.P200
+                        browser.Zoom.Level = Level.P200
                         Thread.Sleep(3000)
                     End Using
                 End Using

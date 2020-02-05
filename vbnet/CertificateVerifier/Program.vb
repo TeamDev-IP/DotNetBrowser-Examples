@@ -21,10 +21,10 @@
 #End Region
 
 Imports DotNetBrowser.Browser
-Imports DotNetBrowser.Certificates
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
+Imports DotNetBrowser.Net.Handlers
 
 Namespace CertificateVerifier
     ''' <summary>
@@ -43,7 +43,8 @@ Namespace CertificateVerifier
 
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        engine.NetworkService.VerifyCertificateHandler = New Handler(Of CertificateVerifyHandlerParameters, CertificateVerifyResult)(AddressOf VerifyCert)
+                        engine.Network.VerifyCertificateHandler =
+                            New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
                         Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
                         Console.WriteLine("LoadResult: " & result)
                     End Using
@@ -55,13 +56,13 @@ Namespace CertificateVerifier
             Console.ReadKey()
         End Sub
 
-        Private Shared Function VerifyCert(ByVal parameters As CertificateVerifyHandlerParameters) As CertificateVerifyResult
+        Private Shared Function VerifyCert(parameters As VerifyCertificateParameters) As VerifyCertificateResponse
             ' Reject SSL certificate for all "google.com" hosts.
             If parameters.HostName.Contains("google.com") Then
                 Console.WriteLine("Rejected certificate for " & parameters.HostName)
-                Return CertificateVerifyResult.Invalid
+                Return VerifyCertificateResponse.Invalid()
             End If
-            Return CertificateVerifyResult.Default
+            Return VerifyCertificateResponse.Default()
         End Function
 
 #End Region

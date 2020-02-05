@@ -26,6 +26,7 @@ Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Events
 
 Friend Class Program
+
 #Region "Methods"
 
     Public Shared Sub Main()
@@ -35,7 +36,7 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    AddHandler engine.NetworkService.ResponseBytesReceived, AddressOf OnResponseBytesReceived
+                    AddHandler engine.Network.ResponseBytesReceived, AddressOf OnResponseBytesReceived
                     browser.Navigation.LoadUrl("https://teamdev.com").Wait()
 
                     Console.WriteLine("URL loaded")
@@ -49,11 +50,11 @@ Friend Class Program
     End Sub
 
 
-    Private Shared Sub OnResponseBytesReceived(ByVal sender As Object, ByVal eventArgs As ResponseBytesReceivedEventArgs)
+    Private Shared Sub OnResponseBytesReceived(sender As Object, eventArgs As ResponseBytesReceivedEventArgs)
         If eventArgs.MimeType.Equals(MimeType.TextHtml) Then
             Console.WriteLine($"MimeType = {eventArgs.MimeType}")
             Console.WriteLine($"Charset = {eventArgs.UrlRequest.Method}")
-            Dim data As String = eventArgs.Data.Aggregate(Of String)(Nothing, Function(current, t) current + ChrW(t))
+            Dim data As String = eventArgs.Data.Aggregate (Of String)(Nothing, Function(current, t) current + ChrW(t))
             Console.WriteLine($"Data = {data}" & vbLf)
         End If
     End Sub

@@ -35,7 +35,7 @@ Namespace Cookies
                 Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
                     Console.WriteLine("Engine created")
 
-                    Dim cookieStorage As ICookieService = engine.CookieService
+                    Dim cookieStorage As ICookieStore = engine.CookieStore
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
                         browser.Navigation.LoadUrl(Url).Wait()

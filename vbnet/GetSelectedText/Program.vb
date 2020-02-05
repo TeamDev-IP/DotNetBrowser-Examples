@@ -30,6 +30,7 @@ Namespace GetSelectedText
     '''     The sample demonstrates how to get selected text on a web page.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()

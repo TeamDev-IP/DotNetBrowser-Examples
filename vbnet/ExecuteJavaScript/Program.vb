@@ -25,6 +25,7 @@ Imports DotNetBrowser.Engine
 
 Namespace ExecuteJavaScript
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -37,7 +38,7 @@ Namespace ExecuteJavaScript
 
                         browser.Navigation.LoadUrl("http://www.google.com").Wait()
                         ' Execute JavaScript code and get return value from JavaScript.
-                        Dim title As String = browser.MainFrame.ExecuteJavaScript(Of String)("document.title").Result
+                        Dim title As String = browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
                         Console.Out.WriteLine($"The ""document.title"" JavaScript code returns ""{title}""")
                     End Using
                 End Using

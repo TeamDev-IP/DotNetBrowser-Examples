@@ -20,15 +20,17 @@
 
 #End Region
 
-Imports System.Net
 Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
+Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
+Imports DotNetBrowser.Net.Handlers
 
 Namespace CustomRequestHandling
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -36,11 +38,13 @@ Namespace CustomRequestHandling
                 Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
                     Console.WriteLine("Engine created")
 
-                    engine.NetworkService.UrlRequestHandler = New CustomUrlRequestHandler()
+                    engine.Network.InterceptRequestHandler =
+                        New Handler(Of InterceptRequestParameters,  InterceptRequestResponse)(
+                            AddressOf OnInterceptRequest)
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
                         Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
-                        Console.WriteLine("Load result: " & loadResult)
+                        Console.WriteLine("Load result: " & loadResult.ToString())
                         Console.WriteLine("HTML: " & browser.MainFrame.Html)
                     End Using
                 End Using
@@ -51,27 +55,17 @@ Namespace CustomRequestHandling
             Console.ReadKey()
         End Sub
 
-#End Region
-
-        Private Class CustomUrlRequestHandler
-            Implements IUrlRequestHandler
-
-#Region "Methods"
-
-            Public Sub HandleRequest(ByVal interceptedRequest As IInterceptedUrlRequest) Implements IUrlRequestHandler.HandleRequest
-                Console.WriteLine("Intercepted request to URL:" & interceptedRequest.UrlRequest.Url)
-                interceptedRequest.Write(Encoding.UTF8.GetBytes("Hello world!"))
-                interceptedRequest.Complete()
-            End Sub
-
-            Public Function InterceptRequest(ByVal request As UrlRequestData) As InterceptUrlRequestResult Implements IUrlRequestHandler.InterceptRequest
-                If request.Request.Url.StartsWith("myscheme") Then
-                    Return InterceptUrlRequestResult.Intercept(HttpStatusCode.OK)
-                End If
-                Return InterceptUrlRequestResult.Continue()
-            End Function
+        Private Shared Function OnInterceptRequest(parameters As InterceptRequestParameters) As InterceptRequestResponse
+            If parameters.UrlRequest.Url.StartsWith("myscheme") Then
+                Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url)
+                Dim urlRequestJob As UrlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest)
+                urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"))
+                urlRequestJob.Complete()
+                return InterceptRequestResponse.Intercept(urlRequestJob)
+            End If
+            Return InterceptRequestResponse.Proceed()
+        End Function
 
 #End Region
-        End Class
     End Class
 End Namespace

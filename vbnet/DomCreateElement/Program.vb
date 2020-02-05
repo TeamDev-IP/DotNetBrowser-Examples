@@ -26,6 +26,7 @@ Imports DotNetBrowser.Engine
 
 Namespace DomCreateElement
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()

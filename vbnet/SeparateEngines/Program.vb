@@ -26,18 +26,21 @@ Imports DotNetBrowser.Engine
 
 Namespace SeparateEngines
     Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main(ByVal args() As String)
+        Public Shared Sub Main(args() As String)
             Try
                 Dim userDataDir1 As String = Path.GetFullPath("user-data-dir-one")
                 Directory.CreateDirectory(userDataDir1)
-                Dim engine1 As IEngine = EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir1}.Build())
+                Dim engine1 As IEngine =
+                        EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir1}.Build())
                 Console.WriteLine("Engine1 created")
 
                 Dim userDataDir2 As String = Path.GetFullPath("user-data-dir-two")
                 Directory.CreateDirectory(userDataDir2)
-                Dim engine2 As IEngine = EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir2}.Build())
+                Dim engine2 As IEngine =
+                        EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir2}.Build())
                 Console.WriteLine("Engine2 created")
 
                 ' This Browser instance will store cookies and user data files in "user-data-dir-one" dir.

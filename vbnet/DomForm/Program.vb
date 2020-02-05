@@ -27,6 +27,7 @@ Imports DotNetBrowser.Engine
 
 Namespace DomForm
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -37,19 +38,27 @@ Namespace DomForm
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
 
-                        browser.MainFrame.LoadHtml("<html><body><form name=""myForm"">" & "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" & "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" & "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" & "<input type='button' id='saveButton' value=""Save"" onclick=""" & "if(document.getElementById('agreement').checked){" & "    console.log(document.getElementById('firstName').value +' '+" & "document.getElementById('lastName').value);}" & """/>" & "</form></body></html>").Wait()
+                        browser.MainFrame.LoadHtml(
+                            "<html><body><form name=""myForm"">" &
+                            "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" &
+                            "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" &
+                            "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" &
+                            "<input type='button' id='saveButton' value=""Save"" onclick=""" &
+                            "if(document.getElementById('agreement').checked){" &
+                            "    console.log(document.getElementById('firstName').value +' '+" &
+                            "document.getElementById('lastName').value);}" & """/>" & "</form></body></html>").Wait()
                         Dim document As IDocument = browser.MainFrame.Document
-                        Dim firstName As IInputElement = DirectCast(document.GetElementByName("firstName"), IInputElement)
-                        Dim lastName As IInputElement = DirectCast(document.GetElementByName("lastName"), IInputElement)
-                        Dim agreement As IInputElement = DirectCast(document.GetElementByName("agreement"), IInputElement)
+                        Dim firstName = DirectCast(document.GetElementByName("firstName"), IInputElement)
+                        Dim lastName = DirectCast(document.GetElementByName("lastName"), IInputElement)
+                        Dim agreement = DirectCast(document.GetElementByName("agreement"), IInputElement)
 
                         firstName.Value = "John"
                         lastName.Value = "Doe"
                         agreement.Checked = True
 
-                        AddHandler browser.ConsoleMessage, Sub(sender, args)
-                                                               Console.WriteLine("JS Console: < " & args.Message)
-                                                           End Sub
+                        AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
+                            Console.WriteLine("JS Console: < " & args.Message)
+                        End Sub
                         document.GetElementById("saveButton").Click()
                         Thread.Sleep(3000)
                     End Using

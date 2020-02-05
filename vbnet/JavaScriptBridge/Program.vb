@@ -23,10 +23,11 @@
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
-Imports DotNetBrowser.JS
+Imports DotNetBrowser.Js
 Imports DotNetBrowser.Logging
 
 Friend Class Program
+
 #Region "Methods"
 
     Public Shared Sub Main()
@@ -40,7 +41,8 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
-                    browser.MainFrame.LoadHtml("<html>
+                    browser.MainFrame.LoadHtml(
+                        "<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
@@ -50,11 +52,12 @@ Friend Class Program
                                             };
                                         </script>
                                      </body>
-                                   </html>").Wait()
+                                   </html>") _
+                        .Wait()
                     Dim person = New Person("Jack", 30, True)
                     person.Children = New Dictionary(Of Double, Person)()
                     person.Children.Add(1.0, New Person("Oliver", 10, True))
-                    Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
+                    Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result
                     value.Invoke("ShowData", person)
 
                     Console.WriteLine(vbTab & "Browser title: " & browser.Title)
@@ -71,20 +74,21 @@ Friend Class Program
 
 
     Private Class Person
+
 #Region "Properties"
 
-        Public ReadOnly Property Age() As Double
+        Public ReadOnly Property Age As Double
 
-        Public Property Children() As IDictionary(Of Double, Person)
-        Public ReadOnly Property FullName() As String
+        Public Property Children As IDictionary(Of Double, Person)
+        Public ReadOnly Property FullName As String
 
-        Public ReadOnly Property Gender() As Boolean
+        Public ReadOnly Property Gender As Boolean
 
 #End Region
 
 #Region "Constructors"
 
-        Public Sub New(ByVal fullName As String, ByVal age As Integer, ByVal gender As Boolean)
+        Public Sub New(fullName As String, age As Integer, gender As Boolean)
             Me.Gender = gender
             Me.FullName = fullName
             Me.Age = age
@@ -94,7 +98,7 @@ Friend Class Program
 
 #Region "Methods"
 
-        Public Function Walk(ByVal withPerson As Person) As String
+        Public Function Walk(withPerson As Person) As String
             Return String.Format("{0} is walking with {1}!", If(Gender, "He", "She"), withPerson.FullName)
         End Function
 

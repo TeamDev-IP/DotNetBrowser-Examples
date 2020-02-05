@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Collections.ObjectModel
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
@@ -31,6 +32,7 @@ Namespace PostData
     '''     This sample demonstrates how to read and modify POST parameters using BeforeSendUploadDataHandler.
     ''' </summary>
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -40,12 +42,13 @@ Namespace PostData
 
                     Using browser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        engine.NetworkService.BeforeSendUploadDataHandler = New Handler(Of BeforeSendUploadDataParameters, BeforeSendUploadDataResponse)(AddressOf OnBeforeSendUploadData)
+                        engine.Network.SendUploadDataHandler =
+                            New Handler(Of SendUploadDataParameters, SendUploadDataResponse)(AddressOf OnSendUploadData)
 
                         Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {
-                            .PostData = "key=value",
-                            .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
-                        }
+                                .PostData = "key=value",
+                                .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
+                                }
                         browser.Navigation.LoadUrl(parameters).Wait()
                         Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
                     End Using
@@ -57,18 +60,30 @@ Namespace PostData
             Console.ReadKey()
         End Sub
 
-        Public Shared Function OnBeforeSendUploadData(ByVal parameters As BeforeSendUploadDataParameters) As BeforeSendUploadDataResponse
+        Public Shared Function OnSendUploadData(parameters As SendUploadDataParameters) As SendUploadDataResponse
             If "POST" = parameters.UrlRequest.Method Then
                 Dim uploadData = parameters.UploadData
-                If uploadData.Type = UploadDataType.TextData Then
-                    Console.WriteLine($"Text data intercepted: {uploadData.TextData}")
-                    Return BeforeSendUploadDataResponse.Override(New FormData From {
-                        {"fname", "MyName"},
-                        {"lname", "MyLastName"}
-                    })
+                Dim textData = TryCast(uploadData, TextData)
+
+                If textData IsNot Nothing Then
+                    Console.WriteLine($"Text data intercepted: {textData.Data}")
+                    Return _
+                        SendUploadDataResponse.Override(
+                            New FormData(
+                                New ReadOnlyCollection(Of KeyValuePair(Of String, String))(
+                                    New List(Of KeyValuePair(Of String, String))() From {
+                                                                                              New _
+                                                                                              KeyValuePair _
+                                                                                              (Of String, String)(
+                                                                                                  "fname", "MyName"),
+                                                                                              New _
+                                                                                              KeyValuePair _
+                                                                                              (Of String, String)(
+                                                                                                  "lname", "MyLastName")
+                                                                                              })))
                 End If
             End If
-            Return BeforeSendUploadDataResponse.Ignore()
+            Return SendUploadDataResponse.Continue()
         End Function
 
 #End Region

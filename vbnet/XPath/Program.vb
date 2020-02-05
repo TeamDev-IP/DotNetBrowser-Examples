@@ -28,6 +28,7 @@ Imports DotNetBrowser.Geometry
 
 Namespace XPath
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -48,8 +49,8 @@ Namespace XPath
                         Dim result As IXPathResult = document.Evaluate(expression)
                         ' If the expression is not a valid XPath expression or the document
                         ' element is not available, we'll get an error.
-                        If result.IsError Then
-                            Console.WriteLine("Error: " & result.ErrorMessage)
+                        If result.Type = XPathResultType.Unspecified Then
+                            Console.WriteLine("The evaluation error occurred")
                             Return
                         End If
 

@@ -22,10 +22,11 @@
 
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
-Imports DotNetBrowser.JS
+Imports DotNetBrowser.Js
 
 Namespace JavaScriptObjects
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -35,7 +36,8 @@ Namespace JavaScriptObjects
 
                     Using browser As IBrowser = engine.CreateBrowser()
                         Console.WriteLine("Browser created")
-                        Dim document As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("document").Result
+                        Dim document As IJsObject =
+                                browser.MainFrame.ExecuteJavaScript (Of IJsObject)("document").Result
 
                         ' document.title = "New Title"
                         document.Properties("title") = "New Title"
@@ -43,7 +45,8 @@ Namespace JavaScriptObjects
                         ' document.write("Hello World!")
                         document.Invoke("write", "Hello World!")
 
-                        Dim documentContent As String = browser.MainFrame.ExecuteJavaScript(Of String)("document.body.innerText").Result
+                        Dim documentContent As String =
+                                browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
                         Console.Out.WriteLine("New content: " & documentContent)
                     End Using
                 End Using

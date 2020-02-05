@@ -30,6 +30,7 @@ Imports DotNetBrowser.Search.Handlers
 
 Namespace FindText
     Friend Class Program
+
 #Region "Methods"
 
         Public Shared Sub Main()
@@ -44,11 +45,13 @@ Namespace FindText
 
                         Thread.Sleep(2000)
                         ' Find text from the beginning of the loaded web page.
-                        Dim searchText As String = "find me"
-                        Dim requestId As Integer = 0
-                        Dim intermediateResultsHandler As IHandler(Of FindResultReceivedParameters) = New Handler(Of FindResultReceivedParameters)(AddressOf ProcessSearchResults)
+                        Dim searchText = "find me"
+                        Dim requestId = 0
+                        Dim intermediateResultsHandler As IHandler(Of FindResultReceivedParameters) =
+                                New Handler(Of FindResultReceivedParameters)(AddressOf ProcessSearchResults)
                         Console.WriteLine("Find text (1/2)")
-                        Dim findResult As FindResult = browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
+                        Dim findResult As FindResult =
+                                browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
                         Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
                         Console.WriteLine("Find text (2/2)")
                         findResult = browser.TextFinder.Find(searchText, Nothing, intermediateResultsHandler).Result
@@ -63,13 +66,14 @@ Namespace FindText
             Console.ReadKey()
         End Sub
 
-        Private Shared Sub ProcessSearchResults(ByVal args As FindResultReceivedParameters)
+        Private Shared Sub ProcessSearchResults(args As FindResultReceivedParameters)
             Dim result As FindResult = args.FindResult
 
-            If args.Finished Then
+            If args.IsSearchFinished Then
                 Console.Out.WriteLine("Found: " & result.SelectedMatch & "/" & result.NumberOfMatches)
             Else
-                Console.Out.WriteLine("Search in progress... Found " & result.SelectedMatch & "/" & result.NumberOfMatches)
+                Console.Out.WriteLine(
+                    "Search in progress... Found " & result.SelectedMatch & "/" & result.NumberOfMatches)
             End If
         End Sub
 
