@@ -24,6 +24,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Js
 
+''' <summary>
+'''     This example demonstrates how to access JavaScript objects on the .NET side.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

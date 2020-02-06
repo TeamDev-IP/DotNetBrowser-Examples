@@ -25,6 +25,10 @@ Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
+''' <summary>
+'''     This example demonstrates how to get the collection of the &lt;div&gt; elements
+'''     on the web page.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

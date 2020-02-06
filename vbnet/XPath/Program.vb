@@ -26,6 +26,10 @@ Imports DotNetBrowser.Dom.XPath
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
+''' <summary>
+'''     The sample demonstrates how to evaluate an XPath expression and work
+'''     with the evaluation result.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

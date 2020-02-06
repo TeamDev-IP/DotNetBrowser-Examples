@@ -26,6 +26,9 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Zoom
 Imports DotNetBrowser.Zoom.Events
 
+''' <summary>
+'''     The sample demonstrates how to set the zoom level using DotNetBrowser API.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

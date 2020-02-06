@@ -27,6 +27,10 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 Imports DotNetBrowser.Ui
 
+''' <summary>
+'''     This example demonstrates how to get a screenshot of the web page
+'''     and save it as a PNG image.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

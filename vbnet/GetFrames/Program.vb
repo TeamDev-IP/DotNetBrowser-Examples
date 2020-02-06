@@ -25,6 +25,10 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
 Imports DotNetBrowser.Geometry
 
+''' <summary>
+'''     The example demonstrates how to obtain the hierarchy of frames
+'''     on the web page.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

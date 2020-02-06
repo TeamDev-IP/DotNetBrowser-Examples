@@ -24,6 +24,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     This example demonstrates how to get the list of existing attributes of a specified HTML element.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

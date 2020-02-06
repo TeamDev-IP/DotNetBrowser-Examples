@@ -28,6 +28,9 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Search
 Imports DotNetBrowser.Search.Handlers
 
+''' <summary>
+'''     This example demonstrates how to find text on the loaded web page.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

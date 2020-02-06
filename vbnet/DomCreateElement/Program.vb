@@ -24,6 +24,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     This example demonstrates how to create a DOM element and insert it into the DOM tree.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

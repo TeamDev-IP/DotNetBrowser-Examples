@@ -30,7 +30,7 @@ Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Wpf
 
 ''' <summary>
-'''     Interaction logic for MainWindow.xaml
+'''     This example demonstrates how to simulate keypress.
 ''' </summary>
 Partial Public Class MainWindow
     Inherits Window

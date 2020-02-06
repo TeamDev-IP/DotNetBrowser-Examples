@@ -24,6 +24,9 @@ Imports System.IO
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     The sample demonstrates how to create several Chromium engines.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

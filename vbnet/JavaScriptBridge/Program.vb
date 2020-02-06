@@ -26,6 +26,10 @@ Imports DotNetBrowser.Geometry
 Imports DotNetBrowser.Js
 Imports DotNetBrowser.Logging
 
+''' <summary>
+'''     This example demonstrates how to inject a .NET object into JavaScript and tell JavaScript
+'''     which public methods of the injected .NET object JavaScript can invoke.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

@@ -24,6 +24,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 
+''' <summary>
+'''     This example demonstrates how to obtain HTML code of the loaded web page.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

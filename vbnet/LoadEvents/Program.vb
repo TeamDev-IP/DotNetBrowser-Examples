@@ -24,6 +24,10 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation.Events
 
+''' <summary>
+'''     The sample demonstrates how to receive notifications about
+'''     web page loading progress.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

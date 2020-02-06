@@ -27,6 +27,9 @@ Imports DotNetBrowser.Frames
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Net.Handlers
 
+''' <summary>
+'''     The sample demonstrates how to suppress Ajax calls by registering the LoadResourceHandler.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

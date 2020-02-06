@@ -26,6 +26,9 @@ Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Dom.Events
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     This example demonstrates how to create and dispatch a DOM event.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

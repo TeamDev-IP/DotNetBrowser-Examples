@@ -25,6 +25,9 @@ Imports System.Windows.Automation
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     The sample demonstrates how to use UI Automation with DotNetBrowser.
+''' </summary>
 Partial Public Class MainWindow
     Inherits Window
 

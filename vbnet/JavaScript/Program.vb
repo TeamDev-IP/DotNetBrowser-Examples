@@ -23,6 +23,9 @@
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     This sample demonstrates how to execute JavaScript on the web page using DotNetBrowser API.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

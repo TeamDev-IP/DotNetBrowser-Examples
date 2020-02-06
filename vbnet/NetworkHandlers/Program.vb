@@ -26,6 +26,10 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
+''' <summary>
+'''     This example demonstrates how to intercept a URL request,
+'''     redirect to another web site and get a User-Agent string for the web site.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

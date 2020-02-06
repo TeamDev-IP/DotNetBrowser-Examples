@@ -28,6 +28,9 @@ Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
+''' <summary>
+'''     This example demonstrates how to intercept all URL requests and handle a custom protocol.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

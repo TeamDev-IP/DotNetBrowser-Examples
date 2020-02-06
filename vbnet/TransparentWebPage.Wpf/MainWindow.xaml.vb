@@ -25,7 +25,8 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
 ''' <summary>
-'''     Interaction logic for MainWindow.xaml
+'''     The sample demonstrates how to enable transparent background
+'''     on the web page.
 ''' </summary>
 Partial Public Class MainWindow
     Inherits Window

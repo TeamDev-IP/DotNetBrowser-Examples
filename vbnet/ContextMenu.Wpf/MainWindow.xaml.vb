@@ -28,7 +28,8 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 
 ''' <summary>
-'''     Interaction logic for MainWindow.xaml
+'''     The sample demonstrates how to create a context menu
+'''     for a Browser instance.
 ''' </summary>
 Partial Public Class MainWindow
     Inherits Window

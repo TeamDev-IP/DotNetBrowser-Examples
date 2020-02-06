@@ -26,7 +26,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
 ''' <summary>
-'''     Interaction logic for MainWindow.xaml
+'''     This example demonstrates how to find text on the loaded web page.
 ''' </summary>
 Partial Public Class MainWindow
     Inherits Window

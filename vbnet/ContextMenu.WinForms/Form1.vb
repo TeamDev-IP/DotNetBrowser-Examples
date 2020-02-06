@@ -30,6 +30,10 @@ Imports DotNetBrowser.SpellCheck
 Imports DotNetBrowser.WinForms
 
 Namespace ContextMenu.WinForms
+
+    ''' <summary>
+    '''     The sample demonstrates how to create a context menu with the SpellChecker functionality.
+    ''' </summary>
     Partial Public Class Form1
         Inherits Form
 
@@ -56,13 +60,13 @@ Namespace ContextMenu.WinForms
                                          AddressOf ShowMenu)
                 browser.MainFrame.LoadHtml(
                     "<html>
-<head>
-  <meta charset='UTF-8'>
-</head>
-<body>
-<textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
-</body>
-</html>")
+                    <head>
+                      <meta charset='UTF-8'>
+                    </head>
+                    <body>
+                    <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
+                    </body>
+                    </html>")
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
             InitializeComponent()
             AddHandler Me.FormClosing, AddressOf Form1_FormClosing

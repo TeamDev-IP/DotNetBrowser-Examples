@@ -25,6 +25,9 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Events
 
+''' <summary>
+'''     The sample demonstrates how to access HTTP response data.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

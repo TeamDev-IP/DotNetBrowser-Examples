@@ -24,6 +24,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Cookies
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     The sample demonstrates how to get all cookies.
+''' </summary>
 Friend Class Program
     Private Const Url As String = "http://google.com"
 

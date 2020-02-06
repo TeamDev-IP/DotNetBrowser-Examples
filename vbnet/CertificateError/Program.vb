@@ -27,7 +27,7 @@ Imports DotNetBrowser.Net.Certificates
 Imports DotNetBrowser.Net.Handlers
 
 ''' <summary>
-'''     Demonstrates how to handle SSL certificate errors.
+'''     The sample demonstrates how to handle SSL certificate errors.
 ''' </summary>
 Friend Class Program
 

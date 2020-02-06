@@ -25,6 +25,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     This example demonstrates how to fill HTML Form fields using DotNetBrowser DOM API.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

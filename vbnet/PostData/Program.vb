@@ -28,7 +28,7 @@ Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
 ''' <summary>
-'''     This sample demonstrates how to read and modify POST parameters using BeforeSendUploadDataHandler.
+'''     This sample demonstrates how to read and modify POST parameters using SendUploadDataHandler.
 ''' </summary>
 Friend Class Program
 

@@ -24,6 +24,9 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
+''' <summary>
+'''     This example demonstrates how to use QuerySelector DOM API.
+''' </summary>
 Friend Class Program
 
 #Region "Methods"

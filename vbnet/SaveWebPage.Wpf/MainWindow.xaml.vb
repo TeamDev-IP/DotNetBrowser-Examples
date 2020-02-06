@@ -30,7 +30,7 @@ Imports DotNetBrowser.Wpf
 
 ''' <summary>
 '''     Demonstrates how to embed WPF BrowserView component into WPF Application,
-'''     load and display HTML content from string.
+'''     load and display HTML content from a string.
 ''' </summary>
 Partial Public Class MainWindow
     Inherits Window
