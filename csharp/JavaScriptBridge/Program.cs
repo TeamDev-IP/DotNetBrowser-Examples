@@ -32,8 +32,8 @@ using DotNetBrowser.Logging;
 namespace JavaScriptBridge
 {
     /// <summary>
-    ///     This example demonstrates how to inject a .NET object into JavaScript and tell JavaScript
-    ///     which public methods of the injected .NET object JavaScript can invoke.
+    ///     This example demonstrates how to inject a .NET object into JavaScript and
+    ///     invoke its public methods from the JavaScript side.
     /// </summary>
     internal class Program
     {
