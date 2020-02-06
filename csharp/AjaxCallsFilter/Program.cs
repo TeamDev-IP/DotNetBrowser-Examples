@@ -32,8 +32,7 @@ using DotNetBrowser.Net.Handlers;
 namespace AjaxCallsFilter
 {
     /// <summary>
-    ///     The sample demonstrates how to create a filter which prevents loading Ajax calls and
-    ///     register own LoadResourceHandler.
+    ///     The sample demonstrates how to suppress Ajax calls by registering the LoadResourceHandler.
     /// </summary>
     internal class Program
     {

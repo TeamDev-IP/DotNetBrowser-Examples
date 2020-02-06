@@ -28,7 +28,7 @@ using DotNetBrowser.Js;
 namespace JavaScriptObjects
 {
     /// <summary>
-    ///     This example demonstrates how to get JavaScript objects to the .Net side.
+    ///     This example demonstrates how to access JavaScript objects on the .NET side.
     /// </summary>
     internal class Program
     {

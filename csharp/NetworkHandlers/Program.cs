@@ -32,8 +32,8 @@ using DotNetBrowser.Net.Handlers;
 namespace NetworkHandlers
 {
     /// <summary>
-    ///     This example demonstrates how to intercept a URL request and override the response data in the
-    ///     separate thread.
+    ///     This example demonstrates how to intercept a URL request,
+    ///     redirect to another web site and get a User-Agent string for the web site.
     /// </summary>
     internal class Program
     {

@@ -29,7 +29,8 @@ using DotNetBrowser.Geometry;
 namespace GetFrames
 {
     /// <summary>
-    ///     The sample demonstrates how to get a collection of IFrames.
+    ///     The example demonstrates how to obtain the hierarchy of frames
+    ///     on the web page.
     /// </summary>
     internal class Program
     {

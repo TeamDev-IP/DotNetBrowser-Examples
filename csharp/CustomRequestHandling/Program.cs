@@ -69,7 +69,7 @@ namespace CustomRequestHandling
 
         private static InterceptRequestResponse OnInterceptRequest(InterceptRequestParameters parameters)
         {
-            // If URL protocol equals to the custom "myscheme" protocol, then intercept this
+            // If scheme equals to the custom "myscheme" protocol, then intercept this
             // request and reply with a custom response.
             if (parameters.UrlRequest.Url.StartsWith("myscheme"))
             {

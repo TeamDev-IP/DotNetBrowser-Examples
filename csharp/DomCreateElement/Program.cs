@@ -28,7 +28,7 @@ using DotNetBrowser.Engine;
 namespace DomCreateElement
 {
     /// <summary>
-    ///     This example demonstrates how to create a DOM element.
+    ///     This example demonstrates how to create a DOM element and insert it into the DOM tree.
     /// </summary>
     internal class Program
     {

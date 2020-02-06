@@ -32,7 +32,7 @@ using Condition = System.Windows.Automation.Condition;
 namespace UiAutomation.Wpf
 {
     /// <summary>
-    ///     The sample demonstrates how to use automation with DotNetBrowser.
+    ///     The sample demonstrates how to use UI Automation with DotNetBrowser.
     /// </summary>
     public partial class MainWindow : Window
     {

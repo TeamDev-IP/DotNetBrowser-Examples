@@ -30,8 +30,8 @@ using Office = Microsoft.Office.Core;
 namespace MyOutlookAddIn
 {
     /// <summary>
-    ///     The sample demonstrates how to embedded WinForms BrowserView instance
-    ///     into Outlook as an AddIn.
+    ///     The sample demonstrates how to embed WinForms BrowserView instance
+    ///     into Outlook as an add-in.
     /// </summary>
     internal partial class BrowserFormRegion
     {

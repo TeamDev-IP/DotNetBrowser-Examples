@@ -30,7 +30,8 @@ using DotNetBrowser.Geometry;
 namespace DomGetElements
 {
     /// <summary>
-    ///     This example demonstrates how to get the list of specified HTML elements.
+    ///     This example demonstrates how to get the collection of the &lt;div&gt; elements
+    ///     on the web page.
     /// </summary>
     internal class Program
     {

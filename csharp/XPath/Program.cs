@@ -30,8 +30,8 @@ using DotNetBrowser.Geometry;
 namespace XPath
 {
     /// <summary>
-    ///     The sample demonstrates how to evaluate a DOM HTML document
-    ///     and get an XPath result.
+    ///     The sample demonstrates how to evaluate an XPath expression and work
+    ///     with the evaluation result.
     /// </summary>
     internal class Program
     {
@@ -56,13 +56,6 @@ namespace XPath
                         string expression = "count(//div)";
                         Console.WriteLine($"Evaluating \'{expression}\'");
                         IXPathResult result = document.Evaluate(expression);
-                        // If the expression is not a valid XPath expression or the document
-                        // element is not available, we'll get an error.
-                        if (result.Type == XPathResultType.Unspecified)
-                        {
-                            Console.WriteLine("The evaluation error occurred");
-                            return;
-                        }
 
                         // Make sure that result is a number.
                         if (result.Type == XPathResultType.Number)
@@ -71,6 +64,13 @@ namespace XPath
                         }
                     }
                 }
+            }
+            // If the expression is not a valid XPath expression or the document
+            // element is not available, we'll get an error.
+            catch (XPathException e)
+            {
+                Console.WriteLine("Error message: " + e.Message);
+                return;
             }
             catch (Exception e)
             {

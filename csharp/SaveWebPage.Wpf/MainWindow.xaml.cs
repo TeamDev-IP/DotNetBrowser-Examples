@@ -32,8 +32,8 @@ using DotNetBrowser.Wpf;
 namespace WPF.SaveWebPage
 {
     /// <summary>
-    ///     Demonstrates how to embed Wpf BrowserView component into Wpf Application,
-    ///     load and display Html content from string.
+    ///     Demonstrates how to embed WPF BrowserView component into WPF Application,
+    ///     load and display HTML content from a string.
     /// </summary>
     public partial class MainWindow : Window
     {

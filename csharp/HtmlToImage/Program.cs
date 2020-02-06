@@ -32,8 +32,8 @@ using Size = DotNetBrowser.Geometry.Size;
 namespace HtmlToImage
 {
     /// <summary>
-    ///     This example demonstrates how to get screen shot of the web page
-    ///     and save it as PNG image file.
+    ///     This example demonstrates how to get a screenshot of the web page
+    ///     and save it as a PNG image.
     /// </summary>
     internal class Program
     {
