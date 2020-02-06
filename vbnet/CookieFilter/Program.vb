@@ -44,7 +44,7 @@ Friend Class Program
                         New Handler(Of CanGetCookiesParameters, CanGetCookiesResponse)(AddressOf CanGetCookies)
                     engine.Network.CanSetCookieHandler =
                         New Handler(Of CanSetCookieParameters, CanSetCookieResponse)(AddressOf CanSetCookie)
-                    Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
+                    Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
                     Console.WriteLine("LoadResult: " & result)
                 End Using
             End Using

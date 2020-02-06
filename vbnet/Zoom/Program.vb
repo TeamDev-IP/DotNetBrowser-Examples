@@ -45,7 +45,7 @@ Friend Class Program
                         Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
                     End Sub
 
-                    browser.Navigation.LoadUrl("http://www.teamdev.com").Wait()
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
                     Console.WriteLine("Updating zoom level")
                     browser.Zoom.Level = Level.P200
                     Thread.Sleep(3000)

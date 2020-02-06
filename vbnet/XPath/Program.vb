@@ -43,7 +43,7 @@ Friend Class Program
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(1024, 768)
 
-                    browser.Navigation.LoadUrl("http://www.teamdev.com/dotnetbrowser").Wait()
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
                     Dim document As IDocument = browser.MainFrame.Document
 
 

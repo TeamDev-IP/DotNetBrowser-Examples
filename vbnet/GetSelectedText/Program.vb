@@ -40,7 +40,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
-                    browser.Navigation.LoadUrl("http://www.teamdev.com").Wait()
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
 
                     browser.MainFrame.Execute(EditorCommand.SelectAll())
 

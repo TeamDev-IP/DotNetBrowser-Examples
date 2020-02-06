@@ -41,7 +41,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.Navigation.LoadUrl("http://www.google.com").Wait()
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
                     ' Inserts "TeamDev DotNetBrowser" text into Google Search field.
                     browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"))
                     ' Inserts a new line into Google Search field to simulate Enter.

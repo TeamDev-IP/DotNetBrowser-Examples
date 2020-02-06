@@ -35,7 +35,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.Navigation.LoadUrl("http://www.google.com").Wait()
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
                     ' Execute JavaScript code and get return value from JavaScript.
                     Dim title As String = browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
                     Console.Out.WriteLine($"The ""document.title"" JavaScript code returns ""{title}""")

@@ -45,8 +45,8 @@ Friend Class Program
                     engine.Network.SendHeadersHandler =
                         New Handler(Of SendHeadersParameters, SendHeadersResponse)(AddressOf OnSendHeaders)
 
-                    Console.WriteLine("Loading http://www.teamdev.com/")
-                    browser.Navigation.LoadUrl("http://www.teamdev.com/").Wait()
+                    Console.WriteLine("Loading https://www.teamdev.com/")
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait()
                     Console.WriteLine($"Loaded URL: {browser.Url}")
                 End Using
             End Using
@@ -59,7 +59,7 @@ Friend Class Program
 
     Public Shared Function OnSendHeaders(parameters As SendHeadersParameters) As SendHeadersResponse
         ' If navigate to google.com, then print User-Agent header value.
-        If parameters.UrlRequest.Url = "http://www.google.com/" Then
+        If parameters.UrlRequest.Url = "https://www.google.com/" Then
             Dim headers As IEnumerable(Of IHttpHeader) = parameters.Headers
             Console.WriteLine(
                 "User-Agent: " &
@@ -70,9 +70,9 @@ Friend Class Program
 
     Public Shared Function OnSendUrlRequest(parameters As SendUrlRequestParameters) As SendUrlRequestResponse
         ' If navigate to teamdev.com, then change URL to google.com.
-        If parameters.UrlRequest.Url = "http://www.teamdev.com/" Then
-            Console.WriteLine("Redirecting to  http://www.google.com/")
-            Return SendUrlRequestResponse.Override("http://www.google.com")
+        If parameters.UrlRequest.Url = "https://www.teamdev.com/" Then
+            Console.WriteLine("Redirecting to  https://www.google.com/")
+            Return SendUrlRequestResponse.Override("https://www.google.com")
         End If
         Return SendUrlRequestResponse.Continue()
     End Function

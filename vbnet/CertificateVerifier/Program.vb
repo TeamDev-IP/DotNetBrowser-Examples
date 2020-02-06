@@ -44,7 +44,7 @@ Public Class WindowMain
                     Console.WriteLine("Browser created")
                     engine.Network.VerifyCertificateHandler =
                         New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
-                    Dim result As LoadResult = browser.Navigation.LoadUrl("http://google.com").Result
+                    Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
                     Console.WriteLine("LoadResult: " & result)
                 End Using
             End Using

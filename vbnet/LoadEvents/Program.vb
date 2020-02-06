@@ -54,7 +54,7 @@ Friend Class Program
                         Sub(sender As Object, e As FrameDocumentLoadFinishedEventArgs)
                             Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}")
                         End Sub
-                    browser.Navigation.LoadUrl("http://www.google.com").Wait()
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
                 End Using
             End Using
         Catch e As Exception

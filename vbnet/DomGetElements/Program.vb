@@ -41,7 +41,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.Navigation.LoadUrl("http://www.google.com").Wait()
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
                     Dim document As IDocument = browser.MainFrame.Document
                     Dim divs As IEnumerable(Of INode) = document.GetElementsByTagName("div")
                     For Each div As INode In divs

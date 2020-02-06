@@ -54,8 +54,8 @@ Friend Class Program
                     browser.Size = browserSize
 
                     ' 2. Load the required web page and wait until it is loaded completely.
-                    Console.WriteLine("Loading http://www.teamdev.com/dotnetbrowser")
-                    browser.Navigation.LoadUrl("http://www.teamdev.com/dotnetbrowser").Wait()
+                    Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser")
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
 
                     ' 3. Take the bitmap of the currently loaded web page. Its size will be 
                     ' equal to the current browser's size.
