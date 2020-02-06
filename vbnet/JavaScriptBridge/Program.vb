@@ -39,7 +39,7 @@ Friend Class Program
             LoggerProvider.Instance.Level = SourceLevels.Information
             LoggerProvider.Instance.FileLoggingEnabled = True
             LoggerProvider.Instance.OutputFile = "dnb.log"
-            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
                 Console.WriteLine("Engine created")
 
                 Using browser As IBrowser = engine.CreateBrowser()
