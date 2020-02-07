@@ -48,6 +48,7 @@ Friend Class Program
                             .PostData = "key=value",
                             .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
                             }
+
                     browser.Navigation.LoadUrl(parameters).Wait()
                     Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
                 End Using
@@ -71,15 +72,9 @@ Friend Class Program
                         New FormData(
                             New ReadOnlyCollection(Of KeyValuePair(Of String, String))(
                                 New List(Of KeyValuePair(Of String, String))() From {
-                                                                                          New _
-                                                                                          KeyValuePair _
-                                                                                          (Of String, String)(
-                                                                                              "fname", "MyName"),
-                                                                                          New _
-                                                                                          KeyValuePair _
-                                                                                          (Of String, String)(
-                                                                                              "lname", "MyLastName")
-                                                                                          })))
+                                      New KeyValuePair (Of String, String)("fname", "MyName"),
+                                      New KeyValuePair (Of String, String)("lname", "MyLastName")
+                                      })))
             End If
         End If
         Return SendUploadDataResponse.Continue()

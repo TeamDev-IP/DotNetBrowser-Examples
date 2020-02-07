@@ -27,8 +27,8 @@ Imports DotNetBrowser.Js
 Imports DotNetBrowser.Logging
 
 ''' <summary>
-'''     This example demonstrates how to inject a .NET object into JavaScript and tell JavaScript
-'''     which public methods of the injected .NET object JavaScript can invoke.
+'''     This example demonstrates how to inject a .NET object into JavaScript and
+'''     invoke its public methods from the JavaScript side.
 ''' </summary>
 Friend Class Program
 
@@ -46,13 +46,15 @@ Friend Class Program
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
                     browser.MainFrame.LoadHtml(
-                        "<html>
+                                   "<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
                                             {
-                                                 document.title = a.get_FullName() + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
-                                                                + ' ' + a.get_Children().get_Item(1).get_FullName() + ' ' + a.get_Children().get_Item(1).get_Age();
+                                                 document.title = a.get_FullName() 
+                                                 + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
+                                                 + ' ' + a.get_Children().get_Item(1).get_FullName() 
+                                                 + ' ' + a.get_Children().get_Item(1).get_Age();
                                             };
                                         </script>
                                      </body>

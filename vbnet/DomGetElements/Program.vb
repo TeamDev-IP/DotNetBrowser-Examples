@@ -50,7 +50,11 @@ Friend Class Program
                         If tempVar Then
                             Dim boundingClientRect As Rectangle = divElement.BoundingClientRect
                             Console.Out.WriteLine(
-                                "class = {0}; boundingClientRect.Top = {1}; boundingClientRect.Left = {2}; boundingClientRect.Width = {3}; boundingClientRect.Height = {4}",
+                                "class = {0};" &
+                                " boundingClientRect.Top = {1};" &
+                                " boundingClientRect.Left = {2};" &
+                                " boundingClientRect.Width = {3};" &
+                                " boundingClientRect.Height = {4}",
                                 divElement.Attributes("class"), boundingClientRect.Origin.Y,
                                 boundingClientRect.Origin.X, boundingClientRect.Size.Width,
                                 boundingClientRect.Size.Height)

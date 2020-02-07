@@ -56,8 +56,10 @@ Friend Class Program
     End Sub
 
     Private Shared Function CanGetCookies(arg As CanGetCookiesParameters) As CanGetCookiesResponse
-        Dim cookies As String = arg.Cookies.Aggregate(String.Empty,
-                                                      Function(current, cookie) current + (cookie.ToString() & vbLf))
+        Dim cookies As String = 
+                arg.Cookies.Aggregate(String.Empty,
+                                      Function(current, cookie) current + (cookie.ToString() & vbLf))
+
         Console.WriteLine("CanGetCookies: " & cookies)
         Return CanGetCookiesResponse.Deny()
     End Function

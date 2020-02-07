@@ -60,6 +60,7 @@ Friend Class Program
         Catch e As Exception
             Console.WriteLine(e)
         End Try
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

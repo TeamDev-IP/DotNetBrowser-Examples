@@ -55,12 +55,11 @@ Partial Public Class MainWindow
 
                 browserView.InitializeFrom(browser)
 
-                browser.MainFrame.LoadHtml(
-                    "<html>
-                                            <body>
-                                                <input type='text' autofocus></input>
-                                            </body>
-                                           </html>") _
+                browser.MainFrame.LoadHtml("<html>
+                                                <body>
+                                                    <input type='text' autofocus></input>
+                                                </body>
+                                            </html>") _
                                      .ContinueWith(AddressOf SimulateInput)
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 

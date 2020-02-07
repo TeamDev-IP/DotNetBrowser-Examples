@@ -56,7 +56,7 @@ Friend Class Program
     Private Shared Sub OnResponseBytesReceived(sender As Object, eventArgs As ResponseBytesReceivedEventArgs)
         If eventArgs.MimeType.Equals(MimeType.TextHtml) Then
             Console.WriteLine($"MimeType = {eventArgs.MimeType}")
-            Console.WriteLine($"Charset = {eventArgs.UrlRequest.Method}")
+            Console.WriteLine($"The HTTP method = {eventArgs.UrlRequest.Method}")
             Dim data As String = eventArgs.Data.Aggregate (Of String)(Nothing, Function(current, t) current + ChrW(t))
             Console.WriteLine($"Data = {data}" & vbLf)
         End If

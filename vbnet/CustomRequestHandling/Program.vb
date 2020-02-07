@@ -58,6 +58,8 @@ Friend Class Program
     End Sub
 
     Private Shared Function OnInterceptRequest(parameters As InterceptRequestParameters) As InterceptRequestResponse
+        ' If scheme equals to the custom "myscheme" protocol, then intercept this
+        ' request and reply with a custom response.
         If parameters.UrlRequest.Url.StartsWith("myscheme") Then
             Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url)
             Dim urlRequestJob As UrlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest)
@@ -65,6 +67,8 @@ Friend Class Program
             urlRequestJob.Complete()
             return InterceptRequestResponse.Intercept(urlRequestJob)
         End If
+
+        'Otherwise proceed the request using default behavior.
         Return InterceptRequestResponse.Proceed()
     End Function
 

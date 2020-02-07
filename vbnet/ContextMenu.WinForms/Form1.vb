@@ -30,7 +30,6 @@ Imports DotNetBrowser.SpellCheck
 Imports DotNetBrowser.WinForms
 
 Namespace ContextMenu.WinForms
-
     ''' <summary>
     '''     The sample demonstrates how to create a context menu with the SpellChecker functionality.
     ''' </summary>
@@ -108,10 +107,12 @@ Namespace ContextMenu.WinForms
                     End If
 
                     Dim addToDictionary As String = If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
+
                     popupMenu.MenuItems.Add(BuildMenuItem(addToDictionary, True, Sub()
                         engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End Sub))
+
                     AddHandler popupMenu.Collapse, Sub(sender, args)
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End Sub

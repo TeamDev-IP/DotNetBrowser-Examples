@@ -43,17 +43,21 @@ Friend Class Program
                             Console.Out.WriteLine(
                                 $"FrameLoadFinished: URL = {e.ValidatedUrl}, IsMainFrame = {e.Frame.IsMain}")
                         End Sub
+
                     AddHandler browser.Navigation.LoadStarted, Sub()
                         Console.Out.WriteLine("LoadStarted")
                     End Sub
+
                     AddHandler browser.Navigation.NavigationStarted,
                         Sub(sender As Object, e As NavigationStartedEventArgs)
                             Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}")
                         End Sub
+
                     AddHandler browser.Navigation.FrameDocumentLoadFinished,
                         Sub(sender As Object, e As FrameDocumentLoadFinishedEventArgs)
                             Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}")
                         End Sub
+
                     browser.Navigation.LoadUrl("https://www.google.com").Wait()
                 End Using
             End Using

@@ -76,12 +76,13 @@ Partial Public Class MainWindow
     Private Function ShowMenu(parameters As ShowContextMenuParameters) As Task(Of ShowContextMenuResponse)
         Dim tcs As New TaskCompletionSource(Of ShowContextMenuResponse)()
         WebView.Dispatcher?.BeginInvoke(New Action(Sub()
-            Dim popupMenu As New Controls.ContextMenu()
+            Dim popupMenu As New ContextMenu()
 
             If Not String.IsNullOrEmpty(parameters.LinkText) Then
-                popupMenu.Items.Add(BuildMenuItem("Open link in new window", True, Visibility.Visible, Sub()
+                popupMenu.Items.Add(BuildMenuItem("Show the URL link", True, Visibility.Visible, Sub()
                     Dim linkURL As String = parameters.LinkUrl
                     Console.WriteLine($"linkURL = {linkURL}")
+                    MessageBox.Show(linkURL, "URL")
                     tcs.TrySetResult(ShowContextMenuResponse.Close())
                 End Sub))
             End If
@@ -91,9 +92,11 @@ Partial Public Class MainWindow
                 browser.Navigation.Reload()
                 tcs.TrySetResult(ShowContextMenuResponse.Close())
             End Sub))
+
             AddHandler popupMenu.Closed, Sub(sender, args)
                 tcs.TrySetResult(ShowContextMenuResponse.Close())
             End Sub
+
             popupMenu.IsOpen = True
         End Sub))
         Return tcs.Task

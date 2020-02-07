@@ -68,14 +68,17 @@ Partial Public Class MainWindow
             If chromiumElement IsNot Nothing Then
                 Log("-- Element Properties --")
                 Dim properties() As AutomationProperty = chromiumElement.GetSupportedProperties()
+
                 For Each prop As AutomationProperty In properties
                     Log("ProgrammaticName: " & prop.ProgrammaticName)
                     Log(vbTab & "Property Name: " & Automation.PropertyName(prop))
                     Dim currentPropertyValue = chromiumElement.GetCurrentPropertyValue(prop)
                     Log(vbTab & "Property Value: " & Convert.ToString(currentPropertyValue))
                 Next prop
+
                 Log("-- Element Patterns --")
                 Dim patterns() As AutomationPattern = chromiumElement.GetSupportedPatterns()
+
                 For Each pattern As AutomationPattern In patterns
                     Log("ProgrammaticName: " & pattern.ProgrammaticName)
                     Log(vbTab & "Pattern Name: " & Automation.PatternName(pattern))

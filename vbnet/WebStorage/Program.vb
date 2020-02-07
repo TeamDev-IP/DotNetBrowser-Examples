@@ -43,11 +43,14 @@ Friend Class Program
 
                     browser.MainFrame.LoadHtml(
                         New LoadHtmlParameters(
-                            "<html><body>" & "<script>localStorage.myKey = ""Initial Value"";" &
-                            "function myFunction(){return localStorage.myKey;}" & "</script></body></html>") With {
+                            "<html><body>" &
+                            "<script>localStorage.myKey = ""Initial Value"";" &
+                            "function myFunction(){return localStorage.myKey;}" &
+                            "</script></body></html>") With {
                                                   .BaseUrl = "https://teamdev.com",
                                                   .Replace = True
                                                   }).Wait()
+
                     Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
                     ' Read and display the 'myKey' storage value.
                     Console.Out.WriteLine("The initial myKey value: " & webStorage("myKey"))

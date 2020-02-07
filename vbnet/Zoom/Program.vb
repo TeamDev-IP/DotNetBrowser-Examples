@@ -40,6 +40,7 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
+
                     AddHandler engine.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
                         Console.Out.WriteLine("e.Host = " & e.Host)
                         Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
