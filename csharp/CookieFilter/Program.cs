@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -48,12 +48,11 @@ namespace CookieFilter
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.NetworkService.CanGetCookiesHandler =
-                            new Handler<CanGetCookiesHandlerParameters, CookiesPermission>(CanGetCookies);
-                        engine.NetworkService.CanSetCookieHandler =
-                            new Handler<CanSetCookieHandlerParameters, CookiesPermission>(CanSetCookie);
-                        LoadResult result = browser.Navigation.LoadUrl("http://google.com")
-                                                   .Result;
+                        engine.Network.CanGetCookiesHandler =
+                            new Handler<CanGetCookiesParameters, CanGetCookiesResponse>(CanGetCookies);
+                        engine.Network.CanSetCookieHandler =
+                            new Handler<CanSetCookieParameters, CanSetCookieResponse>(CanSetCookie);
+                        LoadResult result = browser.Navigation.LoadUrl("https://www.google.com").Result;
                         Console.WriteLine("LoadResult: " + result);
                     }
                 }
@@ -62,21 +61,22 @@ namespace CookieFilter
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        private static CookiesPermission CanGetCookies(CanGetCookiesHandlerParameters arg)
+        private static CanGetCookiesResponse CanGetCookies(CanGetCookiesParameters arg)
         {
             string cookies = arg.Cookies.Aggregate(string.Empty, (current, cookie) => current + (cookie + "\n"));
             Console.WriteLine("CanGetCookies: " + cookies);
-            return CookiesPermission.Denied;
+            return CanGetCookiesResponse.Deny();
         }
 
-        private static CookiesPermission CanSetCookie(CanSetCookieHandlerParameters arg)
+        private static CanSetCookieResponse CanSetCookie(CanSetCookieParameters arg)
         {
             Console.WriteLine("CanSetCookie: " + arg.Cookie);
-            return CookiesPermission.Denied;
+            return CanSetCookieResponse.Deny();
         }
 
         #endregion

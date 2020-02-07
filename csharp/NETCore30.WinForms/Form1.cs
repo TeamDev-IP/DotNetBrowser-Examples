@@ -20,44 +20,43 @@
 
 #endregion
 
-using System;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
+using DotNetBrowser.WinForms;
 
-namespace ExecuteJavaScript
+namespace NETCore30.WinForms
 {
-    internal class Program
+    public partial class Form1 : Form
     {
-        #region Methods
+        private IBrowser browser;
+        private IEngine engine;
 
-        public static void Main()
+        public Form1()
         {
-            try
-            {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
+            BrowserView webView = new BrowserView {Dock = DockStyle.Fill};
+            Task.Run(() =>
                 {
-                    Console.WriteLine("Engine created");
-
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-
-                        browser.Navigation.LoadUrl("https://www.google.com").Wait();
-                        // Execute JavaScript code and get return value from JavaScript.
-                        string title = browser.MainFrame.ExecuteJavaScript<string>("document.title").Result;
-                        Console.Out.WriteLine($"The \"document.title\" JavaScript code returns \"{title}\"");
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            Console.WriteLine("Press any key to terminate...");
-            Console.ReadKey();
+                    engine = EngineFactory.Create(new EngineOptions.Builder
+                            {RenderingMode = RenderingMode.HardwareAccelerated}
+                        .Build());
+                    browser = engine.CreateBrowser();
+                })
+                .ContinueWith(t =>
+                {
+                    webView.InitializeFrom(browser);
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/");
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            InitializeComponent();
+            FormClosing += Form1_FormClosing;
+            Controls.Add(webView);
         }
 
-        #endregion
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            browser?.Dispose();
+            engine?.Dispose();
+        }
     }
 }

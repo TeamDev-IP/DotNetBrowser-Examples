@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,6 +29,9 @@ using DotNetBrowser.Net.Events;
 
 namespace AccessingHttpResponseData
 {
+    /// <summary>
+    ///     The sample demonstrates how to access HTTP response data.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -44,7 +47,7 @@ namespace AccessingHttpResponseData
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.NetworkService.ResponseBytesReceived += OnResponseBytesReceived;
+                        engine.Network.ResponseBytesReceived += OnResponseBytesReceived;
                         browser.Navigation.LoadUrl("https://teamdev.com").Wait();
 
                         Console.WriteLine("URL loaded");
@@ -55,17 +58,17 @@ namespace AccessingHttpResponseData
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
 
         private static void OnResponseBytesReceived(object sender, ResponseBytesReceivedEventArgs eventArgs)
         {
             if (eventArgs.MimeType.Equals(MimeType.TextHtml))
             {
                 Console.WriteLine($"MimeType = {eventArgs.MimeType}");
-                Console.WriteLine($"Charset = {eventArgs.UrlRequest.Method}");
+                Console.WriteLine($"The HTTP method = {eventArgs.UrlRequest.Method}");
                 string data = eventArgs.Data.Aggregate<byte, string>(null, (current, t) => current + (char) t);
                 Console.WriteLine($"Data = {data}\n");
             }

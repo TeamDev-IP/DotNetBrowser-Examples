@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,6 +28,10 @@ using DotNetBrowser.Geometry;
 
 namespace GetFrames
 {
+    /// <summary>
+    ///     The example demonstrates how to obtain the hierarchy of frames
+    ///     on the web page.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -48,7 +52,7 @@ namespace GetFrames
                                .LoadUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols")
                                .Wait();
 
-                        PrintFrameHierarhy(browser.MainFrame);
+                        PrintFrameHierarchy(browser.MainFrame);
                     }
                 }
             }
@@ -56,19 +60,20 @@ namespace GetFrames
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        public static void PrintFrameHierarhy(IFrame frame, int padding = 0)
+        public static void PrintFrameHierarchy(IFrame frame, int padding = 0)
         {
             if (frame != null)
             {
                 string indent = string.Empty.PadLeft(padding);
                 Console.WriteLine($"{indent}Frame '{frame.Name}'" + (frame.IsMain ? "(main)" : string.Empty));
-                foreach (var childFrame in frame.Children)
+                foreach (IFrame childFrame in frame.Children)
                 {
-                    PrintFrameHierarhy(childFrame, padding + 4);
+                    PrintFrameHierarchy(childFrame, padding + 4);
                 }
             }
         }

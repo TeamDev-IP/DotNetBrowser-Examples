@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -39,6 +39,15 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private IBrowser browser;
         private string title;
 
+        #region Constructors
+
+        public TabContents()
+        {
+            InitializeComponent();
+        }
+
+        #endregion
+
         #region Properties
 
         public IBrowser Browser
@@ -53,8 +62,8 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     browser.TitleChanged += Browser_TitleChanged;
                     browser.StatusChanged += Browser_StatusChanged;
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
-                    browser.PrintHandler = new Handler<PrintParameters, PrintStatus>(p => PrintStatus.ShowPrintPreview);
-                    browser.ContextMenuHandler = browserView.ContextMenuHandler;
+                    browser.PrintHandler = new Handler<PrintParameters, PrintResponse>(p => PrintResponse.ShowPrintPreview());
+                    browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
                     LoadUrl(AddressBar.Text);
                 }
             }
@@ -76,15 +85,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         public event EventHandler Closed;
         public event EventHandler<string> TitleChanged;
-
-        #endregion
-
-        #region Constructors
-
-        public TabContents()
-        {
-            InitializeComponent();
-        }
 
         #endregion
 
@@ -176,19 +176,19 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 jsConsoleOutput.Text += ">> " + jsConsoleInput.Text + Environment.NewLine;
                 Browser?.MainFrame?.ExecuteJavaScript(jsConsoleInput.Text)
-                       .ContinueWith(t =>
-                       {
-                           jsConsoleOutput.AppendText("<< " + t.Result + Environment.NewLine);
-                           jsConsoleOutput.ScrollToCaret();
-                           jsConsoleInput.Clear();
-                       }, TaskScheduler.FromCurrentSynchronizationContext());
+                    .ContinueWith(t =>
+                    {
+                        jsConsoleOutput.AppendText("<< " + t.Result + Environment.NewLine);
+                        jsConsoleOutput.ScrollToCaret();
+                        jsConsoleInput.Clear();
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 
         private void LoadUrl(string url)
         {
             Browser?.Navigation.LoadUrl(url)
-                   .ContinueWith(t => { UpdateControlsStates(); }, TaskScheduler.FromCurrentSynchronizationContext());
+                .ContinueWith(t => { UpdateControlsStates(); }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void menuButton_Click(object sender, EventArgs e)
@@ -229,17 +229,20 @@ namespace DotNetBrowser.WinForms.Demo.Components
             SaveFileDialog dialog = new SaveFileDialog {Filter = PngFilter};
             if (dialog.ShowDialog(FindForm()) == DialogResult.OK)
             {
-                Bitmap bmp = browser.CreateBrowserImage().ToBitmap();
+                Bitmap bmp = Browser.TakeImage().ToBitmap();
                 bmp.Save(dialog.FileName, ImageFormat.Png);
             }
         }
 
         private void UpdateControlsStates()
         {
-            AddressBar.Text = browser.Url;
-            Title = browser.Title;
-            BackButton.Enabled = browser.Navigation.CanGoBack();
-            ForwardButton.Enabled = browser.Navigation.CanGoForward();
+            if (!Browser.IsDisposed)
+            {
+                AddressBar.Text = Browser.Url;
+                Title = Browser.Title;
+                BackButton.Enabled = Browser.Navigation.CanGoBack();
+                ForwardButton.Enabled = Browser.Navigation.CanGoForward();
+            }
         }
 
         private void uploadFileToolStripMenuItem_Click(object sender, EventArgs e)

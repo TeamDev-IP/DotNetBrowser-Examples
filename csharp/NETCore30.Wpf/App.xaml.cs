@@ -22,7 +22,7 @@
 
 using System.Windows;
 
-namespace UiAutomation.Wpf
+namespace NETCore30.Wpf
 {
     /// <summary>
     ///     Interaction logic for App.xaml

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -31,6 +31,19 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private readonly Color defaultBackground;
         private bool selected;
 
+        #region Constructors
+
+        public Tab()
+        {
+            InitializeComponent();
+            defaultBackground = BackColor;
+
+            Contents = new TabContents {Dock = DockStyle.Fill};
+            Contents.TitleChanged += BrowserTab_TitleChanged;
+        }
+
+        #endregion
+
         #region Properties
 
         public TabContents Contents { get; }
@@ -55,19 +68,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         #endregion
 
-        #region Constructors
-
-        public Tab()
-        {
-            InitializeComponent();
-            defaultBackground = BackColor;
-
-            Contents = new TabContents {Dock = DockStyle.Fill};
-            Contents.TitleChanged += BrowserTab_TitleChanged;
-        }
-
-        #endregion
-
         #region Methods
 
         public void SetLabelWidth(int width)
@@ -76,6 +76,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 width = MaximumSize.Width;
             }
+
             Width = width;
         }
 
@@ -103,6 +104,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 Closed?.Invoke(this, EventArgs.Empty);
             }
+
             if (e.Button == MouseButtons.Left)
             {
                 Selected?.Invoke(this, EventArgs.Empty);

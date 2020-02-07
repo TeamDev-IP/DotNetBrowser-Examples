@@ -4,6 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <AssemblyName>NETCore30.Wpf</AssemblyName>
+    <RootNamespace>NETCore30.Wpf</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

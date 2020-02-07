@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -25,14 +25,14 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace DotNetBrowser.WPF.Demo
+namespace Demo.Wpf
 {
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
-        private static readonly TraceSource Log = new TraceSource("DotNetBrowser.Demo.WPF");
+        private static readonly TraceSource Log = new TraceSource("Demo.Wpf");
 
         #region Methods
 

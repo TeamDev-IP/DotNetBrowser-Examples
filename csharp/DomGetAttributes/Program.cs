@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,6 +28,9 @@ using DotNetBrowser.Engine;
 
 namespace DomGetAttributes
 {
+    /// <summary>
+    ///     This example demonstrates how to get the list of existing attributes of a specified HTML element.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -47,11 +50,12 @@ namespace DomGetAttributes
                         browser.MainFrame
                                .LoadHtml("<html><body><a href='#' id='link' title='link title'></a></body></html>")
                                .Wait();
+
                         IDocument document = browser.MainFrame.Document;
                         IElement link = document.GetElementById("link");
                         IDictionary<string, string> attributes = link.Attributes;
                         Console.WriteLine("Link attributes: ");
-                        foreach (var attribute in attributes)
+                        foreach (KeyValuePair<string, string> attribute in attributes)
                         {
                             Console.WriteLine($"- {attribute.Key} = {attribute.Value}");
                         }
@@ -62,6 +66,7 @@ namespace DomGetAttributes
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

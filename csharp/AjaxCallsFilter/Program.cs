@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -31,6 +31,9 @@ using DotNetBrowser.Net.Handlers;
 
 namespace AjaxCallsFilter
 {
+    /// <summary>
+    ///     The sample demonstrates how to suppress Ajax calls by registering the LoadResourceHandler.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -46,12 +49,16 @@ namespace AjaxCallsFilter
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.NetworkService.ResourceHandler =
-                            new Handler<ResourceParameters, ResourceLoadStatus>(CanLoadResource);
-                        browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
+                        engine.Network.LoadResourceHandler =
+                            new Handler<LoadResourceParameters, LoadResourceResponse>(CanLoadResource);
+
+                        browser.Navigation
+                               .LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
                                .Wait();
+
                         IFrame demoFrame =
                             browser.AllFrames.FirstOrDefault(f => f.Document.GetElementById("demo") != null);
+
                         if (demoFrame != null)
                         {
                             Console.WriteLine("Demo frame found");
@@ -67,18 +74,20 @@ namespace AjaxCallsFilter
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        private static ResourceLoadStatus CanLoadResource(ResourceParameters arg)
+        private static LoadResourceResponse CanLoadResource(LoadResourceParameters arg)
         {
             if (arg.ResourceType == ResourceType.Xhr)
             {
                 Console.WriteLine("Suppress ajax call - " + arg.Url);
-                return ResourceLoadStatus.Cancel;
+                return LoadResourceResponse.Cancel();
             }
-            return ResourceLoadStatus.Continue;
+
+            return LoadResourceResponse.Continue();
         }
 
         #endregion

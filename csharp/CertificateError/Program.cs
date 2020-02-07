@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -22,14 +22,15 @@
 
 using System;
 using DotNetBrowser.Browser;
-using DotNetBrowser.Certificates;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
+using DotNetBrowser.Net.Certificates;
+using DotNetBrowser.Net.Handlers;
 
 namespace CertificateError
 {
     /// <summary>
-    ///     Demonstrates how to handle SSL certificate errors.
+    ///     The sample demonstrates how to handle SSL certificate errors.
     /// </summary>
     internal class Program
     {
@@ -46,10 +47,9 @@ namespace CertificateError
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.NetworkService.VerifyCertificateHandler =
-                            new Handler<CertificateVerifyHandlerParameters, CertificateVerifyResult>(HandleCertError);
-                        browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/")
-                               .Wait();
+                        engine.Network.VerifyCertificateHandler =
+                            new Handler<VerifyCertificateParameters, VerifyCertificateResponse>(HandleCertError);
+                        browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait();
                     }
                 }
             }
@@ -57,18 +57,19 @@ namespace CertificateError
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        private static CertificateVerifyResult HandleCertError(CertificateVerifyHandlerParameters errorParams)
+        private static VerifyCertificateResponse HandleCertError(VerifyCertificateParameters errorParams)
         {
             Certificate certificate = errorParams.Certificate;
-            foreach (CertificateVerifyStatus status in errorParams.VerifyStatuses)
+            foreach (CertificateVerificationStatus status in errorParams.VerifyStatuses)
             {
-                Console.WriteLine("CertificateVerifyStatus = " + status);
+                Console.WriteLine("CertificateVerificationStatus = " + status);
             }
-            
+
             Console.WriteLine("SerialNumber = " + certificate.SerialNumber);
             Console.WriteLine("FingerPrint = " + certificate.Fingerprint);
             Console.WriteLine("CAFingerPrint = " + certificate.CaFingerPrint);
@@ -85,7 +86,7 @@ namespace CertificateError
             Console.WriteLine("Expired = " + certificate.Expired);
 
             // Return Valid to ignore certificate error.
-            return CertificateVerifyResult.Valid;
+            return VerifyCertificateResponse.Valid();
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -26,6 +26,9 @@ using DotNetBrowser.Engine;
 
 namespace JavaScript
 {
+    /// <summary>
+    ///     This sample demonstrates how to execute JavaScript on the web page using DotNetBrowser API.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -43,8 +46,10 @@ namespace JavaScript
                         Console.WriteLine("Browser created");
 
                         // Executes the passed JavaScript code asynchronously.
-                        browser.MainFrame.ExecuteJavaScript("document.write('<html><title>"
-                                                            + "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');");
+                        browser
+                           .MainFrame
+                           .ExecuteJavaScript("document.write('<html><title>"
+                                              + "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');");
 
                         // Executes the passed JavaScript code and returns the result value.
                         string documentTitle = browser.MainFrame.ExecuteJavaScript<string>("document.title").Result;
@@ -61,6 +66,7 @@ namespace JavaScript
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

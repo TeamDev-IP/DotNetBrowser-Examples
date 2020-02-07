@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -30,7 +30,8 @@ using DotNetBrowser.Engine;
 namespace TransparentWebPage.Wpf
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     The sample demonstrates how to enable transparent background
+    ///     on the web page. 
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -44,32 +45,35 @@ namespace TransparentWebPage.Wpf
             try
             {
                 Task.Run(() =>
-                    {
-                        engine = EngineFactory.Create(new EngineOptions.Builder
-                        {
-                            RenderingMode = RenderingMode.OffScreen
-                        }.Build());
-                        browser = engine.CreateBrowser();
-                        browser.Settings.TransparentBackgroundEnabled = true;
-                    })
+                     {
+                         engine = EngineFactory.Create(new EngineOptions.Builder
+                         {
+                             RenderingMode = RenderingMode.OffScreen
+                         }.Build());
+                         browser = engine.CreateBrowser();
+                         browser.Settings.TransparentBackgroundEnabled = true;
+                     })
                     .ContinueWith(t =>
-                    {
-                        WebBrowser1.InitializeFrom(browser);
-                        browser.MainFrame.LoadHtml(
-                                                   "<html>\n"
-                                                   + "     <body>"
-                                                   + "         <div style='background: yellow; opacity: 0.7;'>\n"
-                                                   + "             This text is in the yellow half-transparent div."
-                                                   + "        </div>\n"
-                                                   + "         <div style='background: red;'>\n"
-                                                   + "             This text is in the red opaque div and should appear as is."
-                                                   + "        </div>\n"
-                                                   + "         <div>\n"
-                                                   + "             This text is in the non-styled div and should appear as a text on the completely transparent background."
-                                                   + "        </div>\n"
-                                                   + "    </body>\n"
-                                                   + " </html>");
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                     {
+                         WebBrowser1.InitializeFrom(browser);
+                         browser
+                            .MainFrame
+                                .LoadHtml(
+                                        "<html>\n"
+                                        + "     <body>"
+                                        + "         <div style='background: yellow; opacity: 0.7;'>\n"
+                                        + "             This text is in the yellow half-transparent div."
+                                        + "        </div>\n"
+                                        + "         <div style='background: red;'>\n"
+                                        + "             This text is in the red opaque div and should appear as is."
+                                        + "        </div>\n"
+                                        + "         <div>\n"
+                                        + "             This text is in the non-styled div and should appear as a text"
+                                        + " on the completely transparent background."
+                                        + "        </div>\n"
+                                        + "    </body>\n"
+                                        + " </html>");
+                     }, TaskScheduler.FromCurrentSynchronizationContext());
 
                 InitializeComponent();
             }

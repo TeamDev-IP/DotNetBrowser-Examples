@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -31,6 +31,9 @@ using DotNetBrowser.Search.Handlers;
 
 namespace FindText
 {
+    /// <summary>
+    ///     This example demonstrates how to find text on the loaded web page.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -52,13 +55,16 @@ namespace FindText
                         Thread.Sleep(2000);
                         // Find text from the beginning of the loaded web page.
                         string searchText = "find me";
-                        int requestId = 0;
+
                         IHandler<FindResultReceivedParameters> intermediateResultsHandler =
                             new Handler<FindResultReceivedParameters>(ProcessSearchResults);
                         Console.WriteLine("Find text (1/2)");
-                        FindResult findResult = browser.TextFinder.Find(searchText, null, intermediateResultsHandler).Result;
+
+                        FindResult findResult =
+                            browser.TextFinder.Find(searchText, null, intermediateResultsHandler).Result;
                         Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
                         Console.WriteLine("Find text (2/2)");
+
                         findResult = browser.TextFinder.Find(searchText, null, intermediateResultsHandler).Result;
                         Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
                         browser.TextFinder.StopFinding();
@@ -69,6 +75,7 @@ namespace FindText
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
@@ -77,7 +84,7 @@ namespace FindText
         {
             FindResult result = args.FindResult;
 
-            if (args.Finished)
+            if (args.IsSearchFinished)
             {
                 Console.Out.WriteLine("Found: "
                                       + result.SelectedMatch
