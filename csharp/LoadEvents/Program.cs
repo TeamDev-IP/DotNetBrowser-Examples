@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -27,6 +27,10 @@ using DotNetBrowser.Navigation.Events;
 
 namespace LoadEvents
 {
+    /// <summary>
+    ///     The sample demonstrates how to receive notifications about
+    ///     web page loading progress.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -43,20 +47,23 @@ namespace LoadEvents
                     {
                         browser.Navigation.FrameLoadFinished += delegate(object sender, FrameLoadFinishedEventArgs e)
                         {
-                            Console.Out.WriteLine(
-                                                  $"FrameLoadFinished: URL = {e.ValidatedUrl}, IsMainFrame = {e.Frame.IsMain}");
+                            Console.Out.WriteLine($"FrameLoadFinished: URL = {e.ValidatedUrl},"
+                                                  + $" IsMainFrame = {e.Frame.IsMain}");
                         };
+
                         browser.Navigation.LoadStarted += delegate { Console.Out.WriteLine("LoadStarted"); };
                         browser.Navigation.NavigationStarted += delegate(object sender, NavigationStartedEventArgs e)
                         {
                             Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}");
                         };
+
                         browser.Navigation.FrameDocumentLoadFinished +=
                             delegate(object sender, FrameDocumentLoadFinishedEventArgs e)
                             {
                                 Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}");
                             };
-                        browser.Navigation.LoadUrl("http://www.google.com").Wait();
+
+                        browser.Navigation.LoadUrl("https://www.google.com").Wait();
                     }
                 }
             }
@@ -64,6 +71,7 @@ namespace LoadEvents
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

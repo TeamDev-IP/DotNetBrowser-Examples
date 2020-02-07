@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -27,6 +27,9 @@ using DotNetBrowser.Geometry;
 
 namespace GetHTML
 {
+    /// <summary>
+    ///     This example demonstrates how to obtain HTML code of the loaded web page.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -43,7 +46,7 @@ namespace GetHTML
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        browser.Navigation.LoadUrl("http://www.teamdev.com").Wait();
+                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
                         // Get HTML of the loaded web page and write it to Console.
                         Console.WriteLine(browser.MainFrame.Html);
                     }
@@ -53,6 +56,7 @@ namespace GetHTML
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

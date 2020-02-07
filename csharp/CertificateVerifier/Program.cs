@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -23,10 +23,10 @@
 using System;
 using System.Windows;
 using DotNetBrowser.Browser;
-using DotNetBrowser.Certificates;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation;
+using DotNetBrowser.Net.Handlers;
 
 namespace CertificateVerifier
 {
@@ -49,10 +49,9 @@ namespace CertificateVerifier
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.NetworkService.VerifyCertificateHandler =
-                            new Handler<CertificateVerifyHandlerParameters, CertificateVerifyResult>(VerifyCert);
-                        LoadResult result = browser.Navigation.LoadUrl("http://google.com")
-                                                   .Result;
+                        engine.Network.VerifyCertificateHandler =
+                            new Handler<VerifyCertificateParameters, VerifyCertificateResponse>(VerifyCert);
+                        LoadResult result = browser.Navigation.LoadUrl("https://google.com").Result;
                         Console.WriteLine("LoadResult: " + result);
                     }
                 }
@@ -61,19 +60,21 @@ namespace CertificateVerifier
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        private static CertificateVerifyResult VerifyCert(CertificateVerifyHandlerParameters parameters)
+        private static VerifyCertificateResponse VerifyCert(VerifyCertificateParameters parameters)
         {
             // Reject SSL certificate for all "google.com" hosts.
             if (parameters.HostName.Contains("google.com"))
             {
                 Console.WriteLine("Rejected certificate for " + parameters.HostName);
-                return CertificateVerifyResult.Invalid;
+                return VerifyCertificateResponse.Invalid();
             }
-            return CertificateVerifyResult.Default;
+
+            return VerifyCertificateResponse.Default();
         }
 
         #endregion

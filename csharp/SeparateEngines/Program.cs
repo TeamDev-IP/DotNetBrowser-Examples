@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -27,6 +27,9 @@ using DotNetBrowser.Engine;
 
 namespace SeparateEngines
 {
+    /// <summary>
+    ///     The sample demonstrates how to create several Chromium engines.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -68,6 +71,7 @@ namespace SeparateEngines
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

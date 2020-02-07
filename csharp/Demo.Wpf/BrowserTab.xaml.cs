@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,9 +32,10 @@ using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
+using DotNetBrowser.Wpf;
 using Microsoft.Win32;
 
-namespace DotNetBrowser.WPF.Demo
+namespace Demo.Wpf
 {
     public partial class BrowserTab
     {
@@ -54,8 +55,8 @@ namespace DotNetBrowser.WPF.Demo
                     browser.TitleChanged += Browser_TitleChanged;
                     browser.StatusChanged += Browser_StatusChanged;
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
-                    browser.PrintHandler = new Handler<PrintParameters, PrintStatus>(p => PrintStatus.ShowPrintPreview);
-                    browser.ContextMenuHandler = browserView.ContextMenuHandler;
+                    browser.PrintHandler = new Handler<PrintParameters, PrintResponse>(p => PrintResponse.ShowPrintPreview());
+                    browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
                     LoadUrl(AddressBar.Text);
                 }
             }
@@ -258,17 +259,20 @@ namespace DotNetBrowser.WPF.Demo
             SaveFileDialog dialog = new SaveFileDialog {Filter = "PNG image (*.png)|*.png"};
             if (dialog.ShowDialog(Window.GetWindow(this)) == true)
             {
-                Bitmap bmp = browser.CreateBrowserImage().ToBitmap();
+                Bitmap bmp = Browser.TakeImage().ToBitmap();
                 bmp.Save(dialog.FileName, ImageFormat.Png);
             }
         }
 
         private void UpdateControlsStates()
         {
-            AddressBar.Text = browser.Url;
-            Title.Text = browser.Title;
-            BackButton.IsEnabled = browser.Navigation.CanGoBack();
-            ForwardButton.IsEnabled = browser.Navigation.CanGoForward();
+            if (!Browser.IsDisposed)
+            {
+                AddressBar.Text = Browser.Url;
+                Title.Text = Browser.Title;
+                BackButton.IsEnabled = Browser.Navigation.CanGoBack();
+                ForwardButton.IsEnabled = Browser.Navigation.CanGoForward();
+            }
         }
 
         #endregion

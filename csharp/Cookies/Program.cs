@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,9 +28,12 @@ using DotNetBrowser.Engine;
 
 namespace Cookies
 {
+    /// <summary>
+    ///     The sample demonstrates how to get all cookies.
+    /// </summary>
     internal class Program
     {
-        private const string Url = "http://google.com";
+        private const string Url = "https://www.google.com";
 
         #region Methods
 
@@ -42,7 +45,7 @@ namespace Cookies
                 {
                     Console.WriteLine("Engine created");
 
-                    ICookieService cookieStorage = engine.CookieService;
+                    ICookieStore cookieStorage = engine.CookieStore;
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
@@ -60,6 +63,7 @@ namespace Cookies
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,6 +28,7 @@ using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Media;
+using DotNetBrowser.Media.Handlers;
 
 namespace DefaultMediaStreamDevice
 {
@@ -59,7 +60,7 @@ namespace DefaultMediaStreamDevice
                         PrintDevices(mediaDevices.VideoCaptureDevices);
 
                         mediaDevices.SelectMediaDeviceHandler =
-                            new Handler<SelectMediaDeviceParams, MediaDevice>(SelectDevice);
+                            new Handler<SelectMediaDeviceParameters, SelectMediaDeviceResponse>(SelectDevice);
 
                         browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html")
                                .Wait();
@@ -70,6 +71,7 @@ namespace DefaultMediaStreamDevice
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
@@ -82,7 +84,7 @@ namespace DefaultMediaStreamDevice
             }
         }
 
-        private static MediaDevice SelectDevice(SelectMediaDeviceParams arg)
+        private static SelectMediaDeviceResponse SelectDevice(SelectMediaDeviceParameters arg)
         {
             Console.WriteLine($"\nRequested device type: {arg.Type}");
             // Set first available device as default.
@@ -92,7 +94,8 @@ namespace DefaultMediaStreamDevice
             {
                 Console.WriteLine($"Default device is set to {defaultDevice.Name}");
             }
-            return defaultDevice;
+
+            return SelectMediaDeviceResponse.Select(defaultDevice);
         }
 
         #endregion

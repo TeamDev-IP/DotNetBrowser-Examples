@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2020, TeamDev. All rights reserved.
+// Copyright 2020, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,6 +29,9 @@ using DotNetBrowser.Zoom.Events;
 
 namespace Zoom
 {
+    /// <summary>
+    ///     The sample demonstrates how to set the zoom level using DotNetBrowser API.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -44,15 +47,15 @@ namespace Zoom
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.ZoomService.LevelChanged += delegate(object sender, ZoomLevelChangedEventArgs e)
+                        engine.ZoomLevels.LevelChanged += delegate(object sender, LevelChangedEventArgs e)
                         {
                             Console.Out.WriteLine("e.Host = " + e.Host);
-                            Console.Out.WriteLine("e.ZoomLevel = " + e.ZoomLevel);
+                            Console.Out.WriteLine("e.ZoomLevel = " + e.Level.Value);
                         };
 
-                        browser.Navigation.LoadUrl("http://www.teamdev.com").Wait();
+                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
                         Console.WriteLine("Updating zoom level");
-                        browser.Zoom.Level = ZoomLevel.P200;
+                        browser.Zoom.Level = Level.P200;
                         Thread.Sleep(3000);
                     }
                 }
@@ -61,6 +64,7 @@ namespace Zoom
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
