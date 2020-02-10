@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -26,35 +26,38 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Zoom
 Imports DotNetBrowser.Zoom.Events
 
-Namespace Zoom
-    Friend Class Program
+''' <summary>
+'''     The sample demonstrates how to set the zoom level using DotNetBrowser API.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        AddHandler engine.ZoomService.LevelChanged, Sub(sender As Object, e As ZoomLevelChangedEventArgs)
-                                                                        Console.Out.WriteLine("e.Host = " & e.Host)
-                                                                        Console.Out.WriteLine("e.ZoomLevel = " & e.ZoomLevel.ToString())
-                                                                    End Sub
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
 
-                        browser.Navigation.LoadUrl("http://www.teamdev.com").Wait()
-                        Console.WriteLine("Updating zoom level")
-                        browser.Zoom.Level = ZoomLevel.P200
-                        Thread.Sleep(3000)
-                    End Using
+                    AddHandler engine.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
+                        Console.Out.WriteLine("e.Host = " & e.Host)
+                        Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
+                    End Sub
+
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
+                    Console.WriteLine("Updating zoom level")
+                    browser.Zoom.Level = Level.P200
+                    Thread.Sleep(3000)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

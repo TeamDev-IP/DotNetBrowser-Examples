@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -24,41 +24,46 @@ Imports System.IO
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 
-Namespace SeparateEngines
-    Friend Class Program
+''' <summary>
+'''     The sample demonstrates how to create several Chromium engines.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main(ByVal args() As String)
-            Try
-                Dim userDataDir1 As String = Path.GetFullPath("user-data-dir-one")
-                Directory.CreateDirectory(userDataDir1)
-                Dim engine1 As IEngine = EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir1}.Build())
-                Console.WriteLine("Engine1 created")
+    Public Shared Sub Main(args() As String)
+        Try
+            Dim userDataDir1 As String = Path.GetFullPath("user-data-dir-one")
+            Directory.CreateDirectory(userDataDir1)
+            Dim engine1 As IEngine =
+                    EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir1}.Build())
+            Console.WriteLine("Engine1 created")
 
-                Dim userDataDir2 As String = Path.GetFullPath("user-data-dir-two")
-                Directory.CreateDirectory(userDataDir2)
-                Dim engine2 As IEngine = EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir2}.Build())
-                Console.WriteLine("Engine2 created")
+            Dim userDataDir2 As String = Path.GetFullPath("user-data-dir-two")
+            Directory.CreateDirectory(userDataDir2)
+            Dim engine2 As IEngine =
+                    EngineFactory.Create(New EngineOptions.Builder With {.UserDataDirectory = userDataDir2}.Build())
+            Console.WriteLine("Engine2 created")
 
-                ' This Browser instance will store cookies and user data files in "user-data-dir-one" dir.
-                Dim browser1 As IBrowser = engine1.CreateBrowser()
-                Console.WriteLine("browser1 created")
+            ' This Browser instance will store cookies and user data files in "user-data-dir-one" dir.
+            Dim browser1 As IBrowser = engine1.CreateBrowser()
+            Console.WriteLine("browser1 created")
 
-                ' This Browser instance will store cookies and user data files in "user-data-dir-two" dir.
-                Dim browser2 As IBrowser = engine2.CreateBrowser()
-                Console.WriteLine("browser2 created")
+            ' This Browser instance will store cookies and user data files in "user-data-dir-two" dir.
+            Dim browser2 As IBrowser = engine2.CreateBrowser()
+            Console.WriteLine("browser2 created")
 
-                ' The browser1 and browser2 instances will not see the cookies and cache data files of each other.
+            ' The browser1 and browser2 instances will not see the cookies and cache data files of each other.
 
-                engine2.Dispose()
-                engine1.Dispose()
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            engine2.Dispose()
+            engine1.Dispose()
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

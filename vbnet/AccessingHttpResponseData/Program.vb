@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -25,17 +25,21 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Events
 
+''' <summary>
+'''     The sample demonstrates how to access HTTP response data.
+''' </summary>
 Friend Class Program
+
 #Region "Methods"
 
     Public Shared Sub Main()
         Try
-            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
                 Console.WriteLine("Engine created")
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    AddHandler engine.NetworkService.ResponseBytesReceived, AddressOf OnResponseBytesReceived
+                    AddHandler engine.Network.ResponseBytesReceived, AddressOf OnResponseBytesReceived
                     browser.Navigation.LoadUrl("https://teamdev.com").Wait()
 
                     Console.WriteLine("URL loaded")
@@ -49,11 +53,11 @@ Friend Class Program
     End Sub
 
 
-    Private Shared Sub OnResponseBytesReceived(ByVal sender As Object, ByVal eventArgs As ResponseBytesReceivedEventArgs)
+    Private Shared Sub OnResponseBytesReceived(sender As Object, eventArgs As ResponseBytesReceivedEventArgs)
         If eventArgs.MimeType.Equals(MimeType.TextHtml) Then
             Console.WriteLine($"MimeType = {eventArgs.MimeType}")
-            Console.WriteLine($"Charset = {eventArgs.UrlRequest.Method}")
-            Dim data As String = eventArgs.Data.Aggregate(Of String)(Nothing, Function(current, t) current + ChrW(t))
+            Console.WriteLine($"The HTTP method = {eventArgs.UrlRequest.Method}")
+            Dim data As String = eventArgs.Data.Aggregate (Of String)(Nothing, Function(current, t) current + ChrW(t))
             Console.WriteLine($"Data = {data}" & vbLf)
         End If
     End Sub

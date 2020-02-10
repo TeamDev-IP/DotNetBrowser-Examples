@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -23,10 +23,15 @@
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
-Imports DotNetBrowser.JS
+Imports DotNetBrowser.Js
 Imports DotNetBrowser.Logging
 
+''' <summary>
+'''     This example demonstrates how to inject a .NET object into JavaScript and
+'''     invoke its public methods from the JavaScript side.
+''' </summary>
 Friend Class Program
+
 #Region "Methods"
 
     Public Shared Sub Main()
@@ -34,27 +39,31 @@ Friend Class Program
             LoggerProvider.Instance.Level = SourceLevels.Information
             LoggerProvider.Instance.FileLoggingEnabled = True
             LoggerProvider.Instance.OutputFile = "dnb.log"
-            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
                 Console.WriteLine("Engine created")
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
-                    browser.MainFrame.LoadHtml("<html>
+                    browser.MainFrame.LoadHtml(
+                                   "<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
                                             {
-                                                 document.title = a.get_FullName() + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
-                                                                + ' ' + a.get_Children().get_Item(1).get_FullName() + ' ' + a.get_Children().get_Item(1).get_Age();
+                                                 document.title = a.get_FullName() 
+                                                 + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
+                                                 + ' ' + a.get_Children().get_Item(1).get_FullName() 
+                                                 + ' ' + a.get_Children().get_Item(1).get_Age();
                                             };
                                         </script>
                                      </body>
-                                   </html>").Wait()
+                                   </html>") _
+                        .Wait()
                     Dim person = New Person("Jack", 30, True)
                     person.Children = New Dictionary(Of Double, Person)()
                     person.Children.Add(1.0, New Person("Oliver", 10, True))
-                    Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
+                    Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result
                     value.Invoke("ShowData", person)
 
                     Console.WriteLine(vbTab & "Browser title: " & browser.Title)
@@ -71,20 +80,21 @@ Friend Class Program
 
 
     Private Class Person
+
 #Region "Properties"
 
-        Public ReadOnly Property Age() As Double
+        Public ReadOnly Property Age As Double
 
-        Public Property Children() As IDictionary(Of Double, Person)
-        Public ReadOnly Property FullName() As String
+        Public Property Children As IDictionary(Of Double, Person)
+        Public ReadOnly Property FullName As String
 
-        Public ReadOnly Property Gender() As Boolean
+        Public ReadOnly Property Gender As Boolean
 
 #End Region
 
 #Region "Constructors"
 
-        Public Sub New(ByVal fullName As String, ByVal age As Integer, ByVal gender As Boolean)
+        Public Sub New(fullName As String, age As Integer, gender As Boolean)
             Me.Gender = gender
             Me.FullName = fullName
             Me.Age = age
@@ -94,7 +104,7 @@ Friend Class Program
 
 #Region "Methods"
 
-        Public Function Walk(ByVal withPerson As Person) As String
+        Public Function Walk(withPerson As Person) As String
             Return String.Format("{0} is walking with {1}!", If(Gender, "He", "She"), withPerson.FullName)
         End Function
 

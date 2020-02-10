@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -22,38 +22,42 @@
 
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
-Imports DotNetBrowser.JS
+Imports DotNetBrowser.Js
 
-Namespace JavaScriptObjects
-    Friend Class Program
+''' <summary>
+'''     This example demonstrates how to access JavaScript objects on the .NET side.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        Dim document As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("document").Result
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    Dim document As IJsObject =
+                            browser.MainFrame.ExecuteJavaScript (Of IJsObject)("document").Result
 
-                        ' document.title = "New Title"
-                        document.Properties("title") = "New Title"
+                    ' document.title = "New Title"
+                    document.Properties("title") = "New Title"
 
-                        ' document.write("Hello World!")
-                        document.Invoke("write", "Hello World!")
+                    ' document.write("Hello World!")
+                    document.Invoke("write", "Hello World!")
 
-                        Dim documentContent As String = browser.MainFrame.ExecuteJavaScript(Of String)("document.body.innerText").Result
-                        Console.Out.WriteLine("New content: " & documentContent)
-                    End Using
+                    Dim documentContent As String =
+                            browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
+                    Console.Out.WriteLine("New content: " & documentContent)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -24,38 +24,40 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 
-Namespace DomCreateElement
-    Friend Class Program
+''' <summary>
+'''     This example demonstrates how to create a DOM element and insert it into the DOM tree.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
 
-                        browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>").Wait()
-                        Console.WriteLine("Initial HTML: " & browser.MainFrame.Html)
-                        Dim document As IDocument = browser.MainFrame.Document
+                    browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>").Wait()
+                    Console.WriteLine("Initial HTML: " & browser.MainFrame.Html)
+                    Dim document As IDocument = browser.MainFrame.Document
 
-                        Dim root As INode = document.GetElementById("root")
-                        Dim textNode As INode = document.CreateTextNode("Some text")
-                        Dim paragraph As IElement = document.CreateElement("p")
-                        paragraph.Children.Append(textNode)
-                        root.Children.Append(paragraph)
+                    Dim root As INode = document.GetElementById("root")
+                    Dim textNode As INode = document.CreateTextNode("Some text")
+                    Dim paragraph As IElement = document.CreateElement("p")
+                    paragraph.Children.Append(textNode)
+                    root.Children.Append(paragraph)
 
-                        Console.WriteLine("Updated HTML: " & browser.MainFrame.Html)
-                    End Using
+                    Console.WriteLine("Updated HTML: " & browser.MainFrame.Html)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -20,58 +20,57 @@
 
 #End Region
 
-Imports System.Net
 Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
+Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
+Imports DotNetBrowser.Net.Handlers
 
-Namespace CustomRequestHandling
-    Friend Class Program
+''' <summary>
+'''     This example demonstrates how to intercept all URL requests and handle a custom protocol.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    engine.NetworkService.UrlRequestHandler = New CustomUrlRequestHandler()
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
-                        Console.WriteLine("Load result: " & loadResult)
-                        Console.WriteLine("HTML: " & browser.MainFrame.Html)
-                    End Using
+                engine.Network.InterceptRequestHandler =
+                    New Handler(Of InterceptRequestParameters,  InterceptRequestResponse)(
+                        AddressOf OnInterceptRequest)
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
+                    Console.WriteLine("Load result: " & loadResult.ToString())
+                    Console.WriteLine("HTML: " & browser.MainFrame.Html)
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
+
+    Private Shared Function OnInterceptRequest(parameters As InterceptRequestParameters) As InterceptRequestResponse
+        ' If scheme equals to the custom "myscheme" protocol, then intercept this
+        ' request and reply with a custom response.
+        If parameters.UrlRequest.Url.StartsWith("myscheme") Then
+            Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url)
+            Dim urlRequestJob As UrlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest)
+            urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"))
+            urlRequestJob.Complete()
+            return InterceptRequestResponse.Intercept(urlRequestJob)
+        End If
+
+        'Otherwise proceed the request using default behavior.
+        Return InterceptRequestResponse.Proceed()
+    End Function
 
 #End Region
-
-        Private Class CustomUrlRequestHandler
-            Implements IUrlRequestHandler
-
-#Region "Methods"
-
-            Public Sub HandleRequest(ByVal interceptedRequest As IInterceptedUrlRequest) Implements IUrlRequestHandler.HandleRequest
-                Console.WriteLine("Intercepted request to URL:" & interceptedRequest.UrlRequest.Url)
-                interceptedRequest.Write(Encoding.UTF8.GetBytes("Hello world!"))
-                interceptedRequest.Complete()
-            End Sub
-
-            Public Function InterceptRequest(ByVal request As UrlRequestData) As InterceptUrlRequestResult Implements IUrlRequestHandler.InterceptRequest
-                If request.Request.Url.StartsWith("myscheme") Then
-                    Return InterceptUrlRequestResult.Intercept(HttpStatusCode.OK)
-                End If
-                Return InterceptUrlRequestResult.Continue()
-            End Function
-
-#End Region
-        End Class
-    End Class
-End Namespace
+End Class

@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -20,57 +20,65 @@
 
 #End Region
 
+Imports System.Collections.ObjectModel
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Navigation
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
-Namespace PostData
-    ''' <summary>
-    '''     This sample demonstrates how to read and modify POST parameters using BeforeSendUploadDataHandler.
-    ''' </summary>
-    Friend Class Program
+''' <summary>
+'''     This sample demonstrates how to read and modify POST parameters using SendUploadDataHandler.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        engine.NetworkService.BeforeSendUploadDataHandler = New Handler(Of BeforeSendUploadDataParameters, BeforeSendUploadDataResponse)(AddressOf OnBeforeSendUploadData)
+                Using browser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    engine.Network.SendUploadDataHandler =
+                        New Handler(Of SendUploadDataParameters, SendUploadDataResponse)(AddressOf OnSendUploadData)
 
-                        Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {
+                    Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {
                             .PostData = "key=value",
                             .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
-                        }
-                        browser.Navigation.LoadUrl(parameters).Wait()
-                        Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
-                    End Using
-                End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+                            }
 
-        Public Shared Function OnBeforeSendUploadData(ByVal parameters As BeforeSendUploadDataParameters) As BeforeSendUploadDataResponse
-            If "POST" = parameters.UrlRequest.Method Then
-                Dim uploadData = parameters.UploadData
-                If uploadData.Type = UploadDataType.TextData Then
-                    Console.WriteLine($"Text data intercepted: {uploadData.TextData}")
-                    Return BeforeSendUploadDataResponse.Override(New FormData From {
-                        {"fname", "MyName"},
-                        {"lname", "MyLastName"}
-                    })
-                End If
+                    browser.Navigation.LoadUrl(parameters).Wait()
+                    Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
+                End Using
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
+
+    Public Shared Function OnSendUploadData(parameters As SendUploadDataParameters) As SendUploadDataResponse
+        If "POST" = parameters.UrlRequest.Method Then
+            Dim uploadData = parameters.UploadData
+            Dim textData = TryCast(uploadData, TextData)
+
+            If textData IsNot Nothing Then
+                Console.WriteLine($"Text data intercepted: {textData.Data}")
+                Return _
+                    SendUploadDataResponse.Override(
+                        New FormData(
+                            New ReadOnlyCollection(Of KeyValuePair(Of String, String))(
+                                New List(Of KeyValuePair(Of String, String))() From {
+                                      New KeyValuePair (Of String, String)("fname", "MyName"),
+                                      New KeyValuePair (Of String, String)("lname", "MyLastName")
+                                      })))
             End If
-            Return BeforeSendUploadDataResponse.Ignore()
-        End Function
+        End If
+        Return SendUploadDataResponse.Continue()
+    End Function
 
 #End Region
-    End Class
-End Namespace
+End Class

@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -21,61 +21,63 @@
 #End Region
 
 Imports DotNetBrowser.Browser
-Imports DotNetBrowser.Certificates
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
+Imports DotNetBrowser.Net.Certificates
+Imports DotNetBrowser.Net.Handlers
 
-Namespace CertificateError
-    ''' <summary>
-    '''     Demonstrates how to handle SSL certificate errors.
-    ''' </summary>
-    Friend Class Program
+''' <summary>
+'''     The sample demonstrates how to handle SSL certificate errors.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        Console.WriteLine("Browser created")
-                        engine.NetworkService.VerifyCertificateHandler = New Handler(Of CertificateVerifyHandlerParameters, CertificateVerifyResult)(AddressOf HandleCertError)
-                        browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait()
-                    End Using
+                Using browser As IBrowser = engine.CreateBrowser()
+                    Console.WriteLine("Browser created")
+                    engine.Network.VerifyCertificateHandler =
+                        New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(
+                            AddressOf HandleCertError)
+                    browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait()
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
-        Private Shared Function HandleCertError(ByVal errorParams As CertificateVerifyHandlerParameters) As CertificateVerifyResult
-            Dim certificate As Certificate = errorParams.Certificate
+    Private Shared Function HandleCertError(errorParams As VerifyCertificateParameters) As VerifyCertificateResponse
+        Dim certificate As Certificate = errorParams.Certificate
 
-            For Each status As CertificateVerifyStatus In errorParams.VerifyStatuses
-                Console.WriteLine("CertificateVerifyStatus = " & status.ToString())
-            Next
+        For Each status As CertificateVerificationStatus In errorParams.VerifyStatuses
+            Console.WriteLine("CertificateVerifyStatus = " & status.ToString())
+        Next
 
-            Console.WriteLine("SerialNumber = " & certificate.SerialNumber)
-            Console.WriteLine("FingerPrint = " & certificate.Fingerprint)
-            Console.WriteLine("CAFingerPrint = " & certificate.CaFingerPrint)
+        Console.WriteLine("SerialNumber = " & certificate.SerialNumber)
+        Console.WriteLine("FingerPrint = " & certificate.Fingerprint)
+        Console.WriteLine("CAFingerPrint = " & certificate.CaFingerPrint)
 
-            Dim subject As String = certificate.Subject
-            Console.WriteLine("Subject = " & subject)
+        Dim subject As String = certificate.Subject
+        Console.WriteLine("Subject = " & subject)
 
-            Dim issuer As String = certificate.Issuer
-            Console.WriteLine("Issuer = " & issuer)
+        Dim issuer As String = certificate.Issuer
+        Console.WriteLine("Issuer = " & issuer)
 
-            Console.WriteLine("KeyUsages = " & String.Join(", ", certificate.KeyUsages))
-            Console.WriteLine("ExtendedKeyUsages = " & String.Join(", ", certificate.ExtendedKeyUsages))
+        Console.WriteLine("KeyUsages = " & String.Join(", ", certificate.KeyUsages))
+        Console.WriteLine("ExtendedKeyUsages = " & String.Join(", ", certificate.ExtendedKeyUsages))
 
-            Console.WriteLine("Expired = " & certificate.Expired)
+        Console.WriteLine("Expired = " & certificate.Expired)
 
-            ' Return Valid to ignore certificate error.
-            Return CertificateVerifyResult.Valid
-        End Function
+        ' Return Valid to ignore certificate error.
+        Return VerifyCertificateResponse.Valid()
+    End Function
 
 #End Region
-    End Class
-End Namespace
+End Class

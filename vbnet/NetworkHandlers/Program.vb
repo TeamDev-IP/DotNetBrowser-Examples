@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -26,49 +26,56 @@ Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
-Namespace NetworkHandlers
-    Friend Class Program
+''' <summary>
+'''     This example demonstrates how to redirect a URL request
+'''     to another web site and access the request headers.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        engine.NetworkService.BeforeUrlRequestHandler = New Handler(Of BeforeUrlRequestParameters, BeforeUrlRequestResponse)(AddressOf OnBeforeURLRequest)
-                        engine.NetworkService.BeforeSendHeadersHandler = New Handler(Of BeforeSendHeadersParameters, BeforeSendHeadersResponse)(AddressOf OnBeforeSendHeaders)
+                Using browser As IBrowser = engine.CreateBrowser()
+                    engine.Network.SendUrlRequestHandler =
+                        New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
+                    engine.Network.SendHeadersHandler =
+                        New Handler(Of SendHeadersParameters, SendHeadersResponse)(AddressOf OnSendHeaders)
 
-                        Console.WriteLine("Loading http://www.teamdev.com/")
-                        browser.Navigation.LoadUrl("http://www.teamdev.com/").Wait()
-                        Console.WriteLine($"Loaded URL: {browser.Url}")
-                    End Using
+                    Console.WriteLine("Loading https://www.teamdev.com/")
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait()
+                    Console.WriteLine($"Loaded URL: {browser.Url}")
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
-        Public Shared Function OnBeforeSendHeaders(ByVal parameters As BeforeSendHeadersParameters) As BeforeSendHeadersResponse
-            ' If navigate to google.com, then print User-Agent header value.
-            If parameters.UrlRequest.Url = "http://www.google.com/" Then
-                Dim headers As IEnumerable(Of IHttpHeader) = parameters.Headers
-                Console.WriteLine("User-Agent: " & headers.FirstOrDefault(Function(h) h.Name.Equals("User-Agent"))?.Values.FirstOrDefault())
-            End If
-            Return BeforeSendHeadersResponse.Ignore()
-        End Function
+    Public Shared Function OnSendHeaders(parameters As SendHeadersParameters) As SendHeadersResponse
+        ' If navigate to google.com, then print User-Agent header value.
+        If parameters.UrlRequest.Url = "https://www.google.com/" Then
+            Dim headers As IEnumerable(Of IHttpHeader) = parameters.Headers
+            Console.WriteLine(
+                "User-Agent: " &
+                headers.FirstOrDefault(Function(h) h.Name.Equals("User-Agent"))?.Values.FirstOrDefault())
+        End If
+        Return SendHeadersResponse.Continue()
+    End Function
 
-        Public Shared Function OnBeforeURLRequest(ByVal parameters As BeforeUrlRequestParameters) As BeforeUrlRequestResponse
-            ' If navigate to teamdev.com, then change URL to google.com.
-            If parameters.UrlRequest.Url = "http://www.teamdev.com/" Then
-                Console.WriteLine("Redirecting to  http://www.google.com/")
-                Return BeforeUrlRequestResponse.Redirect("http://www.google.com")
-            End If
-            Return BeforeUrlRequestResponse.Ignore()
-        End Function
+    Public Shared Function OnSendUrlRequest(parameters As SendUrlRequestParameters) As SendUrlRequestResponse
+        ' If navigate to teamdev.com, then change URL to google.com.
+        If parameters.UrlRequest.Url = "https://www.teamdev.com/" Then
+            Console.WriteLine("Redirecting to  https://www.google.com/")
+            Return SendUrlRequestResponse.Override("https://www.google.com")
+        End If
+        Return SendUrlRequestResponse.Continue()
+    End Function
 
 #End Region
-    End Class
-End Namespace
+End Class

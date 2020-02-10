@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -24,38 +24,49 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation.Events
 
-Namespace LoadEvents
-    Friend Class Program
+''' <summary>
+'''     The sample demonstrates how to receive notifications about
+'''     web page loading progress.
+''' </summary>
+Friend Class Program
+
 #Region "Methods"
 
-        Public Shared Sub Main()
-            Try
-                Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                    Console.WriteLine("Engine created")
+    Public Shared Sub Main()
+        Try
+            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+                Console.WriteLine("Engine created")
 
-                    Using browser As IBrowser = engine.CreateBrowser()
-                        AddHandler browser.Navigation.FrameLoadFinished, Sub(sender As Object, e As FrameLoadFinishedEventArgs)
-                                                                             Console.Out.WriteLine($"FrameLoadFinished: URL = {e.ValidatedUrl}, IsMainFrame = {e.Frame.IsMain}")
-                                                                         End Sub
-                        AddHandler browser.Navigation.LoadStarted, Sub()
-                                                                       Console.Out.WriteLine("LoadStarted")
-                                                                   End Sub
-                        AddHandler browser.Navigation.NavigationStarted, Sub(sender As Object, e As NavigationStartedEventArgs)
-                                                                             Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}")
-                                                                         End Sub
-                        AddHandler browser.Navigation.FrameDocumentLoadFinished, Sub(sender As Object, e As FrameDocumentLoadFinishedEventArgs)
-                                                                                     Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}")
-                                                                                 End Sub
-                        browser.Navigation.LoadUrl("http://www.google.com").Wait()
-                    End Using
+                Using browser As IBrowser = engine.CreateBrowser()
+                    AddHandler browser.Navigation.FrameLoadFinished,
+                        Sub(sender As Object, e As FrameLoadFinishedEventArgs)
+                            Console.Out.WriteLine(
+                                $"FrameLoadFinished: URL = {e.ValidatedUrl}, IsMainFrame = {e.Frame.IsMain}")
+                        End Sub
+
+                    AddHandler browser.Navigation.LoadStarted, Sub()
+                        Console.Out.WriteLine("LoadStarted")
+                    End Sub
+
+                    AddHandler browser.Navigation.NavigationStarted,
+                        Sub(sender As Object, e As NavigationStartedEventArgs)
+                            Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}")
+                        End Sub
+
+                    AddHandler browser.Navigation.FrameDocumentLoadFinished,
+                        Sub(sender As Object, e As FrameDocumentLoadFinishedEventArgs)
+                            Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}")
+                        End Sub
+
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
                 End Using
-            Catch e As Exception
-                Console.WriteLine(e)
-            End Try
-            Console.WriteLine("Press any key to terminate...")
-            Console.ReadKey()
-        End Sub
+            End Using
+        Catch e As Exception
+            Console.WriteLine(e)
+        End Try
+        Console.WriteLine("Press any key to terminate...")
+        Console.ReadKey()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class

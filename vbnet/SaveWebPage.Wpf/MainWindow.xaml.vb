@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright © 2020, TeamDev. All rights reserved.
+' Copyright 2020, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -26,57 +26,59 @@ Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Navigation
-Imports DotNetBrowser.WPF
+Imports DotNetBrowser.Wpf
 
-Namespace SaveWebPage.Wpf
-    ''' <summary>
-    '''     Demonstrates how to embed WPF BrowserView component into WPF Application,
-    '''     load and display HTML content from string.
-    ''' </summary>
-    Partial Public Class MainWindow
-        Inherits Window
+''' <summary>
+'''     Demonstrates how to embed WPF BrowserView component into WPF Application,
+'''     load and display HTML content from a string.
+''' </summary>
+Partial Public Class MainWindow
+    Inherits Window
 
-        Private browser As IBrowser
-        Private browserView As BrowserView
-        Private engine As IEngine
+    Private browser As IBrowser
+    Private browserView As BrowserView
+    Private engine As IEngine
 
 #Region "Constructors"
 
-        Public Sub New()
-            Task.Run(Sub()
-                         engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-                         browser = engine.CreateBrowser()
-                     End Sub).ContinueWith(Sub(t)
-                                               ' Create WPF BrowserView component.
-                                               browserView = New BrowserView()
-                                               ' Embed BrowserView component into main layout.
-                                               mainLayout.Children.Add(browserView)
+    Public Sub New()
+        Task.Run(Sub()
+            engine = EngineFactory.Create(
+                        New EngineOptions.Builder With {
+                                            .RenderingMode = RenderingMode.OffScreen
+                                            }.Build())
 
-                                               browserView.InitializeFrom(browser)
+            browser = engine.CreateBrowser()
+        End Sub).ContinueWith(Sub(t)
+            ' Create WPF BrowserView component.
+            browserView = New BrowserView()
+            ' Embed BrowserView component into main layout.
+            mainLayout.Children.Add(browserView)
 
-                                               browser.Navigation.LoadUrl("https://www.teamdev.com/").ContinueWith(AddressOf SaveWebPage)
-                                           End Sub, TaskScheduler.FromCurrentSynchronizationContext())
-            ' Initialize WPF Application UI.
-            InitializeComponent()
-        End Sub
+            browserView.InitializeFrom(browser)
+
+            browser.Navigation.LoadUrl("https://www.teamdev.com/").ContinueWith(AddressOf SaveWebPage)
+        End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+        ' Initialize WPF Application UI.
+        InitializeComponent()
+    End Sub
 
 #End Region
 
 #Region "Methods"
 
-        Private Sub SaveWebPage(ByVal obj As Task(Of LoadResult))
-            Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
-            Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
-            Directory.CreateDirectory(dirPath)
-            browser.SaveWebPage(filePath, dirPath, SavePageType.CompletePage)
-        End Sub
+    Private Sub SaveWebPage(obj As Task(Of LoadResult))
+        Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
+        Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
+        Directory.CreateDirectory(dirPath)
+        browser.SaveWebPage(filePath, dirPath, SavePageType.CompletePage)
+    End Sub
 
-        Private Sub Window_Closing(ByVal sender As Object, ByVal e As CancelEventArgs)
-            ' Dispose browser and engine when close app window.
-            browser.Dispose()
-            engine.Dispose()
-        End Sub
+    Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
+        ' Dispose browser and engine when close app window.
+        browser.Dispose()
+        engine.Dispose()
+    End Sub
 
 #End Region
-    End Class
-End Namespace
+End Class
