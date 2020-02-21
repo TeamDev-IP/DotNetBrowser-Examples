@@ -34,16 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetBrowser, Version=1.21.3.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetBrowser.1.21.3\lib\DotNetBrowser.dll</HintPath>
+    <Reference Include="DotNetBrowser, Version=1.21.4.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetBrowser.1.21.4\lib\DotNetBrowser.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium32, Version=1.21.3.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetBrowser.1.21.3\lib\DotNetBrowser.Chromium32.dll</HintPath>
+    <Reference Include="DotNetBrowser.Chromium32, Version=1.21.4.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetBrowser.1.21.4\lib\DotNetBrowser.Chromium32.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium64, Version=1.21.3.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetBrowser.1.21.3\lib\DotNetBrowser.Chromium64.dll</HintPath>
+    <Reference Include="DotNetBrowser.Chromium64, Version=1.21.4.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetBrowser.1.21.4\lib\DotNetBrowser.Chromium64.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
