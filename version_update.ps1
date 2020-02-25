@@ -1,4 +1,4 @@
-param([String]$oldVersion = "1.21.3", [String]$newVersion = "1.21.4", [String]$oldVersionFull = "1.21.3.0", [String]$newVersionFull = "1.21.4.0")
+param([String]$oldVersion = "1.21.4", [String]$newVersion = "1.21.5", [String]$oldVersionFull = "1.21.4.0", [String]$newVersionFull = "1.21.5.0")
 $oldVersionProjectName = "DotNetBrowser." + $oldVersion;
 $newVersionProjectName = "DotNetBrowser." + $newVersion;
 
