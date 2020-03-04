@@ -83,6 +83,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.Wpf", "ContextM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.WinForms", "ContextMenu.WinForms\ContextMenu.WinForms.csproj", "{142C8F5F-F844-4625-8167-52BA548337E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge.WinForms", "JavaScriptBridge.WinForms\JavaScriptBridge.WinForms.csproj", "{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -245,6 +247,10 @@ Global
 		{142C8F5F-F844-4625-8167-52BA548337E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{142C8F5F-F844-4625-8167-52BA548337E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{142C8F5F-F844-4625-8167-52BA548337E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
