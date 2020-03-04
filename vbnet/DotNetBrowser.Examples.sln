@@ -85,6 +85,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ContextMenu.WinForms", "Con
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "JavaScriptBridge.WinForms", "JavaScriptBridge.WinForms\JavaScriptBridge.WinForms.vbproj", "{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SaveImageFromPage", "SaveImageFromPage\SaveImageFromPage.vbproj", "{8C9DD611-B9C6-498A-A150-39C863559C87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -251,6 +253,10 @@ Global
 		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28BFBE76-6971-417C-BFE3-C6E9D3EAB2A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C9DD611-B9C6-498A-A150-39C863559C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C9DD611-B9C6-498A-A150-39C863559C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C9DD611-B9C6-498A-A150-39C863559C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C9DD611-B9C6-498A-A150-39C863559C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
