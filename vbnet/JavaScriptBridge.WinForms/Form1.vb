@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System
-Imports System.Windows.Forms
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Js
@@ -38,7 +36,7 @@ Namespace JavaScriptBridge.WinForms
 
 		Public Sub New()
 			InitializeComponent()
-			Dim webView As BrowserView = New BrowserView With {.Dock = DockStyle.Fill}
+			Dim webView = New BrowserView With {.Dock = DockStyle.Fill}
 			tableLayoutPanel1.Controls.Add(webView, 1, 0)
 			tableLayoutPanel1.SetRowSpan(webView, 2)
 			engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
