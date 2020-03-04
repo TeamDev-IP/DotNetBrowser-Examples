@@ -29,6 +29,10 @@ using DotNetBrowser.WinForms;
 
 namespace JavaScriptBridge.WinForms
 {
+
+    /// <summary>
+    ///     This example demonstrates how to use JS-.NET bridge in WinForms applications.
+    /// </summary>
     public partial class Form1 : Form
     {
         private readonly IBrowser browser;

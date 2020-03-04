@@ -26,6 +26,9 @@ Imports DotNetBrowser.Js
 Imports DotNetBrowser.WinForms
 
 Namespace JavaScriptBridge.WinForms
+    ''' <summary>
+    '''     This example demonstrates how to use JS-.NET bridge in WinForms applications.
+    ''' </summary>
 	Partial Public Class Form1
 		Inherits Form
 
