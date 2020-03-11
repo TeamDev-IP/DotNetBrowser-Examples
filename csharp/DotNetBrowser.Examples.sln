@@ -87,6 +87,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge.WinForms",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveImageFromPage", "SaveImageFromPage\SaveImageFromPage.csproj", "{8C9DD611-B9C6-498A-A150-39C863559C87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullScreen.WinForms", "FullScreen.WinForms\FullScreen.WinForms.csproj", "{CDD33926-0653-4AE0-A1CF-E6BA2606293D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,10 @@ Global
 		{8C9DD611-B9C6-498A-A150-39C863559C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C9DD611-B9C6-498A-A150-39C863559C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C9DD611-B9C6-498A-A150-39C863559C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDD33926-0653-4AE0-A1CF-E6BA2606293D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDD33926-0653-4AE0-A1CF-E6BA2606293D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDD33926-0653-4AE0-A1CF-E6BA2606293D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDD33926-0653-4AE0-A1CF-E6BA2606293D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
