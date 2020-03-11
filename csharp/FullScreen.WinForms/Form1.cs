@@ -29,6 +29,9 @@ using DotNetBrowser.WinForms;
 
 namespace FullScreen.WinForms
 {
+    /// <summary>
+    ///     The example demonstrates how to implement custom full-screen handling.
+    /// </summary>
     public partial class Form1 : Form
     {
         private readonly IBrowser browser;
