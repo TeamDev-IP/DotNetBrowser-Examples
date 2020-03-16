@@ -8,9 +8,9 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("ObservePageChanges.WinForms")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("ObservePageChanges.WinForms")>
-<Assembly: AssemblyCopyright("Copyright ©  2020")>
+<Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
