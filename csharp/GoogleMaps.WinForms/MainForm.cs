@@ -47,7 +47,7 @@ namespace GoogleMaps.WinForms
 
         private int CurrentZoomLevel
         {
-            get => currentZoomLevel;
+            get { return currentZoomLevel; }
 
             set
             {
@@ -64,8 +64,7 @@ namespace GoogleMaps.WinForms
 
         private IEngine Engine { get; }
 
-        private string PathToMapFile
-            => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "map.html");
+        private string PathToMapFile => Path.GetFullPath("map.html");
 
         #endregion
 
