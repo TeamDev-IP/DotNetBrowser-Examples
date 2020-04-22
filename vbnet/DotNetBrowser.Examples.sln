@@ -95,6 +95,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ObservePageChanges.WinForms
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GoogleMaps.WinForms", "GoogleMaps.WinForms\GoogleMaps.WinForms.vbproj", "{E1D29368-F5E0-4DF4-8511-43C30B15F5A4}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WebSockets.InterceptData", "WebSockets.InterceptData\WebSockets.InterceptData.vbproj", "{F189556B-E699-454B-B8D2-1FC9A6111DB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -281,6 +283,10 @@ Global
 		{E1D29368-F5E0-4DF4-8511-43C30B15F5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1D29368-F5E0-4DF4-8511-43C30B15F5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1D29368-F5E0-4DF4-8511-43C30B15F5A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
