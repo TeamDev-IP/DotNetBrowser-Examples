@@ -28,6 +28,10 @@ using DotNetBrowser.Js;
 
 namespace JavaScriptBridge.Promises
 {
+    /// <summary>
+    ///     This example demonstrates how to work with JavaScript Promises
+    ///     via JS-.NET bridge.
+    /// </summary>
     internal class Program
     {
         #region Methods
@@ -36,7 +40,7 @@ namespace JavaScriptBridge.Promises
         {
             try
             {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
+                using (IEngine engine = EngineFactory.Create())
                 {
                     Console.WriteLine("Engine created");
 
