@@ -97,6 +97,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMaps.WinForms", "Goog
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSockets.InterceptData", "WebSockets.InterceptData\WebSockets.InterceptData.csproj", "{F189556B-E699-454B-B8D2-1FC9A6111DB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect.WinForms", "Inspect.WinForms\Inspect.WinForms.csproj", "{EDA43DCC-F7A0-4D30-A837-100FFD2DBDF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect.Wpf", "Inspect.Wpf\Inspect.Wpf.csproj", "{ECE3042E-08B6-485B-868C-72D3791B3E9D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge.Promises", "JavaScriptBridge.Promises\JavaScriptBridge.Promises.csproj", "{6C812C58-642D-4E98-93A0-08A6A1C98AA9}"
 EndProject
 Global
@@ -289,6 +293,14 @@ Global
 		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F189556B-E699-454B-B8D2-1FC9A6111DB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA43DCC-F7A0-4D30-A837-100FFD2DBDF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA43DCC-F7A0-4D30-A837-100FFD2DBDF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA43DCC-F7A0-4D30-A837-100FFD2DBDF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA43DCC-F7A0-4D30-A837-100FFD2DBDF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
