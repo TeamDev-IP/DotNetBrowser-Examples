@@ -63,6 +63,8 @@ namespace Inspect.Wpf
 
         private void GetNodeAtPoint(Point location)
         {
+            double scale = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformToDevice.M11 ?? 1;
+            location = new Point((int)Math.Round(location.X * scale), (int)Math.Round(location.Y * scale));
             PointInspection inspection = browser.MainFrame.Inspect(location);
             INode inspectionNode = inspection.UrlNode ?? inspection.Node;
             statusLabel1.Content = inspectionNode?.XPath ?? string.Empty;

@@ -56,6 +56,8 @@ Namespace Inspect.Wpf
 		#Region "Methods"
 
 		Private Sub GetNodeAtPoint(ByVal location As Point)
+			Dim scale = If(PresentationSource.FromVisual(Me)?.CompositionTarget?.TransformToDevice.M11, 1)
+			location = New Point(CInt(Math.Truncate(Math.Round(location.X * scale))), CInt(Math.Truncate(Math.Round(location.Y * scale))))
 			Dim inspection As PointInspection = browser.MainFrame.Inspect(location)
 			Dim inspectionNode As INode = If(inspection.UrlNode, inspection.Node)
 			statusLabel1.Content = If(inspectionNode?.XPath, String.Empty)
