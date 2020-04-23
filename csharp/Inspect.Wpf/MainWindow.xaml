@@ -1,0 +1,22 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Inspect.Wpf"
+        xmlns:Wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf" x:Class="Inspect.Wpf.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closed="MainWindow_OnClosed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Wpf:BrowserView Name="browserView1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0"/>
+        <StatusBar HorizontalAlignment="Stretch" Height="25" VerticalAlignment="Stretch" Grid.Row="1">
+            <StatusBarItem Name ="statusLabel1" Content="" Height="24.8" VerticalAlignment="Top"/>
+        </StatusBar>
+
+    </Grid>
+</Window>
