@@ -21,14 +21,10 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using DotNetBrowser.Browser;
-using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Geometry;
 using DotNetBrowser.Js;
-using DotNetBrowser.Logging;
 
 namespace JavaScriptBridge.Promises
 {
@@ -40,10 +36,6 @@ namespace JavaScriptBridge.Promises
         {
             try
             {
-                LoggerProvider.Instance.Level = SourceLevels.Information;
-                //LoggerProvider.Instance.ConsoleLoggingEnabled = true;
-                LoggerProvider.Instance.FileLoggingEnabled = true;
-                LoggerProvider.Instance.OutputFile = "dnb.log";
                 using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
                 {
                     Console.WriteLine("Engine created");
@@ -52,49 +44,40 @@ namespace JavaScriptBridge.Promises
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        browser.ConsoleMessageReceived += BrowserOnConsoleMessageReceived;
                         browser.MainFrame.LoadHtml(@"<html>
                                      <body>
                                         <script type='text/javascript'>
-                                            var CreatePromise = function () 
+                                            function CreatePromise(success) 
                                             {
                                                  return new Promise(function(resolve, reject) {
-                                                    setTimeout(function() {
-                                                        console.log('Resolving...');
-                                                        resolve('foo');
-                                                    }, 300);
+                                                    if(success) {
+                                                        resolve('Promise fulfilled.');
+                                                    }
+                                                    else {
+                                                        reject('Promise rejected.');
+                                                    }
                                                  });
                                             };
-                                            var resolver = function(value) {
-                                                console.log(value);
-                                            }
                                         </script>
                                      </body>
                                    </html>")
                                .Wait();
+                        IJsObject window = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
+                        //Prepare promise handlers
+                        Action<object> promiseResolvedHandler = o => Console.WriteLine("Success: " + o);
+                        Action<object> promiseRejectedHandler = o => Console.Error.WriteLine("Error: " + o);
 
-                        IJsObject promise = browser.MainFrame.ExecuteJavaScript<IJsObject>(@"new Promise(function(resolve, reject) {
-                                                    setTimeout(function() {
-                                                        console.log('Resolving...');
-                                                        resolve('foo');
-                                                    }, 300);
-                                                 })").Result;
-                        IJsObject resolver = browser.MainFrame.ExecuteJavaScript<IJsObject>("window.resolver").Result;
+                        //Create a promise that is fulfilled
+                        Console.WriteLine("Create a promise that is fulfilled...");
+                        IJsObject promise1 = window.Invoke<IJsObject>("CreatePromise", true);
+                        //Append fulfillment and rejection handlers to the promise
+                        promise1.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
 
-                        Console.WriteLine($"Promise: {promise}");
-                        Console.WriteLine($"Resolver: {resolver}");
-                        foreach (string name in promise.Properties.Names)
-                        {
-                            Console.WriteLine($"Property name: {name}");
-                        }
-
-                        foreach (string name in promise.Properties.OwnPropertyNames)
-                        {
-                            Console.WriteLine($"Own property name: {name}");
-                        }
-
-                        object result = promise.Invoke("then", resolver);
-                        Console.WriteLine($"Result: {result}");
+                        //Create a promise that is rejected
+                        Console.WriteLine("Create a promise that is rejected...");
+                        IJsObject promise2 = window.Invoke<IJsObject>("CreatePromise", false);
+                        //Append fulfillment and rejection handlers to the promise
+                        promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
                     }
                 }
             }
@@ -107,12 +90,6 @@ namespace JavaScriptBridge.Promises
             Console.ReadKey();
         }
 
-        private static void BrowserOnConsoleMessageReceived(object sender, ConsoleMessageReceivedEventArgs e)
-        {
-            Console.WriteLine("<" + e.Message);
-        }
-
         #endregion
-
     }
 }
