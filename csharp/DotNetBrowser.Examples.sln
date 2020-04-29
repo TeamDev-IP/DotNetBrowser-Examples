@@ -105,6 +105,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.WinForms", "Kiosk.Win
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.Wpf", "Kiosk.Wpf\Kiosk.Wpf.csproj", "{6962F54B-EF0A-4D29-A265-38B250987FBA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge.Promises", "JavaScriptBridge.Promises\JavaScriptBridge.Promises.csproj", "{6C812C58-642D-4E98-93A0-08A6A1C98AA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -311,6 +313,10 @@ Global
 		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C812C58-642D-4E98-93A0-08A6A1C98AA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
