@@ -103,6 +103,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Inspect.Wpf", "Inspect.Wpf\
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Kiosk.WinForms", "Kiosk.WinForms\Kiosk.WinForms.vbproj", "{8E1AAE90-A681-48EC-B59B-2843EF05937C}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Kiosk.Wpf", "Kiosk.Wpf\Kiosk.Wpf.vbproj", "{6962F54B-EF0A-4D29-A265-38B250987FBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -305,6 +307,10 @@ Global
 		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6962F54B-EF0A-4D29-A265-38B250987FBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
