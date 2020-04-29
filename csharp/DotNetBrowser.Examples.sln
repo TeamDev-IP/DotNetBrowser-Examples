@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.779
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessingHttpResponseData", "AccessingHttpResponseData\AccessingHttpResponseData.csproj", "{BA64CB0A-4863-4733-AA2E-A25A74755A66}"
 EndProject
@@ -100,6 +100,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect.WinForms", "Inspect.WinForms\Inspect.WinForms.csproj", "{EDA43DCC-F7A0-4D30-A837-100FFD2DBDF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inspect.Wpf", "Inspect.Wpf\Inspect.Wpf.csproj", "{ECE3042E-08B6-485B-868C-72D3791B3E9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.WinForms", "Kiosk.WinForms\Kiosk.WinForms.csproj", "{8E1AAE90-A681-48EC-B59B-2843EF05937C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -299,6 +301,10 @@ Global
 		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECE3042E-08B6-485B-868C-72D3791B3E9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E1AAE90-A681-48EC-B59B-2843EF05937C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
