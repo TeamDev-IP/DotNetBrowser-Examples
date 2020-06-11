@@ -25,8 +25,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using DotNetBrowser.Downloads;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
+using DotNetBrowser.Permissions.Handlers;
 using DotNetBrowser.Wpf.Dialogs;
 
 namespace Demo.Wpf
@@ -85,8 +88,9 @@ namespace Demo.Wpf
                 {
                     RenderingMode = renderingMode
                 }.Build());
-                engine.Downloads.StartDownloadHandler = new DefaultStartDownloadHandler(this);
                 engine.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
+                engine.Permissions.RequestPermissionHandler = 
+                    new Handler<RequestPermissionParameters, RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
                 engine.Disposed += (sender, args) =>
                 {
                     if (args.ExitCode != 0)
