@@ -30,6 +30,7 @@ using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
+using DotNetBrowser.WinForms.Dialogs;
 
 namespace DotNetBrowser.WinForms.Demo.Components
 {
@@ -38,15 +39,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private const string PngFilter = "PNG image (*.png)|*.png";
         private IBrowser browser;
         private string title;
-
-        #region Constructors
-
-        public TabContents()
-        {
-            InitializeComponent();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -64,6 +56,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
                     browser.PrintHandler = new Handler<PrintParameters, PrintResponse>(p => PrintResponse.ShowPrintPreview());
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
+                    browser.StartDownloadHandler = new DefaultStartDownloadHandler(this);
                     LoadUrl(AddressBar.Text);
                 }
             }
@@ -85,6 +78,15 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         public event EventHandler Closed;
         public event EventHandler<string> TitleChanged;
+
+        #endregion
+
+        #region Constructors
+
+        public TabContents()
+        {
+            InitializeComponent();
+        }
 
         #endregion
 
@@ -176,19 +178,19 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 jsConsoleOutput.Text += ">> " + jsConsoleInput.Text + Environment.NewLine;
                 Browser?.MainFrame?.ExecuteJavaScript(jsConsoleInput.Text)
-                    .ContinueWith(t =>
-                    {
-                        jsConsoleOutput.AppendText("<< " + t.Result + Environment.NewLine);
-                        jsConsoleOutput.ScrollToCaret();
-                        jsConsoleInput.Clear();
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                       .ContinueWith(t =>
+                       {
+                           jsConsoleOutput.AppendText("<< " + t.Result + Environment.NewLine);
+                           jsConsoleOutput.ScrollToCaret();
+                           jsConsoleInput.Clear();
+                       }, TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 
         private void LoadUrl(string url)
         {
             Browser?.Navigation.LoadUrl(url)
-                .ContinueWith(t => { UpdateControlsStates(); }, TaskScheduler.FromCurrentSynchronizationContext());
+                   .ContinueWith(t => { UpdateControlsStates(); }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void menuButton_Click(object sender, EventArgs e)
@@ -198,7 +200,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void Navigation_FrameLoadFinished(object sender, FrameLoadFinishedEventArgs e)
         {
-            if (e.Frame.IsMain)
+            if (e.Frame?.IsMain == true)
             {
                 BeginInvoke((Action) UpdateControlsStates);
             }

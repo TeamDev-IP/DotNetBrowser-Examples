@@ -31,19 +31,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private readonly Color defaultBackground;
         private bool selected;
 
-        #region Constructors
-
-        public Tab()
-        {
-            InitializeComponent();
-            defaultBackground = BackColor;
-
-            Contents = new TabContents {Dock = DockStyle.Fill};
-            Contents.TitleChanged += BrowserTab_TitleChanged;
-        }
-
-        #endregion
-
         #region Properties
 
         public TabContents Contents { get; }
@@ -65,6 +52,19 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         public event EventHandler Selected;
         public event EventHandler Closed;
+
+        #endregion
+
+        #region Constructors
+
+        public Tab()
+        {
+            InitializeComponent();
+            defaultBackground = BackColor;
+
+            Contents = new TabContents {Dock = DockStyle.Fill};
+            Contents.TitleChanged += BrowserTab_TitleChanged;
+        }
 
         #endregion
 
