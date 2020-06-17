@@ -42,10 +42,10 @@
       <HintPath>..\packages\DotNetBrowser.2.1.0\lib\net45\DotNetBrowser.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x86">
-      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x86.2.0.0\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x86.2.1.0\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x64">
-      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x64.2.0.0\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x64.2.1.0\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Core">
       <HintPath>..\packages\DotNetBrowser.2.1.0\lib\net45\DotNetBrowser.Core.dll</HintPath>
