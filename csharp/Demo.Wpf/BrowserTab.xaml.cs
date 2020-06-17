@@ -32,6 +32,7 @@ using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
+using DotNetBrowser.Wpf;
 using DotNetBrowser.Wpf.Dialogs;
 using Microsoft.Win32;
 
