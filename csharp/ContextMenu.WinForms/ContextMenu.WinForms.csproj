@@ -48,7 +48,7 @@
       <HintPath>..\packages\DotNetBrowser.2.1.0\lib\net45\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.WinForms">
-      <HintPath>..\packages\DotNetBrowser.WinForms.2.0.0\lib\net45\DotNetBrowser.WinForms.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.WinForms.2.1.0\lib\net45\DotNetBrowser.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
