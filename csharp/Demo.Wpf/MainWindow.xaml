@@ -25,7 +25,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo.Wpf"
         mc:Ignorable="d"
-        Title="DotNetBrowser Wpf Demo Application" Height="450" Width="800"
+        Title="DotNetBrowser WPF Demo Application" Height="450" Width="800"
         FocusManager.FocusedElement="{Binding Source={x:Reference Tabs}}"
         Closing="MainWindow_OnClosed">
     <Grid>

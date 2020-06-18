@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -34,19 +34,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetBrowser">
-      <HintPath>..\packages\DotNetBrowser.2.0.0\lib\net45\DotNetBrowser.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.2.1.0\lib\net45\DotNetBrowser.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x86">
-      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x86.2.0.0\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x86.2.1.0\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x64">
-      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x64.2.0.0\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x64.2.1.0\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Core">
-      <HintPath>..\packages\DotNetBrowser.2.0.0\lib\net45\DotNetBrowser.Core.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.2.1.0\lib\net45\DotNetBrowser.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Logging">
-      <HintPath>..\packages\DotNetBrowser.2.0.0\lib\net45\DotNetBrowser.Logging.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.2.1.0\lib\net45\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>

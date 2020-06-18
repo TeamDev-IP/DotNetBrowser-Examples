@@ -34,16 +34,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private readonly List<Tab> tabs = new List<Tab>();
         private Tab selectedTab;
 
-        #region Constructors
-
-        public TabbedPane()
-        {
-            InitializeComponent();
-            AddTab(new Tab());
-        }
-
-        #endregion
-
         #region Properties
 
         public RenderingMode RenderingMode { get; set; }
@@ -62,6 +52,16 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
                 selectedTab = value;
             }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public TabbedPane()
+        {
+            InitializeComponent();
+            AddTab(new Tab());
         }
 
         #endregion
@@ -99,7 +99,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             AddTab(tab);
             Task.Run(() => Engine?.CreateBrowser())
                 .ContinueWith(t => { tab.Contents.Browser = t.Result; },
-                    TaskScheduler.FromCurrentSynchronizationContext());
+                              TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void captions_Resize(object sender, EventArgs e)

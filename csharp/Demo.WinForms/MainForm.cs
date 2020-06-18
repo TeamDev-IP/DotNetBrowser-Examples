@@ -26,8 +26,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
+using DotNetBrowser.Permissions.Handlers;
 using DotNetBrowser.WinForms.Dialogs;
 
 namespace DotNetBrowser.WinForms.Demo
@@ -60,7 +63,12 @@ namespace DotNetBrowser.WinForms.Demo
             tabbedPane.SelectedTab.Contents.renderingMode.Text = RenderingMode.ToString();
 
             Task.Run(() => Engine?.CreateBrowser())
-                .ContinueWith(t => { tabbedPane.SelectedTab.Contents.Browser = t.Result; },
+                .ContinueWith(t =>
+                              {
+                                  IBrowser browser = t.Result;
+                                  tabbedPane.SelectedTab.Contents.Browser = browser;
+                                  browser.Focus();
+                              },
                               TaskScheduler.FromCurrentSynchronizationContext());
         }
 
@@ -90,8 +98,9 @@ namespace DotNetBrowser.WinForms.Demo
                 {
                     RenderingMode = RenderingMode
                 }.Build());
-                engine.Downloads.StartDownloadHandler = new DefaultStartDownloadHandler(this);
                 engine.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
+                engine.Permissions.RequestPermissionHandler =
+                    new Handler<RequestPermissionParameters, RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
                 engine.Disposed += (sender, args) =>
                 {
                     if (args.ExitCode != 0)

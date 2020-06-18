@@ -28,6 +28,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Canvas Height="12"  Width="12">
+                        <Canvas.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Canvas.Background>
                         <Path Stroke="Black" StrokeThickness="2">
                             <Path.Data>
                                 <PathGeometry>
@@ -57,6 +60,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Canvas Height="10"  Width="10">
+                        <Canvas.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Canvas.Background>
                         <Path Stroke="Black" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
                             <Path.Data>
                                 <PathGeometry>
@@ -85,6 +91,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Canvas Height="24"  Width="24">
+                        <Canvas.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Canvas.Background>
                         <Path Stroke="Black" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
                             <Path.Data>
                                 <PathGeometry>
@@ -116,6 +125,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Canvas Height="24"  Width="24">
+                        <Canvas.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Canvas.Background>
                         <Path Stroke="Black" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
                             <Path.Data>
                                 <PathGeometry>
@@ -147,6 +159,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Canvas Height="24"  Width="24">
+                        <Canvas.Background>
+                            <SolidColorBrush Color="Transparent" />
+                        </Canvas.Background>
                         <Path Stroke="Black" StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
                             <Path.Data>
                                 <PathGeometry>

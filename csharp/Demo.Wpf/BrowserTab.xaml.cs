@@ -33,6 +33,7 @@ using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
 using DotNetBrowser.Wpf;
+using DotNetBrowser.Wpf.Dialogs;
 using Microsoft.Win32;
 
 namespace Demo.Wpf
@@ -57,6 +58,7 @@ namespace Demo.Wpf
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
                     browser.PrintHandler = new Handler<PrintParameters, PrintResponse>(p => PrintResponse.ShowPrintPreview());
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
+                    browser.StartDownloadHandler = new DefaultStartDownloadHandler(this);
                     LoadUrl(AddressBar.Text);
                 }
             }
@@ -171,7 +173,7 @@ namespace Demo.Wpf
 
         private void Navigation_FrameLoadFinished(object sender, FrameLoadFinishedEventArgs e)
         {
-            if (e.Frame.IsMain)
+            if (e.Frame?.IsMain == true)
             {
                 Dispatcher?.BeginInvoke((Action) UpdateControlsStates);
             }
