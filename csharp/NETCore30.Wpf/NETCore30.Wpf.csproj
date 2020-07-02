@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="2.1.0" />
-    <PackageReference Include="DotNetBrowser.WPF" Version="2.1.0" />
+    <PackageReference Include="DotNetBrowser" Version="2.1.1" />
+    <PackageReference Include="DotNetBrowser.WPF" Version="2.1.1" />
     <PackageReference Include="protobuf-net" Version="2.4.4" />
     <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
   </ItemGroup>
