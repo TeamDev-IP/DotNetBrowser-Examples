@@ -109,6 +109,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge.Promises",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardEventSimulation.WinForms", "KeyboardEventSimulation.WinForms\KeyboardEventSimulation.WinForms.csproj", "{49C72FCE-48D6-4D67-8C1C-9D9532BEAFD1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumChromeDriver", "SeleniumChromeDriver\SeleniumChromeDriver.csproj", "{CDE9CD1D-A591-4582-8193-8A162D18F7CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -323,6 +325,10 @@ Global
 		{49C72FCE-48D6-4D67-8C1C-9D9532BEAFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49C72FCE-48D6-4D67-8C1C-9D9532BEAFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49C72FCE-48D6-4D67-8C1C-9D9532BEAFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDE9CD1D-A591-4582-8193-8A162D18F7CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDE9CD1D-A591-4582-8193-8A162D18F7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDE9CD1D-A591-4582-8193-8A162D18F7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDE9CD1D-A591-4582-8193-8A162D18F7CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
