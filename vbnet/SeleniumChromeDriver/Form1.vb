@@ -83,7 +83,6 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Closed(sender As Object, e As EventArgs)
-        browserView?.Dispose()
         browser?.Dispose()
         engine?.Dispose()
     End Sub
