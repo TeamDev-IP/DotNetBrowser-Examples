@@ -89,7 +89,6 @@ namespace SeleniumChromeDriver
 
         private void Form1_Closed(object sender, EventArgs e)
         {
-            browserView?.Dispose();
             browser?.Dispose();
             engine?.Dispose();
         }
