@@ -111,6 +111,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "KeyboardEventSimulation.Win
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SeleniumChromeDriver", "SeleniumChromeDriver\SeleniumChromeDriver.vbproj", "{E57340FF-5E71-47D7-A7BA-43B92630B49D}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CreateHtmlUi.Wpf", "CreateHtmlUi.Wpf\CreateHtmlUi.Wpf.vbproj", "{58519713-4069-4DF0-BCA0-B156DAAA921E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -329,6 +331,10 @@ Global
 		{E57340FF-5E71-47D7-A7BA-43B92630B49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E57340FF-5E71-47D7-A7BA-43B92630B49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E57340FF-5E71-47D7-A7BA-43B92630B49D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
