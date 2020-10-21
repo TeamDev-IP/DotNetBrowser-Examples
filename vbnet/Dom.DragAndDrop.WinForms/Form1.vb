@@ -31,7 +31,7 @@ Imports DotNetBrowser.Navigation
 
 Namespace Dom.DragAndDrop.WinForms
 	''' <summary>
-	'''     This example demonstrates how to listen to the Drag and Drop events
+	'''     This example demonstrates two possible approaches to listen to the Drag and Drop events
 	'''     for the particular DOM element
 	''' </summary>
 	Partial Public Class Form1
@@ -103,6 +103,7 @@ Namespace Dom.DragAndDrop.WinForms
 		End Sub
 
 		Private Sub OnHtmlLoaded(ByVal t As Task(Of LoadResult))
+			'Configure JavaScript event handlers to invoke .NET callback for files.
 			browser.MainFrame.ExecuteJavaScript("
                                         var drop = function (event) {
 	                                        event.preventDefault();
@@ -116,6 +117,7 @@ Namespace Dom.DragAndDrop.WinForms
                                         document.getElementById(""dropZone"").addEventListener(""dragover"", allowDrop); 
             ")
 
+			'Configure DOM event handlers.
 			Dim dropZone As IElement = browser.MainFrame.Document.GetElementById("dropZone")
 			AddHandler dropZone.Events(New EventType("dragover")).EventReceived, Sub(s, e)
 				e.Event.PreventDefault()
