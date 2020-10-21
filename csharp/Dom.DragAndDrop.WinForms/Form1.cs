@@ -36,8 +36,8 @@ using DotNetBrowser.Navigation;
 namespace Dom.DragAndDrop.WinForms
 {
     /// <summary>
-    ///     This example demonstrates how to listen to the Drag and Drop events
-    ///     for the particular DOM element
+    ///     This example demonstrates two possible approaches to listen to the Drag and Drop events
+    ///     for the particular DOM element.
     /// </summary>
     public partial class Form1 : Form
     {
@@ -63,9 +63,7 @@ namespace Dom.DragAndDrop.WinForms
                      browserView1.InitializeFrom(browser);
                      browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
                      browser.ConsoleMessageReceived += (sender, args) => { Debug.WriteLine(args.LineNumber+" > "+args.Message); };
-                     browser
-                        .MainFrame
-                        .LoadHtml(@"<html>
+                     browser.MainFrame.LoadHtml(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
                                       <style type='text/css'>
@@ -88,7 +86,7 @@ namespace Dom.DragAndDrop.WinForms
                                     </div >
                                     </body>
                                     </html>")
-                        .ContinueWith(OnHtmlLoaded);
+                            .ContinueWith(OnHtmlLoaded);
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
@@ -123,6 +121,7 @@ namespace Dom.DragAndDrop.WinForms
 
         private void OnHtmlLoaded(Task<LoadResult> t)
         {
+            //Configure JavaScript event handlers to invoke .NET callback for files.
             browser.MainFrame.ExecuteJavaScript(@"
                                         var drop = function (event) {
 	                                        event.preventDefault();
@@ -136,6 +135,7 @@ namespace Dom.DragAndDrop.WinForms
                                         document.getElementById(""dropZone"").addEventListener(""dragover"", allowDrop); 
             ");
 
+            //Configure DOM event handlers.
             IElement dropZone = browser.MainFrame.Document.GetElementById("dropZone");
             dropZone.Events[new EventType("dragover")].EventReceived += (s, e) =>
             {
@@ -154,6 +154,7 @@ namespace Dom.DragAndDrop.WinForms
         {
             IJsObject window = p.Frame.ExecuteJavaScript<IJsObject>("window").Result;
             window.Properties["external"] = this;
+
         }
 
         private void WriteLine(string line)
