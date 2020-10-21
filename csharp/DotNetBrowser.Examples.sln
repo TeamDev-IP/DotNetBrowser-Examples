@@ -113,6 +113,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumChromeDriver", "Sel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateHtmlUi.Wpf", "CreateHtmlUi.Wpf\CreateHtmlUi.Wpf.csproj", "{58519713-4069-4DF0-BCA0-B156DAAA921E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dom.DragAndDrop.WinForms", "Dom.DragAndDrop.WinForms\Dom.DragAndDrop.WinForms.csproj", "{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -335,6 +337,10 @@ Global
 		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58519713-4069-4DF0-BCA0-B156DAAA921E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
