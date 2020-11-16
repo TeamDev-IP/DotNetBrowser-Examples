@@ -82,20 +82,30 @@ Public Class Form1
             SimulateKey(keyboard, KeyCode.VkL, "l")
             SimulateKey(keyboard, KeyCode.VkL, "l")
             SimulateKey(keyboard, KeyCode.VkO, "o")
+            SimulateKey(keyboard, KeyCode.Space, " ")
+            'Simulate input of some non-letter characters
+            SimulateKey(keyboard, KeyCode.Vk5, "%", New KeyModifiers() With {.ShiftDown = True})
+            SimulateKey(keyboard, KeyCode.Vk2, "@", New KeyModifiers() With {.ShiftDown = True})
         End If
     End Sub
 
-    Private Shared Sub SimulateKey(keyboard As IKeyboard, key As KeyCode, keyChar As String)
+    Private Shared Sub SimulateKey(keyboard As IKeyboard, key As KeyCode, keyChar As String, Optional ByVal modifiers As KeyModifiers = Nothing)
+        modifiers = If(modifiers, New KeyModifiers())
         Dim keyPressedEventArgs = New KeyPressedEventArgs With {
                 .KeyChar = keyChar,
-                .VirtualKey = key
+                .VirtualKey = key,
+                .Modifiers = modifiers
                 }
 
         Dim keyTypedEventArgs = New KeyTypedEventArgs With {
                 .KeyChar = keyChar,
-                .VirtualKey = key
+                .VirtualKey = key,
+                .Modifiers = modifiers
                 }
-        Dim keyReleasedEventArgs = New KeyReleasedEventArgs With {.VirtualKey = key}
+        Dim keyReleasedEventArgs = New KeyReleasedEventArgs With {
+                .VirtualKey = key,
+                .Modifiers = modifiers
+                }
 
         keyboard.KeyPressed.Raise(keyPressedEventArgs)
         keyboard.KeyTyped.Raise(keyTypedEventArgs)
