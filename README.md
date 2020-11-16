@@ -11,3 +11,7 @@ To learn about the library please visit the [product page](https://www.teamdev.c
 
 ### Contact us
 Feel free to [submit request](https://dotnetbrowser.support.teamdev.com/support/tickets/new) to our support team if you own a commercial license with an active support subscription.
+
+---
+
+The information in this repository is provided on the following terms: https://www.teamdev.com/terms-and-privacy
