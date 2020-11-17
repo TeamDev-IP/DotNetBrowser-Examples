@@ -97,25 +97,33 @@ namespace KeyboardEventSimulation.Wpf
                 SimulateKey(keyboard, KeyCode.VkL, "l");
                 SimulateKey(keyboard, KeyCode.VkL, "l");
                 SimulateKey(keyboard, KeyCode.VkO, "o");
+                SimulateKey(keyboard, KeyCode.Space, " ");
+                //Simulate input of some non-letter characters
+                SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers() { ShiftDown = true });
+                SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers() { ShiftDown = true });
             }
         }
 
-        private static void SimulateKey(IKeyboard keyboard, KeyCode key, string keyChar)
+        private static void SimulateKey(IKeyboard keyboard, KeyCode key, string keyChar, KeyModifiers modifiers = null)
         {
+            modifiers = modifiers ?? new KeyModifiers();
             KeyPressedEventArgs keyDownEventArgs = new KeyPressedEventArgs
             {
                 KeyChar = keyChar,
-                VirtualKey = key
+                VirtualKey = key,
+                Modifiers = modifiers
             };
 
             KeyTypedEventArgs keyPressEventArgs = new KeyTypedEventArgs
             {
                 KeyChar = keyChar,
-                VirtualKey = key
+                VirtualKey = key,
+                Modifiers = modifiers
             };
             KeyReleasedEventArgs keyUpEventArgs = new KeyReleasedEventArgs
             {
-                VirtualKey = key
+                VirtualKey = key,
+                Modifiers = modifiers
             };
 
             keyboard.KeyPressed.Raise(keyDownEventArgs);
