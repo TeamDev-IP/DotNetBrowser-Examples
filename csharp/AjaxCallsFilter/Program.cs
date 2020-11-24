@@ -49,8 +49,8 @@ namespace AjaxCallsFilter
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.LoadResourceHandler =
-                            new Handler<LoadResourceParameters, LoadResourceResponse>(CanLoadResource);
+                        engine.Network.SendUrlRequestHandler =
+                            new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(CanLoadResource);
 
                         browser.Navigation
                                .LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
@@ -79,15 +79,15 @@ namespace AjaxCallsFilter
             Console.ReadKey();
         }
 
-        private static LoadResourceResponse CanLoadResource(LoadResourceParameters arg)
+        private static SendUrlRequestResponse CanLoadResource(SendUrlRequestParameters arg)
         {
-            if (arg.ResourceType == ResourceType.Xhr)
+            if (arg.UrlRequest.ResourceType == ResourceType.Xhr)
             {
-                Console.WriteLine("Suppress ajax call - " + arg.Url);
-                return LoadResourceResponse.Cancel();
+                Console.WriteLine("Suppress ajax call - " + arg.UrlRequest.Url);
+                return SendUrlRequestResponse.Cancel();
             }
 
-            return LoadResourceResponse.Continue();
+            return SendUrlRequestResponse.Continue();
         }
 
         #endregion

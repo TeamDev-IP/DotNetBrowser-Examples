@@ -51,8 +51,8 @@ namespace NetworkHandlers
                     {
                         engine.Network.SendUrlRequestHandler =
                             new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(OnSendUrlRequest);
-                        engine.Network.SendHeadersHandler =
-                            new Handler<SendHeadersParameters, SendHeadersResponse>(OnSendHeaders);
+                        engine.Network.StartTransactionHandler =
+                            new Handler<StartTransactionParameters, StartTransactionResponse>(OnStartTransaction);
 
                         Console.WriteLine("Loading https://www.teamdev.com/");
                         browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait();
@@ -69,7 +69,7 @@ namespace NetworkHandlers
             Console.ReadKey();
         }
 
-        public static SendHeadersResponse OnSendHeaders(SendHeadersParameters parameters)
+        public static StartTransactionResponse OnStartTransaction(StartTransactionParameters parameters)
         {
             // If navigate to google.com, then print User-Agent header value.
             if (parameters.UrlRequest.Url == "https://www.google.com/")
@@ -79,7 +79,7 @@ namespace NetworkHandlers
                                   + headers.FirstOrDefault(h => h.Name.Equals("User-Agent"))?.Values.FirstOrDefault());
             }
 
-            return SendHeadersResponse.Continue();
+            return StartTransactionResponse.Continue();
         }
 
         public static SendUrlRequestResponse OnSendUrlRequest(SendUrlRequestParameters parameters)
