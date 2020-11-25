@@ -115,6 +115,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateHtmlUi.Wpf", "CreateH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dom.DragAndDrop.WinForms", "Dom.DragAndDrop.WinForms\Dom.DragAndDrop.WinForms.csproj", "{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDrop.Wpf", "DragAndDrop.Wpf\DragAndDrop.Wpf.csproj", "{F2A51454-F3AA-41DB-800B-F47D4B479464}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -341,6 +343,10 @@ Global
 		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8810DB89-C82E-4A2B-AF12-E0DECF9223B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2A51454-F3AA-41DB-800B-F47D4B479464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2A51454-F3AA-41DB-800B-F47D4B479464}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2A51454-F3AA-41DB-800B-F47D4B479464}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2A51454-F3AA-41DB-800B-F47D4B479464}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
