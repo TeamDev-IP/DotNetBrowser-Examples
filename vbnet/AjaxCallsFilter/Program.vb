@@ -41,8 +41,8 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    engine.Network.LoadResourceHandler =
-                        New Handler(Of LoadResourceParameters, LoadResourceResponse)(AddressOf CanLoadResource)
+                    engine.Network.SendUrlRequestHandler =
+                        New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf CanLoadResource)
                     browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").
                         Wait()
                     Dim demoFrame As IFrame =
@@ -64,12 +64,12 @@ Friend Class Program
         Console.ReadKey()
     End Sub
 
-    Private Shared Function CanLoadResource(arg As LoadResourceParameters) As LoadResourceResponse
-        If arg.ResourceType = ResourceType.Xhr Then
-            Console.WriteLine("Suppress ajax call - " & arg.Url)
-            Return LoadResourceResponse.Cancel()
+    Private Shared Function CanLoadResource(arg As SendUrlRequestParameters) As SendUrlRequestResponse
+        If arg.UrlRequest.ResourceType = ResourceType.Xhr Then
+            Console.WriteLine("Suppress ajax call - " & arg.UrlRequest.Url)
+            Return SendUrlRequestResponse.Cancel()
         End If
-        Return LoadResourceResponse.Continue()
+        Return SendUrlRequestResponse.Continue()
     End Function
 
 #End Region

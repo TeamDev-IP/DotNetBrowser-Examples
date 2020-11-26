@@ -42,8 +42,8 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     engine.Network.SendUrlRequestHandler =
                         New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
-                    engine.Network.SendHeadersHandler =
-                        New Handler(Of SendHeadersParameters, SendHeadersResponse)(AddressOf OnSendHeaders)
+                    engine.Network.StartTransactionHandler =
+                        New Handler(Of StartTransactionParameters, StartTransactionResponse)(AddressOf OnStartTransaction)
 
                     Console.WriteLine("Loading https://www.teamdev.com/")
                     browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait()
@@ -57,7 +57,7 @@ Friend Class Program
         Console.ReadKey()
     End Sub
 
-    Public Shared Function OnSendHeaders(parameters As SendHeadersParameters) As SendHeadersResponse
+    Public Shared Function OnStartTransaction(parameters As StartTransactionParameters) As StartTransactionResponse
         ' If navigate to google.com, then print User-Agent header value.
         If parameters.UrlRequest.Url = "https://www.google.com/" Then
             Dim headers As IEnumerable(Of IHttpHeader) = parameters.Headers
@@ -65,7 +65,7 @@ Friend Class Program
                 "User-Agent: " &
                 headers.FirstOrDefault(Function(h) h.Name.Equals("User-Agent"))?.Values.FirstOrDefault())
         End If
-        Return SendHeadersResponse.Continue()
+        Return StartTransactionResponse.Continue()
     End Function
 
     Public Shared Function OnSendUrlRequest(parameters As SendUrlRequestParameters) As SendUrlRequestResponse
