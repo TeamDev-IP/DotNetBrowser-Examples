@@ -27,6 +27,10 @@ using DotNetBrowser.Engine;
 
 namespace DevTools.WinForms
 {
+    /// <summary>
+    ///     This example demonstrates a possible way to configure
+    ///     remote debugging port and use DevTools in the application.
+    /// </summary>
     public partial class Form1 : Form
     {
         private IBrowser browser1;

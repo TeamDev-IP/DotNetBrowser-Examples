@@ -32,6 +32,10 @@ using DotNetBrowser.Input.Keyboard.Events;
 
 namespace CustomShortcuts.WinForms
 {
+    /// <summary>
+    ///     This example demonstrates how to configure custom shortcuts for the
+    ///     browser.
+    /// </summary>
     public partial class Form1 : Form
     {
         private IBrowser browser;
