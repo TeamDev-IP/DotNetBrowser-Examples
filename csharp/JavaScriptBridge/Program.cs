@@ -59,10 +59,10 @@ namespace JavaScriptBridge
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
                                             {
-                                                 document.title = a.get_FullName() 
-                                                                + ' ' + a.get_Age() + '. ' + a.Walk(a.get_Children().get_Item(1))
-                                                                + ' ' + a.get_Children().get_Item(1).get_FullName() 
-                                                                + ' ' + a.get_Children().get_Item(1).get_Age();
+                                                 document.title = a.FullName 
+                                                                + ' ' + a.Age + '. ' + a.Walk(a.Children.get_Item(1))
+                                                                + ' ' + a.Children.get_Item(1).FullName 
+                                                                + ' ' + a.Children.get_Item(1).Age;
                                             };
                                         </script>
                                      </body>
