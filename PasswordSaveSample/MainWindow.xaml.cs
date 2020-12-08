@@ -27,6 +27,12 @@ namespace PasswordSaveSample
             BrowserView.Browser.PasswordManagerClient.PasswordSubmitted += PasswordManagerClient_PasswordSubmitted;
             BrowserView.Browser.PasswordManagerClient.UpdatePasswordSubmitted += PasswordManagerClient_UpdatePasswordSubmitted;
             BrowserView.Browser.LoadURL("http://demo.hongkiat.com/html5-loginpage/index.html");
+
+            Closed += (sender, args) =>
+            {
+                BrowserView.Browser.Dispose();
+                BrowserView.Dispose();
+            };
         }
 
         void PasswordManagerClient_PasswordSubmitted(object sender, PasswordEventArgs e)

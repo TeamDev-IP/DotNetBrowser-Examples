@@ -59,17 +59,15 @@ namespace WinForms.BrowserContextSample
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (!browserViewOne.IsDisposed)
-            {                
+            {
+                browserViewOne.Dispose();
                 browserOne.Dispose();
-                browserViewOne.Browser.Dispose();
-				browserViewOne.Dispose();
             }
 
             if (!browserViewTwo.IsDisposed)
-            {                
+            {
+                browserViewTwo.Dispose();
                 browserTwo.Dispose();
-                browserViewTwo.Browser.Dispose();
-				browserViewTwo.Dispose();
             }
         }
     }
