@@ -63,8 +63,8 @@ namespace XPath_Sample_WPF_RF
         {
             if (!browserView.IsDisposed)
             {
-                browserView.Browser.Dispose();
                 browserView.Dispose();
+                browser.Dispose();
             }
         }
 
