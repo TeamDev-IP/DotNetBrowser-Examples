@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Threading.Tasks;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Geometry;
@@ -82,6 +83,8 @@ namespace JavaScriptBridge.Promises
                         IJsObject promise2 = window.Invoke<IJsObject>("CreatePromise", false);
                         //Append fulfillment and rejection handlers to the promise
                         promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
+
+                        CreatePromiseAsync(window).Wait();
                     }
                 }
             }
@@ -92,6 +95,33 @@ namespace JavaScriptBridge.Promises
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
+        }
+
+        private static async Task CreatePromiseAsync(IJsObject window)
+        {
+            //It is also possible to create a wrapper class for IJsObject that simplifies appending the
+            //handlers and type checks. Such approach can be used to integrate JavaScript promises
+            //with async/await in the .NET application.
+
+            //Create a promise that is fulfilled and wrap this promise
+            Console.WriteLine("\nCreate another promise that is fulfilled...");
+            JsPromise promise3 = window.Invoke<IJsObject>("CreatePromise", true).AsPromise();
+            JsPromise.Result result = await promise3.Then(o =>
+                                                {
+                                                    Console.WriteLine("Callback:Success: " + o);
+                                                    return o;
+                                                })
+                                               .ResolveAsync();
+            Console.WriteLine("Result state:" + result?.State);
+            Console.WriteLine("Result type:" + (result?.Data?.GetType().ToString() ?? "null"));
+
+            //Create a promise that is rejected and wrap this promise
+            Console.WriteLine("\nCreate another promise that is rejected...");
+            JsPromise promise4 = window.Invoke<IJsObject>("CreatePromise", false).AsPromise();
+            result = await promise4.ResolveAsync();
+
+            Console.WriteLine("Result state:" + result?.State);
+            Console.WriteLine("Result type:" + (result?.Data?.GetType().ToString() ?? "null"));
         }
 
         #endregion
