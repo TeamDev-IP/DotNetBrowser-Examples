@@ -121,7 +121,8 @@ namespace SeparateEngines.AppDomains
         ///     This method demonstrates how to implement a particular scenario that
         ///     should be performed in a separate application domain.
         ///     <para>
-        ///         For instance, this method returns a web page title after loading that web page completely.
+        ///         For instance, this method returns a web page title after loading that web page completely
+        ///         in a separate browser instance.
         ///     </para>
         /// </summary>
         /// <param name="url">The URL to load.</param>
