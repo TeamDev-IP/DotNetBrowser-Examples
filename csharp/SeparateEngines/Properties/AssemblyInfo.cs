@@ -29,9 +29,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SeparateEngines")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("SeparateEngines")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
