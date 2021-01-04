@@ -29,6 +29,9 @@ Namespace MailToHandling.WinForms
 	''' <summary>
 	'''     This example demonstrates how to open an external application
 	'''     for handling a specific URI scheme, e.g. "mailto".
+	''' 
+	'''		Please note that an email client should be present in the operating system 
+    '''     for this example to work properly.
 	''' </summary>
 	Partial Public Class Form1
 		Inherits Form
@@ -68,8 +71,10 @@ Namespace MailToHandling.WinForms
 
 			If url.StartsWith("mailto:") Then
 				' If navigate to mailto: link, the default mail client should be opened.
-				' The navigation request in the browser should be ignored in this case.
+				' For this purpose, it is enough to launch this URL as a command line.
 				Process.Start(url)
+				
+			    ' The navigation request in the browser should be ignored in this case.
 				Return StartNavigationResponse.Ignore()
 			End If
 
