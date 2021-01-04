@@ -24,6 +24,7 @@ Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 Imports DotNetBrowser.Js
+Imports JavaScriptBridge.Promises
 
 ''' <summary>
 '''     This example demonstrates how to work with JavaScript Promises
@@ -73,6 +74,8 @@ Friend Class Program
                     Dim promise2 = window.Invoke(Of IJsObject)("CreatePromise", False)
                     'Append fulfillment and rejection handlers to the promise
                     promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler)
+
+                    CreatePromiseAsync(window).Wait()
                 End Using
             End Using
         Catch e As Exception
@@ -82,6 +85,30 @@ Friend Class Program
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
+
+    Private Shared Async Function CreatePromiseAsync(ByVal window As IJsObject) As Task
+        'It is also possible to create a wrapper class for IJsObject that simplifies appending the
+        'handlers and type checks. Such approach can be used to integrate JavaScript promises
+        'with async/await in the .NET application.
+
+        'Create a promise that is fulfilled and wrap this promise
+        Console.WriteLine(vbLf & "Create another promise that is fulfilled...")
+        Dim promise3 As JsPromise = window.Invoke(Of IJsObject)("CreatePromise", True).AsPromise()
+        Dim result As JsPromise.Result = Await promise3.Then(Function(o)
+            Console.WriteLine("Callback:Success: " & o)
+            Return o
+        End Function).ResolveAsync()
+        Console.WriteLine("Result state:" & result?.State.ToString())
+        Console.WriteLine("Result type:" & (If(result?.Data?.GetType().ToString(), "null")))
+
+        'Create a promise that is rejected and wrap this promise
+        Console.WriteLine(vbLf & "Create another promise that is rejected...")
+        Dim promise4 As JsPromise = window.Invoke(Of IJsObject)("CreatePromise", False).AsPromise()
+        result = Await promise4.ResolveAsync()
+
+        Console.WriteLine("Result state:" & result?.State.ToString())
+        Console.WriteLine("Result type:" & (If(result?.Data?.GetType().ToString(), "null")))
+    End Function
 
 #End Region
 End Class
