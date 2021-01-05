@@ -127,6 +127,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SeparateEngines.AppDomains"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MailToHandling.WinForms", "MailToHandling.WinForms\MailToHandling.WinForms.vbproj", "{270DDD91-D689-426E-BF58-379800AA8664}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AjaxResponseIntercept", "AjaxResponseIntercept\AjaxResponseIntercept.vbproj", "{A8B6B94C-FFA6-45C4-BE0C-ACF358207252}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -377,6 +379,10 @@ Global
 		{270DDD91-D689-426E-BF58-379800AA8664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{270DDD91-D689-426E-BF58-379800AA8664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{270DDD91-D689-426E-BF58-379800AA8664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B6B94C-FFA6-45C4-BE0C-ACF358207252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B6B94C-FFA6-45C4-BE0C-ACF358207252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B6B94C-FFA6-45C4-BE0C-ACF358207252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B6B94C-FFA6-45C4-BE0C-ACF358207252}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
