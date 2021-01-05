@@ -12,7 +12,7 @@ Imports System.Windows
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("CreateHtmlUi.Wpf")>
-<Assembly: AssemblyCopyright("Copyright ©  2020")>
+<Assembly: AssemblyCopyright("Copyright ©  2021, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

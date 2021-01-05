@@ -1,6 +1,6 @@
 #Region "Copyright"
 
-' Copyright 2020, TeamDev. All rights reserved.
+' Copyright 2021, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -31,7 +31,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("DomQuerySelector")>
-<Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
