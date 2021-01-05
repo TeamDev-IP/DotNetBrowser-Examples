@@ -33,6 +33,10 @@ using DotNetBrowser.Net.Handlers;
 
 namespace AjaxResponseIntercept
 {
+    /// <summary>
+    ///     This example demonstrates how to intercept the response data
+    ///     for the AJAX requests.
+    /// </summary>
     internal class Program
     {
         private static readonly Dictionary<string, HttpRequest> AjaxRequests =
