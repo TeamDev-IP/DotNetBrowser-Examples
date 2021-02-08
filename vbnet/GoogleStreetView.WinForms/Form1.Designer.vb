@@ -132,8 +132,8 @@ Namespace GoogleStreetView.WinForms
 			Me.longitudeValue.Increment = New Decimal(New Integer() { 1, 0, 0, 393216})
 			Me.longitudeValue.Location = New System.Drawing.Point(170, 190)
 			Me.longitudeValue.Margin = New System.Windows.Forms.Padding(0)
-			Me.longitudeValue.Maximum = New Decimal(New Integer() { 90, 0, 0, 0})
-			Me.longitudeValue.Minimum = New Decimal(New Integer() { 90, 0, 0, -2147483648})
+			Me.longitudeValue.Maximum = New Decimal(New Integer() { 180, 0, 0, 0})
+			Me.longitudeValue.Minimum = New Decimal(New Integer() { 180, 0, 0, -2147483648})
 			Me.longitudeValue.Name = "longitudeValue"
 			Me.longitudeValue.Size = New System.Drawing.Size(143, 34)
 			Me.longitudeValue.TabIndex = 10
@@ -159,8 +159,8 @@ Namespace GoogleStreetView.WinForms
 			Me.latitudeValue.Increment = New Decimal(New Integer() { 1, 0, 0, 393216})
 			Me.latitudeValue.Location = New System.Drawing.Point(170, 145)
 			Me.latitudeValue.Margin = New System.Windows.Forms.Padding(0)
-			Me.latitudeValue.Maximum = New Decimal(New Integer() { 90, 0, 0, 0})
-			Me.latitudeValue.Minimum = New Decimal(New Integer() { 90, 0, 0, -2147483648})
+			Me.latitudeValue.Maximum = New Decimal(New Integer() { 180, 0, 0, 0})
+			Me.latitudeValue.Minimum = New Decimal(New Integer() { 180, 0, 0, -2147483648})
 			Me.latitudeValue.Name = "latitudeValue"
 			Me.latitudeValue.Size = New System.Drawing.Size(143, 34)
 			Me.latitudeValue.TabIndex = 7

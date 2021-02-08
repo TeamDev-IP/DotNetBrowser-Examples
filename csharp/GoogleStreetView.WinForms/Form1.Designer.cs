@@ -135,12 +135,12 @@ namespace GoogleStreetView.WinForms
             this.longitudeValue.Location = new System.Drawing.Point(170, 190);
             this.longitudeValue.Margin = new System.Windows.Forms.Padding(0);
             this.longitudeValue.Maximum = new decimal(new int[] {
-            90,
+            180,
             0,
             0,
             0});
             this.longitudeValue.Minimum = new decimal(new int[] {
-            90,
+            180,
             0,
             0,
             -2147483648});
@@ -174,12 +174,12 @@ namespace GoogleStreetView.WinForms
             this.latitudeValue.Location = new System.Drawing.Point(170, 145);
             this.latitudeValue.Margin = new System.Windows.Forms.Padding(0);
             this.latitudeValue.Maximum = new decimal(new int[] {
-            90,
+            180,
             0,
             0,
             0});
             this.latitudeValue.Minimum = new decimal(new int[] {
-            90,
+            180,
             0,
             0,
             -2147483648});
