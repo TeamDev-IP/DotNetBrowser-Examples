@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Street View Events</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initPano&libraries=&v=weekly"
+        defer></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map { height: 100%; }
+
+        /* Optional: Makes the sample page fill the window. */
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #floating-panel {
+            background-color: #fff;
+            border: 1px solid #999;
+            font-family: "Roboto", "sans-serif";
+            left: 25%;
+            line-height: 30px;
+            padding: 5px;
+            padding-left: 10px;
+            position: absolute;
+            text-align: center;
+            top: 10px;
+            z-index: 5;
+        }
+
+        #pano {
+            float: left;
+            height: 100%;
+            width: 50%;
+        }
+
+        #floating-panel {
+            border: 0px solid #999;
+            float: right;
+            height: 100%;
+            overflow: auto;
+            position: static;
+            text-align: left;
+            width: 45%;
+        }
+    </style>
+    <script>
+        function initPano() {
+            const panorama = new google.maps.StreetViewPanorama(
+                document.getElementById("pano"),
+                {
+                    position: { lat: 37.869, lng: -122.255 },
+                    pov: {
+                        heading: 270,
+                        pitch: 0,
+                    },
+                    visible: true,
+                }
+            );
+            window.external.OnPanoramaInitialized(panorama);
+            panorama.addListener("pano_changed",
+                () => {
+                    const panoCell = document.getElementById("pano-cell");
+                    panoCell.innerHTML = panorama.getPano();
+                });
+            panorama.addListener("links_changed",
+                () => {
+                    const linksTable = document.getElementById("links_table");
+
+                    while (linksTable.hasChildNodes()) {
+                        linksTable.removeChild(linksTable.lastChild);
+                    }
+                    const links = panorama.getLinks();
+                    for (const i in links) {
+                        const row = document.createElement("tr");
+                        linksTable.appendChild(row);
+                        const labelCell = document.createElement("td");
+                        labelCell.innerHTML = `<b>Link: ${i}</b>`;
+                        const valueCell = document.createElement("td");
+                        valueCell.innerHTML = links[i].description;
+                        linksTable.appendChild(labelCell);
+                        linksTable.appendChild(valueCell);
+                    }
+                });
+            panorama.addListener("position_changed",
+                () => {
+                    const positionCell = document.getElementById("position-cell");
+                    positionCell.firstChild.nodeValue = panorama.getPosition() + "";
+                });
+            panorama.addListener("pov_changed",
+                () => {
+                    const headingCell = document.getElementById("heading-cell");
+                    const pitchCell = document.getElementById("pitch-cell");
+                    headingCell.firstChild.nodeValue = panorama.getPov().heading + "";
+                    pitchCell.firstChild.nodeValue = panorama.getPov().pitch + "";
+                });
+        }
+    </script>
+</head>
+<body>
+<div id="pano"></div>
+<div id="floating-panel">
+    <table>
+        <tr>
+            <td>
+                <b>Position</b>
+            </td>
+            <td id="position-cell">&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <b>POV Heading</b>
+            </td>
+            <td id="heading-cell">270</td>
+        </tr>
+        <tr>
+            <td>
+                <b>POV Pitch</b>
+            </td>
+            <td id="pitch-cell">0.0</td>
+        </tr>
+        <tr>
+            <td>
+                <b>Pano ID</b>
+            </td>
+            <td id="pano-cell">&nbsp;</td>
+        </tr>
+        <table id="links_table"></table>
+    </table>
+</div>
+</body>
+</html>
