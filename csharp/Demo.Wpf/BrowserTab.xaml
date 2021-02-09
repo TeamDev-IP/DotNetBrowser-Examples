@@ -42,7 +42,6 @@
             <MenuItem Header="JavaScript Dialogs" Click="LoadJsDialogsUrl"/>
             <MenuItem Header="PDF Viewer" Click="LoadPdf" />
             <MenuItem Header="Google Maps" Click="LoadGoogleMaps" />
-            <MenuItem Header="Adobe Flash" Click="LoadFlashTest" />
             <MenuItem Header="HTML5 Video" Click="LoadHtml5Video" />
             <MenuItem Header="CSS Cursors" Click="LoadCssCursorsUrl" />
             <Separator/>

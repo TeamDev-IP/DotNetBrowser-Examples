@@ -121,4 +121,43 @@
   <data name="icon-close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\icon-close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="index.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\index.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup1.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup1.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup2.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup2.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup3.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup3.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup4.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup4.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup5.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup5.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup6.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup6.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup7.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup7.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popup8.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popup8.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popuptest1.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popuptest1.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="popuptest2.html" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\popuptest2.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="css\stylesheet.css" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\css\stylesheet.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="js\popups.js" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\popups\js\popups.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

@@ -1,0 +1,48 @@
+<!-- 
+ *  Copyright 2021, TeamDev. All rights reserved.
+ *
+ *  Redistribution and use in source and/or binary forms, with or without
+ *  modification, must retain the above copyright notice and the following
+ *  disclaimer.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" type='text/css' href="css/stylesheet.css" />
+  <script type="text/javascript" language="JavaScript">
+    function enter() {
+      window.open('popup1.html', '', 'toolbar=no,menubar=no,location=yes,height=320,width=300,left=1');
+    }
+
+    window.open('popup2.html', '', 'toolbar=yes,menubar=yes,location=no,height=450,width=180,left=430');
+
+    function leave() {
+      window.open('popup3.html', '', '');
+    }
+  </script>
+  <title>Popup Test 2</title>
+</head>
+<body class="default" onload="enter()" onunload="leave()">
+  <div class="main">
+    <b>This page will open 3 popup windows and an additional one when you leave the page</b>
+    <form>
+      <input type="button" value="  BACK  " onclick="history.go(-1)">
+    </form>
+  </div>
+  <script type="text/javascript">
+    window.open('popup4.html', '', 'toolbar=yes,menubar=yes,location=no,status=yes,height=150,width=400,top=400,left=10');
+  </script>
+</body>
+</html>

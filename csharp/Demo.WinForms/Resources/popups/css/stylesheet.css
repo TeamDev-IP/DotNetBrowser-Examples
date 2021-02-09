@@ -1,0 +1,137 @@
+/* 
+ *  Copyright 2021, TeamDev. All rights reserved.
+ *
+ *  Redistribution and use in source and/or binary forms, with or without
+ *  modification, must retain the above copyright notice and the following
+ *  disclaimer.
+ *
+ *  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ *  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ *  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ *  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ *  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ *  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ *  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ *  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ *  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+body {
+	font: 14px/1.72 'Open Sans', Arial, sans-serif;
+}
+
+.default {
+	background-color: rgb(60, 60, 60);
+	color: white;
+}
+
+.main {
+	width: 75%;
+	height: 75%;
+	margin: auto;
+	padding:  15px 50px;
+}
+
+.popup {
+	border: 2px dashed #000000;
+	border-radius: 4px;
+	text-align: center;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin: -5px;
+	width: 100%;
+	height: 100%;
+	line-height: 100px;
+}
+
+.popup1 {
+	background-color: #00C957;
+	padding: 10px;
+}
+
+.popup2 {
+	background-color: #3D59AB;
+	padding: 10px;
+}
+
+.popup3 {
+	background-color: #DB2645;
+	padding: 10px;
+}
+
+.popup4 {
+	background-color: #FF6633;
+	padding: 10px;
+}
+
+.popup5 {
+	background-color: #B03060;
+	padding: 10px;
+}
+
+.popup6 {
+	background-color: #F0FFF0;
+	padding: 10px;
+}
+
+.popup7 {
+	background-color: #696969;
+	padding: 10px;
+}
+
+.popup8 {
+	background-color: #FFB6C1;
+	padding: 10px;
+}
+
+form{
+	margin-top: 60px;
+}
+
+a{
+	text-transform: uppercase;
+	color: #B03060;
+	text-decoration: none;
+}
+a:visited {
+	color: rgb(136, 172, 136);
+}
+
+input[type="button"] {
+	width: 175px;
+	height: 46px;
+	background: 0 0;
+	color: #fff;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	text-align: center;
+	white-space: nowrap;
+	border: 2px solid #fff;
+	border-radius: 4px;
+	padding: 0 30px 0;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-transition: all .15s ease-in;
+	font: 14px/1 'Open Sans', Arial, sans-serif;
+}
+
+	input[type="button"]:focus {
+		background: rgba(255, 255, 255, .1);
+		outline: 5px auto -webkit-focus-ring-color;
+		outline-offset: -2px;
+	}
+
+	input[type="button"]:active {
+		background-image: none;
+		outline: 0;
+		-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+		box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+	}
+
+	input[type="button"]:hover {
+		color: #fff;
+		background: rgba(255, 255, 255, .1);
+	}

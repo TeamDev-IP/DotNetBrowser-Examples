@@ -79,7 +79,7 @@ namespace Demo.Wpf
             {
                 LoggerProvider.Instance.Level = SourceLevels.Verbose;
                 LoggerProvider.Instance.FileLoggingEnabled = true;
-                string logFile = $"DotNetBrowser-WPF-{Guid.NewGuid()}.log";
+                string logFile = $"DotNetBrowser-Wpf-{Guid.NewGuid()}.log";
                 LoggerProvider.Instance.OutputFile = System.IO.Path.GetFullPath(logFile);
             }
             try
