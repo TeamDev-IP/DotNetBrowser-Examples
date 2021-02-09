@@ -29,11 +29,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Events;
-using DotNetBrowser.Browser.Handlers;
-using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
 using DotNetBrowser.Wpf;
-using DotNetBrowser.Wpf.Dialogs;
 using Microsoft.Win32;
 
 namespace Demo.Wpf
@@ -56,9 +53,7 @@ namespace Demo.Wpf
                     browser.TitleChanged += Browser_TitleChanged;
                     browser.StatusChanged += Browser_StatusChanged;
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
-                    browser.PrintHandler = new Handler<PrintParameters, PrintResponse>(p => PrintResponse.ShowPrintPreview());
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
-                    browser.StartDownloadHandler = new DefaultStartDownloadHandler(this);
                     LoadUrl(AddressBar.Text);
                 }
             }
@@ -125,11 +120,6 @@ namespace Demo.Wpf
             LoadUrl("http://cloud.teamdev.com/downloads/dotnetbrowser/1.20/dotnetbrowser-1.20.zip");
         }
 
-        private void LoadFlashTest(object sender, RoutedEventArgs e)
-        {
-            LoadUrl("https://helpx.adobe.com/flash-player.html");
-        }
-
         private void LoadGoogleMaps(object sender, RoutedEventArgs e)
         {
             LoadUrl("http://maps.google.com");
@@ -152,6 +142,10 @@ namespace Demo.Wpf
 
         private void LoadPopupUrl(object sender, RoutedEventArgs e)
         {
+            if (Browser?.Engine != null)
+            {
+                Browser.Engine.Network.InterceptRequestHandler = new WpfInterceptRequestHandler();
+            }
             LoadUrl("http://www.popuptest.com/");
         }
 

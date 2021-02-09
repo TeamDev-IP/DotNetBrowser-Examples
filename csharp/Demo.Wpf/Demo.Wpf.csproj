@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net45;netcoreapp3.0</TargetFrameworks>
-    <UseWPF>true</UseWPF>
+    <UseWpf>true</UseWpf>
     <RootNamespace>Demo.Wpf</RootNamespace>
     <ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
   </PropertyGroup>
@@ -13,12 +13,45 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\popups\css\stylesheet.css" />
+    <None Remove="Resources\popups\index.html" />
+    <None Remove="Resources\popups\js\popups.js" />
+    <None Remove="Resources\popups\popup1.html" />
+    <None Remove="Resources\popups\popup2.html" />
+    <None Remove="Resources\popups\popup3.html" />
+    <None Remove="Resources\popups\popup4.html" />
+    <None Remove="Resources\popups\popup5.html" />
+    <None Remove="Resources\popups\popup6.html" />
+    <None Remove="Resources\popups\popup7.html" />
+    <None Remove="Resources\popups\popup8.html" />
+    <None Remove="Resources\popups\popuptest1.html" />
+    <None Remove="Resources\popups\popuptest2.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetBrowser" Version="2.3.0" />
     <PackageReference Include="DotNetBrowser.Chromium.Win-x86" Version="2.3.0" />
     <PackageReference Include="DotNetBrowser.Chromium.Win-x64" Version="2.3.0" />
     <PackageReference Include="DotNetBrowser.WPF" Version="2.3.0" />
-    <PackageReference Include="protobuf-net" Version="2.4.4" />
+    <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='netcoreapp3.0'" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\popups\css\stylesheet.css" />
+    <Resource Include="Resources\popups\index.html" />
+    <Resource Include="Resources\popups\js\popups.js" />
+    <Resource Include="Resources\popups\popup1.html" />
+    <Resource Include="Resources\popups\popup2.html" />
+    <Resource Include="Resources\popups\popup3.html" />
+    <Resource Include="Resources\popups\popup4.html" />
+    <Resource Include="Resources\popups\popup5.html" />
+    <Resource Include="Resources\popups\popup6.html" />
+    <Resource Include="Resources\popups\popup7.html" />
+    <Resource Include="Resources\popups\popup8.html" />
+    <Resource Include="Resources\popups\popuptest1.html" />
+    <Resource Include="Resources\popups\popuptest2.html" />
+  </ItemGroup>
+
 </Project>
