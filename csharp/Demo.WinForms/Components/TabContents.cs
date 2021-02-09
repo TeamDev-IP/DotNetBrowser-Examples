@@ -54,9 +54,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     browser.TitleChanged += Browser_TitleChanged;
                     browser.StatusChanged += Browser_StatusChanged;
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
-                    browser.PrintHandler = new Handler<PrintParameters, PrintResponse>(p => PrintResponse.ShowPrintPreview());
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
-                    browser.StartDownloadHandler = new DefaultStartDownloadHandler(this);
                     LoadUrl(AddressBar.Text);
                 }
             }
@@ -107,11 +105,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 LoadUrl(AddressBar.Text);
             }
-        }
-
-        private void adobeFlashToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadUrl("https://helpx.adobe.com/flash-player.html");
         }
 
         private void BackButton_Click(object sender, EventArgs e)
@@ -213,6 +206,11 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void popupWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (Browser?.Engine != null)
+            {
+                Browser.Engine.Network.InterceptRequestHandler = new WinFormsInterceptRequestHandler();
+            }
+
             LoadUrl("http://www.popuptest.com/");
         }
 

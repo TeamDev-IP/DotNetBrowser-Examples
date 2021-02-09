@@ -53,7 +53,6 @@
             this.javaScriptDialogsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pDFViewerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.googleMapsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adobeFlashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hTML5VideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -266,7 +265,6 @@
             this.javaScriptDialogsToolStripMenuItem,
             this.pDFViewerToolStripMenuItem,
             this.googleMapsToolStripMenuItem,
-            this.adobeFlashToolStripMenuItem,
             this.hTML5VideoToolStripMenuItem,
             this.cssCursorsToolStripMenuItem,
             this.toolStripSeparator2,
@@ -345,13 +343,6 @@
             this.googleMapsToolStripMenuItem.Text = "Google Maps";
             this.googleMapsToolStripMenuItem.Click += new System.EventHandler(this.googleMapsToolStripMenuItem_Click);
             // 
-            // adobeFlashToolStripMenuItem
-            // 
-            this.adobeFlashToolStripMenuItem.Name = "adobeFlashToolStripMenuItem";
-            this.adobeFlashToolStripMenuItem.Size = new System.Drawing.Size(201, 24);
-            this.adobeFlashToolStripMenuItem.Text = "Adobe Flash";
-            this.adobeFlashToolStripMenuItem.Click += new System.EventHandler(this.adobeFlashToolStripMenuItem_Click);
-            // 
             // hTML5VideoToolStripMenuItem
             // 
             this.hTML5VideoToolStripMenuItem.Name = "hTML5VideoToolStripMenuItem";
@@ -428,7 +419,6 @@
         private System.Windows.Forms.ToolStripMenuItem javaScriptDialogsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pDFViewerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem googleMapsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem adobeFlashToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTML5VideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
