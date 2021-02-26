@@ -27,32 +27,52 @@ To learn about the library please visit the [product page](https://www.teamdev.c
 |:--------------------------- |:-----|
 | Get page HTML | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/GetHtml), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/GetHtml) |
 | Walk through the hierarchy of frames on the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/GetFrames), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/GetFrames) |
+| Get selected text on the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/GetSelectedText), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/GetSelectedText) |
+| Find text on the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/FindText), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/FindText) |
+| Text search (WPF) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/FindText.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/FindText.Wpf) |
 | Save web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/SaveWebPage.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/SaveWebPage.Wpf) |
 | Save an image from the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/SaveImageFromPage), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/SaveImageFromPage) |
 | Create web page screenshot | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/HtmlToImage), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/HtmlToImage) |
+| Execute editor commands (Cut, Copy, Paste, Undo, Select All, Insert Text etc.) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ExecuteCommand), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ExecuteCommand) |
+| Access local storage of the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/WebStorage), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/WebStorage) |
+| Update the zoom level on the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Zoom), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Zoom) |
 
 #### DOM API
 
 | Example | Links  |
 |:--------------------------- |:-----|
 | Create new DOM element | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomCreateElement), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomCreateElement) |
-| Create and dispatch custom DOM event | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomCreateEvent), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomCreateEvent) |
+| Create and dispatch any DOM event (including custom events) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomCreateEvent), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomCreateEvent) |
+| Fill in and submit a form | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomForm), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomForm) |
+| Work with attributes of the specific DOM element | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomGetAttributes), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomGetAttributes) |
+| Get DOM elements by tag name | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomGetElements), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomGetElements) |
+| Find element by CSS Selector | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DomQuerySelector), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DomQuerySelector) |
 | Intercept DOM Drag & Drop events | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Dom.DragAndDrop.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Dom.DragAndDrop.WinForms) |
+| Get DOM node at a specific point on the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Inspect), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Inspect) |
+| Get DOM node by mouse location (WinForms) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Inspect.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Inspect.WinForms) |
+| Get DOM node by mouse location (WPF) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Inspect.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Inspect.Wpf) |
+| Evaluate an XPath expression. Work with the evaluation result. | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/XPath), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/XPath) |
 
 #### JS-.NET bridge
 
 | Example | Links  |
 |:--------------------------- |:-----|
+| Execute any JavaScript on the web page. Get JavaScript return value. | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScript), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScript) |
+| Work with JavaScript objects, update their properties and invoke methods. | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScriptObjects), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScriptObjects) |
 | Work with JavaScript arrays | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScriptBridge.Arrays), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScriptBridge.Arrays) |
 | Work with JavaScript Promises | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScriptBridge.Promises), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScriptBridge.Promises)) |
+| Inject a .NET object into JavaScript. Get its properties and invoke public methods from the JavaScript side. | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScriptBridge), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScriptBridge) |
+| Execute JavaScript on UI event. Call back from JavaScript to .NET UI (WinForms) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScriptBridge.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScriptBridge.WinForms) |
 | Inject object for scripting (`window.external`) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/InjectObjectForScripting), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/InjectObjectForScripting) |
+| Observe web page content changes on .NET side using `MutationObserver` | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ObservePageChanges.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ObservePageChanges.WinForms) |
 
 #### Network
 
 | Example | Links  |
 |:--------------------------- |:-----|
+| Redirect a URL request to another website. Access the URL request headers. | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/NetworkHandlers), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/NetworkHandlers) |
 | Intercept and handle URL requests | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/CustomRequestHandling), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/CustomRequestHandling) |
-| Handle `mailto` URI scheme to open external application | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/MailToHandling.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/MailToHandling.WinForms) |
+| Handle `mailto` or any other URI scheme to open external application | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/MailToHandling.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/MailToHandling.WinForms) |
 | Access HTTP response data | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/AccessingHttpResponseData), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/AccessingHttpResponseData)|
 | Intercept the response data for AJAX requests | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/AjaxResponseIntercept), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/AjaxResponseIntercept) | 
 | Suppress AJAX requests | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/AjaxCallsFilter), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/AjaxCallsFilter) | 
@@ -66,7 +86,7 @@ To learn about the library please visit the [product page](https://www.teamdev.c
 #### Media
 | Example | Links  |
 |:--------------------------- |:-----|
-| List available audio and video devices, select default media devices for the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DefaultMediaStreamDevice), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DefaultMediaStreamDevice) |
+| List available audio and video devices. Select default media devices for the web page | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DefaultMediaStreamDevice), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DefaultMediaStreamDevice) |
 
 #### UI
 
@@ -83,6 +103,8 @@ To learn about the library please visit the [product page](https://www.teamdev.c
 | WPF Demo application with tabs | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Demo.Wpf) |
 | Windows Forms Demo application with tabs | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Demo.WinForms) |
 | Work with the web page via UI Automation (MSAA/UIA) | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/master/csharp/UiAutomation.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/master/vbnet/UiAutomation.Wpf) |
+| Display web page with transparent background in a transparent WPF window | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/TransparentWebPage.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/TransparentWebPage.Wpf) |
+| Intercept Drag & Drop events. Access `IDataObject` | [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DragAndDrop.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DragAndDrop.Wpf) |
 
 #### Specific use-cases
 
