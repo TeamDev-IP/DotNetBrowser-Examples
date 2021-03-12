@@ -61,6 +61,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Execute JavaScript on UI event. Call back from JavaScript to <br/>.NET UI (WinForms): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/JavaScriptBridge.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/JavaScriptBridge.WinForms)
 * Inject object for scripting (`window.external`): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/InjectObjectForScripting), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/InjectObjectForScripting)
 * Observe web page content changes on .NET side <br/>using `MutationObserver`: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ObservePageChanges.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ObservePageChanges.WinForms)
+* Intercept Notification title and message: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Notifications.InterceptData), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Notifications.InterceptData)
 
 #### Network
 
