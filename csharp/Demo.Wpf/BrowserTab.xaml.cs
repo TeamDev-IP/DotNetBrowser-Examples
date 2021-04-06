@@ -142,10 +142,6 @@ namespace Demo.Wpf
 
         private void LoadPopupUrl(object sender, RoutedEventArgs e)
         {
-            if (Browser?.Engine != null)
-            {
-                Browser.Engine.Network.InterceptRequestHandler = new WpfInterceptRequestHandler();
-            }
             LoadUrl("http://www.popuptest.com/");
         }
 
