@@ -21,6 +21,7 @@
 #End Region
 
 Imports System.Text
+Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
@@ -37,12 +38,33 @@ Friend Class Program
 
     Public Shared Sub Main()
         Try
-            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+            Dim interceptRequestHandler =
+                    New Handler(Of InterceptRequestParameters, InterceptRequestResponse)(Function(p)
+                        Dim options = New UrlRequestJobOptions With {
+                                .Headers = New List(Of HttpHeader) From {
+                                New HttpHeader("Content-Type", "text/html", "charset=utf-8")
+                                }
+                                }
+                        Dim job As UrlRequestJob = p.Network.CreateUrlRequestJob(p.UrlRequest, options)
+                        Task.Run(Sub()
+                            ' The request processing is performed in a background thread
+                            ' in order to avoid freezing the web page.
+                            job.Write(Encoding.UTF8.GetBytes("Hello world!"))
+                            job.Complete()
+                        End Sub)
+                        Return InterceptRequestResponse.Intercept(job)
+                    End Function)
+
+
+            Dim engineOptionsBuilder = new EngineOptions.Builder
+            With engineOptionsBuilder
+                .Schemes.Add(Scheme.Create("myscheme"), interceptRequestHandler)
+            End With
+
+            Dim engineOptions = engineOptionsBuilder.Build()
+            Using engine As IEngine = EngineFactory.Create(engineOptions)
                 Console.WriteLine("Engine created")
 
-                engine.Network.InterceptRequestHandler =
-                    New Handler(Of InterceptRequestParameters,  InterceptRequestResponse)(
-                        AddressOf OnInterceptRequest)
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
@@ -56,21 +78,6 @@ Friend Class Program
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
-
-    Private Shared Function OnInterceptRequest(parameters As InterceptRequestParameters) As InterceptRequestResponse
-        ' If scheme equals to the custom "myscheme" protocol, then intercept this
-        ' request and reply with a custom response.
-        If parameters.UrlRequest.Url.StartsWith("myscheme") Then
-            Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url)
-            Dim urlRequestJob As UrlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest)
-            urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"))
-            urlRequestJob.Complete()
-            return InterceptRequestResponse.Intercept(urlRequestJob)
-        End If
-
-        'Otherwise proceed the request using default behavior.
-        Return InterceptRequestResponse.Proceed()
-    End Function
 
 #End Region
 End Class
