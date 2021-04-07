@@ -21,7 +21,9 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
@@ -42,13 +44,34 @@ namespace CustomRequestHandling
         {
             try
             {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
+                Handler<InterceptRequestParameters, InterceptRequestResponse> handler =
+                    new Handler<InterceptRequestParameters, InterceptRequestResponse>(p =>
+                    {
+                        UrlRequestJobOptions options = new UrlRequestJobOptions
+                        {
+                            Headers = new List<HttpHeader>
+                            {
+                                new HttpHeader("Content-Type", "text/html", "charset=utf-8"),
+                            }
+                        };
+                        UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
+                        Task.Run(() =>
+                        {
+                            // The request processing is performed in a background thread
+                            // in order to avoid freezing the web page.
+                            job.Write(Encoding.UTF8.GetBytes("Hello world!"));
+                            job.Complete();
+                        });
+
+                        return InterceptRequestResponse.Intercept(job);
+                    });
+
+                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                {
+                    Schemes = {{Scheme.Create("myscheme"), handler}}
+                }.Build()))
                 {
                     Console.WriteLine("Engine created");
-
-                    engine.Network.InterceptRequestHandler =
-                        new Handler<InterceptRequestParameters, InterceptRequestResponse>(OnInterceptRequest);
-
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
@@ -65,23 +88,6 @@ namespace CustomRequestHandling
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
-        }
-
-        private static InterceptRequestResponse OnInterceptRequest(InterceptRequestParameters parameters)
-        {
-            // If scheme equals to the custom "myscheme" protocol, then intercept this
-            // request and reply with a custom response.
-            if (parameters.UrlRequest.Url.StartsWith("myscheme"))
-            {
-                Console.WriteLine("Intercepted request to URL:" + parameters.UrlRequest.Url);
-                UrlRequestJob urlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest);
-                urlRequestJob.Write(Encoding.UTF8.GetBytes("Hello world!"));
-                urlRequestJob.Complete();
-                return InterceptRequestResponse.Intercept(urlRequestJob);
-            }
-
-            // Otherwise proceed the request using default behavior.
-            return InterceptRequestResponse.Proceed();
         }
 
         #endregion

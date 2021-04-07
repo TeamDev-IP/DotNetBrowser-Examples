@@ -30,6 +30,7 @@ using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
+using DotNetBrowser.Net;
 using DotNetBrowser.Permissions.Handlers;
 using DotNetBrowser.WinForms.Dialogs;
 
@@ -96,7 +97,11 @@ namespace DotNetBrowser.WinForms.Demo
             {
                 IEngine engine = EngineFactory.Create(new EngineOptions.Builder
                 {
-                    RenderingMode = RenderingMode
+                    RenderingMode = RenderingMode,
+                    Schemes =
+                    {
+                        { Scheme.Http, new WinFormsInterceptRequestHandler() }
+                    }
                 }.Build());
                 engine.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
                 engine.Permissions.RequestPermissionHandler =

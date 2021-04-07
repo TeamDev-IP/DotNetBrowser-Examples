@@ -25,10 +25,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using DotNetBrowser.Downloads;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
+using DotNetBrowser.Net;
 using DotNetBrowser.Permissions.Handlers;
 using DotNetBrowser.Wpf.Dialogs;
 
@@ -86,7 +86,11 @@ namespace Demo.Wpf
             {
                 engine = EngineFactory.Create(new EngineOptions.Builder
                 {
-                    RenderingMode = renderingMode
+                    RenderingMode = renderingMode,
+                    Schemes =
+                    {
+                        { Scheme.Http, new WpfInterceptRequestHandler() }
+                    }
                 }.Build());
                 engine.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
                 engine.Permissions.RequestPermissionHandler = 

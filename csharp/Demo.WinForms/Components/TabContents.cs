@@ -206,11 +206,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void popupWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Browser?.Engine != null)
-            {
-                Browser.Engine.Network.InterceptRequestHandler = new WinFormsInterceptRequestHandler();
-            }
-
             LoadUrl("http://www.popuptest.com/");
         }
 
