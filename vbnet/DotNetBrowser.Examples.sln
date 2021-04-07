@@ -135,6 +135,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GoogleStreetView.WinForms",
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Notifications.InterceptData", "Notifications.InterceptData\Notifications.InterceptData.vbproj", "{4BAB7800-6484-486F-A460-4AB89ADB24C9}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Printing.WebPageToPdf", "Printing.WebPageToPdf\Printing.WebPageToPdf.vbproj", "{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -401,6 +403,10 @@ Global
 		{4BAB7800-6484-486F-A460-4AB89ADB24C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BAB7800-6484-486F-A460-4AB89ADB24C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BAB7800-6484-486F-A460-4AB89ADB24C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
