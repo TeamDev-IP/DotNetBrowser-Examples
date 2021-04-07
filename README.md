@@ -36,6 +36,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Execute editor commands (Cut, Copy, Paste, Undo, Select All,<br/> Insert Text etc.): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ExecuteCommand), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ExecuteCommand)
 * Access local storage of the web page: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/WebStorage), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/WebStorage)
 * Update the zoom level on the web page: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Zoom), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Zoom)
+* Print web page to PDF: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Printing.WebPageToPdf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Printing.WebPageToPdf)
 
 #### DOM 
 
