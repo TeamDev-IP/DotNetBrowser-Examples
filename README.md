@@ -37,6 +37,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Access local storage of the web page: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/WebStorage), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/WebStorage)
 * Update the zoom level on the web page: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Zoom), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Zoom)
 * Print web page to PDF: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Printing.WebPageToPdf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Printing.WebPageToPdf)
+* Download a PDF file by its URL: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DownloadPdf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DownloadPdf)
 
 #### DOM 
 

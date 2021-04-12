@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.779
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AccessingHttpResponseData", "AccessingHttpResponseData\AccessingHttpResponseData.vbproj", "{BA64CB0A-4863-4733-AA2E-A25A74755A66}"
 EndProject
@@ -136,6 +136,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Notifications.InterceptData", "Notifications.InterceptData\Notifications.InterceptData.vbproj", "{4BAB7800-6484-486F-A460-4AB89ADB24C9}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Printing.WebPageToPdf", "Printing.WebPageToPdf\Printing.WebPageToPdf.vbproj", "{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "DownloadPdf", "DownloadPdf\DownloadPdf.vbproj", "{F73B706A-17BC-4AE8-9C6A-DDBBAACFCB22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -407,6 +409,10 @@ Global
 		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{54B5E63B-DA2A-416F-8812-0AB3E63D5F95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F73B706A-17BC-4AE8-9C6A-DDBBAACFCB22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F73B706A-17BC-4AE8-9C6A-DDBBAACFCB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F73B706A-17BC-4AE8-9C6A-DDBBAACFCB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F73B706A-17BC-4AE8-9C6A-DDBBAACFCB22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
