@@ -85,7 +85,7 @@ namespace DownloadPdf
 
                         // 3. Wait until the download is finished.
                         string downloadedUrl = downloadFinishedTcs.Task.Result;
-                        Console.WriteLine("Download completed for the URL: " + downloadedUrl);
+                        Console.WriteLine("Download completed: " + downloadedUrl);
                     }
                 }
             }
