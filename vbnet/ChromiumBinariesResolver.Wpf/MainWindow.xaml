@@ -1,0 +1,27 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChromiumBinariesResolver.Wpf"
+        xmlns:Wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf" x:Class="MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Closed="MainWindow_OnClosed">
+    <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+        </Grid.Resources>
+        <Grid x:Name="Overlay" Panel.ZIndex="1000"
+              Visibility="{Binding Path=IsInitializationInProgress, Converter={StaticResource VisibleIfTrueConverter}}">
+            <Grid.Background>
+                <SolidColorBrush Color="Gray" Opacity=".76" />
+            </Grid.Background>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Margin="0 -32 0 0">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Text="{Binding Path=InitializationStatus}" FontSize="16" />
+            </StackPanel>
+        </Grid>
+        <Wpf:BrowserView Name ="BrowserView" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch"/>
+    </Grid>
+</Window>
