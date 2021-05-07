@@ -110,6 +110,9 @@ To learn more about the library please visit the [product page](https://www.team
 * Integrate with Selenium Chrome Driver: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/SeleniumChromeDriver), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/SeleniumChromeDriver)
 * VSTO Add-In for Microsoft Outlook: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/MyOutlookAddIn), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/MyOutlookAddIn)
 
+#### Examples for tutorials
+* Нow to deploy Chromium binaries over network: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ChromiumBinariesResolver.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ChromiumBinariesResolver.Wpf)
+
 ### Contact us
 Feel free to [submit request](https://dotnetbrowser.support.teamdev.com/support/tickets/new) to our support team if you own a commercial license with an active support subscription.
 
