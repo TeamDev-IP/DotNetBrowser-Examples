@@ -52,6 +52,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Get DOM node by mouse location (WinForms): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Inspect.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Inspect.WinForms)
 * Get DOM node by mouse location (WPF): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Inspect.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Inspect.Wpf)
 * Evaluate an XPath expression. Work with the evaluation result.: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/XPath), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/XPath)
+* Work with Shadow DOM: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ShadowDom), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ShadowDom)
 
 #### JS-.NET bridge
 
