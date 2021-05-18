@@ -8,7 +8,7 @@ DotNetBrowser is a .NET library which allows embedding a Chromium-based browser 
 To learn more about the library please visit the [product page](https://www.teamdev.com/dotnetbrowser) or the [help center](https://dotnetbrowser-support.teamdev.com/).
 
 ### How to run
-1. Open the `dotnetbrowser.license` file in the root directory with any text editor, copy and paste your license key and save the changes.
+1. Open the `dotnetbrowser.license` file in the root directory with any text editor, copy and paste your license key and save the changes. [Get the evaluation key](https://www.teamdev.com/dotnetbrowser#evaluate)
 2. Open the solution in Visual Studio 2019.
 3. Right-click the solution in "Solution Explorer" and select "Restore NuGet Packages"
 4. Build the solution and run any of the example projects.
