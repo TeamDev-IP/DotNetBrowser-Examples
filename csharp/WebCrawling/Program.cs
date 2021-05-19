@@ -50,15 +50,17 @@ namespace WebCrawling
                                              .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Hour)
                                              .MinimumLevel.Verbose())
                         .WriteTo.Logger(lc => lc
-                                             .Filter.ByIncludingOnly(Matching.WithProperty("SourceContext","DotNetBrowser"))
-                                             .WriteTo.File("dotnetbrowser-.txt", rollingInterval: RollingInterval.Hour, outputTemplate: "{Message:lj}{NewLine}")
+                                             .Filter.ByIncludingOnly(Matching.WithProperty("SourceContext",
+                                                                                           "DotNetBrowser"))
+                                             .WriteTo.File("dotnetbrowser-.txt", rollingInterval: RollingInterval.Hour,
+                                                           outputTemplate: "{Message:lj}{NewLine}")
                                              .MinimumLevel.Information())
                         .CreateLogger();
 
             string domainUri = "https://dotnetbrowser-support.teamdev.com/release-notes";
             BrokenLinksCheckerContext context = new BrokenLinksCheckerContext(domainUri)
             {
-                SubstringsToSkip = {"apidoc","mailto:", "tel:", ".zip"}
+                SubstringsToSkip = {"apidoc", "mailto:", "tel:", ".zip"}
             };
 
             try
@@ -72,7 +74,7 @@ namespace WebCrawling
             }
             catch (Exception e)
             {
-                Log.Error(e,"Failed to crawl the URLs");
+                Log.Error(e, "Failed to crawl the URLs");
             }
             finally
             {
@@ -88,6 +90,7 @@ namespace WebCrawling
 
                     outputFile.Flush();
                 }
+
                 Log.CloseAndFlush();
             }
         }
