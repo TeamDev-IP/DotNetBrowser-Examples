@@ -24,7 +24,9 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using DotNetBrowser.Geometry;
+using DotNetBrowser.Logging;
 using Serilog;
+using Serilog.Filters;
 using WebCrawling.Elements;
 using WebCrawling.WebCrawler.Context;
 
@@ -36,15 +38,23 @@ namespace WebCrawling
 
         private static void Main(string[] args)
         {
-            //LoggerProvider.Instance.Level = SourceLevels.Information;
-            //LoggerProvider.Instance.FileLoggingEnabled = true;
-            //LoggerProvider.Instance.OutputFile = "dotnetbrowser.log";
+            LoggerProvider.Instance.Level = SourceLevels.Information;
 
             Log.Logger = new LoggerConfiguration()
-                        .MinimumLevel.Verbose()
-                        .WriteTo.Console()
-                        .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Hour)
+                        .WriteTo.Logger(lc => lc
+                                             .Filter.ByExcluding(Matching.WithProperty("SourceContext"))
+                                             .WriteTo.Console()
+                                             .MinimumLevel.Debug())
+                        .WriteTo.Logger(lc => lc
+                                             .Filter.ByExcluding(Matching.WithProperty("SourceContext"))
+                                             .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Hour)
+                                             .MinimumLevel.Verbose())
+                        .WriteTo.Logger(lc => lc
+                                             .Filter.ByIncludingOnly(Matching.WithProperty("SourceContext","DotNetBrowser"))
+                                             .WriteTo.File("dotnetbrowser-.txt", rollingInterval: RollingInterval.Hour, outputTemplate: "{Message:lj}{NewLine}")
+                                             .MinimumLevel.Information())
                         .CreateLogger();
+
             string domainUri = "https://dotnetbrowser-support.teamdev.com/release-notes";
             BrokenLinksCheckerContext context = new BrokenLinksCheckerContext(domainUri)
             {
@@ -62,7 +72,7 @@ namespace WebCrawling
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
+                Log.Error(e,"Failed to crawl the URLs");
             }
             finally
             {
@@ -71,13 +81,14 @@ namespace WebCrawling
                     outputFile.WriteLine("Link, Result, Page, XPath");
                     foreach (Link checkedUrl in context.CheckedLinks)
                     {
-                        var linkElement = checkedUrl as LinkElement;
+                        LinkElement linkElement = checkedUrl as LinkElement;
                         outputFile
                            .WriteLine($"\"{checkedUrl.Url}\", {checkedUrl.ErrorCode}, \"{linkElement?.PageUrl}\", {linkElement?.XPath}");
                     }
 
                     outputFile.Flush();
                 }
+                Log.CloseAndFlush();
             }
         }
 

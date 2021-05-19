@@ -72,6 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CrawlerTraceListener.cs" />
     <Compile Include="Elements\Link.cs" />
     <Compile Include="Elements\LinkElement.cs" />
     <Compile Include="WebCrawler\Context\BrokenLinksCheckerContext.cs" />
