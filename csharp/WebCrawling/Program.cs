@@ -73,7 +73,7 @@ namespace WebCrawling
                     {
                         var linkElement = checkedUrl as LinkElement;
                         outputFile
-                           .WriteLine($"{checkedUrl.Url}, {checkedUrl.ErrorCode}, {linkElement?.PageUrl}, {linkElement?.XPath}");
+                           .WriteLine($"\"{checkedUrl.Url}\", {checkedUrl.ErrorCode}, \"{linkElement?.PageUrl}\", {linkElement?.XPath}");
                     }
 
                     outputFile.Flush();
