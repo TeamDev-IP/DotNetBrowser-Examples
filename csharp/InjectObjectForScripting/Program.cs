@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Engine;
@@ -57,7 +58,8 @@ namespace InjectObjectForScripting
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
                         browser.InjectJsHandler = new Handler<InjectJsParameters>(InjectObjectForScripting);
-                        browser.MainFrame.LoadHtml(@"<html>
+
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var SetTitle = function () 
@@ -66,8 +68,8 @@ namespace InjectObjectForScripting
                                             };
                                         </script>
                                      </body>
-                                   </html>")
-                               .Wait();
+                                   </html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
 
                         browser.MainFrame.ExecuteJavaScript<IJsObject>("window.SetTitle();").Wait();
 

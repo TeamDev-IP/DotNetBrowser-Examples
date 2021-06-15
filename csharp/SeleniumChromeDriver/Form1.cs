@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
@@ -28,6 +29,9 @@ using DotNetBrowser.WinForms;
 
 namespace SeleniumChromeDriver
 {
+    /// <summary>
+    ///     This example demonstrates how to use Selenium with DotNetBrowser.
+    /// </summary>
     public partial class Form1 : Form
     {
         private const int RemoteDebuggingPort = 9222;
@@ -75,7 +79,8 @@ namespace SeleniumChromeDriver
             engine = EngineFactory.Create(engineOptions);
             browser = engine.CreateBrowser();
 
-            browser.MainFrame.LoadHtml("<h1>Waiting for Selenium...</h1>");
+            byte[] htmlBytes = Encoding.UTF8.GetBytes("<h1>Waiting for Selenium...</h1>");
+            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes));
 
             browserView = new BrowserView() { Dock = DockStyle.Fill };
             browserView.InitializeFrom(browser);

@@ -20,6 +20,8 @@
 
 #endregion
 
+using System;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
@@ -62,12 +64,12 @@ namespace KeyboardEventSimulation.WinForms
                      // Embed BrowserView component into main layout.
                      Controls.Add(browserView);
                      browserView.InitializeFrom(browser);
-                     browser.MainFrame
-                            .LoadHtml(@"<html>
+                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                           <body>
                                             <input type='text' autofocus></input>
                                           </body>
-                                        </html>")
+                                        </html>");
+                     browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
                             .ContinueWith(SimulateInput);
                  }, TaskScheduler.FromCurrentSynchronizationContext());
         }

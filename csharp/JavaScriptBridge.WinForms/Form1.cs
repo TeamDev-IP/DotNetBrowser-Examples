@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
@@ -55,9 +56,7 @@ namespace JavaScriptBridge.WinForms
             browser = engine.CreateBrowser();
             webView.InitializeFrom(browser);
             browser.ConsoleMessageReceived += (sender, args) => { };
-            browser
-               .MainFrame
-               .LoadHtml(@"<html>
+            byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                         <head>
                           <meta charset='UTF-8'>
                           <style>body{padding: 0; margin: 0; width:100%; height: 100%;}
@@ -66,12 +65,13 @@ namespace JavaScriptBridge.WinForms
                         </head>
                         <body>
                         <div>
-                        <textarea id='text' class='fill' autofocus cols='30' rows='20'>Sample text</textarea>
                         <button id='updateForm' type='button' onClick='updateForm(document.getElementById(""text"").value)'>&lt; Update Form</button> 
+                        <textarea id='text' class='fill' autofocus cols='30' rows='20'>Sample text</textarea>
                         </div>
                         </body>
-                        </html>")
-               .Wait();
+                        </html>");
+            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+                   .Wait();
             IJsObject window = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
             window.Properties["updateForm"] = (Action<string>) UpdateForm;
             FormClosing += Form1_FormClosing;

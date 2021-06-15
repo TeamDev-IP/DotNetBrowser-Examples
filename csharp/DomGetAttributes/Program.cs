@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
@@ -47,9 +48,8 @@ namespace DomGetAttributes
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame
-                               .LoadHtml("<html><body><a href='#' id='link' title='link title'></a></body></html>")
-                               .Wait();
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><a href='#' id='link' title='link title'></a></body></html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
 
                         IDocument document = browser.MainFrame.Document;
                         IElement link = document.GetElementById("link");
