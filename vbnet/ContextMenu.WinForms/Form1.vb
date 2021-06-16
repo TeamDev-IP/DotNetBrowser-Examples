@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers
@@ -57,15 +58,15 @@ Namespace ContextMenu.WinForms
                 browser.ShowContextMenuHandler =
                                      New AsyncHandler(Of ShowContextMenuParameters, ShowContextMenuResponse)(
                                          AddressOf ShowMenu)
-                browser.MainFrame.LoadHtml(
-                    "<html>
-                    <head>
-                      <meta charset='UTF-8'>
-                    </head>
-                    <body>
-                    <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
-                    </body>
-                    </html>")
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+                                    <head>
+                                      <meta charset='UTF-8'>
+                                    </head>
+                                    <body>
+                                    <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
+                                    </body>
+                                    </html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
             InitializeComponent()
             AddHandler Me.FormClosing, AddressOf Form1_FormClosing
@@ -109,7 +110,9 @@ Namespace ContextMenu.WinForms
                     Dim addToDictionary As String = If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
 
                     popupMenu.MenuItems.Add(BuildMenuItem(addToDictionary, True, Sub()
-                        engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
+                        If Not String.IsNullOrEmpty(spellCheckMenu.MisspelledWord) Then
+                            engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
+                        End If
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End Sub))
 

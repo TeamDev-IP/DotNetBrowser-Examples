@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
@@ -41,15 +42,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.MainFrame.LoadHtml(
-                        New LoadHtmlParameters(
-                            "<html><body>" &
-                            "<script>localStorage.myKey = ""Initial Value"";" &
-                            "function myFunction(){return localStorage.myKey;}" &
-                            "</script></body></html>") With {
-                                                  .BaseUrl = "https://teamdev.com",
-                                                  .Replace = True
-                                                  }).Wait()
+                    browser.Navigation.LoadUrl(System.IO.Path.GetFullPath("html.html")).Wait()
 
                     Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
                     ' Read and display the 'myKey' storage value.

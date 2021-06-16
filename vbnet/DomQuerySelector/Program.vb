@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
@@ -39,11 +40,12 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.MainFrame.LoadHtml("<html><body><div id='root'>" &
-                                               "<p>paragraph1</p>" &
-                                               "<p>paragraph2</p>" &
-                                               "<p>paragraph3</p>" &
-                                               "</div></body></html>").Wait()
+                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><div id='root'>" &
+                                                                     "<p>paragraph1</p>" &
+                                                                     "<p>paragraph2</p>" &
+                                                                     "<p>paragraph3</p>" &
+                                                                     "</div></body></html>")
+                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
                     Dim document As IDocument = browser.MainFrame.Document
                     Dim documentElement As IElement = document.DocumentElement
                     ' Get the div with id = "root".

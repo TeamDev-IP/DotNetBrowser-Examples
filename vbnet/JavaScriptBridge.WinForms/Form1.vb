@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Js
@@ -47,7 +48,7 @@ Namespace JavaScriptBridge.WinForms
 			webView.InitializeFrom(browser)
 			AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
 			End Sub
-			browser.MainFrame.LoadHtml("<html>
+		    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                         <head>
                           <meta charset='UTF-8'>
                           <style>body{padding: 0; margin: 0; width:100%; height: 100%;}
@@ -60,7 +61,8 @@ Namespace JavaScriptBridge.WinForms
                         <button id='updateForm' type='button' onClick='updateForm(document.getElementById(""text"").value)'>&lt; Update Form</button> 
                         </div>
                         </body>
-                        </html>").Wait()
+                        </html>")
+		    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 			Dim window As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
 			window.Properties("updateForm") = CType(AddressOf UpdateForm, Action(Of String))
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing

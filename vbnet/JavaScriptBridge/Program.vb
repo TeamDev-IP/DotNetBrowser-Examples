@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
@@ -45,8 +46,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
-                    browser.MainFrame.LoadHtml(
-                                   "<html>
+                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
@@ -58,8 +58,9 @@ Friend Class Program
                                             };
                                         </script>
                                      </body>
-                                   </html>") _
-                        .Wait()
+                                   </html>")
+                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                    .Wait()
                     Dim person = New Person("Jack", 30, True)
                     person.Children = New Dictionary(Of Double, Person)()
                     person.Children.Add(1.0, New Person("Oliver", 10, True))

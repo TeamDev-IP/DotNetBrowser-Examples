@@ -21,6 +21,7 @@
 
 #End Region
 Imports System.ComponentModel
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Input.Keyboard
@@ -56,11 +57,12 @@ Public Class Form1
                 browserView.InitializeFrom(browser)
                 browserView.Dock = DockStyle.Fill
 
-                browser.MainFrame.LoadHtml("<html>
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                                                 <body>
                                                     <input type='text' autofocus></input>
                                                 </body>
-                                            </html>") _
+                                            </html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
                                      .ContinueWith(AddressOf SimulateInput)
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
             

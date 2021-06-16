@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
@@ -43,7 +44,8 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
-                    browser.MainFrame.LoadHtml("<html><body><p>Find me</p><p>Find me</p></body></html>").Wait()
+                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><p>Find me</p><p>Find me</p></body></html>")
+                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 
                     Thread.Sleep(2000)
                     ' Find text from the beginning of the loaded web page.

@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.WinForms
@@ -70,7 +71,8 @@ Public Class Form1
         engine = EngineFactory.Create(engineOptions)
         browser = engine.CreateBrowser()
 
-        browser.MainFrame.LoadHtml("<h1>Waiting for Selenium...</h1>")
+        Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<h1>Waiting for Selenium...</h1>")
+        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
 
         browserView = new BrowserView()
         browserView.Dock = DockStyle.Fill
