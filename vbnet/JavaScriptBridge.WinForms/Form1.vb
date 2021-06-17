@@ -48,7 +48,7 @@ Namespace JavaScriptBridge.WinForms
 			webView.InitializeFrom(browser)
 			AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
 			End Sub
-		    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+			Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                         <head>
                           <meta charset='UTF-8'>
                           <style>body{padding: 0; margin: 0; width:100%; height: 100%;}
@@ -62,7 +62,7 @@ Namespace JavaScriptBridge.WinForms
                         </div>
                         </body>
                         </html>")
-		    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
+			browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 			Dim window As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
 			window.Properties("updateForm") = CType(AddressOf UpdateForm, Action(Of String))
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing
