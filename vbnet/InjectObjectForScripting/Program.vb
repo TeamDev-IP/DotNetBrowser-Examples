@@ -21,6 +21,7 @@
 #End Region
 
 Imports System
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers
 Imports DotNetBrowser.Engine
@@ -50,7 +51,7 @@ Namespace InjectObjectForScripting
 						Console.WriteLine("Browser created")
 						browser.Size = New Size(700, 500)
 						browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf InjectObjectForScripting)
-						browser.MainFrame.LoadHtml("<html>
+					    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var SetTitle = function () 
@@ -59,7 +60,8 @@ Namespace InjectObjectForScripting
                                             };
                                         </script>
                                      </body>
-                                   </html>").Wait()
+                                   </html>")
+					    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 
 						browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window.SetTitle();").Wait()
 

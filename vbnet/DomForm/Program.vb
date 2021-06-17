@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
@@ -40,16 +41,17 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.MainFrame.LoadHtml("<html><body><form name=""myForm"">" &
-                                                "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" &
-                                                "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" &
-                                                "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" &
-                                                "<input type='button' id='saveButton' value=""Save"" onclick=""" &
-                                                "if(document.getElementById('agreement').checked){" &
-                                                "    console.log(document.getElementById('firstName').value +' '+" &
-                                                "document.getElementById('lastName').value);}" &
-                                                """/>" &
-                                                "</form></body></html>").Wait()
+                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><form name=""myForm"">" &
+                                                                     "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" &
+                                                                     "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" &
+                                                                     "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" &
+                                                                     "<input type='button' id='saveButton' value=""Save"" onclick=""" &
+                                                                     "if(document.getElementById('agreement').checked){" &
+                                                                     "    console.log(document.getElementById('firstName').value +' '+" &
+                                                                     "document.getElementById('lastName').value);}" &
+                                                                     """/>" &
+                                                                     "</form></body></html>")
+                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 
                     Dim document As IDocument = browser.MainFrame.Document
                     Dim firstName = DirectCast(document.GetElementByName("firstName"), IInputElement)

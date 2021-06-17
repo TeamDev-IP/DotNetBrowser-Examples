@@ -21,6 +21,7 @@
 #End Region
 
 Imports System.ComponentModel
+Imports System.Text
 Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
@@ -55,11 +56,12 @@ Partial Public Class MainWindow
 
                 browserView.InitializeFrom(browser)
 
-                browser.MainFrame.LoadHtml("<html>
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                                                 <body>
                                                     <input type='text' autofocus></input>
                                                 </body>
-                                            </html>") _
+                                            </html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
                                      .ContinueWith(AddressOf SimulateInput)
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 

@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.IO;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Frames;
@@ -48,17 +49,7 @@ namespace WebStorage
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame
-                               .LoadHtml(new LoadHtmlParameters("<html><body>"
-                                                                + "<script>localStorage.myKey = \"Initial Value\";"
-                                                                + "function myFunction(){return localStorage.myKey;}"
-                                                                + "</script></body></html>"
-                                                                )
-                                {
-                                    BaseUrl = "https://teamdev.com",
-                                    Replace = true
-                                })
-                               .Wait();
+                        browser.Navigation.LoadUrl(Path.GetFullPath("html.html")).Wait();
                         IWebStorage webStorage = browser.MainFrame.LocalStorage;
                         // Read and display the 'myKey' storage value.
                         Console.Out.WriteLine("The initial myKey value: " + webStorage["myKey"]);

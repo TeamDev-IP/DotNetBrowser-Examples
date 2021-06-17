@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
@@ -47,11 +48,12 @@ namespace DomQuerySelector
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame.LoadHtml("<html><body><div id='root'>"
-                                                   + "<p>paragraph1</p>"
-                                                   + "<p>paragraph2</p>"
-                                                   + "<p>paragraph3</p>"
-                                                   + "</div></body></html>")
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'>"
+                                                                  + "<p>paragraph1</p>"
+                                                                  + "<p>paragraph2</p>"
+                                                                  + "<p>paragraph3</p>"
+                                                                 + "</div></body></html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
                                .Wait();
                         IDocument document = browser.MainFrame.Document;
                         IElement documentElement = document.DocumentElement;

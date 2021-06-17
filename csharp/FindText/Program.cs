@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Threading;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
@@ -50,7 +51,8 @@ namespace FindText
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        browser.MainFrame.LoadHtml("<html><body><p>Find me</p><p>Find me</p></body></html>").Wait();
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><p>Find me</p><p>Find me</p></body></html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
 
                         Thread.Sleep(2000);
                         // Find text from the beginning of the loaded web page.

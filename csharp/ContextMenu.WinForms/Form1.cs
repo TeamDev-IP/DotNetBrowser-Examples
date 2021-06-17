@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
@@ -68,9 +69,7 @@ namespace ContextMenu.WinForms
                      browser.ShowContextMenuHandler =
                          new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse>(ShowMenu);
 
-                     browser
-                        .MainFrame
-                        .LoadHtml(@"<html>
+                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
                                     </head>
@@ -78,6 +77,7 @@ namespace ContextMenu.WinForms
                                     <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                                     </body>
                                     </html>");
+                     browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes));
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();

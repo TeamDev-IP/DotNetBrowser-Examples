@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers
 Imports DotNetBrowser.Dom
@@ -52,29 +53,31 @@ Namespace Dom.DragAndDrop.WinForms
 					 AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
 						 Debug.WriteLine(args.LineNumber & " > " & args.Message)
 					 End Sub
-					 browser.MainFrame.LoadHtml("<html>
-                                    <head>
-                                      <meta charset='UTF-8'>
-                                      <style type='text/css'>
-                                        #dropZone {
-                                            text-align: center;    
-    
-                                            width: 400px;
-                                            padding: 50px 0;
-                                            margin: 50px auto;
-                                            
-                                            background: #eee;
-                                            border: 1px solid #ccc;
-                                        }
-                                      </style>
-                                    </head>
-                                    <body>
-                                    
-                                    <div id='dropZone'>
-                                        Drop a file here.
-                                    </div >
-                                    </body>
-                                    </html>").ContinueWith(AddressOf OnHtmlLoaded)
+			         Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+                                        <head>
+                                          <meta charset='UTF-8'>
+                                          <style type='text/css'>
+                                            #dropZone {
+                                                text-align: center;    
+        
+                                                width: 400px;
+                                                padding: 50px 0;
+                                                margin: 50px auto;
+                                                
+                                                background: #eee;
+                                                border: 1px solid #ccc;
+                                            }
+                                          </style>
+                                        </head>
+                                        <body>
+                                        
+                                        <div id='dropZone'>
+                                            Drop a file here.
+                                        </div >
+                                        </body>
+                                        </html>")
+			         browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                                     .ContinueWith(AddressOf OnHtmlLoaded)
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
 			InitializeComponent()

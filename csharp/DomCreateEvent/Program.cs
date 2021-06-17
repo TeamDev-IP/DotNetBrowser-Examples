@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Threading;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
@@ -48,14 +49,14 @@ namespace DomCreateEvent
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>")
-                               .Wait();
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
+
                         IDocument document = browser.MainFrame.Document;
+                        INode root = document.GetElementById("root");
 
                         EventType eventType = new EventType("MyEvent");
                         var myEvent = document.CreateEvent(eventType, new EventParameters.Builder().Build());
-
-                        INode root = document.GetElementById("root");
 
                         EventHandler<DomEventArgs> domEventHandler = (s, e) =>
                         {

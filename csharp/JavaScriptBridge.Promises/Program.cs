@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
@@ -49,7 +50,7 @@ namespace JavaScriptBridge.Promises
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        browser.MainFrame.LoadHtml(@"<html>
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                      <body>
                                         <script type='text/javascript'>
                                             function CreatePromise(success) 
@@ -65,8 +66,9 @@ namespace JavaScriptBridge.Promises
                                             };
                                         </script>
                                      </body>
-                                   </html>")
-                               .Wait();
+                                   </html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
+
                         IJsObject window = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
                         //Prepare promise handlers
                         Action<object> promiseResolvedHandler = o => Console.WriteLine("Success: " + o);

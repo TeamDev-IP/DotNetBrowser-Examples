@@ -22,6 +22,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
@@ -63,7 +64,7 @@ namespace Dom.DragAndDrop.WinForms
                      browserView1.InitializeFrom(browser);
                      browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
                      browser.ConsoleMessageReceived += (sender, args) => { Debug.WriteLine(args.LineNumber+" > "+args.Message); };
-                     browser.MainFrame.LoadHtml(@"<html>
+                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
                                       <style type='text/css'>
@@ -85,7 +86,8 @@ namespace Dom.DragAndDrop.WinForms
                                         Drop a file here.
                                     </div >
                                     </body>
-                                    </html>")
+                                    </html>");
+                     browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
                             .ContinueWith(OnHtmlLoaded);
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 

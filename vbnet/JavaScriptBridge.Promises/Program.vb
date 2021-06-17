@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
@@ -41,7 +42,7 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(700, 500)
-                    browser.MainFrame.LoadHtml("<html>
+                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                                      <body>
                                         <script type='text/javascript'>
                                             function CreatePromise(success) 
@@ -57,7 +58,8 @@ Friend Class Program
                                             };
                                         </script>
                                      </body>
-                                   </html>").Wait()
+                                   </html>")
+                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
                     Dim window As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
                     'Prepare promise handlers
                     Dim promiseResolvedHandler As Action(Of Object) = Sub(o) Console.WriteLine("Success: " & o.ToString())

@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
@@ -46,7 +47,9 @@ namespace DomCreateElement
                     {
                         Console.WriteLine("Browser created");
 
-                        browser.MainFrame.LoadHtml("<html><body><div id='root'></div></body></html>").Wait();
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
+                        
                         Console.WriteLine("Initial HTML: " + browser.MainFrame.Html);
                         IDocument document = browser.MainFrame.Document;
 

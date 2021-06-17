@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Geometry;
@@ -54,7 +55,7 @@ namespace JavaScriptBridge
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        browser.MainFrame.LoadHtml(@"<html>
+                        byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
@@ -66,7 +67,8 @@ namespace JavaScriptBridge
                                             };
                                         </script>
                                      </body>
-                                   </html>")
+                                   </html>");
+                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
                                .Wait();
 
                         Person person = new Person("Jack", 30, true)

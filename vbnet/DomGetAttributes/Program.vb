@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
@@ -39,8 +40,9 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    browser.MainFrame.LoadHtml(
-                        "<html><body><a href='#' id='link' title='link title'></a></body></html>").Wait()
+                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes(
+                        "<html><body><a href='#' id='link' title='link title'></a></body></html>")
+                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
                     Dim document As IDocument = browser.MainFrame.Document
                     Dim link As IElement = document.GetElementById("link")
                     Dim attributes As IDictionary(Of String, String) = link.Attributes
