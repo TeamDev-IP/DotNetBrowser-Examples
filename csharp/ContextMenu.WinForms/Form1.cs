@@ -28,6 +28,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
+using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
@@ -89,9 +90,9 @@ namespace ContextMenu.WinForms
 
         #region Methods
 
-        private MenuItem BuildMenuItem(string item, bool isEnabled, EventHandler clickHandler)
+        private ToolStripItem BuildMenuItem(string item, bool isEnabled, EventHandler clickHandler)
         {
-            MenuItem result = new MenuItem
+            ToolStripItem result = new ToolStripMenuItem
             {
                 Text = item,
                 Enabled = isEnabled
@@ -115,32 +116,56 @@ namespace ContextMenu.WinForms
             {
                 BeginInvoke(new Action(() =>
                 {
-                    System.Windows.Forms.ContextMenu popupMenu = new System.Windows.Forms.ContextMenu();
+                    ContextMenuStrip popupMenu = new ContextMenuStrip();
                     IEnumerable<string> suggestions = spellCheckMenu.DictionarySuggestions;
                     if (suggestions != null)
                     {
+                        // Add menu items with suggestions
                         foreach (string suggestion in suggestions)
                         {
-                            popupMenu.MenuItems.Add(BuildMenuItem(suggestion, true, delegate
+                            popupMenu.Items.Add(BuildMenuItem(suggestion, true, delegate
                             {
                                 browser.ReplaceMisspelledWord(suggestion);
                                 tcs.TrySetResult(ShowContextMenuResponse.Close());
                             }));
                         }
                     }
-
+                    // Add "Add to Dictionary" menu item.
                     string addToDictionary = spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
-                    popupMenu.MenuItems.Add(BuildMenuItem(addToDictionary, true, delegate
+                    popupMenu.Items.Add(BuildMenuItem(addToDictionary, true, delegate
                     {
                         if (!string.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord))
                         {
                             engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord);
                         }
+
                         tcs.TrySetResult(ShowContextMenuResponse.Close());
                     }));
 
-                    popupMenu.Collapse += (sender, args) => { tcs.TrySetResult(ShowContextMenuResponse.Close()); };
+                    // Close context menu when the browser requests focus back.
+                    EventHandler<FocusRequestedEventArgs> onFocusRequested = null;
+                    onFocusRequested = (sender, args) =>
+                    {
+                        BeginInvoke((Action) (() => popupMenu.Close()));
+                        parameters.Browser.FocusRequested -= onFocusRequested;
+                    };
+                    parameters.Browser.FocusRequested += onFocusRequested;
 
+                    // Handle the menu closed event.
+                    ToolStripDropDownClosedEventHandler menuOnClosed = null;
+                    menuOnClosed = (sender, args) =>
+                    {
+                        bool itemNotClicked = args.CloseReason != ToolStripDropDownCloseReason.ItemClicked;
+                        if (itemNotClicked)
+                        {
+                            tcs.TrySetResult(ShowContextMenuResponse.Close());
+                        }
+
+                        popupMenu.Closed -= menuOnClosed;
+                    };
+                    popupMenu.Closed += menuOnClosed;
+
+                    // Show the context menu.
                     Point location = new Point(parameters.Location.X, parameters.Location.Y);
                     popupMenu.Show(this, location);
                     tcs.TrySetResult(ShowContextMenuResponse.Close());
