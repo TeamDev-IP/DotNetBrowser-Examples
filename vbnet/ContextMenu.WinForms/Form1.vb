@@ -1,4 +1,4 @@
-#Region "Copyright"
+﻿#Region "Copyright"
 
 ' Copyright 2021, TeamDev. All rights reserved.
 ' 
@@ -23,6 +23,7 @@
 Imports System.Text
 Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
+Imports DotNetBrowser.Browser.Events
 Imports DotNetBrowser.Browser.Handlers
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
@@ -66,7 +67,7 @@ Namespace ContextMenu.WinForms
                                     <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                                     </body>
                                     </html>")
-                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+                browser.Navigation.LoadUrl("data:text/html;base64," & Convert.ToBase64String(htmlBytes))
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
             InitializeComponent()
             AddHandler Me.FormClosing, AddressOf Form1_FormClosing
@@ -77,10 +78,12 @@ Namespace ContextMenu.WinForms
 
 #Region "Methods"
 
-        Private Function BuildMenuItem(item As String, isEnabled As Boolean, clickHandler As EventHandler) As MenuItem
-            Dim result As New MenuItem()
-            result.Text = item
-            result.Enabled = isEnabled
+        Private Function BuildMenuItem(item As String, isEnabled As Boolean, clickHandler As EventHandler) _
+            As ToolStripItem
+            Dim result As ToolStripItem = New ToolStripMenuItem With {
+                    .Text = item,
+                    .Enabled = isEnabled
+                    }
             AddHandler result.Click, clickHandler
 
             Return result
@@ -96,30 +99,47 @@ Namespace ContextMenu.WinForms
             Dim spellCheckMenu As SpellCheckMenu = parameters.SpellCheckMenu
             If spellCheckMenu IsNot Nothing Then
                 BeginInvoke(New Action(Sub()
-                    Dim popupMenu As New System.Windows.Forms.ContextMenu()
+                    Dim popupMenu As New ContextMenuStrip()
                     Dim suggestions As IEnumerable(Of String) = spellCheckMenu.DictionarySuggestions
                     If suggestions IsNot Nothing Then
+                        ' Add menu items with suggestions
                         For Each suggestion As String In suggestions
-                            popupMenu.MenuItems.Add(BuildMenuItem(suggestion, True, Sub()
+                            popupMenu.Items.Add(BuildMenuItem(suggestion, True, Sub()
                                 browser.ReplaceMisspelledWord(suggestion)
                                 tcs.TrySetResult(ShowContextMenuResponse.Close())
                             End Sub))
                         Next suggestion
                     End If
-
+                    ' Add "Add to Dictionary" menu item.
                     Dim addToDictionary As String = If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
-
-                    popupMenu.MenuItems.Add(BuildMenuItem(addToDictionary, True, Sub()
-                        If Not String.IsNullOrEmpty(spellCheckMenu.MisspelledWord) Then
+                    popupMenu.Items.Add(BuildMenuItem(addToDictionary, True, Sub()
+                        If Not String.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord) Then
                             engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
                         End If
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End Sub))
 
-                    AddHandler popupMenu.Collapse, Sub(sender, args)
-                        tcs.TrySetResult(ShowContextMenuResponse.Close())
+                    ' Close context menu when the browser requests focus back.
+                    Dim onFocusRequested As EventHandler(Of FocusRequestedEventArgs) = Nothing
+                    onFocusRequested = Sub(sender, args)
+                        BeginInvoke(CType(Sub() popupMenu.Close(), Action))
+                        RemoveHandler parameters.Browser.FocusRequested, onFocusRequested
                     End Sub
+                    AddHandler parameters.Browser.FocusRequested, onFocusRequested
 
+                    ' Handle the menu closed event.
+                    Dim menuOnClosed As ToolStripDropDownClosedEventHandler = Nothing
+                    menuOnClosed = Sub(sender, args)
+                        Dim itemNotClicked As Boolean = args.CloseReason <> ToolStripDropDownCloseReason.ItemClicked
+                        If itemNotClicked Then
+                            tcs.TrySetResult(ShowContextMenuResponse.Close())
+                        End If
+
+                        RemoveHandler popupMenu.Closed, menuOnClosed
+                    End Sub
+                    AddHandler popupMenu.Closed, menuOnClosed
+
+                    ' Show the context menu.
                     Dim location_Conflict As New Point(parameters.Location.X, parameters.Location.Y)
                     popupMenu.Show(Me, location_Conflict)
                     tcs.TrySetResult(ShowContextMenuResponse.Close())
