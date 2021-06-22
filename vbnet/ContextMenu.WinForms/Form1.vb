@@ -140,8 +140,8 @@ Namespace ContextMenu.WinForms
                     AddHandler popupMenu.Closed, menuOnClosed
 
                     ' Show the context menu.
-                    Dim location_Conflict As New Point(parameters.Location.X, parameters.Location.Y)
-                    popupMenu.Show(Me, location_Conflict)
+                    Dim menuLocation As New Point(parameters.Location.X, parameters.Location.Y)
+                    popupMenu.Show(Me, menuLocation)
                     tcs.TrySetResult(ShowContextMenuResponse.Close())
                 End Sub))
             Else
