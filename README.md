@@ -100,6 +100,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Work with the web page via UI Automation (MSAA/UIA): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/master/csharp/UiAutomation.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/master/vbnet/UiAutomation.Wpf)
 * Display web page with transparent background in <br/>a transparent WPF window: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/TransparentWebPage.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/TransparentWebPage.Wpf)
 * Intercept Drag & Drop events. Access `IDataObject`: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/DragAndDrop.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/DragAndDrop.Wpf)
+* Use DotNetBrowser with WPF data binding (MVVM): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Mvvm.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Mvvm.Wpf)
 
 #### Specific use-cases
 
