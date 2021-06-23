@@ -143,6 +143,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromiumBinariesResolver.Wp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowDom", "ShadowDom\ShadowDom.csproj", "{283899B0-32EE-4319-9DEA-DD629F722B6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvvm.Wpf", "Mvvm.Wpf\Mvvm.Wpf.csproj", "{E6D355FD-0217-4A71-9BE9-A8C15AAE181D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -425,6 +427,10 @@ Global
 		{283899B0-32EE-4319-9DEA-DD629F722B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{283899B0-32EE-4319-9DEA-DD629F722B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{283899B0-32EE-4319-9DEA-DD629F722B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6D355FD-0217-4A71-9BE9-A8C15AAE181D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6D355FD-0217-4A71-9BE9-A8C15AAE181D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6D355FD-0217-4A71-9BE9-A8C15AAE181D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6D355FD-0217-4A71-9BE9-A8C15AAE181D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
