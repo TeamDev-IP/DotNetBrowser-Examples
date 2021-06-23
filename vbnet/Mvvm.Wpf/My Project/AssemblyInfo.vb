@@ -30,9 +30,9 @@ Imports System.Windows
 <Assembly: AssemblyTitle("MVVM.Wpf")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
-<Assembly: AssemblyCompany("")>
+<Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("MVVM.Wpf")>
-<Assembly: AssemblyCopyright("Copyright ©  2021")>
+<Assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
