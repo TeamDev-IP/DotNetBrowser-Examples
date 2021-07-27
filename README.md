@@ -19,6 +19,7 @@ To learn more about the library please visit the [product page](https://www.team
 
 * Create two separate Chromium engines: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/SeparateEngines), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/SeparateEngines)
 * Create two separate Chromium engines in different AppDomains: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/SeparateEngines.AppDomains), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/SeparateEngines.AppDomains)
+* Create separate Chromium profiles: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/Profiles.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/Profiles.WinForms)
 * Load URL and listen to the navigation events: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/LoadEvents), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/LoadEvents)
 * Embed into .NET Core WPF applications: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/NETCore30.Wpf)
 * Embed into .NET Core WinForms applications: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/NETCore30.WinForms)
