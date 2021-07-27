@@ -20,23 +20,22 @@
 
 #End Region
 
-Imports System
-Imports System.Windows.Forms
 
 Namespace Profiles.WinForms
-	Friend Module Program
-		#Region "Methods"
+    Friend Module Program
 
-		''' <summary>
-		'''     The main entry point for the application.
-		''' </summary>
-		<STAThread>
-		Public Sub Main()
-			Application.EnableVisualStyles()
-			Application.SetCompatibleTextRenderingDefault(False)
-			Application.Run(New Form1())
-		End Sub
+#Region "Methods"
 
-		#End Region
-	End Module
+        ''' <summary>
+        '''     The main entry point for the application.
+        ''' </summary>
+        <STAThread>
+        Public Sub Main()
+            Application.EnableVisualStyles()
+            Application.SetCompatibleTextRenderingDefault(False)
+            Application.Run(New Form1())
+        End Sub
+
+#End Region
+    End Module
 End Namespace
