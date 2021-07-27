@@ -21,70 +21,69 @@
 #End Region
 
 Imports System.Threading.Tasks
-Imports System.Windows.Forms
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.WinForms
 
 Namespace Profiles.WinForms
-	Partial Public Class BrowserForm
-		Inherits Form
+    Partial Public Class BrowserForm
+        Inherits Form
 
-		Private ReadOnly browserView As BrowserView
-		Private _browser As IBrowser
+        Private ReadOnly browserView As BrowserView
+        Private _browser As IBrowser
 
-		#Region "Properties"
+#Region "Properties"
 
-		Public Property Browser() As IBrowser
-			Get
-				Return _browser
-			End Get
+        Public Property Browser As IBrowser
+            Get
+                Return _browser
+            End Get
 
-			Set(ByVal value As IBrowser)
-				_browser = value
-				If _browser IsNot Nothing Then
-					browserView.InitializeFrom(_browser)
-					LoadUrl(AddressBar.Text)
-				End If
-			End Set
-		End Property
+            Set
+                _browser = value
+                If _browser IsNot Nothing Then
+                    browserView.InitializeFrom(_browser)
+                    LoadUrl(AddressBar.Text)
+                End If
+            End Set
+        End Property
 
-		#End Region
+#End Region
 
-		#Region "Constructors"
+#Region "Constructors"
 
-		Public Sub New()
-			browserView = New BrowserView With {.Dock = DockStyle.Fill}
-			InitializeComponent()
-			Controls.Add(browserView)
-		End Sub
+        Public Sub New()
+            browserView = New BrowserView With {.Dock = DockStyle.Fill}
+            InitializeComponent()
+            Controls.Add(browserView)
+        End Sub
 
-		#End Region
+#End Region
 
-		#Region "Methods"
+#Region "Methods"
 
-		Private Sub AddressBar_KeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
-			If e.KeyCode = Keys.Enter Then
-				LoadUrl(AddressBar.Text)
-			End If
-		End Sub
+        Private Sub AddressBar_KeyDown(sender As Object, e As KeyEventArgs)
+            If e.KeyCode = Keys.Enter Then
+                LoadUrl(AddressBar.Text)
+            End If
+        End Sub
 
-		Private Sub BrowserForm_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs)
-			_browser?.Dispose()
-		End Sub
+        Private Sub BrowserForm_FormClosed(sender As Object, e As FormClosedEventArgs)
+            _browser?.Dispose()
+        End Sub
 
-		Private Sub LoadUrl(ByVal address As String)
-		    browser?.Navigation?.LoadUrl(address).ContinueWith(Sub(t)
-		        UpdateControlsStates()
-		    End Sub, TaskScheduler.FromCurrentSynchronizationContext())
-		End Sub
+        Private Sub LoadUrl(address As String)
+            browser?.Navigation?.LoadUrl(address).ContinueWith(Sub(t)
+                UpdateControlsStates()
+            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+        End Sub
 
-		Private Sub UpdateControlsStates()
-			If Not Browser.IsDisposed Then
-				AddressBar.Text = Browser.Url
-				Text = Browser.Title
-			End If
-		End Sub
+        Private Sub UpdateControlsStates()
+            If Not Browser.IsDisposed Then
+                AddressBar.Text = Browser.Url
+                Text = Browser.Title
+            End If
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

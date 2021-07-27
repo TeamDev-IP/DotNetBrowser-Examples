@@ -20,77 +20,76 @@
 
 #End Region
 
-Imports System
-Imports System.Linq
-Imports System.Windows.Forms
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Net.Proxy
 Imports DotNetBrowser.Profile
 
 Namespace Profiles.WinForms
-	''' <summary>
-	'''     This example demonstrates how to work with different profiles
-	'''     and its Browser instances.
-	''' </summary>
-	Partial Public Class Form1
-		Inherits Form
+    ''' <summary>
+    '''     This example demonstrates how to work with different profiles
+    '''     and its Browser instances.
+    ''' </summary>
+    Partial Public Class Form1
+        Inherits Form
 
-		Private ReadOnly engine As IEngine
+        Private ReadOnly engine As IEngine
 
-		#Region "Constructors"
+#Region "Constructors"
 
-		Public Sub New()
-			engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
+        Public Sub New()
+            engine =
+                EngineFactory.Create(
+                    New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated}.Build())
 
-			InitializeComponent()
+            InitializeComponent()
 
-			profilesList.DataSource = engine.Profiles.ToArray()
-			profilesList.DisplayMember = "Name"
-		End Sub
+            profilesList.DataSource = engine.Profiles.ToArray()
+            profilesList.DisplayMember = "Name"
+        End Sub
 
-		#End Region
+#End Region
 
-		#Region "Methods"
+#Region "Methods"
 
-		Private Sub createProfileButton_Click(ByVal sender As Object, ByVal e As EventArgs)
-			Dim profileNameText As String = profileName.Text
-			If profileNameText IsNot Nothing Then
-				'The incognito mode for the profile can be set by passing the second parameter to Profiles.Create().
-				Dim profile As IProfile = engine.Profiles.Create(profileNameText)
-				'Here is how to set a proxy per profile.
-				profile.Proxy.Settings = New SystemProxySettings()
+        Private Sub createProfileButton_Click(sender As Object, e As EventArgs)
+            Dim profileNameText As String = profileName.Text
+            If profileNameText IsNot Nothing Then
+                'The incognito mode for the profile can be set by passing the second parameter to Profiles.Create().
+                Dim profile As IProfile = engine.Profiles.Create(profileNameText)
+                'Here is how to set a proxy per profile.
+                profile.Proxy.Settings = New SystemProxySettings()
 
-				profilesList.DataSource = engine.Profiles.ToArray()
-			End If
-		End Sub
+                profilesList.DataSource = engine.Profiles.ToArray()
+            End If
+        End Sub
 
-		Private Sub Form1_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles Me.FormClosed
-			engine?.Dispose()
-		End Sub
+        Private Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+            engine?.Dispose()
+        End Sub
 
-		Private Sub listBox1_DoubleClick_1(ByVal sender As Object, ByVal e As EventArgs)
-			Dim selectedItem As IProfile = TryCast(profilesList.SelectedItem, IProfile)
-			If selectedItem IsNot Nothing Then
-				Dim browserForm As BrowserForm = New BrowserForm With {.Browser = selectedItem.CreateBrowser()}
-				browserForm.Show(Me)
-			End If
-		End Sub
+        Private Sub listBox1_DoubleClick_1(sender As Object, e As EventArgs)
+            Dim selectedItem = TryCast(profilesList.SelectedItem, IProfile)
+            If selectedItem IsNot Nothing Then
+                Dim browserForm = New BrowserForm With {.Browser = selectedItem.CreateBrowser()}
+                browserForm.Show(Me)
+            End If
+        End Sub
 
-		Private Sub profilesList_MouseUp(ByVal sender As Object, ByVal e As MouseEventArgs)
-			If e.Button <> MouseButtons.Right Then
-				Return
-			End If
+        Private Sub profilesList_MouseUp(sender As Object, e As MouseEventArgs)
+            If e.Button <> MouseButtons.Right Then
+                Return
+            End If
 
-			Dim index As Integer = profilesList.IndexFromPoint(e.Location)
-			If index <> ListBox.NoMatches Then
-				Dim selectedItem As IProfile = TryCast(profilesList.Items(index), IProfile)
-				If selectedItem IsNot Nothing Then
-					engine.Profiles.Remove(selectedItem)
-					profilesList.DataSource = engine.Profiles.ToArray()
-				End If
-			End If
-		End Sub
+            Dim index As Integer = profilesList.IndexFromPoint(e.Location)
+            If index <> ListBox.NoMatches Then
+                Dim selectedItem = TryCast(profilesList.Items(index), IProfile)
+                If selectedItem IsNot Nothing Then
+                    engine.Profiles.Remove(selectedItem)
+                    profilesList.DataSource = engine.Profiles.ToArray()
+                End If
+            End If
+        End Sub
 
-		#End Region
-	End Class
+#End Region
+    End Class
 End Namespace

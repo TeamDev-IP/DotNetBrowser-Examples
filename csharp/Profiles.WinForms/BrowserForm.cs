@@ -37,7 +37,6 @@ namespace Profiles.WinForms
         public IBrowser Browser
         {
             get { return browser; }
-
             set
             {
                 browser = value;
