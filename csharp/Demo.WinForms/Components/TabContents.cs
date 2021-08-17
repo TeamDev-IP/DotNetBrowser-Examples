@@ -129,7 +129,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void downloadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://cloud.teamdev.com/downloads/dotnetbrowser/1.20/dotnetbrowser-1.20.zip");
+            LoadUrl("https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/2.7/dotnetbrowser-net45-2.7.zip");
         }
 
         private void ForwardButton_Click(object sender, EventArgs e)
@@ -242,7 +242,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void uploadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://jkorpela.fi/forms/file.html#example");
+            LoadUrl("https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button");
         }
 
         #endregion

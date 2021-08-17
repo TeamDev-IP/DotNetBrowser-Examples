@@ -117,7 +117,7 @@ namespace Demo.Wpf
         
         private void LoadDownloadFileUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("http://cloud.teamdev.com/downloads/dotnetbrowser/1.20/dotnetbrowser-1.20.zip");
+            LoadUrl("https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/2.7/dotnetbrowser-net45-2.7.zip");
         }
 
         private void LoadGoogleMaps(object sender, RoutedEventArgs e)
@@ -152,7 +152,7 @@ namespace Demo.Wpf
 
         private void LoadUploadFileUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("http://jkorpela.fi/forms/file.html#example");
+            LoadUrl("https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button");
         }
 
         private void LoadUrl(string url)
