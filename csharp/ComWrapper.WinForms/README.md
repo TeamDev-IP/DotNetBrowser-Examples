@@ -22,4 +22,4 @@ MsgBox html
 
 The example also logs registration and initialization events to the system event logger. These logged events can then be found in the Event Viewer -> Windows Logs -> Application.
 
-_Note:_ please check the bitness of the application to are trying to integrate with. if your application is 64-bit and the control is registered for 32-bit applications only (the registry entries are created under `HKEY_CLASSES_ROOT\WOW6432Node\` in this case), the control will be inaccessible for this application. The same can be observed if the application is 32-bit and the control is registered for 64-bit applications only.
+_Note:_ please check the bitness of the application you are trying to integrate with. If your application is 64-bit and the control is registered for 32-bit applications only (the registry entries are created under `HKEY_CLASSES_ROOT\WOW6432Node\` in this case), the control will be inaccessible for this application. The same can be observed if the application is 32-bit and the control is registered for 64-bit applications only.
