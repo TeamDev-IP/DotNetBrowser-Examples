@@ -112,6 +112,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Integrate with Google Street View: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/GoogleStreetView.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/GoogleStreetView.WinForms)
 * Integrate with Selenium Chrome Driver: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/SeleniumChromeDriver), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/SeleniumChromeDriver)
 * VSTO Add-In for Microsoft Outlook: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/MyOutlookAddIn), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/MyOutlookAddIn)
+* COM/ActiveX wrapper: [C#](csharp/ComWrapper.WinForms), [VB.NET](vbnet/ComWrapper.WinForms)
 
 #### Examples for tutorials
 * Нow to deploy Chromium binaries over network: [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/csharp/ChromiumBinariesResolver.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/master/vbnet/ChromiumBinariesResolver.Wpf)
