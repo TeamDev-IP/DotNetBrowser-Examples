@@ -17,6 +17,11 @@
             {
                 components.Dispose();
             }
+
+            if (disposing)
+            {
+                (this as IComBrowserView)?.Dispose();
+            }
             base.Dispose(disposing);
         }
 

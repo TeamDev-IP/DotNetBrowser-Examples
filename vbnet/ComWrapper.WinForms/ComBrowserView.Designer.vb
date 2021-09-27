@@ -13,6 +13,10 @@
 			If disposing AndAlso (components IsNot Nothing) Then
 				components.Dispose()
 			End If
+
+			If disposing Then
+				TryCast(Me, IComBrowserView)?.Dispose()
+			End If
 			MyBase.Dispose(disposing)
 		End Sub
 
