@@ -4,6 +4,8 @@ This example demonstrates the possible way to wrap DotNetBrowser functionality a
 
 During the project build, the TLB is generated and registered automatically. Cleaning the project leads to unregistering the components.
 
+_Note_: the assembly registration during build means editing the Windows registry. If your user account does not have enough privileges, the access will be denied. 
+
 After the wrapper is registered, you can reuse it, for example, in VBScript:
 
 ```vbs
