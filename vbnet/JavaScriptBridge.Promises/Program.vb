@@ -97,7 +97,7 @@ Friend Class Program
         Console.WriteLine(vbLf & "Create another promise that is fulfilled...")
         Dim promise3 As JsPromise = window.Invoke(Of IJsObject)("CreatePromise", True).AsPromise()
         Dim result As JsPromise.Result = Await promise3.Then(Function(o)
-            Console.WriteLine("Callback:Success: " & o)
+            Console.WriteLine("Callback:Success: " & o?.ToString())
             Return o
         End Function).ResolveAsync()
         Console.WriteLine("Result state:" & result?.State.ToString())
