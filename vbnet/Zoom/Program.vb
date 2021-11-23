@@ -42,9 +42,9 @@ Friend Class Program
                     Console.WriteLine("Browser created")
 
                     AddHandler engine.Profiles.Default.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
-                                                                                    Console.Out.WriteLine("e.Host = " & e.Host)
-                                                                                    Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
-                                                                                End Sub
+                        Console.Out.WriteLine("e.Host = " & e.Host)
+                        Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
+                    End Sub
 
                     browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
                     Console.WriteLine("Updating zoom level")
