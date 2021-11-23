@@ -41,10 +41,10 @@ Friend Class Program
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
 
-                    AddHandler engine.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
-                        Console.Out.WriteLine("e.Host = " & e.Host)
-                        Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
-                    End Sub
+                    AddHandler engine.Profiles.Default.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
+                                                                                    Console.Out.WriteLine("e.Host = " & e.Host)
+                                                                                    Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
+                                                                                End Sub
 
                     browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
                     Console.WriteLine("Updating zoom level")

@@ -40,9 +40,9 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    engine.Network.CanGetCookiesHandler =
+                    engine.Profiles.Default.Network.CanGetCookiesHandler =
                         New Handler(Of CanGetCookiesParameters, CanGetCookiesResponse)(AddressOf CanGetCookies)
-                    engine.Network.CanSetCookieHandler =
+                    engine.Profiles.Default.Network.CanSetCookieHandler =
                         New Handler(Of CanSetCookieParameters, CanSetCookieResponse)(AddressOf CanSetCookie)
                     Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
                     Console.WriteLine("LoadResult: " & result)

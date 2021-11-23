@@ -39,7 +39,7 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    AddHandler engine.Network.ResponseBytesReceived, AddressOf OnResponseBytesReceived
+                    AddHandler engine.Profiles.Default.Network.ResponseBytesReceived, AddressOf OnResponseBytesReceived
                     browser.Navigation.LoadUrl("https://teamdev.com").Wait()
 
                     Console.WriteLine("URL loaded")

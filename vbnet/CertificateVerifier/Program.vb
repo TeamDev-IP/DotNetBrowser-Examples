@@ -42,7 +42,7 @@ Public Class WindowMain
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    engine.Network.VerifyCertificateHandler =
+                    engine.Profiles.Default.Network.VerifyCertificateHandler =
                         New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
                     Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
                     Console.WriteLine("LoadResult: " & result)
