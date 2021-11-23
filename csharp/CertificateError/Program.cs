@@ -47,7 +47,7 @@ namespace CertificateError
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.VerifyCertificateHandler =
+                        engine.Profiles.Default.Network.VerifyCertificateHandler =
                             new Handler<VerifyCertificateParameters, VerifyCertificateResponse>(HandleCertError);
                         browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait();
                     }

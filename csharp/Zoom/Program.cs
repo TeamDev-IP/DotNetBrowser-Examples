@@ -47,7 +47,7 @@ namespace Zoom
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.ZoomLevels.LevelChanged += delegate(object sender, LevelChangedEventArgs e)
+                        engine.Profiles.Default.ZoomLevels.LevelChanged += delegate(object sender, LevelChangedEventArgs e)
                         {
                             Console.Out.WriteLine("e.Host = " + e.Host);
                             Console.Out.WriteLine("e.ZoomLevel = " + e.Level.Value);

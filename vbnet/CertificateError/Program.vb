@@ -40,7 +40,7 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    engine.Network.VerifyCertificateHandler =
+                    engine.Profiles.Default.Network.VerifyCertificateHandler =
                         New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(
                             AddressOf HandleCertError)
                     browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait()

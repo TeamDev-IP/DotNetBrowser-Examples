@@ -48,9 +48,9 @@ namespace CookieFilter
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.CanGetCookiesHandler =
+                        engine.Profiles.Default.Network.CanGetCookiesHandler =
                             new Handler<CanGetCookiesParameters, CanGetCookiesResponse>(CanGetCookies);
-                        engine.Network.CanSetCookieHandler =
+                        engine.Profiles.Default.Network.CanSetCookieHandler =
                             new Handler<CanSetCookieParameters, CanSetCookieResponse>(CanSetCookie);
                         LoadResult result = browser.Navigation.LoadUrl("https://www.google.com").Result;
                         Console.WriteLine("LoadResult: " + result);

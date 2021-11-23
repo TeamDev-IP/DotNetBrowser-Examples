@@ -40,9 +40,9 @@ Friend Class Program
                 Console.WriteLine("Engine created")
 
                 Using browser As IBrowser = engine.CreateBrowser()
-                    engine.Network.SendUrlRequestHandler =
+                    engine.Profiles.Default.Network.SendUrlRequestHandler =
                         New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
-                    engine.Network.StartTransactionHandler =
+                    engine.Profiles.Default.Network.StartTransactionHandler =
                         New Handler(Of StartTransactionParameters, StartTransactionResponse)(AddressOf OnStartTransaction)
 
                     Console.WriteLine("Loading https://www.teamdev.com/")

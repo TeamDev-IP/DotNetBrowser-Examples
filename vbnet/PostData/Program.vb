@@ -41,7 +41,7 @@ Friend Class Program
 
                 Using browser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    engine.Network.SendUploadDataHandler =
+                    engine.Profiles.Default.Network.SendUploadDataHandler =
                         New Handler(Of SendUploadDataParameters, SendUploadDataResponse)(AddressOf OnSendUploadData)
 
                     Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {

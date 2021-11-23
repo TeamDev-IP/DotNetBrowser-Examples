@@ -41,7 +41,7 @@ Friend Class Program
 
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
-                    engine.Network.SendUrlRequestHandler =
+                    engine.Profiles.Default.Network.SendUrlRequestHandler =
                         New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf CanLoadResource)
                     browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").
                         Wait()

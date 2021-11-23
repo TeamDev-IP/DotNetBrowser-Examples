@@ -49,7 +49,7 @@ namespace CertificateVerifier
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.VerifyCertificateHandler =
+                        engine.Profiles.Default.Network.VerifyCertificateHandler =
                             new Handler<VerifyCertificateParameters, VerifyCertificateResponse>(VerifyCert);
                         LoadResult result = browser.Navigation.LoadUrl("https://google.com").Result;
                         Console.WriteLine("LoadResult: " + result);

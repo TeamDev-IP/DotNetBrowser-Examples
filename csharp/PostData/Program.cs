@@ -49,7 +49,7 @@ namespace PostData
                     using (DotNetBrowser.Browser.IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.SendUploadDataHandler =
+                        engine.Profiles.Default.Network.SendUploadDataHandler =
                             new Handler<SendUploadDataParameters, SendUploadDataResponse>(OnSendUploadData);
 
                         LoadUrlParameters parameters =

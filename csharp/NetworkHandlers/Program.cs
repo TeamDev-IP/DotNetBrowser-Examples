@@ -49,9 +49,9 @@ namespace NetworkHandlers
 
                     using (IBrowser browser = engine.CreateBrowser())
                     {
-                        engine.Network.SendUrlRequestHandler =
+                        engine.Profiles.Default.Network.SendUrlRequestHandler =
                             new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(OnSendUrlRequest);
-                        engine.Network.StartTransactionHandler =
+                        engine.Profiles.Default.Network.StartTransactionHandler =
                             new Handler<StartTransactionParameters, StartTransactionResponse>(OnStartTransaction);
 
                         Console.WriteLine("Loading https://www.teamdev.com/");

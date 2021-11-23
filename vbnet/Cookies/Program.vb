@@ -37,7 +37,7 @@ Friend Class Program
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
                 Console.WriteLine("Engine created")
 
-                Dim cookieStorage As ICookieStore = engine.CookieStore
+                Dim cookieStorage As ICookieStore = engine.Profiles.Default.CookieStore
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Navigation.LoadUrl(Url).Wait()

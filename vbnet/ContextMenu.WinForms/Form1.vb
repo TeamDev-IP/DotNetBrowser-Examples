@@ -114,7 +114,7 @@ Namespace ContextMenu.WinForms
                     Dim addToDictionary As String = If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
                     popupMenu.Items.Add(BuildMenuItem(addToDictionary, True, Sub()
                         If Not String.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord) Then
-                            engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
+                            engine.Profiles.Default.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord)
                         End If
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End Sub))

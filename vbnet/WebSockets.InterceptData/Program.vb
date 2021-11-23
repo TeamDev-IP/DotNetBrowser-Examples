@@ -115,7 +115,7 @@ Friend Class Program
         End Sub
 
         Public Sub OnMessage(ByVal socket As IJsObject, ByVal data As Object)
-            Console.WriteLine("WebSocketCallback.OnMessage: " & data)
+            Console.WriteLine("WebSocketCallback.OnMessage: " & data?.ToString())
         End Sub
 
         Public Sub OnOpen(ByVal socket As IJsObject)
@@ -123,7 +123,7 @@ Friend Class Program
         End Sub
 
         Public Sub OnSend(ByVal socket As IJsObject, ByVal data As Object)
-            Console.WriteLine("WebSocketCallback.OnSend: " & data)
+            Console.WriteLine("WebSocketCallback.OnSend: " & data?.ToString())
         End Sub
 
 #End Region

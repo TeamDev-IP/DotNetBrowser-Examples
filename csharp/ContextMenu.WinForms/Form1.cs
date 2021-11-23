@@ -136,7 +136,7 @@ namespace ContextMenu.WinForms
                     {
                         if (!string.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord))
                         {
-                            engine.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord);
+                            engine.Profiles.Default.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord);
                         }
 
                         tcs.TrySetResult(ShowContextMenuResponse.Close());

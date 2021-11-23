@@ -61,7 +61,7 @@ Friend Class Program
             Using engine As IEngine = EngineFactory.Create()
                 Console.WriteLine("Engine created")
                 ' Grant a permission to display notifications
-                engine.Permissions.RequestPermissionHandler = New Handler(Of RequestPermissionParameters, RequestPermissionResponse)(AddressOf OnRequestPermission)
+                engine.Profiles.Default.Permissions.RequestPermissionHandler = New Handler(Of RequestPermissionParameters, RequestPermissionResponse)(AddressOf OnRequestPermission)
                 Using browser As IBrowser = engine.CreateBrowser()
                     Console.WriteLine("Browser created")
                     browser.Size = New Size(640, 480)
