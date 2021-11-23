@@ -45,7 +45,7 @@ namespace Cookies
                 {
                     Console.WriteLine("Engine created");
 
-                    ICookieStore cookieStorage = engine.CookieStore;
+                    ICookieStore cookieStorage = engine.Profiles.Default.CookieStore;
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");

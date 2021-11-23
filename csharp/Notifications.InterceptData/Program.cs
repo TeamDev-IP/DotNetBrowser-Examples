@@ -68,7 +68,7 @@ namespace Notifications.InterceptData
                 {
                     Console.WriteLine("Engine created");
                     // Grant a permission to display notifications
-                    engine.Permissions.RequestPermissionHandler
+                    engine.Profiles.Default.Permissions.RequestPermissionHandler
                         = new Handler<RequestPermissionParameters, RequestPermissionResponse>(OnRequestPermission);
                     using (IBrowser browser = engine.CreateBrowser())
                     {

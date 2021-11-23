@@ -51,7 +51,7 @@ namespace DownloadPdf
                     Console.WriteLine("Engine created");
 
                     //1. Disable PDF viewer to trigger PDF file download on loading the URL.
-                    engine.Plugins.Settings.PdfViewerEnabled = false;
+                    engine.Profiles.Default.Plugins.Settings.PdfViewerEnabled = false;
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");

@@ -47,7 +47,7 @@ namespace AccessingHttpResponseData
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.ResponseBytesReceived += OnResponseBytesReceived;
+                        engine.Profiles.Default.Network.ResponseBytesReceived += OnResponseBytesReceived;
                         browser.Navigation.LoadUrl("https://teamdev.com").Wait();
 
                         Console.WriteLine("URL loaded");

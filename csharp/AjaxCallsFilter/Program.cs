@@ -49,7 +49,7 @@ namespace AjaxCallsFilter
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Network.SendUrlRequestHandler =
+                        engine.Profiles.Default.Network.SendUrlRequestHandler =
                             new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(CanLoadResource);
 
                         browser.Navigation
