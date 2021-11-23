@@ -103,8 +103,8 @@ namespace DotNetBrowser.WinForms.Demo
                         { Scheme.Http, new WinFormsInterceptRequestHandler() }
                     }
                 }.Build());
-                engine.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
-                engine.Permissions.RequestPermissionHandler =
+                engine.Profiles.Default.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
+                engine.Profiles.Default.Permissions.RequestPermissionHandler =
                     new Handler<RequestPermissionParameters, RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
                 engine.Disposed += (sender, args) =>
                 {
