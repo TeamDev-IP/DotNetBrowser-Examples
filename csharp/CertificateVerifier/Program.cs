@@ -21,7 +21,6 @@
 #endregion
 
 using System;
-using System.Windows;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
@@ -34,7 +33,7 @@ namespace CertificateVerifier
     ///     The sample demonstrates how to accept/reject SSL certificates using
     ///     custom SSL certificate verifier.
     /// </summary>
-    public class WindowMain : Window
+    public class Program
     {
         #region Methods
 
