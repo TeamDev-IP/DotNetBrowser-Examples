@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -36,8 +36,6 @@ namespace SaveImageFromPage
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static string FixBase64ForImage(string image)
         {
             StringBuilder sbText = new StringBuilder(image, image.Length);
@@ -108,7 +106,5 @@ namespace SaveImageFromPage
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 }

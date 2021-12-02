@@ -28,19 +28,11 @@ namespace ComWrapper.WinForms.Impl
     {
         private readonly IElement domElement;
 
-        #region Constructors
-
         public ElementImpl(IElement domElement)
         {
             this.domElement = domElement;
         }
 
-        #endregion
-
-        #region Methods
-
         public string GetInnerHtml() => domElement.InnerHtml;
-
-        #endregion
     }
 }

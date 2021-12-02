@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -58,8 +58,6 @@ namespace Notifications.InterceptData
         public const string DemoUrl = "https://davidwalsh.name/demo/notifications-api.php";
         private static readonly NotificationCallback notificationCallback = new NotificationCallback();
 
-        #region Methods
-
         private static void Main(string[] args)
         {
             try
@@ -112,25 +110,19 @@ namespace Notifications.InterceptData
             => arg.Type == PermissionType.Notifications
                    ? RequestPermissionResponse.Grant()
                    : RequestPermissionResponse.Deny();
-
-        #endregion
     }
 
     internal class NotificationCallback
     {
-        #region Methods
-
         /// <summary>
         ///     Corresponds to the Notification constructor.
         /// </summary>
         /// <param name="title">The notification title.</param>
         /// <param name="options">The object containing any custom settings that will be applied to the notification.</param>
-        /// <seealso cref="https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification"/>
+        /// <seealso cref="https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification" />
         public void NewNotification(string title, IJsObject options)
         {
             Console.WriteLine($"New notification: {title}: {options.Properties["body"]}");
         }
-
-        #endregion
     }
 }

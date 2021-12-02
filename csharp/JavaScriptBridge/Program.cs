@@ -38,8 +38,6 @@ namespace JavaScriptBridge
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -88,17 +86,13 @@ namespace JavaScriptBridge
             {
                 Console.WriteLine(e);
             }
+
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
-        #endregion
-
-
         private class Person
         {
-            #region Properties
-
             public double Age { get; }
 
             public IDictionary<double, Person> Children { get; set; }
@@ -107,10 +101,6 @@ namespace JavaScriptBridge
 
             public bool Gender { get; }
 
-            #endregion
-
-            #region Constructors
-
             public Person(string fullName, int age, bool gender)
             {
                 Gender = gender;
@@ -118,14 +108,8 @@ namespace JavaScriptBridge
                 Age = age;
             }
 
-            #endregion
-
-            #region Methods
-
             public string Walk(Person withPerson)
                 => $"{(Gender ? "He" : "She")} is walking with {withPerson.FullName}!";
-
-            #endregion
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -40,7 +40,6 @@ namespace ChromiumBinariesResolver.Wpf
         private IEngine engine;
         private string initializationStatus = "Initializing";
 
-        #region Properties
 
         public BinariesResolver BinariesResolver { get; }
 
@@ -56,22 +55,14 @@ namespace ChromiumBinariesResolver.Wpf
 
         public bool IsInitializationInProgress { get; private set; }
 
-        #endregion
-
-        #region Events
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Constructors
 
         public MainWindow()
         {
             chromiumDirectory = Path.GetFullPath("chromium");
 
             //Delete the Chromium directory it it exists - this will force downloading the binaries over network.
-            if(Directory.Exists(chromiumDirectory))
+            if (Directory.Exists(chromiumDirectory))
             {
                 Directory.Delete(chromiumDirectory, true);
             }
@@ -109,10 +100,6 @@ namespace ChromiumBinariesResolver.Wpf
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -122,7 +109,5 @@ namespace ChromiumBinariesResolver.Wpf
         {
             engine?.Dispose();
         }
-
-        #endregion
     }
 }

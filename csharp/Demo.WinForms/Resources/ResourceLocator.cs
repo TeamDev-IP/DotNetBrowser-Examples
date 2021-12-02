@@ -28,17 +28,11 @@ namespace DotNetBrowser.WinForms.Demo.Resources
 {
     internal static class ResourceLocator
     {
-        #region Properties
-
         internal static Bitmap CloseButtonBitmap
             => (Bitmap) Image.FromStream(GetStream("Resources/Images/icon-close.png"));
 
         private static Assembly ResourceAssembly
             => Assembly.GetExecutingAssembly();
-
-        #endregion
-
-        #region Methods
 
         private static string GetResourceFullPath(string localPath)
             => $"{ResourceAssembly.GetName().Name}.{ReplacePathSeparators(localPath)}";
@@ -48,7 +42,5 @@ namespace DotNetBrowser.WinForms.Demo.Resources
 
         private static string ReplacePathSeparators(string localPath)
             => localPath.Replace("/", ".").Replace("\\", ".");
-
-        #endregion
     }
 }

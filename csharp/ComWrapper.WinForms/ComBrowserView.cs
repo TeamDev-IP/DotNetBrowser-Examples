@@ -39,15 +39,9 @@ namespace ComWrapper.WinForms
     {
         private readonly EngineWrapper _engineWrapper;
 
-        #region Properties
-
         public IComBrowser Browser { get; }
 
         public IComEngine Engine => _engineWrapper;
-
-        #endregion
-
-        #region Constructors
 
         public ComBrowserView()
         {
@@ -68,10 +62,6 @@ namespace ComWrapper.WinForms
                 throw;
             }
         }
-
-        #endregion
-
-        #region Methods
 
         void IComBrowserView.Dispose()
         {
@@ -114,7 +104,5 @@ namespace ComWrapper.WinForms
         {
             ControlRegistration.UnregisterControl(t);
         }
-
-        #endregion
     }
 }

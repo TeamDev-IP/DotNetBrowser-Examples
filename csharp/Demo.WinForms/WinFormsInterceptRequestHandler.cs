@@ -38,16 +38,10 @@ namespace DotNetBrowser.WinForms.Demo
 
         private readonly ResourceManager resourceManager;
 
-        #region Constructors
-
         public WinFormsInterceptRequestHandler()
         {
             resourceManager = Properties.Resources.ResourceManager;
         }
-
-        #endregion
-
-        #region Methods
 
         public InterceptRequestResponse Handle(InterceptRequestParameters parameters)
         {
@@ -109,7 +103,5 @@ namespace DotNetBrowser.WinForms.Demo
 
             return resourcePath;
         }
-
-        #endregion
     }
 }

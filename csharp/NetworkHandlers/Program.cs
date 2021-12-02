@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -37,8 +37,6 @@ namespace NetworkHandlers
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -69,19 +67,6 @@ namespace NetworkHandlers
             Console.ReadKey();
         }
 
-        public static StartTransactionResponse OnStartTransaction(StartTransactionParameters parameters)
-        {
-            // If navigate to google.com, then print User-Agent header value.
-            if (parameters.UrlRequest.Url == "https://www.google.com/")
-            {
-                IEnumerable<IHttpHeader> headers = parameters.Headers;
-                Console.WriteLine("User-Agent: "
-                                  + headers.FirstOrDefault(h => h.Name.Equals("User-Agent"))?.Values.FirstOrDefault());
-            }
-
-            return StartTransactionResponse.Continue();
-        }
-
         public static SendUrlRequestResponse OnSendUrlRequest(SendUrlRequestParameters parameters)
         {
             // If navigate to teamdev.com, then change URL to google.com.
@@ -94,6 +79,17 @@ namespace NetworkHandlers
             return SendUrlRequestResponse.Continue();
         }
 
-        #endregion
+        public static StartTransactionResponse OnStartTransaction(StartTransactionParameters parameters)
+        {
+            // If navigate to google.com, then print User-Agent header value.
+            if (parameters.UrlRequest.Url == "https://www.google.com/")
+            {
+                IEnumerable<IHttpHeader> headers = parameters.Headers;
+                Console.WriteLine("User-Agent: "
+                                  + headers.FirstOrDefault(h => h.Name.Equals("User-Agent"))?.Values.FirstOrDefault());
+            }
+
+            return StartTransactionResponse.Continue();
+        }
     }
 }

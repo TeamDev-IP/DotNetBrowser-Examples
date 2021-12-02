@@ -35,11 +35,11 @@ namespace SeleniumChromeDriver
     public partial class Form1 : Form
     {
         private const int RemoteDebuggingPort = 9222;
-
-        private IEngine engine;
+        private readonly SeleniumInstance seleniumInstance;
         private IBrowser browser;
         private BrowserView browserView;
-        private SeleniumInstance seleniumInstance;
+
+        private IEngine engine;
 
         public Form1()
         {
@@ -52,39 +52,10 @@ namespace SeleniumChromeDriver
             seleniumInstance.Connected += SeleniumInstance_Connected;
         }
 
-        private void SeleniumInstance_Connected()
+        private void Form1_Closed(object sender, EventArgs e)
         {
-            if (InvokeRequired)
-            {
-                Invoke((Action)SeleniumInstance_Connected);
-                return;
-            }
-
-            Activate();
-        }
-
-        private void InitializeBrowser()
-        {
-            EngineOptions engineOptions = new EngineOptions.Builder()
-            {
-                ChromiumSwitches =
-                    {
-                        "--enable-automation"
-                    },
-                WebSecurityDisabled = true,
-                RemoteDebuggingPort = RemoteDebuggingPort
-            }
-            .Build();
-
-            engine = EngineFactory.Create(engineOptions);
-            browser = engine.CreateBrowser();
-
-            byte[] htmlBytes = Encoding.UTF8.GetBytes("<h1>Waiting for Selenium...</h1>");
-            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes));
-
-            browserView = new BrowserView() { Dock = DockStyle.Fill };
-            browserView.InitializeFrom(browser);
-            Controls.Add(browserView);
+            browser?.Dispose();
+            engine?.Dispose();
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -92,10 +63,39 @@ namespace SeleniumChromeDriver
             await seleniumInstance.ConnectAndRun();
         }
 
-        private void Form1_Closed(object sender, EventArgs e)
+        private void InitializeBrowser()
         {
-            browser?.Dispose();
-            engine?.Dispose();
+            EngineOptions engineOptions = new EngineOptions.Builder
+                {
+                    ChromiumSwitches =
+                    {
+                        "--enable-automation"
+                    },
+                    WebSecurityDisabled = true,
+                    RemoteDebuggingPort = RemoteDebuggingPort
+                }
+               .Build();
+
+            engine = EngineFactory.Create(engineOptions);
+            browser = engine.CreateBrowser();
+
+            byte[] htmlBytes = Encoding.UTF8.GetBytes("<h1>Waiting for Selenium...</h1>");
+            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes));
+
+            browserView = new BrowserView {Dock = DockStyle.Fill};
+            browserView.InitializeFrom(browser);
+            Controls.Add(browserView);
+        }
+
+        private void SeleniumInstance_Connected()
+        {
+            if (InvokeRequired)
+            {
+                Invoke((Action) SeleniumInstance_Connected);
+                return;
+            }
+
+            Activate();
         }
     }
 }

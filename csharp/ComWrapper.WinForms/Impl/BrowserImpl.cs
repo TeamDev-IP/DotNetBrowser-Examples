@@ -27,8 +27,6 @@ namespace ComWrapper.WinForms.Impl
 {
     internal class BrowserImpl : IComBrowser
     {
-        #region Properties
-
         internal IBrowser Browser { get; }
 
         public IComDocument Document
@@ -49,18 +47,10 @@ namespace ComWrapper.WinForms.Impl
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         public BrowserImpl(IBrowser browser)
         {
             Browser = browser;
         }
-
-        #endregion
-
-        #region Methods
 
         public void Dispose()
         {
@@ -86,7 +76,5 @@ namespace ComWrapper.WinForms.Impl
                 throw new InvalidOperationException("Browser is already disposed.");
             }
         }
-
-        #endregion
     }
 }

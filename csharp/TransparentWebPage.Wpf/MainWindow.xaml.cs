@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,14 +32,12 @@ namespace TransparentWebPage.Wpf
 {
     /// <summary>
     ///     The sample demonstrates how to enable transparent background
-    ///     on the web page. 
+    ///     on the web page.
     /// </summary>
     public partial class MainWindow : Window
     {
         private IBrowser browser;
         private IEngine engine;
-
-        #region Constructors
 
         public MainWindow()
         {
@@ -82,15 +80,9 @@ namespace TransparentWebPage.Wpf
             }
         }
 
-        #endregion
-
-        #region Methods
-
         private void Window_Closed(object sender, EventArgs e)
         {
             engine?.Dispose();
         }
-
-        #endregion
     }
 }

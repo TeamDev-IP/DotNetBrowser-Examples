@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -43,8 +43,6 @@ namespace KeyboardEventSimulation.Wpf
         private IBrowser browser;
         private IEngine engine;
 
-        #region Constructors
-
         public MainWindow()
         {
             try
@@ -83,10 +81,6 @@ namespace KeyboardEventSimulation.Wpf
             }
         }
 
-        #endregion
-
-        #region Methods
-
         private async void SimulateInput(Task<LoadResult> e)
         {
             if (e.Result == LoadResult.Completed)
@@ -100,8 +94,8 @@ namespace KeyboardEventSimulation.Wpf
                 SimulateKey(keyboard, KeyCode.VkO, "o");
                 SimulateKey(keyboard, KeyCode.Space, " ");
                 //Simulate input of some non-letter characters
-                SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers() { ShiftDown = true });
-                SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers() { ShiftDown = true });
+                SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers {ShiftDown = true});
+                SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers {ShiftDown = true});
             }
         }
 
@@ -138,7 +132,5 @@ namespace KeyboardEventSimulation.Wpf
             browser.Dispose();
             engine.Dispose();
         }
-
-        #endregion
     }
 }

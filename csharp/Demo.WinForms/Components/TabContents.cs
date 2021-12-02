@@ -40,8 +40,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private IBrowser browser;
         private string title;
 
-        #region Properties
-
         public IBrowser Browser
         {
             get => browser;
@@ -70,25 +68,13 @@ namespace DotNetBrowser.WinForms.Demo.Components
             }
         }
 
-        #endregion
-
-        #region Events
-
         public event EventHandler Closed;
         public event EventHandler<string> TitleChanged;
-
-        #endregion
-
-        #region Constructors
 
         public TabContents()
         {
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Methods
 
         public void CloseTab(bool raiseClosedEvent = false)
         {
@@ -244,7 +230,5 @@ namespace DotNetBrowser.WinForms.Demo.Components
         {
             LoadUrl("https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button");
         }
-
-        #endregion
     }
 }

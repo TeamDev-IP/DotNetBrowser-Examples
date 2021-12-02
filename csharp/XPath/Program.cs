@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -35,8 +35,6 @@ namespace XPath
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -52,7 +50,7 @@ namespace XPath
 
                         browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait();
                         IDocument document = browser.MainFrame.Document;
-                        
+
                         string expression = "count(//div)";
                         Console.WriteLine($"Evaluating \'{expression}\'");
                         IXPathResult result = document.Evaluate(expression);
@@ -80,7 +78,5 @@ namespace XPath
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 }

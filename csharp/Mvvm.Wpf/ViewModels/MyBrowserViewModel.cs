@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,8 +29,6 @@ namespace Mvvm.Wpf.ViewModels
 {
     public class MyBrowserViewModel : INotifyPropertyChanged
     {
-        #region Properties
-
         public IBrowser Browser { get; }
 
         public string Url
@@ -47,25 +45,13 @@ namespace Mvvm.Wpf.ViewModels
             }
         }
 
-        #endregion
-
-        #region Events
-
         public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
-
-        #region Constructors
 
         public MyBrowserViewModel(IBrowser browser)
         {
             Browser = browser;
             Browser.Navigation.FrameLoadFinished += NavigationOnFrameLoadFinished;
         }
-
-        #endregion
-
-        #region Methods
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -80,7 +66,5 @@ namespace Mvvm.Wpf.ViewModels
                 OnPropertyChanged(nameof(Url));
             }
         }
-
-        #endregion
     }
 }

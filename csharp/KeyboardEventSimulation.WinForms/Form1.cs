@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -38,10 +39,8 @@ namespace KeyboardEventSimulation.WinForms
     /// </summary>
     public partial class Form1 : Form
     {
-        private IEngine engine;
         private IBrowser browser;
-
-        #region Constructors
+        private IEngine engine;
 
         public Form1()
         {
@@ -74,9 +73,12 @@ namespace KeyboardEventSimulation.WinForms
                  }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        #endregion
-
-        #region Methods
+        private void Form1_Closing(object sender, CancelEventArgs e)
+        {
+            // Dispose browser and engine when close app window.
+            browser.Dispose();
+            engine.Dispose();
+        }
 
         private async void SimulateInput(Task<LoadResult> e)
         {
@@ -91,8 +93,8 @@ namespace KeyboardEventSimulation.WinForms
                 SimulateKey(keyboard, KeyCode.VkO, "o");
                 SimulateKey(keyboard, KeyCode.Space, " ");
                 //Simulate input of some non-letter characters
-                SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers() {ShiftDown = true});
-                SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers() {ShiftDown = true});
+                SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers {ShiftDown = true});
+                SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers {ShiftDown = true});
             }
         }
 
@@ -122,14 +124,5 @@ namespace KeyboardEventSimulation.WinForms
             keyboard.KeyTyped.Raise(keyPressEventArgs);
             keyboard.KeyReleased.Raise(keyUpEventArgs);
         }
-
-        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Dispose browser and engine when close app window.
-            browser.Dispose();
-            engine.Dispose();
-        }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -33,17 +33,11 @@ namespace Mvvm.Wpf.Views
     /// </summary>
     public partial class MyBrowserView : UserControl
     {
-        #region Constructors
-
         public MyBrowserView()
         {
             InitializeComponent();
             DataContextChanged += OnDataContextChanged;
         }
-
-        #endregion
-
-        #region Methods
 
         private void AddressBox_OnKeyDown(object sender, KeyEventArgs e)
         {
@@ -62,7 +56,5 @@ namespace Mvvm.Wpf.Views
                 BrowserView.InitializeFrom(viewModel.Browser);
             }
         }
-
-        #endregion
     }
 }

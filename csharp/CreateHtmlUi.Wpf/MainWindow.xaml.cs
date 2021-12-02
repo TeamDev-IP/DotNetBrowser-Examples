@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -34,17 +34,15 @@ using IInputElement = DotNetBrowser.Dom.IInputElement;
 
 namespace CreateHtmlUi.Wpf
 {
-    /// <summary>
+    ///<summary>
     ///    The sample demonstrates how to create a custom HTML UI using DotNetBrowser
     ///    and debug it using DevTools.
-    /// </summary>
+    ///</summary>
     public partial class MainWindow : Window
     {
         private IBrowser browser1;
         private IBrowser browser2;
         private IEngine engine;
-
-        #region Constructors
 
         public MainWindow()
         {
@@ -72,10 +70,6 @@ namespace CreateHtmlUi.Wpf
 
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Methods
 
         private void browser1_FrameLoadFinished(object sender, FrameLoadFinishedEventArgs e)
         {
@@ -120,7 +114,5 @@ namespace CreateHtmlUi.Wpf
                 }));
             });
         }
-
-        #endregion
     }
 }

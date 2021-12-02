@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -36,23 +36,13 @@ namespace ChromiumBinariesResolver.Wpf
     {
         private readonly HttpClient client;
 
-        #region Properties
-
         protected string RequestUri { get; }
-
-        #endregion
-
-        #region Events
 
         /// <summary>
         ///     Occurs when the status update messages are sent by the implementation.
         ///     These messages can be used to update the application UI and indicate the progress.
         /// </summary>
         public event EventHandler<BinariesResolverStatusEventArgs> StatusUpdated;
-
-        #endregion
-
-        #region Constructors
 
         protected BinariesResolverBase(string requestUri, AppDomain domain = null)
         {
@@ -65,10 +55,6 @@ namespace ChromiumBinariesResolver.Wpf
             client = new HttpClient();
             domain.AssemblyResolve += Resolve;
         }
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         ///     The AssemblyResolve event handler.
@@ -115,7 +101,5 @@ namespace ChromiumBinariesResolver.Wpf
 
             return null;
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -41,8 +41,6 @@ namespace AjaxResponseIntercept
     {
         private static readonly Dictionary<string, HttpRequest> AjaxRequests =
             new Dictionary<string, HttpRequest>();
-
-        #region Methods
 
         private static void Main(string[] args)
         {
@@ -134,7 +132,5 @@ namespace AjaxResponseIntercept
 
             return SendUrlRequestResponse.Continue();
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -45,8 +45,6 @@ namespace Dom.DragAndDrop.WinForms
         private IBrowser browser;
         private IEngine engine;
 
-        #region Constructors
-
         public Form1()
         {
             Task.Run(() =>
@@ -63,7 +61,10 @@ namespace Dom.DragAndDrop.WinForms
                  {
                      browserView1.InitializeFrom(browser);
                      browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
-                     browser.ConsoleMessageReceived += (sender, args) => { Debug.WriteLine(args.LineNumber+" > "+args.Message); };
+                     browser.ConsoleMessageReceived += (sender, args) =>
+                     {
+                         Debug.WriteLine(args.LineNumber + " > " + args.Message);
+                     };
                      byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
@@ -94,10 +95,6 @@ namespace Dom.DragAndDrop.WinForms
             InitializeComponent();
             FormClosing += Form1_FormClosing;
         }
-
-        #endregion
-
-        #region Methods
 
         public void Drop(IJsObject data)
         {
@@ -156,14 +153,11 @@ namespace Dom.DragAndDrop.WinForms
         {
             IJsObject window = p.Frame.ExecuteJavaScript<IJsObject>("window").Result;
             window.Properties["external"] = this;
-
         }
 
         private void WriteLine(string line)
         {
             BeginInvoke((Action) (() => textBox1.AppendText(line + Environment.NewLine)));
         }
-
-        #endregion
     }
 }

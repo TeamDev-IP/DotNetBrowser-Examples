@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -37,14 +37,12 @@ namespace Profiles.WinForms
     {
         private readonly IEngine engine;
 
-        #region Constructors
-
         public Form1()
         {
             engine = EngineFactory
                .Create(new EngineOptions.Builder
                            {
-                               RenderingMode = RenderingMode.HardwareAccelerated,
+                               RenderingMode = RenderingMode.HardwareAccelerated
                            }
                           .Build());
 
@@ -53,10 +51,6 @@ namespace Profiles.WinForms
             profilesList.DataSource = engine.Profiles.ToArray();
             profilesList.DisplayMember = "Name";
         }
-
-        #endregion
-
-        #region Methods
 
         private void createProfileButton_Click(object sender, EventArgs e)
         {
@@ -108,7 +102,5 @@ namespace Profiles.WinForms
                 }
             }
         }
-
-        #endregion
     }
 }

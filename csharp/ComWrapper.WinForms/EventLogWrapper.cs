@@ -34,8 +34,6 @@ namespace ComWrapper.WinForms
 
         private const string LogName = "Application";
 
-        #region Methods
-
         public static void Log(string message, EventLogEntryType level, int eventId)
         {
             if (!EventLog.SourceExists(Source))
@@ -45,7 +43,5 @@ namespace ComWrapper.WinForms
 
             EventLog.WriteEntry(Source, message, level, eventId);
         }
-
-        #endregion
     }
 }

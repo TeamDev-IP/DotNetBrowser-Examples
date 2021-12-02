@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -40,8 +40,6 @@ namespace Inspect.WinForms
         private readonly IBrowser browser;
         private readonly IEngine engine;
 
-        #region Constructors
-
         public Form1()
         {
             engine = EngineFactory
@@ -56,10 +54,6 @@ namespace Inspect.WinForms
             browserView1.InitializeFrom(browser);
             browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser");
         }
-
-        #endregion
-
-        #region Methods
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -79,7 +73,5 @@ namespace Inspect.WinForms
             BeginInvoke((Action) (() => GetNodeAtPoint(arg.Location)));
             return InputEventResponse.Proceed;
         }
-
-        #endregion
     }
 }

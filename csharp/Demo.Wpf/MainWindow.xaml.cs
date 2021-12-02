@@ -31,22 +31,14 @@ namespace Demo.Wpf
     /// </summary>
     public partial class MainWindow
     {
-        #region Constructors
-
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
         private void MainWindow_OnClosed(object sender, EventArgs e)
         {
             Tabs.DisposeEngine();
         }
-
-        #endregion
     }
 }

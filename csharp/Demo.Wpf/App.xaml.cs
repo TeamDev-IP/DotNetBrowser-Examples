@@ -34,8 +34,6 @@ namespace Demo.Wpf
     {
         private static readonly TraceSource Log = new TraceSource("Demo.Wpf");
 
-        #region Methods
-
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             e.Handled = true;
@@ -48,7 +46,5 @@ namespace Demo.Wpf
             Current.DispatcherUnhandledException += AppDispatcherUnhandledException;
             Log.TraceEvent(TraceEventType.Information, 1, $"{DateTime.Now} : Started the application");
         }
-
-        #endregion
     }
 }

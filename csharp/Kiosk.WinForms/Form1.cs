@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -34,17 +34,11 @@ namespace Kiosk.WinForms
     /// </summary>
     public partial class Form1 : Form
     {
-        #region Properties
-
         private IBrowser Browser { get; }
         private BrowserView BrowserView { get; }
 
 
         private IEngine Engine { get; }
-
-        #endregion
-
-        #region Constructors
 
         public Form1()
         {
@@ -64,10 +58,6 @@ namespace Kiosk.WinForms
             Browser.Navigation.LoadUrl("https://www.teamdev.com");
         }
 
-        #endregion
-
-        #region Methods
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Browser?.Dispose();
@@ -80,7 +70,5 @@ namespace Kiosk.WinForms
             FormBorderStyle = FormBorderStyle.None;
             WindowState = FormWindowState.Maximized;
         }
-
-        #endregion
     }
 }

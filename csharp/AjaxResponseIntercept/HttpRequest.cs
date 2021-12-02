@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,20 +28,12 @@ namespace AjaxResponseIntercept
 {
     internal sealed class HttpRequest
     {
-        private bool completed;
         private readonly List<byte> responseData = new List<byte>();
-
-        #region Properties
-
-        /// <summary>
-        /// Aggregated response data.
-        /// </summary>
-        public IReadOnlyList<byte> ResponseData => responseData;
 
         /// <summary>
         ///     Indicates whether the request is already completed.
         /// </summary>
-        public bool IsCompleted => completed;
+        public bool IsCompleted { get; private set; }
 
         /// <summary>
         ///     The HTTP method used to perform this request.
@@ -59,31 +51,22 @@ namespace AjaxResponseIntercept
         /// </summary>
         public string Response => Encoding.UTF8.GetString(responseData.ToArray());
 
+
+        /// <summary>
+        ///     Aggregated response data.
+        /// </summary>
+        public IReadOnlyList<byte> ResponseData => responseData;
+
         /// <summary>
         ///     The request URL.
         /// </summary>
         public string Url { get; }
 
-        #endregion
-
-        #region Constructors
 
         public HttpRequest(string requestUrl, string requestMethod)
         {
             Url = requestUrl;
             Method = requestMethod;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     Mark the request as completed.
-        /// </summary>
-        public void Complete()
-        {
-            completed = true;
         }
 
         /// <summary>
@@ -95,6 +78,12 @@ namespace AjaxResponseIntercept
             responseData.AddRange(data);
         }
 
-        #endregion
+        /// <summary>
+        ///     Mark the request as completed.
+        /// </summary>
+        public void Complete()
+        {
+            IsCompleted = true;
+        }
     }
 }

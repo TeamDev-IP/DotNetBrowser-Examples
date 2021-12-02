@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -43,8 +43,6 @@ namespace DragAndDrop.Wpf
         private readonly IBrowser browser;
         private readonly IEngine engine;
 
-        #region Constructors
-
         public MainWindow()
         {
             engine = EngineFactory
@@ -65,10 +63,6 @@ namespace DragAndDrop.Wpf
             browserView.InitializeFrom(browser);
             browser.Navigation.LoadUrl("teamdev.com");
         }
-
-        #endregion
-
-        #region Methods
 
         private void ExtractData(string name, IDataObject dataObject)
         {
@@ -153,7 +147,5 @@ namespace DragAndDrop.Wpf
                 ExtractData(nameof(OnDrop), new DataObject(dataObject));
             }
         }
-
-        #endregion
     }
 }

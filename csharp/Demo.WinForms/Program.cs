@@ -31,8 +31,6 @@ namespace DotNetBrowser.WinForms.Demo
     {
         private static readonly TraceSource Log = new TraceSource("DotNetBrowser.Demo.WinForms");
 
-        #region Methods
-
         private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             Exception ex = e.Exception;
@@ -65,7 +63,5 @@ namespace DotNetBrowser.WinForms.Demo
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
-
-        #endregion
     }
 }

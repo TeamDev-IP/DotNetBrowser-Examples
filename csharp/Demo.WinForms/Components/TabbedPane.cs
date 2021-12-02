@@ -33,8 +33,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
     {
         private readonly List<Tab> tabs = new List<Tab>();
         private Tab selectedTab;
-
-        #region Properties
+        
 
         public RenderingMode RenderingMode { get; set; }
         internal IEngine Engine { get; set; }
@@ -54,19 +53,11 @@ namespace DotNetBrowser.WinForms.Demo.Components
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         public TabbedPane()
         {
             InitializeComponent();
             AddTab(new Tab());
         }
-
-        #endregion
-
-        #region Methods
 
         internal void AddTab(Tab tab)
         {
@@ -167,7 +158,5 @@ namespace DotNetBrowser.WinForms.Demo.Components
                 tab?.SetLabelWidth(width);
             }
         }
-
-        #endregion
     }
 }

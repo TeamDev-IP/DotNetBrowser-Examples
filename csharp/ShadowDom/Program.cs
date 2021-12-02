@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -35,8 +35,6 @@ namespace ShadowDom
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         private static void Main(string[] args)
         {
             try
@@ -58,9 +56,9 @@ namespace ShadowDom
 
                         //Create shadow root.
                         INode shadowRoot = container?.Invoke<INode>("attachShadow",
-                                                                   browser
-                                                                      .MainFrame
-                                                                      .ParseJsonString("{\"mode\": \"open\"}"));
+                                                                    browser
+                                                                       .MainFrame
+                                                                       .ParseJsonString("{\"mode\": \"open\"}"));
                         Console.WriteLine("Shadow root created: " + (shadowRoot != null));
 
                         //Fetch shadow root.
@@ -91,7 +89,5 @@ namespace ShadowDom
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 }

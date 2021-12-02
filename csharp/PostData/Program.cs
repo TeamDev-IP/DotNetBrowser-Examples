@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation;
@@ -36,8 +37,6 @@ namespace PostData
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -46,7 +45,7 @@ namespace PostData
                 {
                     Console.WriteLine("Engine created");
 
-                    using (DotNetBrowser.Browser.IBrowser browser = engine.CreateBrowser())
+                    using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
                         engine.Profiles.Default.Network.SendUploadDataHandler =
@@ -87,18 +86,15 @@ namespace PostData
                     Console.WriteLine($"Text data intercepted: {textData.Data}");
                     return SendUploadDataResponse
                        .Override(new FormData(new ReadOnlyCollection<KeyValuePair<string, string>>
-                                                  (new List<KeyValuePair<string, string>> 
+                                                  (new List<KeyValuePair<string, string>>
                                                   {
                                                       new KeyValuePair<string, string>("fname", "MyName"),
                                                       new KeyValuePair<string, string>("lname", "MyLastName")
-
                                                   })));
                 }
             }
 
             return SendUploadDataResponse.Continue();
         }
-
-        #endregion
     }
 }
