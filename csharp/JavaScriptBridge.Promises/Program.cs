@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -36,8 +36,6 @@ namespace JavaScriptBridge.Promises
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -109,11 +107,11 @@ namespace JavaScriptBridge.Promises
             Console.WriteLine("\nCreate another promise that is fulfilled...");
             JsPromise promise3 = window.Invoke<IJsObject>("CreatePromise", true).AsPromise();
             JsPromise.Result result = await promise3.Then(o =>
-                                                {
-                                                    Console.WriteLine("Callback:Success: " + o);
-                                                    return o;
-                                                })
-                                               .ResolveAsync();
+                                                     {
+                                                         Console.WriteLine("Callback:Success: " + o);
+                                                         return o;
+                                                     })
+                                                    .ResolveAsync();
             Console.WriteLine("Result state:" + result?.State);
             Console.WriteLine("Result type:" + (result?.Data?.GetType().ToString() ?? "null"));
 
@@ -125,7 +123,5 @@ namespace JavaScriptBridge.Promises
             Console.WriteLine("Result state:" + result?.State);
             Console.WriteLine("Result type:" + (result?.Data?.GetType().ToString() ?? "null"));
         }
-
-        #endregion
     }
 }

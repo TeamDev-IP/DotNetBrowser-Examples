@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -34,8 +34,6 @@ namespace Zoom
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -47,11 +45,12 @@ namespace Zoom
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         Console.WriteLine("Browser created");
-                        engine.Profiles.Default.ZoomLevels.LevelChanged += delegate(object sender, LevelChangedEventArgs e)
-                        {
-                            Console.Out.WriteLine("e.Host = " + e.Host);
-                            Console.Out.WriteLine("e.ZoomLevel = " + e.Level.Value);
-                        };
+                        engine.Profiles.Default.ZoomLevels.LevelChanged +=
+                            delegate(object sender, LevelChangedEventArgs e)
+                            {
+                                Console.Out.WriteLine("e.Host = " + e.Host);
+                                Console.Out.WriteLine("e.ZoomLevel = " + e.Level.Value);
+                            };
 
                         browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
                         Console.WriteLine("Updating zoom level");
@@ -68,7 +67,5 @@ namespace Zoom
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -41,8 +41,6 @@ namespace ObservePageChanges.WinForms
         private readonly BrowserView browserView;
         private readonly IEngine engine;
 
-        #region Constructors
-
         public Form1()
         {
             InitializeComponent();
@@ -65,10 +63,6 @@ namespace ObservePageChanges.WinForms
                 ConfigureObserver();
             });
         }
-
-        #endregion
-
-        #region Methods
 
         public void CharacterDataChanged(string innerText)
         {
@@ -102,7 +96,5 @@ namespace ObservePageChanges.WinForms
             browser?.Dispose();
             engine?.Dispose();
         }
-
-        #endregion
     }
 }

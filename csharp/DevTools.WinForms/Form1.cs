@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -37,8 +37,6 @@ namespace DevTools.WinForms
         private IBrowser browser2;
         private IEngine engine;
 
-        #region Constructors
-
         public Form1()
         {
             Task.Run(() =>
@@ -64,15 +62,9 @@ namespace DevTools.WinForms
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             engine?.Dispose();
         }
-
-        #endregion
     }
 }

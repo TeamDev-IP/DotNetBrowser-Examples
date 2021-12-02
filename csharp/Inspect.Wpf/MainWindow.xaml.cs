@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -40,8 +40,6 @@ namespace Inspect.Wpf
         private readonly IBrowser browser;
         private readonly IEngine engine;
 
-        #region Constructors
-
         public MainWindow()
         {
             engine = EngineFactory
@@ -57,14 +55,10 @@ namespace Inspect.Wpf
             browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser");
         }
 
-        #endregion
-
-        #region Methods
-
         private void GetNodeAtPoint(Point location)
         {
             double scale = PresentationSource.FromVisual(this)?.CompositionTarget?.TransformToDevice.M11 ?? 1;
-            location = new Point((int)Math.Round(location.X * scale), (int)Math.Round(location.Y * scale));
+            location = new Point((int) Math.Round(location.X * scale), (int) Math.Round(location.Y * scale));
             PointInspection inspection = browser.MainFrame.Inspect(location);
             INode inspectionNode = inspection.UrlNode ?? inspection.Node;
             statusLabel1.Content = inspectionNode?.XPath ?? string.Empty;
@@ -81,7 +75,5 @@ namespace Inspect.Wpf
             Dispatcher.BeginInvoke((Action) (() => GetNodeAtPoint(arg.Location)));
             return InputEventResponse.Proceed;
         }
-
-        #endregion
     }
 }

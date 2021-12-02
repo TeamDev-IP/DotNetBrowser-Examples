@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -64,8 +64,6 @@ namespace WebSockets.InterceptData
 
         private static readonly WebSocketCallback webSocketCallback = new WebSocketCallback();
 
-        #region Methods
-
         private static void Main(string[] args)
         {
             try
@@ -115,12 +113,8 @@ namespace WebSockets.InterceptData
             parameters.Frame.ExecuteJavaScript(JavaScript);
         }
 
-        #endregion
-
         public class WebSocketCallback
         {
-            #region Methods
-
             public void OnClose(IJsObject closeEvent)
             {
                 Console.WriteLine("WebSocketCallback.OnClose");
@@ -140,8 +134,6 @@ namespace WebSockets.InterceptData
             {
                 Console.WriteLine("WebSocketCallback.OnSend: " + data);
             }
-
-            #endregion
         }
     }
 }

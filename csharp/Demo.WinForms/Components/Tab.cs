@@ -31,8 +31,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private readonly Color defaultBackground;
         private bool selected;
 
-        #region Properties
-
         public TabContents Contents { get; }
 
         public bool IsSelected
@@ -46,16 +44,8 @@ namespace DotNetBrowser.WinForms.Demo.Components
             }
         }
 
-        #endregion
-
-        #region Events
-
         public event EventHandler Selected;
         public event EventHandler Closed;
-
-        #endregion
-
-        #region Constructors
 
         public Tab()
         {
@@ -65,10 +55,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
             Contents = new TabContents {Dock = DockStyle.Fill};
             Contents.TitleChanged += BrowserTab_TitleChanged;
         }
-
-        #endregion
-
-        #region Methods
 
         public void SetLabelWidth(int width)
         {
@@ -110,7 +96,5 @@ namespace DotNetBrowser.WinForms.Demo.Components
                 Selected?.Invoke(this, EventArgs.Empty);
             }
         }
-
-        #endregion
     }
 }

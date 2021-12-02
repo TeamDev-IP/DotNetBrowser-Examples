@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -36,8 +36,6 @@ namespace FindText.Wpf
         private IBrowser browser;
         private IEngine engine;
 
-        #region Constructors
-
         public MainWindow()
         {
             Task.Run(() =>
@@ -57,10 +55,6 @@ namespace FindText.Wpf
 
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Methods
 
         private void clearButton_Click(object sender, RoutedEventArgs e)
         {
@@ -88,7 +82,5 @@ namespace FindText.Wpf
             browser.Dispose();
             engine.Dispose();
         }
-
-        #endregion
     }
 }

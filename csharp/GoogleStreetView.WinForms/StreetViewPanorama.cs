@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -35,7 +35,6 @@ namespace GoogleStreetView.WinForms
         private LatLng position;
         private Pov pov;
 
-        #region Properties
 
         /// <summary>
         ///     Gets the current panorama ID for the Street View panorama.
@@ -80,17 +79,11 @@ namespace GoogleStreetView.WinForms
             }
         }
 
-        #endregion
-
-        #region Events
 
         public event EventHandler PanoChanged;
         public event EventHandler PovChanged;
         public event EventHandler PositionChanged;
 
-        #endregion
-
-        #region Constructors
 
         public StreetViewPanorama(IJsObject jsPanorama)
         {
@@ -100,9 +93,6 @@ namespace GoogleStreetView.WinForms
             AddListener("position_changed", OnPositionChanged);
         }
 
-        #endregion
-
-        #region Methods
 
         private void AddListener(string eventName, Action handler)
         {
@@ -130,7 +120,5 @@ namespace GoogleStreetView.WinForms
             pov = new Pov(jsPov.Properties["heading"], jsPov.Properties["pitch"]);
             PovChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        #endregion
     }
 }

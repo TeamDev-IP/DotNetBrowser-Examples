@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -37,8 +37,6 @@ namespace FindText
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             try
@@ -51,7 +49,8 @@ namespace FindText
                     {
                         Console.WriteLine("Browser created");
                         browser.Size = new Size(700, 500);
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><p>Find me</p><p>Find me</p></body></html>");
+                        byte[] htmlBytes =
+                            Encoding.UTF8.GetBytes("<html><body><p>Find me</p><p>Find me</p></body></html>");
                         browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
 
                         Thread.Sleep(2000);
@@ -101,7 +100,5 @@ namespace FindText
                                       + result.NumberOfMatches);
             }
         }
-
-        #endregion
     }
 }

@@ -30,8 +30,8 @@ namespace SeleniumChromeDriver
 {
     public class SeleniumInstance
     {
-        private string RemoteDebuggingAddress { get; }
         private string ApplicationFullPath { get; }
+        private string RemoteDebuggingAddress { get; }
 
         public event Action Connected;
 
@@ -56,11 +56,14 @@ namespace SeleniumChromeDriver
             });
         }
 
+        protected virtual void OnConnected()
+            => Connected?.Invoke();
+
         private async Task<IWebDriver> Connect()
         {
             return await Task.Run(() =>
             {
-                ChromeOptions options = new ChromeOptions()
+                ChromeOptions options = new ChromeOptions
                 {
                     BinaryLocation = ApplicationFullPath,
                     DebuggerAddress = RemoteDebuggingAddress
@@ -91,8 +94,5 @@ namespace SeleniumChromeDriver
                 emailTextbox.SendKeys("sales@teamdev.com");
             });
         }
-
-        protected virtual void OnConnected()
-            => Connected?.Invoke();
     }
 }

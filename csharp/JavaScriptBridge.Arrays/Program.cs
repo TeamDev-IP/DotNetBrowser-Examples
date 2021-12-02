@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -35,8 +35,6 @@ namespace JavaScriptBridge.Arrays
     {
         private const string JsArray = "['Cabbage', 'Turnip', 'Radish', 'Carrot']";
 
-        #region Methods
-
         private static void Main(string[] args)
         {
             try
@@ -49,8 +47,8 @@ namespace JavaScriptBridge.Arrays
                     {
                         Console.WriteLine("Browser created");
                         IJsObject arrayObject = browser.MainFrame
-                                               .ExecuteJavaScript<IJsObject>(JsArray)
-                                               .Result;
+                                                       .ExecuteJavaScript<IJsObject>(JsArray)
+                                                       .Result;
 
                         JsArray array = arrayObject.AsArray();
                         if (array != null)
@@ -72,7 +70,5 @@ namespace JavaScriptBridge.Arrays
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -33,16 +33,13 @@ namespace MailToHandling.WinForms
     /// <summary>
     ///     This example demonstrates how to open an external application
     ///     for handling a specific URI scheme, e.g. "mailto".
-    /// 
-    ///     Please note that an email client should be present in the operating system 
+    ///     Please note that an email client should be present in the operating system
     ///     for this example to work properly.
     /// </summary>
     public partial class Form1 : Form
     {
         private IBrowser browser;
         private IEngine engine;
-
-        #region Constructors
 
         public Form1()
         {
@@ -65,10 +62,6 @@ namespace MailToHandling.WinForms
                  }, TaskScheduler.FromCurrentSynchronizationContext());
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Methods
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -95,7 +88,5 @@ namespace MailToHandling.WinForms
 
             return StartNavigationResponse.Start();
         }
-
-        #endregion
     }
 }

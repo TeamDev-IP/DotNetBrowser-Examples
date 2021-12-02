@@ -39,8 +39,6 @@ namespace Demo.Wpf
     {
         private IBrowser browser;
 
-        #region Properties
-
         public IBrowser Browser
         {
             get => browser;
@@ -59,24 +57,12 @@ namespace Demo.Wpf
             }
         }
 
-        #endregion
-
-        #region Events
-
         public event EventHandler Closed;
-
-        #endregion
-
-        #region Constructors
 
         public BrowserTab()
         {
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Methods
 
         public void CloseTab(bool raiseClosedEvent)
         {
@@ -266,7 +252,5 @@ namespace Demo.Wpf
                 ForwardButton.IsEnabled = Browser.Navigation.CanGoForward();
             }
         }
-
-        #endregion
     }
 }

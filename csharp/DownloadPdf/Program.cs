@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -35,8 +35,6 @@ namespace DownloadPdf
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         public static void Main()
         {
             string url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
@@ -97,7 +95,5 @@ namespace DownloadPdf
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 }

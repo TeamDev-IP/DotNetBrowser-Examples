@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,15 +32,10 @@ namespace ChromiumBinariesResolver.Wpf
         private const string UriTemplate =
             "https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/{0}/dotnetbrowser-net45-{0}.zip";
 
-        #region Constructors
 
         public BinariesResolver() : base(UriTemplate)
         {
         }
-
-        #endregion
-
-        #region Methods
 
         protected override string PrepareRequest(AssemblyName assemblyName)
         {
@@ -55,8 +50,8 @@ namespace ChromiumBinariesResolver.Wpf
             ZipArchive archive = new ZipArchive(responseBody);
             ZipArchiveEntry binariesDllEntry = archive.Entries
                                                       .FirstOrDefault(entry => entry.FullName.EndsWith(".dll")
-                                                                             && entry.FullName.Contains(assemblyName
-                                                                                                           .Name));
+                                                                               && entry.FullName.Contains(assemblyName
+                                                                                                             .Name));
             if (binariesDllEntry == null)
             {
                 return null;
@@ -77,7 +72,5 @@ namespace ChromiumBinariesResolver.Wpf
                 }
             }
         }
-
-        #endregion
     }
 }

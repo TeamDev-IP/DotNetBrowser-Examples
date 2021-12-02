@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -44,8 +44,6 @@ namespace GoogleStreetView.WinForms
         private readonly IEngine engine;
         private StreetViewPanorama panorama;
 
-        #region Constructors
-
         public Form1()
         {
             engine = EngineFactory
@@ -60,10 +58,6 @@ namespace GoogleStreetView.WinForms
             browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
             browser.Navigation.LoadUrl(new Uri(Path.GetFullPath("streetviewevents.htm")).AbsoluteUri);
         }
-
-        #endregion
-
-        #region Methods
 
         //JS-.NET callback
         public void OnPanoramaInitialized(IJsObject jsPanorama)
@@ -140,7 +134,5 @@ namespace GoogleStreetView.WinForms
                                          povPitchValue.Text = pov.Pitch;
                                      }));
         }
-
-        #endregion
     }
 }

@@ -39,8 +39,6 @@ namespace Demo.Wpf
         private const string Prefix = "Resources\\popups\\";
         private static readonly TraceSource Log = new TraceSource("DotNetBrowser.Demo.Wpf");
 
-        #region Methods
-
         public InterceptRequestResponse Handle(InterceptRequestParameters parameters)
         {
             string url = parameters.UrlRequest.Url;
@@ -136,7 +134,5 @@ namespace Demo.Wpf
                 return ms.ToArray();
             }
         }
-
-        #endregion
     }
 }

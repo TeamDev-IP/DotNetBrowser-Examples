@@ -45,8 +45,6 @@ namespace Demo.Wpf
         private IEngine engine;
         private RenderingMode renderingMode;
 
-        #region Constructors
-
         public BrowserTabs()
         {
             InitializeComponent();
@@ -57,10 +55,6 @@ namespace Demo.Wpf
                 tab.RenderingModeStatus.Text = $"Mode: {renderingMode}";
             }
         }
-
-        #endregion
-
-        #region Methods
 
         public void DisposeEngine()
         {
@@ -169,7 +163,5 @@ namespace Demo.Wpf
 
             Application.Current.Dispatcher.BeginInvoke((Action) UpdateTabsWidthsAction);
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -29,35 +29,21 @@ namespace JavaScriptBridge.Arrays
 {
     public static class JsObjectExtensions
     {
-        #region Methods
-
         public static JsArray AsArray(this IJsObject jsObject) => JsArray.AsArray(jsObject);
-
-        #endregion
     }
 
     public class JsArray : IReadOnlyList<object>
     {
         private readonly IJsObject jsObject;
 
-        #region Properties
-
         public int Count => Convert.ToInt32((double) jsObject.Properties["length"]);
 
         public object this[int index] => jsObject.Properties[(uint) index];
-
-        #endregion
-
-        #region Constructors
 
         private JsArray(IJsObject jsObject)
         {
             this.jsObject = jsObject;
         }
-
-        #endregion
-
-        #region Methods
 
         public IEnumerator<object> GetEnumerator() => new JsArrayEnumerator(this);
 
@@ -76,15 +62,15 @@ namespace JavaScriptBridge.Arrays
             return isArrayFunction.Invoke<bool>(null, jsObject);
         }
 
-        #endregion
-
         private class JsArrayEnumerator : IEnumerator<object>
         {
-            private readonly JsArray jsArray;
             private readonly int count;
+            private readonly JsArray jsArray;
             private int index;
 
-            #region Constructors
+            public object Current => jsArray[index];
+
+            object IEnumerator.Current => Current;
 
             public JsArrayEnumerator(JsArray jsArray)
             {
@@ -93,11 +79,8 @@ namespace JavaScriptBridge.Arrays
                 index = -1;
             }
 
-            #endregion
-
             public void Dispose()
             {
-                
             }
 
             public bool MoveNext()
@@ -109,17 +92,12 @@ namespace JavaScriptBridge.Arrays
 
                 index++;
                 return true;
-
             }
 
             public void Reset()
             {
                 index = -1;
             }
-
-            public object Current => jsArray[index];
-
-            object IEnumerator.Current => Current;
         }
     }
 }

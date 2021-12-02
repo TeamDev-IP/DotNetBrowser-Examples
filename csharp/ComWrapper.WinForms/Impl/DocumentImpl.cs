@@ -28,19 +28,11 @@ namespace ComWrapper.WinForms.Impl
     {
         private readonly IDocument document;
 
-        #region Properties
-
         public IComElement DocumentElement => new ElementImpl(document.DocumentElement);
-
-        #endregion
-
-        #region Constructors
 
         public DocumentImpl(IDocument document)
         {
             this.document = document;
         }
-
-        #endregion
     }
 }

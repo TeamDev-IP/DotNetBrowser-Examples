@@ -33,8 +33,6 @@ namespace ComWrapper.WinForms.Impl
         private IEngine engine;
         private bool initialized;
 
-        #region Methods
-
         public IComBrowser CreateBrowser() => new BrowserImpl(engine.CreateBrowser());
 
         public void Dispose()
@@ -58,7 +56,5 @@ namespace ComWrapper.WinForms.Impl
                 initialized = true;
             }
         }
-
-        #endregion
     }
 }

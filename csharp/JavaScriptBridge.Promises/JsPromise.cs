@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -28,11 +28,7 @@ namespace JavaScriptBridge.Promises
 {
     public static class JsObjectExtensions
     {
-        #region Methods
-
         public static JsPromise AsPromise(this IJsObject jsObject) => JsPromise.AsPromise(jsObject);
-
-        #endregion
     }
 
     /// <summary>
@@ -42,16 +38,10 @@ namespace JavaScriptBridge.Promises
     {
         private readonly IJsObject jsObject;
 
-        #region Constructors
-
         private JsPromise(IJsObject jsObject)
         {
             this.jsObject = jsObject;
         }
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         ///     Creates a JavaScript promise representation of the IJsObject instance.
@@ -129,8 +119,6 @@ namespace JavaScriptBridge.Promises
 
         private Result Rejected(object o) => new Result(ResultState.Rejected, o);
 
-        #endregion
-
         /// <summary>
         ///     The Promise result state.
         /// </summary>
@@ -149,8 +137,6 @@ namespace JavaScriptBridge.Promises
 
         public class Result
         {
-            #region Properties
-
             /// <summary>
             ///     The object passed to the fulfillment or rejection handler.
             /// </summary>
@@ -161,17 +147,11 @@ namespace JavaScriptBridge.Promises
             /// </summary>
             public ResultState State { get; }
 
-            #endregion
-
-            #region Constructors
-
             internal Result(ResultState state, object data)
             {
                 State = state;
                 Data = data;
             }
-
-            #endregion
         }
     }
 }

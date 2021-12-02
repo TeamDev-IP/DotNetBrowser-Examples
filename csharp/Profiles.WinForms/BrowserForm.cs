@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,8 +32,6 @@ namespace Profiles.WinForms
         private readonly BrowserView browserView;
         private IBrowser browser;
 
-        #region Properties
-
         public IBrowser Browser
         {
             get { return browser; }
@@ -48,20 +46,12 @@ namespace Profiles.WinForms
             }
         }
 
-        #endregion
-
-        #region Constructors
-
         public BrowserForm()
         {
             browserView = new BrowserView {Dock = DockStyle.Fill};
             InitializeComponent();
             Controls.Add(browserView);
         }
-
-        #endregion
-
-        #region Methods
 
         private void AddressBar_KeyDown(object sender, KeyEventArgs e)
         {
@@ -92,7 +82,5 @@ namespace Profiles.WinForms
                 Text = Browser.Title;
             }
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -40,8 +40,6 @@ namespace WPF.SaveWebPage
         private IBrowser browser;
         private IEngine engine;
 
-        #region Constructors
-
         public MainWindow()
         {
             Task.Run(() =>
@@ -70,10 +68,6 @@ namespace WPF.SaveWebPage
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
         private void SaveWebPage(Task<LoadResult> obj)
         {
             string filePath = Path.GetFullPath("SavedPages\\index.html");
@@ -88,7 +82,5 @@ namespace WPF.SaveWebPage
             browser.Dispose();
             engine.Dispose();
         }
-
-        #endregion
     }
 }

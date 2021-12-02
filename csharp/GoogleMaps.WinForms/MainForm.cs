@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -40,8 +40,6 @@ namespace GoogleMaps.WinForms
 
         private int currentZoomLevel = 4; //The default value for Google Maps zoom
 
-        #region Properties
-
         private IBrowser Browser { get; }
         private BrowserView BrowserView { get; }
 
@@ -66,10 +64,6 @@ namespace GoogleMaps.WinForms
 
         private string PathToMapFile => Path.GetFullPath("map.html");
 
-        #endregion
-
-        #region Constructors
-
         public MainForm()
         {
             InitializeComponent();
@@ -86,10 +80,6 @@ namespace GoogleMaps.WinForms
             Closed += MainForm_Closed;
         }
 
-        #endregion
-
-        #region Methods
-
         private void MainForm_Closed(object sender, EventArgs e)
         {
             Browser.Dispose();
@@ -105,7 +95,5 @@ namespace GoogleMaps.WinForms
         {
             CurrentZoomLevel--;
         }
-
-        #endregion
     }
 }

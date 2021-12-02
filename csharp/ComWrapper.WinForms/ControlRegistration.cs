@@ -76,8 +76,6 @@ namespace ComWrapper.WinForms
         /// </summary>
         private static readonly string Bitness = Environment.Is64BitProcess ? "64-bit" : "32-bit";
 
-        #region Methods
-
         public static void RegisterControl(Type t, int iconResourceIndex = 101)
         {
             try
@@ -182,7 +180,5 @@ namespace ComWrapper.WinForms
                 EventLogWrapper.Log($"Control was not unregistered: {t.FullName}\n{ex}", EventLogEntryType.Error, 500);
             }
         }
-
-        #endregion
     }
 }

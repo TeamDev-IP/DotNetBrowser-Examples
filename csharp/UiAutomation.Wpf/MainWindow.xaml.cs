@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -39,8 +39,6 @@ namespace UiAutomation.Wpf
         private IBrowser browser;
         private IEngine engine;
 
-        #region Constructors
-
         public MainWindow()
         {
             try
@@ -67,10 +65,6 @@ namespace UiAutomation.Wpf
                 Debug.WriteLine(exception);
             }
         }
-
-        #endregion
-
-        #region Methods
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -141,7 +135,7 @@ namespace UiAutomation.Wpf
                                                            "Chrome_RenderWidgetHostHWND"),
                                      new PropertyCondition(AutomationElement.ControlTypeProperty,
                                                            ControlType.Document)
-                                     );
+                                    );
                 element = rootElement
                    .FindFirst(TreeScope.Descendants, conditions);
             }
@@ -158,7 +152,5 @@ namespace UiAutomation.Wpf
         {
             engine?.Dispose();
         }
-
-        #endregion
     }
 }

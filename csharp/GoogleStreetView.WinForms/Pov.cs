@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -24,14 +24,8 @@ namespace GoogleStreetView.WinForms
 {
     internal class Pov
     {
-        #region Properties
-
         public string Heading { get; }
         public string Pitch { get; }
-
-        #endregion
-
-        #region Constructors
 
         public Pov(object heading, object pitch)
         {
@@ -39,12 +33,6 @@ namespace GoogleStreetView.WinForms
             Pitch = pitch.ToString();
         }
 
-        #endregion
-
-        #region Methods
-
         public override string ToString() => $"{nameof(Heading)}: {Heading}, {nameof(Pitch)}: {Pitch}";
-
-        #endregion
     }
 }

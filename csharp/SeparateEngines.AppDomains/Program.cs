@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -34,8 +34,6 @@ namespace SeparateEngines.AppDomains
     /// </summary>
     internal class Program
     {
-        #region Methods
-
         private static void Main(string[] args)
         {
             // Create two separate application domains.
@@ -84,8 +82,6 @@ namespace SeparateEngines.AppDomains
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
-
-        #endregion
     }
 
     /// <summary>
@@ -94,23 +90,13 @@ namespace SeparateEngines.AppDomains
     /// </summary>
     internal class EngineWrapper : MarshalByRefObject, IDisposable
     {
-        #region Properties
-
         private IEngine Engine { get; }
-
-        #endregion
-
-        #region Constructors
 
         public EngineWrapper()
         {
             //Perform complex engine initialization here if necessary.
             Engine = EngineFactory.Create();
         }
-
-        #endregion
-
-        #region Methods
 
         public void Dispose()
         {
@@ -149,7 +135,5 @@ namespace SeparateEngines.AppDomains
 
             return result;
         }
-
-        #endregion
     }
 }

@@ -42,14 +42,8 @@ namespace DotNetBrowser.WinForms.Demo
     /// </summary>
     public partial class MainForm : Form
     {
-        #region Properties
-
         private IEngine Engine { get; }
         private RenderingMode RenderingMode { get; set; }
-
-        #endregion
-
-        #region Constructors
 
         public MainForm()
         {
@@ -72,10 +66,6 @@ namespace DotNetBrowser.WinForms.Demo
                               },
                               TaskScheduler.FromCurrentSynchronizationContext());
         }
-
-        #endregion
-
-        #region Methods
 
         private IEngine CreateEngine()
         {
@@ -132,7 +122,5 @@ namespace DotNetBrowser.WinForms.Demo
         {
             Engine?.Dispose();
         }
-
-        #endregion
     }
 }

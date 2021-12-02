@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright 2021, TeamDev. All rights reserved.
+// Copyright © 2021, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -46,7 +46,6 @@ namespace ContextMenu.WinForms
         private IBrowser browser;
         private IEngine engine;
 
-        #region Constructors
 
         public Form1()
         {
@@ -64,7 +63,8 @@ namespace ContextMenu.WinForms
                                     }
                                    .Build());
                      browser = engine.CreateBrowser();
-                 }).ContinueWith(t =>
+                 })
+                .ContinueWith(t =>
                  {
                      webView.InitializeFrom(browser);
                      browser.ShowContextMenuHandler =
@@ -85,10 +85,6 @@ namespace ContextMenu.WinForms
             FormClosing += Form1_FormClosing;
             Controls.Add(webView);
         }
-
-        #endregion
-
-        #region Methods
 
         private ToolStripItem BuildMenuItem(string item, bool isEnabled, EventHandler clickHandler)
         {
@@ -130,6 +126,7 @@ namespace ContextMenu.WinForms
                             }));
                         }
                     }
+
                     // Add "Add to Dictionary" menu item.
                     string addToDictionary = spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
                     popupMenu.Items.Add(BuildMenuItem(addToDictionary, true, delegate
@@ -178,7 +175,5 @@ namespace ContextMenu.WinForms
 
             return tcs.Task;
         }
-
-        #endregion
     }
 }
