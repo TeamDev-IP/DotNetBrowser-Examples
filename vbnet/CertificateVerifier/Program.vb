@@ -30,11 +30,7 @@ Imports DotNetBrowser.Net.Handlers
 '''     The sample demonstrates how to accept/reject SSL certificates using
 '''     custom SSL certificate verifier.
 ''' </summary>
-Public Class WindowMain
-    Inherits Window
-
-#Region "Methods"
-
+Public Class Program
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -45,7 +41,9 @@ Public Class WindowMain
                     engine.Profiles.Default.Network.VerifyCertificateHandler =
                         New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
                     Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
-                    Console.WriteLine("LoadResult: " & result)
+                    ' The certificate for google.com is correct, however, it is rejected in the handler.
+                    ' As a result, the navigation fails.
+                    Console.WriteLine("Load page result: " & result.ToString())
                 End Using
             End Using
         Catch e As Exception
@@ -63,6 +61,4 @@ Public Class WindowMain
         End If
         Return VerifyCertificateResponse.Default()
     End Function
-
-#End Region
 End Class
