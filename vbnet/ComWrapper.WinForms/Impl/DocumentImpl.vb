@@ -28,22 +28,15 @@ Namespace ComWrapper.WinForms.Impl
 
 		Private ReadOnly document As IDocument
 
-		#Region "Properties"
-
 		Public ReadOnly Property DocumentElement() As IComElement Implements IComDocument.DocumentElement
 			Get
 				Return New ElementImpl(document.DocumentElement)
 			End Get
 		End Property
 
-		#End Region
-
-		#Region "Constructors"
-
 		Public Sub New(ByVal document As IDocument)
 			Me.document = document
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

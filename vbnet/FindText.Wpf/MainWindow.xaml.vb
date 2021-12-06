@@ -34,8 +34,6 @@ Partial Public Class MainWindow
     Private browser As IBrowser
     Private engine As IEngine
 
-#Region "Constructors"
-
     Public Sub New()
         Task.Run(Sub()
             engine =
@@ -50,10 +48,6 @@ Partial Public Class MainWindow
 
         InitializeComponent()
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     Private Sub clearButton_Click(sender As Object, e As RoutedEventArgs)
         browser.TextFinder.StopFinding()
@@ -75,5 +69,4 @@ Partial Public Class MainWindow
         engine.Dispose()
     End Sub
 
-#End Region
 End Class

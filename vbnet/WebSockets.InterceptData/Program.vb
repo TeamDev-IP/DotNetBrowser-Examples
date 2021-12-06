@@ -61,8 +61,6 @@ Friend Class Program
 
     Private Shared ReadOnly myWebSocketCallback As New WebSocketCallback()
 
-#Region "Methods"
-
     Public Shared Sub Main(ByVal args() As String)
         Try
             Using engine As IEngine = EngineFactory.Create()
@@ -105,10 +103,7 @@ Friend Class Program
         parameters.Frame.ExecuteJavaScript(JavaScript)
     End Sub
 
-#End Region
-
     Public Class WebSocketCallback
-#Region "Methods"
 
         Public Sub OnClose(ByVal closeEvent As IJsObject)
             Console.WriteLine("WebSocketCallback.OnClose")
@@ -126,6 +121,5 @@ Friend Class Program
             Console.WriteLine("WebSocketCallback.OnSend: " & data?.ToString())
         End Sub
 
-#End Region
     End Class
 End Class

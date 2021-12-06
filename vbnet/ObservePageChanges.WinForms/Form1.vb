@@ -39,8 +39,6 @@ Namespace ObservePageChanges.WinForms
         Private ReadOnly browserView As BrowserView
         Private ReadOnly engine As IEngine
 
-#Region "Constructors"
-
         Public Sub New()
             InitializeComponent()
             browserView = New BrowserView With {.Dock = DockStyle.Fill}
@@ -56,10 +54,6 @@ Namespace ObservePageChanges.WinForms
                          ConfigureObserver()
                      End Sub)
         End Sub
-
-#End Region
-
-#Region "Methods"
 
         Public Sub CharacterDataChanged(ByVal innerText As String)
             Console.WriteLine(innerText)
@@ -90,6 +84,5 @@ Namespace ObservePageChanges.WinForms
             engine?.Dispose()
         End Sub
 
-#End Region
     End Class
 End Namespace

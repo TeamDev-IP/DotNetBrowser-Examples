@@ -34,8 +34,6 @@ Imports DotNetBrowser.Media.Handlers
 Public Class WindowMain
     Inherits Window
 
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -82,5 +80,4 @@ Public Class WindowMain
         Return SelectMediaDeviceResponse.Select(defaultDevice)
     End Function
 
-#End Region
 End Class

@@ -35,7 +35,6 @@ Namespace InjectObjectForScripting
 	'''     object into the web page.
 	''' </summary>
 	Friend Class Program
-		#Region "Methods"
 
 		Private Shared Sub InjectObjectForScripting(ByVal p As InjectJsParameters)
 			Dim window As IJsObject = p.Frame.ExecuteJavaScript(Of IJsObject)("window").Result
@@ -76,16 +75,9 @@ Namespace InjectObjectForScripting
 			Console.ReadKey()
 		End Sub
 
-		#End Region
-
 		Public NotInheritable Class ObjectForScripting
-			#Region "Properties"
 
 			Public Shared ReadOnly Property Instance() As New ObjectForScripting()
-
-			#End Region
-
-			#Region "Constructors"
 
 			Shared Sub New()
 			End Sub
@@ -93,15 +85,10 @@ Namespace InjectObjectForScripting
 			Private Sub New()
 			End Sub
 
-			#End Region
-
-			#Region "Methods"
-
 			Public Function GetTitle() As String
 				Return "Document title from .NET"
 			End Function
 
-			#End Region
 		End Class
 	End Class
 End Namespace

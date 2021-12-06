@@ -37,8 +37,6 @@ Namespace DevTools.WinForms
 		Private browser2 As IBrowser
 		Private engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			Task.Run(Sub()
 					 engine = EngineFactory.Create(New EngineOptions.Builder With {
@@ -57,14 +55,9 @@ Namespace DevTools.WinForms
 			InitializeComponent()
 		End Sub
 
-		#End Region
-
-		#Region "Methods"
-
 		Private Sub Form1_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles Me.FormClosed
 			engine?.Dispose()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

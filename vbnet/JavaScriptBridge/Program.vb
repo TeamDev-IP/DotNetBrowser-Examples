@@ -33,8 +33,6 @@ Imports DotNetBrowser.Logging
 ''' </summary>
 Friend Class Program
 
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             LoggerProvider.Instance.Level = SourceLevels.Information
@@ -77,12 +75,7 @@ Friend Class Program
         Console.ReadKey()
     End Sub
 
-#End Region
-
-
     Private Class Person
-
-#Region "Properties"
 
         Public ReadOnly Property Age As Double
 
@@ -91,24 +84,15 @@ Friend Class Program
 
         Public ReadOnly Property Gender As Boolean
 
-#End Region
-
-#Region "Constructors"
-
         Public Sub New(fullName As String, age As Integer, gender As Boolean)
             Me.Gender = gender
             Me.FullName = fullName
             Me.Age = age
         End Sub
 
-#End Region
-
-#Region "Methods"
-
         Public Function Walk(withPerson As Person) As String
             Return String.Format("{0} is walking with {1}!", If(Gender, "He", "She"), withPerson.FullName)
         End Function
 
-#End Region
     End Class
 End Class

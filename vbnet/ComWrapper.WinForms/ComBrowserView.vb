@@ -40,8 +40,6 @@ Namespace ComWrapper.WinForms
 
 		Private ReadOnly _engineWrapper As EngineWrapper
 
-		#Region "Properties"
-
 		Public ReadOnly Property Browser() As IComBrowser Implements IComBrowserView.Browser
 
 		Public ReadOnly Property Engine() As IComEngine Implements IComBrowserView.Engine
@@ -49,10 +47,6 @@ Namespace ComWrapper.WinForms
 				Return _engineWrapper
 			End Get
 		End Property
-
-		#End Region
-
-		#Region "Constructors"
 
 		Public Sub New()
 			Try
@@ -69,10 +63,6 @@ Namespace ComWrapper.WinForms
 				Throw
 			End Try
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub IComBrowserView_Dispose() Implements IComBrowserView.Dispose
 			_engineWrapper.Dispose()
@@ -110,6 +100,5 @@ Namespace ComWrapper.WinForms
 			ControlRegistration.UnregisterControl(t)
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

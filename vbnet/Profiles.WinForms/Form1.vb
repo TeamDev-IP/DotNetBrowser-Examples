@@ -34,8 +34,6 @@ Namespace Profiles.WinForms
 
         Private ReadOnly engine As IEngine
 
-#Region "Constructors"
-
         Public Sub New()
             engine =
                 EngineFactory.Create(
@@ -46,10 +44,6 @@ Namespace Profiles.WinForms
             profilesList.DataSource = engine.Profiles.ToArray()
             profilesList.DisplayMember = "Name"
         End Sub
-
-#End Region
-
-#Region "Methods"
 
         Private Sub createProfileButton_Click(sender As Object, e As EventArgs)
             Dim profileNameText As String = profileName.Text
@@ -90,6 +84,5 @@ Namespace Profiles.WinForms
             End If
         End Sub
 
-#End Region
     End Class
 End Namespace

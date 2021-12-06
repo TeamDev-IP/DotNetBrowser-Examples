@@ -35,8 +35,6 @@ Imports DotNetBrowser.Net.Handlers
 Friend Class Program
     Private Shared ReadOnly AjaxRequests As New Dictionary(Of String, HttpRequest)()
 
-#Region "Methods"
-
     Public Shared Sub Main(ByVal args() As String)
         Try
             Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
@@ -108,6 +106,4 @@ Friend Class Program
 
         Return SendUrlRequestResponse.Continue()
     End Function
-
-#End Region
 End Class

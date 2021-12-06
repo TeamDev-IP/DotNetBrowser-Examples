@@ -33,8 +33,6 @@ Imports DotNetBrowser.Ui
 ''' </summary>
 Friend Class Program
 
-#Region "Methods"
-
     Public Shared Sub Main()
         Dim viewWidth As UInteger = 1024
         Dim viewHeight As UInteger = 20000
@@ -89,5 +87,4 @@ Friend Class Program
         Return bmp
     End Function
 
-#End Region
 End Class

@@ -27,8 +27,6 @@ Namespace ComWrapper.WinForms.Impl
 	Friend Class BrowserImpl
 		Implements IComBrowser
 
-		#Region "Properties"
-
 		Friend ReadOnly Property Browser() As IBrowser
 
 		Public ReadOnly Property Document() As IComDocument Implements IComBrowser.Document
@@ -45,17 +43,9 @@ Namespace ComWrapper.WinForms.Impl
 			End Get
 		End Property
 
-		#End Region
-
-		#Region "Constructors"
-
 		Public Sub New(ByVal browserInstance As IBrowser)
 			Me.Browser = browserInstance
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Public Sub Dispose() Implements IComBrowser.Dispose
 			Browser.Dispose()
@@ -77,6 +67,5 @@ Namespace ComWrapper.WinForms.Impl
 			End If
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

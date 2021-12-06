@@ -32,8 +32,6 @@ Namespace ComWrapper.WinForms
 
 		Private Const LogName As String = "Application"
 
-		#Region "Methods"
-
 		Public Shared Sub Log(ByVal message As String, ByVal level As EventLogEntryType, ByVal eventId As Integer)
 			If Not EventLog.SourceExists(Source) Then
 				EventLog.CreateEventSource(Source, LogName)
@@ -42,6 +40,5 @@ Namespace ComWrapper.WinForms
 			EventLog.WriteEntry(Source, message, level, eventId)
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

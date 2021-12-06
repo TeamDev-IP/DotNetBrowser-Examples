@@ -39,8 +39,6 @@ Namespace CreateHtmlUi.Wpf
         Private browser2 As IBrowser
         Private engine As IEngine
 
-#Region "Constructors"
-
         Public Sub New()
             Task.Run(Sub()
                          engine = EngineFactory.Create(New EngineOptions.Builder With {
@@ -60,10 +58,6 @@ Namespace CreateHtmlUi.Wpf
 
             InitializeComponent()
         End Sub
-
-#End Region
-
-#Region "Methods"
 
         Private Sub browser1_FrameLoadFinished(ByVal sender As Object, ByVal e As FrameLoadFinishedEventArgs)
             If Not e.Frame.IsDisposed AndAlso e.Frame.IsMain Then
@@ -97,6 +91,5 @@ Namespace CreateHtmlUi.Wpf
                      End Sub)
         End Sub
 
-#End Region
     End Class
 End Namespace

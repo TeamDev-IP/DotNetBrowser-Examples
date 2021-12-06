@@ -25,27 +25,16 @@
 
 Friend Class Pov
 
-#Region "Properties"
-
     Public ReadOnly Property Heading As String
     Public ReadOnly Property Pitch As String
-
-#End Region
-
-#Region "Constructors"
 
     Public Sub New(headingValue As Object, pitchValue As Object)
         Me.Heading = headingValue.ToString()
         Me.Pitch = pitchValue.ToString()
     End Sub
 
-#End Region
-
-#Region "Methods"
-
     Public Overrides Function ToString() As String
         Return $"{NameOf(Heading)}: {Heading}, {NameOf(Pitch)}: {Pitch}"
     End Function
 
-#End Region
 End Class

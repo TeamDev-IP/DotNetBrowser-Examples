@@ -43,8 +43,6 @@ Namespace DragAndDrop.Wpf
 		Private ReadOnly browser As IBrowser
 		Private ReadOnly engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			Dim engineBuilder = New EngineOptions.Builder With {
 				.RenderingMode = RenderingMode.HardwareAccelerated,			
@@ -62,10 +60,6 @@ Namespace DragAndDrop.Wpf
 			browserView.InitializeFrom(browser)
 			browser.Navigation.LoadUrl("teamdev.com")
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub ExtractData(ByVal eventName As String, ByVal dataObject As IDataObject)
 			If dataObject Is Nothing Then
@@ -137,6 +131,5 @@ Namespace DragAndDrop.Wpf
 			End If
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

@@ -29,8 +29,6 @@ Imports DotNetBrowser.Engine
 ''' </summary>
 Friend Class Program
 
-#Region "Methods"
-
     Public Shared Sub Main(args() As String)
         Try
             Dim userDataDir1 As String = Path.GetFullPath("user-data-dir-one")
@@ -65,5 +63,4 @@ Friend Class Program
         Console.ReadKey()
     End Sub
 
-#End Region
 End Class

@@ -42,8 +42,6 @@ Namespace ContextMenu.WinForms
         Private engine As IEngine
         Private ReadOnly webView As BrowserView
 
-#Region "Constructors"
-
         Public Sub New()
             LoggerProvider.Instance.Level = SourceLevels.Verbose
             LoggerProvider.Instance.FileLoggingEnabled = True
@@ -73,10 +71,6 @@ Namespace ContextMenu.WinForms
             AddHandler Me.FormClosing, AddressOf Form1_FormClosing
             Controls.Add(webView)
         End Sub
-
-#End Region
-
-#Region "Methods"
 
         Private Function BuildMenuItem(item As String, isEnabled As Boolean, clickHandler As EventHandler) _
             As ToolStripItem
@@ -151,6 +145,5 @@ Namespace ContextMenu.WinForms
             Return tcs.Task
         End Function
 
-#End Region
     End Class
 End Namespace

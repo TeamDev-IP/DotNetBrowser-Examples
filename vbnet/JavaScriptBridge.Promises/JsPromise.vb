@@ -24,14 +24,12 @@ Imports DotNetBrowser.Js
 
 Namespace JavaScriptBridge.Promises
 	Public Module JsObjectExtensions
-		#Region "Methods"
 
 		<System.Runtime.CompilerServices.Extension> _
 		Public Function AsPromise(ByVal jsObject As IJsObject) As JsPromise
 			Return JsPromise.AsPromise(jsObject)
 		End Function
 
-		#End Region
 	End Module
 
 	''' <summary>
@@ -40,15 +38,9 @@ Namespace JavaScriptBridge.Promises
 	Public NotInheritable Class JsPromise
 		Private ReadOnly jsObject As IJsObject
 
-		#Region "Constructors"
-
 		Private Sub New(ByVal jsObject As IJsObject)
 			Me.jsObject = jsObject
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		''' <summary>
 		'''     Creates a JavaScript promise representation of the IJsObject instance.
@@ -129,8 +121,6 @@ Namespace JavaScriptBridge.Promises
 			Return New Result(ResultState.Rejected, o)
 		End Function
 
-		#End Region
-
 		''' <summary>
 		'''     The Promise result state.
 		''' </summary>
@@ -147,7 +137,6 @@ Namespace JavaScriptBridge.Promises
 		End Enum
 
 		Public Class Result
-			#Region "Properties"
 
 			''' <summary>
 			'''     The object passed to the fulfillment or rejection handler.
@@ -159,16 +148,11 @@ Namespace JavaScriptBridge.Promises
 			''' </summary>
 			Public ReadOnly Property State() As ResultState
 
-			#End Region
-
-			#Region "Constructors"
-
 			Friend Sub New(ByVal promiseState As ResultState, ByVal promiseData As Object)
 				Me.State = promiseState
 				Me.Data = promiseData
 			End Sub
 
-			#End Region
 		End Class
 	End Class
 End Namespace

@@ -25,20 +25,12 @@ Imports System
 Public Class BinariesResolverStatusEventArgs
     Inherits EventArgs
 
-#Region "Properties"
-
     Public ReadOnly Property IsCompleted() As Boolean
 
     Public ReadOnly Property Message() As String
-
-#End Region
-
-#Region "Constructors"
 
     Public Sub New(ByVal msg As String, Optional ByVal completed As Boolean = False)
         Me.Message = msg
         IsCompleted = completed
     End Sub
-
-#End Region
 End Class

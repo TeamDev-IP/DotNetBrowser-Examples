@@ -39,8 +39,6 @@ Partial Public Class MainWindow
     Private browserView As BrowserView
     Private engine As IEngine
 
-#Region "Constructors"
-
     Public Sub New()
         Task.Run(Sub()
             engine = EngineFactory.Create(
@@ -63,10 +61,6 @@ Partial Public Class MainWindow
         InitializeComponent()
     End Sub
 
-#End Region
-
-#Region "Methods"
-
     Private Sub SaveWebPage(obj As Task(Of LoadResult))
         Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
         Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
@@ -80,5 +74,4 @@ Partial Public Class MainWindow
         engine.Dispose()
     End Sub
 
-#End Region
 End Class

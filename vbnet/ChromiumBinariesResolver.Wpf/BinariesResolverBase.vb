@@ -33,23 +33,13 @@ Imports System.Threading.Tasks
 Public MustInherit Class BinariesResolverBase
     Private ReadOnly client As HttpClient
 
-#Region "Properties"
-
     Protected ReadOnly Property RequestUri() As String
-
-#End Region
-
-#Region "Events"
 
     ''' <summary>
     '''     Occurs when the status update messages are sent by the implementation.
     '''     These messages can be used to update the application UI and indicate the progress.
     ''' </summary>
     Public Event StatusUpdated As EventHandler(Of BinariesResolverStatusEventArgs)
-
-#End Region
-
-#Region "Constructors"
 
     Protected Sub New(ByVal uri As String, Optional ByVal domain As AppDomain = Nothing)
         If domain Is Nothing Then
@@ -60,10 +50,6 @@ Public MustInherit Class BinariesResolverBase
         client = New HttpClient()
         AddHandler domain.AssemblyResolve, AddressOf Resolve
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     ''' <summary>
     '''     The AssemblyResolve event handler.
@@ -107,5 +93,4 @@ Public MustInherit Class BinariesResolverBase
         Return Nothing
     End Function
 
-#End Region
 End Class

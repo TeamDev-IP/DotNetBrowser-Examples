@@ -34,8 +34,6 @@ Partial Public Class MainWindow
     Private browser As IBrowser
     Private engine As IEngine
 
-#Region "Constructors"
-
     Public Sub New()
         Try
             Task.Run(Sub()
@@ -55,10 +53,6 @@ Partial Public Class MainWindow
             Debug.WriteLine(exception)
         End Try
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         TextOutput.Clear()
@@ -124,5 +118,4 @@ Partial Public Class MainWindow
         engine?.Dispose()
     End Sub
 
-#End Region
 End Class

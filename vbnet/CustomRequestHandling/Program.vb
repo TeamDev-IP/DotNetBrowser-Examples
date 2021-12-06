@@ -34,8 +34,6 @@ Imports DotNetBrowser.Net.Handlers
 ''' </summary>
 Friend Class Program
 
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Dim interceptRequestHandler =
@@ -79,5 +77,4 @@ Friend Class Program
         Console.ReadKey()
     End Sub
 
-#End Region
 End Class

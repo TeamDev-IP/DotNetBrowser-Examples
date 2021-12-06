@@ -44,8 +44,6 @@ Namespace GoogleStreetView.WinForms
 		Private ReadOnly engine As IEngine
 		Private panorama As StreetViewPanorama
 
-		#Region "Constructors"
-
 		Public Sub New()
 			engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
 			browser = engine.CreateBrowser()
@@ -54,10 +52,6 @@ Namespace GoogleStreetView.WinForms
 			browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
 			browser.Navigation.LoadUrl((New Uri(Path.GetFullPath("streetviewevents.htm"))).AbsoluteUri)
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		'JS-.NET callback
 		Public Sub OnPanoramaInitialized(jsPanorama As IJsObject)
@@ -122,6 +116,5 @@ Namespace GoogleStreetView.WinForms
 			End Sub, Action))
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

@@ -32,8 +32,6 @@ Imports DotNetBrowser.Js
 ''' </summary>
 Friend Class Program
 
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -61,6 +59,4 @@ Friend Class Program
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
-
-#End Region
 End Class

@@ -25,7 +25,6 @@ Imports System.Windows.Forms
 Imports GoogleStreetView.WinForms
 
 Friend Module Program
-#Region "Methods"
 
     ''' <summary>
     '''     The main entry point for the application.
@@ -37,5 +36,4 @@ Friend Module Program
         Application.Run(New Form1())
     End Sub
 
-#End Region
 End Module

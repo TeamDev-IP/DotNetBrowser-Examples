@@ -32,8 +32,6 @@ Imports DotNetBrowser.Net.Handlers
 ''' </summary>
 Friend Class Program
 
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -77,5 +75,4 @@ Friend Class Program
         Return SendUrlRequestResponse.Continue()
     End Function
 
-#End Region
 End Class

@@ -31,15 +31,10 @@ Namespace ChromiumBinariesResolver.Wpf
 
 		Private Const UriTemplate As String = "https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/{0}/dotnetbrowser-net45-{0}.zip"
 
-		#Region "Constructors"
-
 		Public Sub New()
 			MyBase.New(UriTemplate)
 		End Sub
 
-		#End Region
-
-		#Region "Methods"
 
 		Protected Overrides Function PrepareRequest(ByVal assemblyName As AssemblyName) As String
 			'Use only the major and minor version components if the build component is 0.
@@ -70,6 +65,5 @@ Namespace ChromiumBinariesResolver.Wpf
 			End Using
 		End Function
 
-		#End Region
 	End Class
 End Namespace

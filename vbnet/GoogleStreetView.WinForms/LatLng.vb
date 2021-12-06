@@ -26,27 +26,17 @@
 '''     Corresponds to the google.maps.LatLng object.
 ''' </summary>
 Friend Class LatLng
-#Region "Properties"
 
     Public ReadOnly Property Latitude() As Double
     Public ReadOnly Property Longitude() As Double
-
-#End Region
-
-#Region "Constructors"
 
     Public Sub New(ByVal latitudeValue As Double, ByVal longitudeValue As Double)
         Me.Latitude = latitudeValue
         Me.Longitude = longitudeValue
     End Sub
 
-#End Region
-
-#Region "Methods"
-
     Public Overrides Function ToString() As String
         Return $"({Latitude}, {Longitude})"
     End Function
 
-#End Region
 End Class

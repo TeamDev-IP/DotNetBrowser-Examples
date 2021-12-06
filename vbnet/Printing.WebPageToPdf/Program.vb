@@ -38,8 +38,6 @@ Namespace Printing.WebPageToPdf
 	'''     This example demonstrates how to load a web page and print it to PDF.
 	''' </summary>
 	Friend Class Program
-		#Region "Methods"
-
 		Public Shared Sub Main()
 			Dim url As String = "https://dotnetbrowser-support.teamdev.com/docs/guides/gs/printing.html"
 			Dim pdfFilePath As String = Path.GetFullPath("result.pdf")
@@ -112,6 +110,5 @@ Namespace Printing.WebPageToPdf
 			Console.ReadKey()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

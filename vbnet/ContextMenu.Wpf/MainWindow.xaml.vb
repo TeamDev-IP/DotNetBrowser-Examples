@@ -37,8 +37,6 @@ Partial Public Class MainWindow
     Private browser As IBrowser
     Private engine As IEngine
 
-#Region "Constructors"
-
     Public Sub New()
         Task.Run(Sub()
             engine =
@@ -55,10 +53,6 @@ Partial Public Class MainWindow
 
         InitializeComponent()
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     Private Function BuildMenuItem(item As String, isEnabled As Boolean, IsVisible As Visibility,
                                    clickHandler As RoutedEventHandler) As MenuItem
@@ -107,5 +101,4 @@ Partial Public Class MainWindow
         engine.Dispose()
     End Sub
 
-#End Region
 End Class

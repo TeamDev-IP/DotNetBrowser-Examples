@@ -74,8 +74,6 @@ Namespace ComWrapper.WinForms
 		''' </summary>
 		Private ReadOnly Bitness As String = If(Environment.Is64BitProcess, "64-bit", "32-bit")
 
-		#Region "Methods"
-
 		Public Sub RegisterControl(ByVal t As Type, Optional ByVal iconResourceIndex As Integer = 101)
 			Try
 				If t Is Nothing Then
@@ -156,6 +154,5 @@ Namespace ComWrapper.WinForms
 			End Try
 		End Sub
 
-		#End Region
 	End Module
 End Namespace

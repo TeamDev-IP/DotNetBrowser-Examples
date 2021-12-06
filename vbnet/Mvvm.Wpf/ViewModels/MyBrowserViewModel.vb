@@ -29,8 +29,6 @@ Namespace Mvvm.Wpf.ViewModels
 	Public Class MyBrowserViewModel
 		Implements INotifyPropertyChanged
 
-		#Region "Properties"
-
 		Public ReadOnly Property Browser() As IBrowser
 
 		Public Property Url() As String
@@ -46,24 +44,12 @@ Namespace Mvvm.Wpf.ViewModels
 			End Set
 		End Property
 
-		#End Region
-
-		#Region "Events"
-
 		Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-		#End Region
-
-		#Region "Constructors"
 
 		Public Sub New(ByVal browserInstance As IBrowser)
 			Me.Browser = browserInstance
 			AddHandler Me.Browser.Navigation.FrameLoadFinished, AddressOf NavigationOnFrameLoadFinished
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Protected Overridable Sub OnPropertyChanged(<CallerMemberName> Optional ByVal propertyName As String = Nothing)
 			PropertyChangedEvent?.Invoke(Me, New PropertyChangedEventArgs(propertyName))
@@ -76,6 +62,5 @@ Namespace Mvvm.Wpf.ViewModels
 			End If
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

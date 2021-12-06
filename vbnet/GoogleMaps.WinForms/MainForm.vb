@@ -38,8 +38,6 @@ Namespace GoogleMaps.WinForms
 
         Private zoomLevel As Integer = 4 'The default value for Google Maps zoom
 
-#Region "Properties"
-
         Private ReadOnly Property Browser() As IBrowser
         Private ReadOnly Property BrowserView() As BrowserView
 
@@ -66,10 +64,6 @@ Namespace GoogleMaps.WinForms
             End Get
         End Property
 
-#End Region
-
-#Region "Constructors"
-
         Public Sub New()
             InitializeComponent()
 
@@ -85,10 +79,6 @@ Namespace GoogleMaps.WinForms
             AddHandler Me.Closed, AddressOf MainForm_Closed
         End Sub
 
-#End Region
-
-#Region "Methods"
-
         Private Sub MainForm_Closed(ByVal sender As Object, ByVal e As EventArgs)
             Browser.Dispose()
             Engine.Dispose()
@@ -102,6 +92,5 @@ Namespace GoogleMaps.WinForms
             CurrentZoomLevel -= 1
         End Sub
 
-#End Region
     End Class
 End Namespace

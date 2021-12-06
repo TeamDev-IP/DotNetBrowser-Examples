@@ -32,7 +32,6 @@ Imports DotNetBrowser.Js
 '''     This example demonstrates how to work with Shadow DOM.
 ''' </summary>
 Friend Class Program
-#Region "Methods"
 
     Public Shared Sub Main(ByVal args() As String)
         Try
@@ -80,5 +79,4 @@ Friend Class Program
         Console.ReadKey()
     End Sub
 
-#End Region
 End Class

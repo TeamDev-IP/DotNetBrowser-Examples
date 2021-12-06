@@ -40,8 +40,6 @@ Partial Public Class MainWindow
 'INSTANT VB NOTE: The field initializationStatus was renamed since Visual Basic does not allow fields to have the same name as other class members:
     Private initStatus As String = "Initializing"
 
-#Region "Properties"
-
     Public ReadOnly Property BinariesResolver() As BinariesResolver
 
     Public Property InitializationStatus() As String
@@ -64,15 +62,7 @@ Partial Public Class MainWindow
         End Set
     End Property
 
-#End Region
-
-#Region "Events"
-
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-#End Region
-
-#Region "Constructors"
 
     Public Sub New()
         chromiumDirectory = Path.GetFullPath("chromium")
@@ -110,10 +100,6 @@ Partial Public Class MainWindow
         InitializeComponent()
     End Sub
 
-#End Region
-
-#Region "Methods"
-
     Protected Overridable Sub OnPropertyChanged(<CallerMemberName> Optional ByVal propertyName As String = Nothing)
         PropertyChangedEvent?.Invoke(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
@@ -122,5 +108,4 @@ Partial Public Class MainWindow
         engine?.Dispose()
     End Sub
 
-#End Region
 End Class
