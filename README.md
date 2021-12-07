@@ -26,19 +26,19 @@ To learn more about the library please visit the [product page](https://www.team
 
 #### Web page content
 
-* Get page HTML: [C#](csharp/GetHtml), [VB.NET](vbnet/GetHtml)
-* Walk through the hierarchy of frames on the web page: [C#](csharp/GetFrames), [VB.NET](vbnet/GetFrames)
-* Get selected text on the web page: [C#](csharp/GetSelectedText), [VB.NET](vbnet/GetSelectedText)
-* Find text on the web page: [C#](csharp/FindText), [VB.NET](vbnet/FindText)
+* Get page HTML: [C#](csharp/GetHtml/Program.cs), [VB.NET](vbnet/GetHtml/Program.vb)
+* Walk through the hierarchy of frames on the web page: [C#](csharp/GetFrames/Program.cs), [VB.NET](vbnet/GetFrames/Program.vb)
+* Get selected text on the web page: [C#](csharp/GetSelectedText/Program.cs), [VB.NET](vbnet/GetSelectedText/Program.vb)
+* Find text on the web page: [C#](csharp/FindText/Program.cs), [VB.NET](vbnet/FindText/Program.vb)
 * Text search (WPF): [C#](csharp/FindText.Wpf), [VB.NET](vbnet/FindText.Wpf)
 * Save web page: [C#](csharp/SaveWebPage.Wpf), [VB.NET](vbnet/SaveWebPage.Wpf)
-* Save an image from the web page: [C#](csharp/SaveImageFromPage), [VB.NET](vbnet/SaveImageFromPage)
-* Create web page screenshot: [C#](csharp/HtmlToImage), [VB.NET](vbnet/HtmlToImage)
-* Execute editor commands (Cut, Copy, Paste, Undo, Select All,<br/> Insert Text etc.): [C#](csharp/ExecuteCommand), [VB.NET](vbnet/ExecuteCommand)
-* Access local storage of the web page: [C#](csharp/WebStorage), [VB.NET](vbnet/WebStorage)
-* Update the zoom level on the web page: [C#](csharp/Zoom), [VB.NET](vbnet/Zoom)
-* Print web page to PDF: [C#](csharp/Printing.WebPageToPdf), [VB.NET](vbnet/Printing.WebPageToPdf)
-* Download a PDF file by its URL: [C#](csharp/DownloadPdf), [VB.NET](vbnet/DownloadPdf)
+* Save an image from the web page: [C#](csharp/SaveImageFromPage/Program.cs), [VB.NET](vbnet/SaveImageFromPage/Program.vb)
+* Create web page screenshot: [C#](csharp/HtmlToImage/Program.cs), [VB.NET](vbnet/HtmlToImage/Program.vb)
+* Execute editor commands (Cut, Copy, Paste, Undo, Select All,<br/> Insert Text etc.): [C#](csharp/ExecuteCommand/Program.cs), [VB.NET](vbnet/ExecuteCommand/Program.vb)
+* Access local storage of the web page: [C#](csharp/WebStorage), [VB.NET](vbnet/WebStorage/Program.vb)
+* Update the zoom level on the web page: [C#](csharp/Zoom/Program.cs), [VB.NET](vbnet/Zoom/Program.vb)
+* Print web page to PDF: [C#](csharp/Printing.WebPageToPdf/Program.cs), [VB.NET](vbnet/Printing.WebPageToPdf/Program.vb)
+* Download a PDF file by its URL: [C#](csharp/DownloadPdf/Program.cs), [VB.NET](vbnet/DownloadPdf/Program.vb)
 
 #### DOM 
 
