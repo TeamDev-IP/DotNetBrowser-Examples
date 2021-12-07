@@ -42,18 +42,18 @@ To learn more about the library please visit the [product page](https://www.team
 
 #### DOM 
 
-* Create new DOM element: [C#](csharp/DomCreateElement), [VB.NET](vbnet/DomCreateElement)
-* Create and dispatch any DOM event (including custom events): [C#](csharp/DomCreateEvent), [VB.NET](vbnet/DomCreateEvent)
-* Fill in and submit a form: [C#](csharp/DomForm), [VB.NET](vbnet/DomForm)
-* Work with attributes of the specific DOM element: [C#](csharp/DomGetAttributes), [VB.NET](vbnet/DomGetAttributes)
-* Get DOM elements by tag name: [C#](csharp/DomGetElements), [VB.NET](vbnet/DomGetElements)
-* Find element by CSS Selector: [C#](csharp/DomQuerySelector), [VB.NET](vbnet/DomQuerySelector)
+* Create new DOM element: [C#](csharp/DomCreateElement/Program.cs), [VB.NET](vbnet/DomCreateElement/Program.vb)
+* Create and dispatch any DOM event (including custom events): [C#](csharp/DomCreateEvent/Program.cs), [VB.NET](vbnet/DomCreateEvent/Program.vb)
+* Fill in and submit a form: [C#](csharp/DomForm/Program.cs), [VB.NET](vbnet/DomForm/Program.vb)
+* Work with attributes of the specific DOM element: [C#](csharp/DomGetAttributes/Program.cs), [VB.NET](vbnet/DomGetAttributes/Program.vb)
+* Get DOM elements by tag name: [C#](csharp/DomGetElements/Program.cs), [VB.NET](vbnet/DomGetElements/Program.vb)
+* Find element by CSS Selector: [C#](csharp/DomQuerySelector/Program.cs), [VB.NET](vbnet/DomQuerySelector/Program.vb)
 * Intercept DOM Drag & Drop events: [C#](csharp/Dom.DragAndDrop.WinForms), [VB.NET](vbnet/Dom.DragAndDrop.WinForms)
-* Get DOM node at a specific point on the web page: [C#](csharp/Inspect), [VB.NET](vbnet/Inspect)
+* Get DOM node at a specific point on the web page: [C#](csharp/Inspect/Program.cs), [VB.NET](vbnet/Inspect/Program.vb)
 * Get DOM node by mouse location (WinForms): [C#](csharp/Inspect.WinForms), [VB.NET](vbnet/Inspect.WinForms)
 * Get DOM node by mouse location (WPF): [C#](csharp/Inspect.Wpf), [VB.NET](vbnet/Inspect.Wpf)
-* Evaluate an XPath expression. Work with the evaluation result.: [C#](csharp/XPath), [VB.NET](vbnet/XPath)
-* Work with Shadow DOM: [C#](csharp/ShadowDom), [VB.NET](vbnet/ShadowDom)
+* Evaluate an XPath expression. Work with the evaluation result.: [C#](csharp/XPath/Program.cs), [VB.NET](vbnet/XPath/Program.vb)
+* Work with Shadow DOM: [C#](csharp/ShadowDom/Program.cs), [VB.NET](vbnet/ShadowDom/Program.vb)
 
 #### JS-.NET bridge
 
