@@ -38,7 +38,7 @@ namespace GetFrames
         {
             try
             {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
+                using (IEngine engine = EngineFactory.Create())
                 {
                     Console.WriteLine("Engine created");
 
