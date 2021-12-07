@@ -17,10 +17,10 @@ To learn more about the library please visit the [product page](https://www.team
 
 #### Basics
 
-* Create two separate Chromium engines: [C#](csharp/SeparateEngines), [VB.NET](vbnet/SeparateEngines)
-* Create two separate Chromium engines in different AppDomains: [C#](csharp/SeparateEngines.AppDomains), [VB.NET](vbnet/SeparateEngines.AppDomains)
+* Create two separate Chromium engines: [C#](csharp/SeparateEngines/Program.cs), [VB.NET](vbnet/SeparateEngines/Program.vb)
+* Create two separate Chromium engines in different AppDomains: [C#](csharp/SeparateEngines.AppDomains/Program.cs), [VB.NET](vbnet/SeparateEngines.AppDomains/Program.vb)
 * Create separate Chromium profiles: [C#](csharp/Profiles.WinForms), [VB.NET](vbnet/Profiles.WinForms)
-* Load URL and listen to the navigation events: [C#](csharp/LoadEvents), [VB.NET](vbnet/LoadEvents)
+* Load URL and listen to the navigation events: [C#](csharp/LoadEvents/Program.cs), [VB.NET](vbnet/LoadEvents/Program.vb)
 * Embed into .NET Core WPF applications: [C#](csharp/NETCore30.Wpf)
 * Embed into .NET Core WinForms applications: [C#](csharp/NETCore30.WinForms)
 
