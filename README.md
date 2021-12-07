@@ -57,15 +57,15 @@ To learn more about the library please visit the [product page](https://www.team
 
 #### JS-.NET bridge
 
-* Execute any JavaScript on the web page. Get JavaScript return value.: [C#](csharp/JavaScript), [VB.NET](vbnet/JavaScript)
-* Work with JavaScript objects, update their properties and <br/>invoke methods.: [C#](csharp/JavaScriptObjects), [VB.NET](vbnet/JavaScriptObjects)
-* Work with JavaScript arrays: [C#](csharp/JavaScriptBridge.Arrays), [VB.NET](vbnet/JavaScriptBridge.Arrays)
-* Work with JavaScript Promises: [C#](csharp/JavaScriptBridge.Promises), [VB.NET](vbnet/JavaScriptBridge.Promises)
-* Inject a .NET object into JavaScript. Get its properties and invoke <br/>public methods from the JavaScript side.: [C#](csharp/JavaScriptBridge), [VB.NET](vbnet/JavaScriptBridge)
+* Execute any JavaScript on the web page. Get JavaScript return value.: [C#](csharp/JavaScript/Program.cs), [VB.NET](vbnet/JavaScript/Program.vb)
+* Work with JavaScript objects, update their properties and <br/>invoke methods.: [C#](csharp/JavaScriptObjects/Program.cs), [VB.NET](vbnet/JavaScriptObjects/Program.vb)
+* Work with JavaScript arrays: [C#](csharp/JavaScriptBridge.Arrays/Program.cs), [VB.NET](vbnet/JavaScriptBridge.Arrays/Program.vb)
+* Work with JavaScript Promises: [C#](csharp/JavaScriptBridge.Promises/Program.cs), [VB.NET](vbnet/JavaScriptBridge.Promises/Program.vb)
+* Inject a .NET object into JavaScript. Get its properties and invoke <br/>public methods from the JavaScript side.: [C#](csharp/JavaScriptBridge/Program.cs), [VB.NET](vbnet/JavaScriptBridge/Program.vb)
 * Execute JavaScript on UI event. Call back from JavaScript to <br/>.NET UI (WinForms): [C#](csharp/JavaScriptBridge.WinForms), [VB.NET](vbnet/JavaScriptBridge.WinForms)
-* Inject object for scripting (`window.external`): [C#](csharp/InjectObjectForScripting), [VB.NET](vbnet/InjectObjectForScripting)
+* Inject object for scripting (`window.external`): [C#](csharp/InjectObjectForScripting/Program.cs), [VB.NET](vbnet/InjectObjectForScripting/Program.vb)
 * Observe web page content changes on .NET side <br/>using `MutationObserver`: [C#](csharp/ObservePageChanges.WinForms), [VB.NET](vbnet/ObservePageChanges.WinForms)
-* Intercept Notification title and message: [C#](csharp/Notifications.InterceptData), [VB.NET](vbnet/Notifications.InterceptData)
+* Intercept Notification title and message: [C#](csharp/Notifications.InterceptData/Program.cs), [VB.NET](vbnet/Notifications.InterceptData/Program.vb)
 
 #### Network
 
