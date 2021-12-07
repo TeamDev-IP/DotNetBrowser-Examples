@@ -40,8 +40,6 @@ Namespace Inspect.Wpf
 		Private ReadOnly browser As IBrowser
 		Private ReadOnly engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
 			browser = engine.CreateBrowser()
@@ -50,10 +48,6 @@ Namespace Inspect.Wpf
 			browserView1.InitializeFrom(browser)
 			browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser")
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub GetNodeAtPoint(ByVal location As Point)
 			Dim scale = If(PresentationSource.FromVisual(Me)?.CompositionTarget?.TransformToDevice.M11, 1)
@@ -73,6 +67,5 @@ Namespace Inspect.Wpf
 			Return InputEventResponse.Proceed
 		End Function
 
-		#End Region
 	End Class
 End Namespace

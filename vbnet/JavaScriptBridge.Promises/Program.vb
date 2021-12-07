@@ -32,7 +32,6 @@ Imports JavaScriptBridge.Promises
 '''     via JS-.NET bridge.
 ''' </summary>
 Friend Class Program
-#Region "Methods"
 
     Public Shared Sub Main()
         Try
@@ -112,5 +111,4 @@ Friend Class Program
         Console.WriteLine("Result type:" & (If(result?.Data?.GetType().ToString(), "null")))
     End Function
 
-#End Region
 End Class

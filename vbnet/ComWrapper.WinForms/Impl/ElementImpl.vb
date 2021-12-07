@@ -28,20 +28,13 @@ Namespace ComWrapper.WinForms.Impl
 
 		Private ReadOnly domElement As IElement
 
-		#Region "Constructors"
-
 		Public Sub New(ByVal domElement As IElement)
 			Me.domElement = domElement
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Public Function GetInnerHtml() As String Implements IComElement.GetInnerHtml
 			Return domElement.InnerHtml
 		End Function
 
-		#End Region
 	End Class
 End Namespace

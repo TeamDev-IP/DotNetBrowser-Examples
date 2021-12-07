@@ -31,9 +31,6 @@ Imports DotNetBrowser.Net.Handlers
 '''     The sample demonstrates how to suppress Ajax calls by registering the LoadResourceHandler.
 ''' </summary>
 Friend Class Program
-
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -71,6 +68,4 @@ Friend Class Program
         End If
         Return SendUrlRequestResponse.Continue()
     End Function
-
-#End Region
 End Class

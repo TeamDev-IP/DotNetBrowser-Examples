@@ -33,8 +33,6 @@ Namespace ComWrapper.WinForms.Impl
 		Private engine As IEngine
 		Private initialized As Boolean
 
-		#Region "Methods"
-
 		Public Function CreateBrowser() As IComBrowser Implements IComEngine.CreateBrowser
 			Return New BrowserImpl(engine.CreateBrowser())
 		End Function
@@ -54,6 +52,5 @@ Namespace ComWrapper.WinForms.Impl
 			End If
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

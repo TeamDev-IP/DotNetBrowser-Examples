@@ -41,8 +41,6 @@ Namespace Dom.DragAndDrop.WinForms
 		Private browser As IBrowser
 		Private engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			Task.Run(Sub()
 					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
@@ -83,10 +81,6 @@ Namespace Dom.DragAndDrop.WinForms
 			InitializeComponent()
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Public Sub Drop(ByVal data As IJsObject)
 			WriteLine("JavaScript Drop callback received: " & data.ToString())
@@ -142,6 +136,5 @@ Namespace Dom.DragAndDrop.WinForms
 			BeginInvoke(CType(Sub() textBox1.AppendText(line & Environment.NewLine), Action))
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

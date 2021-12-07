@@ -29,9 +29,6 @@ Imports DotNetBrowser.Net.Events
 '''     The sample demonstrates how to access HTTP response data.
 ''' </summary>
 Friend Class Program
-
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -61,6 +58,4 @@ Friend Class Program
             Console.WriteLine($"Data = {data}" & vbLf)
         End If
     End Sub
-
-#End Region
 End Class

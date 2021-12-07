@@ -32,17 +32,11 @@ Namespace Kiosk.WinForms
 	Partial Public Class Form1
 		Inherits Form
 
-#Region "Properties"
-
 		Private ReadOnly Property Browser() As IBrowser
 		Private ReadOnly Property BrowserView() As BrowserView
 
 
 		Private ReadOnly Property Engine() As IEngine
-
-#End Region
-
-#Region "Constructors"
 
 		Public Sub New()
 			InitializeComponent()
@@ -58,10 +52,6 @@ Namespace Kiosk.WinForms
 			Browser.Navigation.LoadUrl("https://www.teamdev.com")
 		End Sub
 
-#End Region
-
-#Region "Methods"
-
 		Private Sub Form1_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles Me.FormClosed
 			Browser?.Dispose()
 			Engine?.Dispose()
@@ -73,6 +63,5 @@ Namespace Kiosk.WinForms
 			WindowState = FormWindowState.Maximized
 		End Sub
 
-#End Region
 	End Class
 End Namespace

@@ -31,16 +31,10 @@ Namespace Mvvm.Wpf.Views
 	Partial Public Class MyBrowserView
 		Inherits UserControl
 
-		#Region "Constructors"
-
 		Public Sub New()
 			InitializeComponent()
 			AddHandler Me.DataContextChanged, AddressOf OnDataContextChanged
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub AddressBox_OnKeyDown(ByVal sender As Object, ByVal e As KeyEventArgs)
 			If e.Key = Key.Enter Then
@@ -56,6 +50,5 @@ Namespace Mvvm.Wpf.Views
 			End If
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

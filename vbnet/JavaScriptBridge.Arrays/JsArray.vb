@@ -24,22 +24,18 @@ Imports DotNetBrowser.Js
 
 Namespace JavaScriptBridge.Arrays
 	Public Module JsObjectExtensions
-		#Region "Methods"
 
 		<System.Runtime.CompilerServices.Extension> _
 		Public Function AsArray(ByVal jsObject As IJsObject) As JsArray
 			Return JsArray.AsArray(jsObject)
 		End Function
 
-		#End Region
 	End Module
 
 	Public Class JsArray
 		Implements IReadOnlyList(Of Object)
 
 		Private ReadOnly jsObject As IJsObject
-
-		#Region "Properties"
 
 		Public ReadOnly Property Count() As Integer Implements IReadOnlyCollection(Of Object).Count
 			Get
@@ -53,17 +49,9 @@ Namespace JavaScriptBridge.Arrays
 			End Get
 		End Property
 
-		#End Region
-
-		#Region "Constructors"
-
 		Private Sub New(ByVal jsObject As IJsObject)
 			Me.jsObject = jsObject
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Public Function GetEnumerator() As IEnumerator(Of Object) Implements IEnumerable(Of Object).GetEnumerator
 			Return New JsArrayEnumerator(Me)
@@ -86,8 +74,6 @@ Namespace JavaScriptBridge.Arrays
 			Return isArrayFunction.Invoke(Of Boolean)(CType(Nothing, IJsObject), jsObject)
 		End Function
 
-		#End Region
-
 		Private Class JsArrayEnumerator
 			Implements IEnumerator(Of Object)
 
@@ -95,15 +81,11 @@ Namespace JavaScriptBridge.Arrays
 			Private ReadOnly count As Integer
 			Private index As Integer
 
-			#Region "Constructors"
-
 			Public Sub New(ByVal array As JsArray)
 				Me.array = array
 				count = array.Count
 				index = -1
 			End Sub
-
-			#End Region
 
 			Public Sub Dispose() Implements System.IDisposable.Dispose
 

@@ -38,8 +38,6 @@ Public Class Form1
     Private browserView As BrowserView
     Private engine As IEngine
 
-    #Region "Constructors"
-
     Public Sub New()
         InitializeComponent()
         AddHandler Closing, AddressOf Form_Closing
@@ -70,10 +68,6 @@ Public Class Form1
             Debug.WriteLine(exception)
         End Try
     End Sub
-
-    #End Region
-
-    #Region "Methods"
 
     Private Async Sub SimulateInput(e As Task(Of LoadResult))
         If e.Result = LoadResult.Completed Then
@@ -120,7 +114,5 @@ Public Class Form1
         browser.Dispose()
         engine.Dispose()
     End Sub
-
-    #End Region
 
 End Class

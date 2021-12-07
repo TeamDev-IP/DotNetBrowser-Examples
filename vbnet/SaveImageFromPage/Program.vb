@@ -34,7 +34,6 @@ Namespace SaveImageFromPage
 	'''     This example demonstrates how to obtain an image from the web page and save it as file.
 	''' </summary>
 	Friend Class Program
-		#Region "Methods"
 
 		Public Shared Function FixBase64ForImage(ByVal image As String) As String
 			Dim sbText As New StringBuilder(image, image.Length)
@@ -97,6 +96,5 @@ Namespace SaveImageFromPage
 			Console.ReadKey()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

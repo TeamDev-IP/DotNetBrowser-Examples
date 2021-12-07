@@ -35,8 +35,6 @@ Partial Public Class MainWindow
     Private browser As IBrowser
     Private engine As IEngine
 
-#Region "Constructors"
-
     Public Sub New()
         Try
             Task.Run(Sub()
@@ -72,13 +70,8 @@ Partial Public Class MainWindow
         End Try
     End Sub
 
-#End Region
-
-#Region "Methods"
-
     Private Sub Window_Closed(sender As Object, e As EventArgs)
         engine?.Dispose()
     End Sub
 
-#End Region
 End Class

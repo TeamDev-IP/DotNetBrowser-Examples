@@ -31,7 +31,6 @@ Namespace SeparateEngines.AppDomains
 	'''     in different application domains.
 	''' </summary>
 	Friend Class Program
-		#Region "Methods"
 
 		Public Shared Sub Main(ByVal args() As String)
 			' Create two separate application domains.
@@ -74,7 +73,6 @@ Namespace SeparateEngines.AppDomains
 			Console.ReadKey()
 		End Sub
 
-		#End Region
 	End Class
 
 	''' <summary>
@@ -85,22 +83,12 @@ Namespace SeparateEngines.AppDomains
 		Inherits MarshalByRefObject
 		Implements IDisposable
 
-		#Region "Properties"
-
 		Private ReadOnly Property Engine() As IEngine
-
-		#End Region
-
-		#Region "Constructors"
 
 		Public Sub New()
 			'Perform complex engine initialization here if necessary.
 			Engine = EngineFactory.Create()
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Public Sub Dispose() Implements IDisposable.Dispose
 			Engine?.Dispose()
@@ -134,6 +122,5 @@ Namespace SeparateEngines.AppDomains
 			Return result
 		End Function
 
-		#End Region
 	End Class
 End Namespace

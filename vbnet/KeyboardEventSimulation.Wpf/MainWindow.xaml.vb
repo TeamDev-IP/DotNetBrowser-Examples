@@ -40,8 +40,6 @@ Partial Public Class MainWindow
     Private browserView As BrowserView
     Private engine As IEngine
 
-#Region "Constructors"
-
     Public Sub New()
         Try
             Task.Run(Sub()
@@ -71,10 +69,6 @@ Partial Public Class MainWindow
             Debug.WriteLine(exception)
         End Try
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     Private Async Sub SimulateInput(e As Task(Of LoadResult))
         If e.Result = LoadResult.Completed Then
@@ -121,5 +115,4 @@ Partial Public Class MainWindow
         engine.Dispose()
     End Sub
 
-#End Region
 End Class

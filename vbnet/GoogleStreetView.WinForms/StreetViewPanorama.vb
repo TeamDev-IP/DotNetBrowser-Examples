@@ -32,8 +32,6 @@ Friend Class StreetViewPanorama
     Private positionValue As LatLng
     Private povValue As Pov
 
-#Region "Properties"
-
     ''' <summary>
     '''     Gets the current panorama ID for the Street View panorama.
     ''' </summary>
@@ -79,17 +77,9 @@ Friend Class StreetViewPanorama
         End Set
     End Property
 
-#End Region
-
-#Region "Events"
-
     Public Event PanoChanged As EventHandler
     Public Event PovChanged As EventHandler
     Public Event PositionChanged As EventHandler
-
-#End Region
-
-#Region "Constructors"
 
     Public Sub New(jsPanorama As IJsObject)
         panorama = jsPanorama
@@ -97,10 +87,6 @@ Friend Class StreetViewPanorama
         AddListener("pov_changed", AddressOf OnPovChanged)
         AddListener("position_changed", AddressOf OnPositionChanged)
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     Private Sub AddListener(eventName As String, handler As Action)
         panorama.Invoke("addListener", eventName, handler)
@@ -125,5 +111,4 @@ Friend Class StreetViewPanorama
         PovChangedEvent?.Invoke(Me, EventArgs.Empty)
     End Sub
 
-#End Region
 End Class

@@ -33,13 +33,7 @@ Namespace Mvvm.Wpf
 
 		Private ReadOnly engine As IEngine
 
-		#Region "Properties"
-
 		Public Property MyBrowser() As MyBrowserViewModel
-
-		#End Region
-
-		#Region "Constructors"
 
 		Public Sub New()
 			InitializeComponent()
@@ -51,14 +45,9 @@ Namespace Mvvm.Wpf
 			MyBrowser = New MyBrowserViewModel(engine.CreateBrowser()) With {.Url = "www.teamdev.com/dotnetbrowser"}
 		End Sub
 
-		#End Region
-
-		#Region "Methods"
-
 		Private Sub MainWindow_OnClosed(ByVal sender As Object, ByVal e As EventArgs)
 			engine?.Dispose()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

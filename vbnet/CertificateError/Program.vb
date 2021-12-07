@@ -30,9 +30,6 @@ Imports DotNetBrowser.Net.Handlers
 '''     The sample demonstrates how to handle SSL certificate errors.
 ''' </summary>
 Friend Class Program
-
-#Region "Methods"
-
     Public Shared Sub Main()
         Try
             Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
@@ -78,6 +75,4 @@ Friend Class Program
         ' Return Valid to ignore certificate error.
         Return VerifyCertificateResponse.Valid()
     End Function
-
-#End Region
 End Class

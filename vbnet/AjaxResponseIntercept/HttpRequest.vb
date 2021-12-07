@@ -27,8 +27,6 @@ Friend NotInheritable Class HttpRequest
     Private _completed As Boolean
     Private ReadOnly _responseData As New List(Of Byte)()
 
-#Region "Properties"
-
     ''' <summary>
     ''' Aggregated response data.
     ''' </summary>
@@ -72,18 +70,10 @@ Friend NotInheritable Class HttpRequest
     ''' </summary>
     Public ReadOnly Property Url() As String
 
-#End Region
-
-#Region "Constructors"
-
     Public Sub New(ByVal requestUrl As String, ByVal requestMethod As String)
         Url = requestUrl
         Method = requestMethod
     End Sub
-
-#End Region
-
-#Region "Methods"
 
     ''' <summary>
     '''     Mark the request as completed.
@@ -100,5 +90,4 @@ Friend NotInheritable Class HttpRequest
         _responseData.AddRange(data)
     End Sub
 
-#End Region
 End Class

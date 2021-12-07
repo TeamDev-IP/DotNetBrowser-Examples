@@ -32,8 +32,6 @@ Namespace JavaScriptBridge.Arrays
 	Friend Class Program
 		Private Const JsArray As String = "['Cabbage', 'Turnip', 'Radish', 'Carrot']"
 
-		#Region "Methods"
-
 		Public Shared Sub Main(ByVal args() As String)
 			Try
 				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
@@ -60,6 +58,5 @@ Namespace JavaScriptBridge.Arrays
 			Console.ReadKey()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

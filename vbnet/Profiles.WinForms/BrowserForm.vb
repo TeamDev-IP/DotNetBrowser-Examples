@@ -31,8 +31,6 @@ Namespace Profiles.WinForms
         Private ReadOnly browserView As BrowserView
         Private _browser As IBrowser
 
-#Region "Properties"
-
         Public Property Browser As IBrowser
             Get
                 Return _browser
@@ -47,19 +45,11 @@ Namespace Profiles.WinForms
             End Set
         End Property
 
-#End Region
-
-#Region "Constructors"
-
         Public Sub New()
             browserView = New BrowserView With {.Dock = DockStyle.Fill}
             InitializeComponent()
             Controls.Add(browserView)
         End Sub
-
-#End Region
-
-#Region "Methods"
 
         Private Sub AddressBar_KeyDown(sender As Object, e As KeyEventArgs)
             If e.KeyCode = Keys.Enter Then
@@ -84,6 +74,5 @@ Namespace Profiles.WinForms
             End If
         End Sub
 
-#End Region
     End Class
 End Namespace

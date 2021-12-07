@@ -41,8 +41,6 @@ Namespace Zoom.Wpf
 		Private browser As IBrowser
 		Private engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			Try
 				Task.Run(Sub()
@@ -59,10 +57,6 @@ Namespace Zoom.Wpf
 				Debug.WriteLine(exception)
 			End Try
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub EnableZoom(ByVal zoomEnabled As Boolean)
 			If browser IsNot Nothing Then
@@ -97,7 +91,5 @@ Namespace Zoom.Wpf
 		Private Sub ZoomEnabledCheckbox_OnUnchecked(ByVal sender As Object, ByVal e As RoutedEventArgs)
 			EnableZoom(False)
 		End Sub
-
-		#End Region
 	End Class
 End Namespace

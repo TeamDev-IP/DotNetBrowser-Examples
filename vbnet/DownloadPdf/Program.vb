@@ -33,7 +33,6 @@ Namespace DownloadPdf
 	'''     This example demonstrates how to download the PDF from the given URL.
 	''' </summary>
 	Friend Class Program
-		#Region "Methods"
 
 		Public Shared Sub Main()
 			Dim url As String = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
@@ -82,6 +81,5 @@ Namespace DownloadPdf
 			Console.ReadKey()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

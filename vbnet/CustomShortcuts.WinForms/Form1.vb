@@ -37,8 +37,6 @@ Namespace CustomShortcuts.WinForms
 		Private browser As IBrowser
 		Private engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			Task.Run(Sub()
 					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
@@ -54,10 +52,6 @@ Namespace CustomShortcuts.WinForms
 			InitializeComponent()
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs)
 			engine?.Dispose()
@@ -86,6 +80,5 @@ Namespace CustomShortcuts.WinForms
 			Return InputEventResponse.Proceed
 		End Function
 
-		#End Region
 	End Class
 End Namespace

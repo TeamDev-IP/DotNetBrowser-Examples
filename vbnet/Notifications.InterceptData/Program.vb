@@ -54,8 +54,6 @@ Friend Class Program
     Public Const DemoUrl As String = "https://davidwalsh.name/demo/notifications-api.php"
     Private Shared ReadOnly notificationCallback As New NotificationCallback()
 
-#Region "Methods"
-
     Public Shared Sub Main(ByVal args() As String)
         Try
             Using engine As IEngine = EngineFactory.Create()
@@ -98,11 +96,9 @@ Friend Class Program
         Return If(arg.Type = PermissionType.Notifications, RequestPermissionResponse.Grant(), RequestPermissionResponse.Deny())
     End Function
 
-#End Region
 End Class
 
 Friend Class NotificationCallback
-#Region "Methods"
 
     ''' <summary>
     '''     Corresponds to the Notification constructor.
@@ -114,5 +110,4 @@ Friend Class NotificationCallback
         Console.WriteLine($"New notification: {title}: {options.Properties("body")}")
     End Sub
 
-#End Region
 End Class

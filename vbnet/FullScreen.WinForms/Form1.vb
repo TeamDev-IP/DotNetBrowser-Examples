@@ -37,8 +37,6 @@ Namespace FullScreen.WinForms
 		Private ReadOnly engine As IEngine
 		Private fullScreenForm As Form
 
-		#Region "Constructors"
-
 		Public Sub New()
 			InitializeComponent()
 			browserView = New BrowserView With {.Dock = DockStyle.Fill}
@@ -50,10 +48,6 @@ Namespace FullScreen.WinForms
 			browser.Navigation.LoadUrl("http://www.w3.org/2010/05/video/mediaevents.html")
 			Controls.Add(browserView)
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As FormClosingEventArgs) Handles Me.FormClosing
 			browser?.Dispose()
@@ -84,6 +78,5 @@ Namespace FullScreen.WinForms
 			End Sub, Action))
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

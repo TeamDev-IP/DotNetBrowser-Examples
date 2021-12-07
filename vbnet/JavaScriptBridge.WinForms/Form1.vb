@@ -36,8 +36,6 @@ Namespace JavaScriptBridge.WinForms
 		Private ReadOnly browser As IBrowser
 		Private ReadOnly engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			InitializeComponent()
 			Dim webView = New BrowserView With {.Dock = DockStyle.Fill}
@@ -68,10 +66,6 @@ Namespace JavaScriptBridge.WinForms
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing
 		End Sub
 
-		#End Region
-
-		#Region "Methods"
-
 		Public Sub UpdateForm(ByVal value As String)
 			BeginInvoke(CType(Sub() richTextBox1.Text = value, Action))
 		End Sub
@@ -85,6 +79,5 @@ Namespace JavaScriptBridge.WinForms
 			engine?.Dispose()
 		End Sub
 
-		#End Region
 	End Class
 End Namespace

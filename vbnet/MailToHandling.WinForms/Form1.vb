@@ -39,8 +39,6 @@ Namespace MailToHandling.WinForms
 		Private browser As IBrowser
 		Private engine As IEngine
 
-		#Region "Constructors"
-
 		Public Sub New()
 			Task.Run(Sub()
 					 Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build()
@@ -53,10 +51,6 @@ Namespace MailToHandling.WinForms
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 			InitializeComponent()
 		End Sub
-
-		#End Region
-
-		#Region "Methods"
 
 		Private Sub Form1_FormClosed(ByVal sender As Object, ByVal e As FormClosedEventArgs) Handles Me.FormClosed
 			browser?.Dispose()
@@ -81,6 +75,5 @@ Namespace MailToHandling.WinForms
 			Return StartNavigationResponse.Start()
 		End Function
 
-		#End Region
 	End Class
 End Namespace
