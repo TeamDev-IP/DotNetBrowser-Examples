@@ -32,7 +32,7 @@ Imports DotNetBrowser.Net.Handlers
 Friend Class Program
     Public Shared Sub Main()
         Try
-            Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder().Build())
+            Using engine As IEngine = EngineFactory.Create()
                 Console.WriteLine("Engine created")
 
                 Using browser As IBrowser = engine.CreateBrowser()

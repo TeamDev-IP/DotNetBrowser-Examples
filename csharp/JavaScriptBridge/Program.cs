@@ -45,7 +45,7 @@ namespace JavaScriptBridge
                 LoggerProvider.Instance.Level = SourceLevels.Information;
                 LoggerProvider.Instance.FileLoggingEnabled = true;
                 LoggerProvider.Instance.OutputFile = "dnb.log";
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder().Build()))
+                using (IEngine engine = EngineFactory.Create())
                 {
                     Console.WriteLine("Engine created");
 
