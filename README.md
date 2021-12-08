@@ -98,7 +98,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Zoom web page on `Ctrl+Scroll` : [C#](csharp/Zoom.Wpf), [VB.NET](vbnet/Zoom.Wpf)
 * WPF Demo application with tabs: [C#](csharp/Demo.Wpf)
 * Windows Forms Demo application with tabs: [C#](csharp/Demo.WinForms)
-* Work with the web page via UI Automation (MSAA/UIA): [C#](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/master/csharp/UiAutomation.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/master/vbnet/UiAutomation.Wpf)
+* Work with the web page via UI Automation (MSAA/UIA): [C#](csharp/UiAutomation.Wpf), [VB.NET](vbnet/UiAutomation.Wpf)
 * Display web page with transparent background in <br/>a transparent WPF window: [C#](csharp/TransparentWebPage.Wpf), [VB.NET](vbnet/TransparentWebPage.Wpf)
 * Intercept Drag & Drop events. Access `IDataObject`: [C#](csharp/DragAndDrop.Wpf), [VB.NET](vbnet/DragAndDrop.Wpf)
 * Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/Mvvm.Wpf), [VB.NET](vbnet/Mvvm.Wpf)
