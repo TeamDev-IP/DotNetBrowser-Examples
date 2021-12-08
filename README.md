@@ -69,22 +69,22 @@ To learn more about the library please visit the [product page](https://www.team
 
 #### Network
 
-* Redirect a URL request to another website. Access the URL <br/>request headers.: [C#](csharp/NetworkHandlers), [VB.NET](vbnet/NetworkHandlers)
-* Intercept and handle URL requests: [C#](csharp/CustomRequestHandling), [VB.NET](vbnet/CustomRequestHandling)
+* Redirect a URL request to another website. Access the URL <br/>request headers.: [C#](csharp/NetworkHandlers/Program.cs), [VB.NET](vbnet/NetworkHandlers/Program.vb)
+* Intercept and handle URL requests: [C#](csharp/CustomRequestHandling/Program.cs), [VB.NET](vbnet/CustomRequestHandling/Program.vb)
 * Handle `mailto` or any other URI scheme to open external application: [C#](csharp/MailToHandling.WinForms), [VB.NET](vbnet/MailToHandling.WinForms)
-* Access HTTP response data: [C#](csharp/AccessingHttpResponseData), [VB.NET](vbnet/AccessingHttpResponseData)
-* Intercept the response data for AJAX requests: [C#](csharp/AjaxResponseIntercept), [VB.NET](vbnet/AjaxResponseIntercept) 
-* Suppress AJAX requests: [C#](csharp/AjaxCallsFilter), [VB.NET](vbnet/AjaxCallsFilter) 
-* Read and modify POST data : [C#](csharp/PostData), [VB.NET](vbnet/PostData)
-* Intercept WebSocket data: [C#](csharp/WebSockets.InterceptData), [VB.NET](vbnet/WebSockets.InterceptData)
-* Handle SSL certificate errors: [C#](csharp/CertificateError), [VB.NET](vbnet/CertificateError) 
-* Accept or reject SSL certificates: [C#](csharp/CertificateVerifier), [VB.NET](vbnet/CertificateVerifier) 
-* Filter out incoming and outgoing cookies: [C#](csharp/CookieFilter), [VB.NET](vbnet/CookieFilter) 
-* Get all stored cookies by URL: [C#](csharp/Cookies), [VB.NET](vbnet/Cookies) 
+* Access HTTP response data: [C#](csharp/AccessingHttpResponseData/Program.cs), [VB.NET](vbnet/AccessingHttpResponseData/Program.vb)
+* Intercept the response data for AJAX requests: [C#](csharp/AjaxResponseIntercept/Program.cs), [VB.NET](vbnet/AjaxResponseIntercept/Program.vb) 
+* Suppress AJAX requests: [C#](csharp/AjaxCallsFilter/Program.cs), [VB.NET](vbnet/AjaxCallsFilter/Program.vb) 
+* Read and modify POST data : [C#](csharp/PostData/Program.cs), [VB.NET](vbnet/PostData/Program.vb)
+* Intercept WebSocket data: [C#](csharp/WebSockets.InterceptData/Program.cs), [VB.NET](vbnet/WebSockets.InterceptData/Program.vb)
+* Handle SSL certificate errors: [C#](csharp/CertificateError/Program.cs), [VB.NET](vbnet/CertificateError/Program.vb) 
+* Accept or reject SSL certificates: [C#](csharp/CertificateVerifier/Program.cs), [VB.NET](vbnet/CertificateVerifier/Program.vb) 
+* Filter out incoming and outgoing cookies: [C#](csharp/CookieFilter/Program.cs), [VB.NET](vbnet/CookieFilter/Program.vb) 
+* Get all stored cookies by URL: [C#](csharp/Cookies/Program.cs), [VB.NET](vbnet/Cookies/Program.vb) 
 
 #### Media
 
-* List available audio and video devices. Select default media devices for <br/>the web page: [C#](csharp/DefaultMediaStreamDevice), [VB.NET](vbnet/DefaultMediaStreamDevice)
+* List available audio and video devices. Select default media devices for <br/>the web page: [C#](csharp/DefaultMediaStreamDevice/Program.cs), [VB.NET](vbnet/DefaultMediaStreamDevice/Program.vb)
 
 #### UI
 
