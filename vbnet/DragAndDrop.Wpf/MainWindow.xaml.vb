@@ -41,7 +41,7 @@ Partial Public Class MainWindow
 
     Public Sub New()
         Dim engineBuilder = New EngineOptions.Builder With {
-                .RenderingMode = RenderingMode.HardwareAccelerated,			
+                .RenderingMode = RenderingMode.HardwareAccelerated,
                 .SandboxDisabled = True
                 }
         engineBuilder.ChromiumSwitches.Add("--enable-com-in-drag-drop")
