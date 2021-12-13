@@ -48,11 +48,11 @@ Partial Public Class MainWindow
         engine = EngineFactory.Create(engineBuilder.Build())
 
         browser = engine.CreateBrowser()
-        ' #docfragment "DragAndDrop.Configuration
+        ' #docfragment "DragAndDrop.Configuration"
         browser.DragAndDrop.EnterDragHandler =
             New Handler(Of EnterDragParameters)(AddressOf OnDragEnter)
         browser.DragAndDrop.DropHandler = New Handler(Of DropParameters)(AddressOf OnDrop)
-        ' #enddocfragment "DragAndDrop.Configuration
+        ' #enddocfragment "DragAndDrop.Configuration"
 
         InitializeComponent()
         browserView.InitializeFrom(browser)
@@ -113,7 +113,7 @@ Partial Public Class MainWindow
         engine?.Dispose()
     End Sub
 
-    ' #docfragment "DragAndDrop.Implementation
+    ' #docfragment "DragAndDrop.Implementation"
     Private Sub OnDragEnter(arg As EnterDragParameters)
         LogData(arg.Event.DropData, NameOf(OnDragEnter))
         Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
@@ -133,5 +133,5 @@ Partial Public Class MainWindow
             ExtractData(NameOf(OnDrop), New DataObject(dataObject))
         End If
     End Sub
-    ' #enddocfragment "DragAndDrop.Implementation
+    ' #enddocfragment "DragAndDrop.Implementation"
 End Class

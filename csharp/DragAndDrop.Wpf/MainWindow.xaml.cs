@@ -55,11 +55,11 @@ namespace DragAndDrop.Wpf
                           .Build());
 
             browser = engine.CreateBrowser();
-            // #docfragment "DragAndDrop.Configuration
+            // #docfragment "DragAndDrop.Configuration"
             browser.DragAndDrop.EnterDragHandler =
                 new Handler<EnterDragParameters>(OnDragEnter);
             browser.DragAndDrop.DropHandler = new Handler<DropParameters>(OnDrop);
-            // #enddocfragment "DragAndDrop.Configuration
+            // #enddocfragment "DragAndDrop.Configuration"
 
             InitializeComponent();
             browserView.InitializeFrom(browser);
@@ -130,7 +130,7 @@ namespace DragAndDrop.Wpf
             engine?.Dispose();
         }
 
-        // #docfragment "DragAndDrop.Implementation
+        // #docfragment "DragAndDrop.Implementation"
         private void OnDragEnter(EnterDragParameters arg)
         {
             LogData(arg.Event.DropData, nameof(OnDragEnter));
@@ -156,6 +156,6 @@ namespace DragAndDrop.Wpf
                 ExtractData(nameof(OnDrop), new DataObject(dataObject));
             }
         }
-        // #enddocfragment "DragAndDrop.Implementation
+        // #enddocfragment "DragAndDrop.Implementation"
     }
 }
