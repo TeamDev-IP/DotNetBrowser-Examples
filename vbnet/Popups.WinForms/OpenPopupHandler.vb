@@ -36,7 +36,8 @@ Public Class OpenPopupHandler
         Me.parent = parent
     End Sub
 
-    Public Sub Handle(p As OpenPopupParameters) Implements IHandler(Of OpenPopupParameters).Handle
+    Public Sub Handle(p As OpenPopupParameters) Implements IHandler(
+                                                    Of OpenPopupParameters).Handle
         Dim showPopupAction As Action = Sub()
             ShowPopup(p.PopupBrowser, p.Rectangle)
         End Sub
