@@ -20,28 +20,25 @@
 
 #endregion
 
-// #docfragment "OpenPopupHandler.Wpf"
+// #docfragment "OpenPopupHandler.WinForms"
 using System;
-using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Forms;
 using DotNetBrowser.Browser;
+using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Geometry;
 using DotNetBrowser.Handlers;
-using DotNetBrowser.Wpf;
+using DotNetBrowser.WinForms;
 
-namespace Popups.Wpf
+namespace Popups.WinForms
 {
     public class OpenPopupHandler : IHandler<OpenPopupParameters>
     {
-        private readonly FrameworkElement parent;
+        private readonly Control parent;
 
-        private Dispatcher Dispatcher => parent?.Dispatcher
-                                         ?? Application.Current.Dispatcher;
-
-        public OpenPopupHandler(FrameworkElement parentElement)
+        public OpenPopupHandler(Control parent)
         {
-            parent = parentElement;
+            this.parent = parent;
         }
 
         public void Handle(OpenPopupParameters parameters)
@@ -51,60 +48,71 @@ namespace Popups.Wpf
                 ShowPopup(parameters.PopupBrowser,
                           parameters.Rectangle);
             };
-            Dispatcher.BeginInvoke(showPopupAction);
+            parent.BeginInvoke(showPopupAction);
         }
 
         private void ShowPopup(IBrowser popupBrowser, Rectangle rectangle)
         {
-            BrowserView browserView = new BrowserView();
+            BrowserView browserView = new BrowserView
+            {
+                Dock = DockStyle.Fill
+            };
+
             browserView.InitializeFrom(popupBrowser);
             // Set the same popup handler for the popup browser itself.
             popupBrowser.OpenPopupHandler = new OpenPopupHandler(browserView);
 
-            Window window = new Window {Owner = Window.GetWindow(parent)};
+            Form form = new Form();
 
-            if (!rectangle.IsEmpty)
+            if(!rectangle.IsEmpty)
             {
-                window.Top = rectangle.Origin.Y;
-                window.Left = rectangle.Origin.X;
-                window.SizeToContent = SizeToContent.WidthAndHeight;
+                form.StartPosition = FormStartPosition.Manual;
 
-                browserView.Width = rectangle.Size.Width;
-                browserView.Height = rectangle.Size.Height;
+                form.Location = new System.Drawing.Point(rectangle.Origin.X,
+                                                         rectangle.Origin.Y);
+
+                form.ClientSize = new System.Drawing.Size((int)rectangle.Size.Width,
+                                                          (int)rectangle.Size.Height);
+
+                browserView.Width = (int)rectangle.Size.Width;
+                browserView.Height = (int)rectangle.Size.Height;
             }
             else
             {
-                window.Width = 800;
-                window.Height = 600;
+                form.Width = 800;
+                form.Height = 600;
             }
 
-            window.Closed += (sender, args) =>
+            form.Closed += delegate
             {
-                window.Content = null;
-                if (!popupBrowser.IsDisposed)
+                form.Controls.Clear();
+
+                if(!popupBrowser.IsDisposed)
                 {
                     popupBrowser.Dispose();
                 }
             };
 
-            popupBrowser.TitleChanged += (sender, e) =>
+            popupBrowser.TitleChanged += delegate (object sender, TitleChangedEventArgs e)
             {
-                Dispatcher?.BeginInvoke((Action) (() => window.Title = e.Title));
+                form.BeginInvoke((Action)(() => { form.Text = e.Title; }));
             };
 
             popupBrowser.Disposed += delegate
             {
-                Dispatcher?.Invoke(() =>
+                Action formCloseAction = () =>
                 {
-                    window.Content = null;
-                    window.Hide();
-                    window.Close();
-                });
+                    form.Controls.Clear();
+                    form.Hide();
+                    form.Close();
+                    form.Dispose();
+                };
+                form.BeginInvoke(formCloseAction);
             };
 
-            window.Content = browserView;
-            window.Show();
+            form.Controls.Add(browserView);
+            form.Show();
         }
     }
 }
-// #enddocfragment "OpenPopupHandler.Wpf"
+// #enddocfragment "OpenPopupHandler.WinForms"
