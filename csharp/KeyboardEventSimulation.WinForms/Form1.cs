@@ -39,6 +39,12 @@ namespace KeyboardEventSimulation.WinForms
     /// </summary>
     public partial class Form1 : Form
     {
+        private const string Html = @"<html>
+                                          <body>
+                                            <input type='text' autofocus></input>
+                                          </body>
+                                        </html>";
+
         private IBrowser browser;
         private IEngine engine;
 
@@ -51,7 +57,8 @@ namespace KeyboardEventSimulation.WinForms
                  {
                      engine = EngineFactory.Create(new EngineOptions.Builder
                                                        {
-                                                           RenderingMode = RenderingMode.OffScreen
+                                                           RenderingMode =
+                                                               RenderingMode.OffScreen
                                                        }
                                                       .Build());
 
@@ -63,12 +70,10 @@ namespace KeyboardEventSimulation.WinForms
                      // Embed BrowserView component into main layout.
                      Controls.Add(browserView);
                      browserView.InitializeFrom(browser);
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
-                                          <body>
-                                            <input type='text' autofocus></input>
-                                          </body>
-                                        </html>");
-                     browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+                     byte[] htmlBytes = Encoding.UTF8.GetBytes(Html);
+                     browser.Navigation
+                            .LoadUrl("data:text/html;base64,"
+                                     + Convert.ToBase64String(htmlBytes))
                             .ContinueWith(SimulateInput);
                  }, TaskScheduler.FromCurrentSynchronizationContext());
         }
@@ -85,6 +90,7 @@ namespace KeyboardEventSimulation.WinForms
             if (e.Result == LoadResult.Completed)
             {
                 await Task.Delay(2000);
+                // #docfragment "KeyboardEventSimulation.Usage"
                 IKeyboard keyboard = browser.Keyboard;
                 SimulateKey(keyboard, KeyCode.VkH, "H");
                 SimulateKey(keyboard, KeyCode.VkE, "e");
@@ -95,10 +101,13 @@ namespace KeyboardEventSimulation.WinForms
                 //Simulate input of some non-letter characters
                 SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers {ShiftDown = true});
                 SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers {ShiftDown = true});
+                // #enddocfragment "KeyboardEventSimulation.Usage"
             }
         }
 
-        private static void SimulateKey(IKeyboard keyboard, KeyCode key, string keyChar, KeyModifiers modifiers = null)
+        // #docfragment "KeyboardEventSimulation.Implementation"
+        private static void SimulateKey(IKeyboard keyboard, KeyCode key, string keyChar,
+                                        KeyModifiers modifiers = null)
         {
             modifiers = modifiers ?? new KeyModifiers();
             KeyPressedEventArgs keyDownEventArgs = new KeyPressedEventArgs
@@ -124,5 +133,6 @@ namespace KeyboardEventSimulation.WinForms
             keyboard.KeyTyped.Raise(keyPressEventArgs);
             keyboard.KeyReleased.Raise(keyUpEventArgs);
         }
+        // #enddocfragment "KeyboardEventSimulation.Implementation"
     }
 }
