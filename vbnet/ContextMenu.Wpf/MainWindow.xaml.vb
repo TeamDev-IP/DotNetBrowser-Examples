@@ -1,6 +1,6 @@
-#Region "Copyright"
+﻿#Region "Copyright"
 
-' Copyright 2021, TeamDev. All rights reserved.
+' Copyright © 2021, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -27,9 +27,10 @@ Imports DotNetBrowser.Browser.Handlers
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
 
+
 ''' <summary>
-'''     The sample demonstrates how to create a context menu
-'''     for a Browser instance.
+'''     The sample demonstrates how to customize a context menu
+'''     for an IBrowser instance.
 ''' </summary>
 Partial Public Class MainWindow
     Inherits Window
@@ -37,68 +38,85 @@ Partial Public Class MainWindow
     Private browser As IBrowser
     Private engine As IEngine
 
+
     Public Sub New()
         Task.Run(Sub()
             engine =
                     EngineFactory.Create(
-                        New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+                        New EngineOptions.Builder _
+                                            With {.RenderingMode = RenderingMode.OffScreen}.
+                                            Build())
             browser = engine.CreateBrowser()
         End Sub).ContinueWith(Sub(t)
             WebView.InitializeFrom(browser)
-            browser.ShowContextMenuHandler =
-                                 New AsyncHandler(Of ShowContextMenuParameters, ShowContextMenuResponse)(
-                                     AddressOf ShowMenu)
+            ConfigureContextMenu()
             browser.Navigation.LoadUrl("https://www.google.com/")
         End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
         InitializeComponent()
     End Sub
 
-    Private Function BuildMenuItem(item As String, isEnabled As Boolean, IsVisible As Visibility,
+    Private Function BuildMenuItem(item As String, isEnabled As Boolean,
+                                   isVisible As Visibility,
                                    clickHandler As RoutedEventHandler) As MenuItem
         Dim result As New MenuItem With {
                 .Header = item,
                 .Visibility = Visibility.Collapsed
                 }
-        result.Visibility = IsVisible
+        result.Visibility = isVisible
         result.IsEnabled = isEnabled
         AddHandler result.Click, clickHandler
 
         Return result
     End Function
 
-    Private Function ShowMenu(parameters As ShowContextMenuParameters) As Task(Of ShowContextMenuResponse)
+    Private Sub ConfigureContextMenu()
+        ' #docfragment "ContextMenu.Configuration"
+        browser.ShowContextMenuHandler =
+            New AsyncHandler(Of ShowContextMenuParameters, ShowContextMenuResponse )(
+                AddressOf ShowContextMenu)
+        ' #enddocfragment "ContextMenu.Configuration"
+    End Sub
+
+    ' #docfragment "ContextMenu.Implementation"
+    Private Function ShowContextMenu(parameters As ShowContextMenuParameters) _
+        As Task(Of ShowContextMenuResponse)
         Dim tcs As New TaskCompletionSource(Of ShowContextMenuResponse)()
         WebView.Dispatcher?.BeginInvoke(New Action(Sub()
             Dim popupMenu As New ContextMenu()
 
             If Not String.IsNullOrEmpty(parameters.LinkText) Then
-                popupMenu.Items.Add(BuildMenuItem("Show the URL link", True, Visibility.Visible, Sub()
-                    Dim linkURL As String = parameters.LinkUrl
-                    Console.WriteLine($"linkURL = {linkURL}")
-                    MessageBox.Show(linkURL, "URL")
-                    tcs.TrySetResult(ShowContextMenuResponse.Close())
-                End Sub))
+                Dim linkMenuItem As MenuItem =
+                        BuildMenuItem("Show the URL link", True,
+                                      Visibility.Visible,
+                                      Sub(sender, args)
+                                          Dim linkUrl As String = parameters.LinkUrl
+                                          Debug.WriteLine( $"linkURL = {linkUrl}")
+                                          MessageBox.Show(linkUrl,"URL")
+                                          tcs.TrySetResult(ShowContextMenuResponse.Close())
+                                      End Sub)
+                popupMenu.Items.Add(linkMenuItem)
             End If
 
-            popupMenu.Items.Add(BuildMenuItem("Reload", True, Visibility.Visible, Sub()
-                Console.WriteLine("Reload current web page")
-                browser.Navigation.Reload()
-                tcs.TrySetResult(ShowContextMenuResponse.Close())
-            End Sub))
-
+            Dim reloadMenuItem As MenuItem =
+                    BuildMenuItem("Reload", True, Visibility.Visible,
+                                  Sub(sender, args)
+                                      Debug.WriteLine("Reload current web page")
+                                      browser.Navigation.Reload()
+                                      tcs.TrySetResult(ShowContextMenuResponse.Close())
+                                  End Sub)
+            popupMenu.Items.Add(reloadMenuItem)
             AddHandler popupMenu.Closed, Sub(sender, args)
                 tcs.TrySetResult(ShowContextMenuResponse.Close())
             End Sub
-
             popupMenu.IsOpen = True
         End Sub))
         Return tcs.Task
     End Function
+    ' #enddocfragment "ContextMenu.Implementation"
 
     Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
         browser.Dispose()
         engine.Dispose()
     End Sub
-
 End Class
