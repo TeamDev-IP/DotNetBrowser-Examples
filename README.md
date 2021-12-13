@@ -90,6 +90,8 @@ To learn more about the library please visit the [product page](https://www.team
 
 * Customize context menu in WPF: [C#](csharp/ContextMenu.Wpf), [VB.NET](csharp/ContextMenu.Wpf) 
 * Customize context menu with WinForms: [C#](csharp/ContextMenu.WinForms), [VB.NET](vbnet/ContextMenu.WinForms) 
+* Customize popup windows in WPF: [C#](csharp/Popups.Wpf), [VB.NET](csharp/Popups.Wpf) 
+* Customize popup windows in WinForms: [C#](csharp/Popups.WinForms), [VB.NET](vbnet/Popups.WinForms) 
 * Configure custom keyboard shortcuts: [C#](csharp/CustomShortcuts.WinForms), [VB.NET](vbnet/CustomShortcuts.WinForms) 
 * Simulate keyboard input in WPF: [C#](csharp/KeyboardEventSimulation.Wpf), [VB.NET](vbnet/KeyboardEventSimulation.Wpf)
 * Simulate keyboard input in WinForms: [C#](csharp/KeyboardEventSimulation.WinForms), [VB.NET](vbnet/KeyboardEventSimulation.WinForms)
