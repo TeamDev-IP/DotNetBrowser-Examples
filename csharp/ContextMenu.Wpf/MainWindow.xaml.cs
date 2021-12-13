@@ -120,8 +120,7 @@ namespace ContextMenu.Wpf
                                   {
                                       Console.WriteLine("Reload current web page");
                                       browser.Navigation.Reload();
-                                      tcs.TrySetResult(ShowContextMenuResponse
-                                                          .Close());
+                                      tcs.TrySetResult(ShowContextMenuResponse.Close());
                                   });
                 popupMenu.Items.Add(reloadMenuItem);
                 popupMenu.Closed += (sender, args) =>
