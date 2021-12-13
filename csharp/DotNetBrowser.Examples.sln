@@ -147,6 +147,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mvvm.Wpf", "Mvvm.Wpf\Mvvm.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profiles.WinForms", "Profiles.WinForms\Profiles.WinForms.csproj", "{2DCE766F-4373-48A8-ABED-AB4201032521}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups.Wpf", "Popups.Wpf\Popups.Wpf.csproj", "{ECB9920F-DA51-4C70-A5FF-6637FEB8E424}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -437,6 +439,10 @@ Global
 		{2DCE766F-4373-48A8-ABED-AB4201032521}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DCE766F-4373-48A8-ABED-AB4201032521}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DCE766F-4373-48A8-ABED-AB4201032521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB9920F-DA51-4C70-A5FF-6637FEB8E424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB9920F-DA51-4C70-A5FF-6637FEB8E424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB9920F-DA51-4C70-A5FF-6637FEB8E424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB9920F-DA51-4C70-A5FF-6637FEB8E424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
