@@ -55,9 +55,11 @@ namespace DragAndDrop.Wpf
                           .Build());
 
             browser = engine.CreateBrowser();
-
-            browser.DragAndDrop.EnterDragHandler = new Handler<EnterDragParameters>(OnDragEnter);
+            // #docfragment "DragAndDrop.Configuration
+            browser.DragAndDrop.EnterDragHandler =
+                new Handler<EnterDragParameters>(OnDragEnter);
             browser.DragAndDrop.DropHandler = new Handler<DropParameters>(OnDrop);
+            // #enddocfragment "DragAndDrop.Configuration
 
             InitializeComponent();
             browserView.InitializeFrom(browser);
@@ -72,7 +74,8 @@ namespace DragAndDrop.Wpf
                 return;
             }
 
-            StringBuilder sb = new StringBuilder("=====================================================");
+            StringBuilder sb =
+                new StringBuilder("=====================================================");
             sb.AppendLine("\nEvent name:" + name);
             sb.AppendLine("\nIDataObject:" + dataObject);
             sb.AppendLine("=====================================================");
@@ -82,7 +85,8 @@ namespace DragAndDrop.Wpf
                 try
                 {
                     object data = dataObject.GetData(format);
-                    sb.AppendLine("Type:" + (data == null ? "[null]" : data.GetType().ToString()));
+                    sb.AppendLine("Type:"
+                                  + (data == null ? "[null]" : data.GetType().ToString()));
 
                     sb.AppendLine("Data:" + data);
                     IEnumerable<string> strings = data as IEnumerable<string>;
@@ -126,13 +130,16 @@ namespace DragAndDrop.Wpf
             engine?.Dispose();
         }
 
+        // #docfragment "DragAndDrop.Implementation
         private void OnDragEnter(EnterDragParameters arg)
         {
             LogData(arg.Event.DropData, nameof(OnDragEnter));
             Debug.WriteLine("Data is null? " + (arg.Event.DataObject == null));
-            System.Runtime.InteropServices.ComTypes.IDataObject dataObject = arg.Event.DataObject;
+            System.Runtime.InteropServices.ComTypes.IDataObject dataObject =
+                arg.Event.DataObject;
             if (dataObject != null)
             {
+                // Process data in IDataObject
                 ExtractData(nameof(OnDragEnter), new DataObject(dataObject));
             }
         }
@@ -141,11 +148,14 @@ namespace DragAndDrop.Wpf
         {
             LogData(arg.Event.DropData, nameof(OnDrop));
             Debug.WriteLine("Data is null? " + (arg.Event.DataObject == null));
-            System.Runtime.InteropServices.ComTypes.IDataObject dataObject = arg.Event.DataObject;
+            System.Runtime.InteropServices.ComTypes.IDataObject dataObject =
+                arg.Event.DataObject;
             if (dataObject != null)
             {
+                // Process data in IDataObject
                 ExtractData(nameof(OnDrop), new DataObject(dataObject));
             }
         }
+        // #enddocfragment "DragAndDrop.Implementation
     }
 }
