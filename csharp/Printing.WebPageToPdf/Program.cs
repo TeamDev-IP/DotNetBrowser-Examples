@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,89 +43,86 @@ namespace Printing.WebPageToPdf
     {
         public static void Main()
         {
-            string url = "https://dotnetbrowser-support.teamdev.com/docs/guides/gs/printing.html";
+            string url =
+                "https://dotnetbrowser-support.teamdev.com/docs/guides/gs/printing.html";
             string pdfFilePath = Path.GetFullPath("result.pdf");
 
-            uint viewWidth = 1024;
-            uint viewHeight = 768;
-            Size browserSize = new Size(viewWidth, viewHeight);
-            try
+            EngineOptions engineOptions = new EngineOptions.Builder
             {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                RenderingMode = RenderingMode.OffScreen,
+                GpuDisabled = true
+            }.Build();
+
+            using (IEngine engine = EngineFactory.Create(engineOptions))
+            {
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    RenderingMode = RenderingMode.OffScreen,
-                    GpuDisabled = true
-                }.Build()))
-                {
-                    Console.WriteLine("Engine created");
+                    // #docfragment "PrintToPdf"
+                    // Resize browser to the required dimension.
+                    browser.Size = new Size(1024, 768);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        // 1. Resize browser to the required dimension.
-                        browser.Size = browserSize;
-
-                        // 2. Load the required web page and wait until it is loaded completely.
-                        Console.WriteLine("Loading " + url);
-                        browser.Navigation.LoadUrl(url).Wait();
+                    // Load the required web page and wait until it is loaded completely.
+                    Console.WriteLine("Loading " + url);
+                    browser.Navigation.LoadUrl(url).Wait();
 
 
-                        // 3. Configure print handlers.
-                        browser.RequestPrintHandler =
-                            new Handler<RequestPrintParameters, RequestPrintResponse>(p =>
+                    // Configure print handlers.
+                    browser.RequestPrintHandler =
+                        new Handler<RequestPrintParameters, RequestPrintResponse
+                        >(p => RequestPrintResponse.Print());
+
+                    TaskCompletionSource<string> printCompletedTcs =
+                        new TaskCompletionSource<string>();
+                    browser.PrintHtmlContentHandler
+                        = new Handler<PrintHtmlContentParameters, PrintHtmlContentResponse
+                        >(p =>
+                        {
+                            try
                             {
-                                return RequestPrintResponse
-                                   .Print();
-                            });
+                                // Get the print job for the built-in PDF printer.
+                                PdfPrinter<PdfPrinter.IHtmlSettings> pdfPrinter =
+                                    p.Printers.Pdf;
+                                IPrintJob<PdfPrinter.IHtmlSettings> printJob =
+                                    pdfPrinter.PrintJob;
 
-                        TaskCompletionSource<string> printCompletedTcs = new TaskCompletionSource<string>();
-                        browser.PrintHtmlContentHandler
-                            = new Handler<PrintHtmlContentParameters, PrintHtmlContentResponse>(p =>
+                                // Apply the necessary print settings
+                                printJob.Settings.Apply(s =>
+                                {
+                                    IReadOnlyCollection<PaperSize> paperSizes =
+                                        pdfPrinter.Capabilities.PaperSizes;
+                                    s.PaperSize =
+                                        paperSizes.First(size => size.Name.Contains("A4"));
+
+                                    s.PrintingHeaderFooterEnabled = true;
+                                    // Specify the path to save the result.
+                                    s.PdfFilePath = pdfFilePath;
+                                });
+
+                                string browserUrl = p.Browser.Url;
+                                printJob.PrintCompleted += (sender, args) =>
+                                {
+                                    // Set the task result when the printing is completed
+                                    printCompletedTcs.TrySetResult(browserUrl);
+                                };
+
+                                // Tell Chromium to use the built-in PDF printer
+                                // for printing.
+                                return PrintHtmlContentResponse.Print(pdfPrinter);
+                            }
+                            catch (Exception e)
                             {
-                                try
-                                {
-                                    // Get the print job for the built-in PDF printer.
-                                    PdfPrinter<PdfPrinter.IHtmlSettings> pdfPrinter = p.Printers.Pdf;
-                                    IPrintJob<PdfPrinter.IHtmlSettings> printJob = pdfPrinter.PrintJob;
+                                printCompletedTcs.TrySetException(e);
+                                throw;
+                            }
+                        });
 
-                                    // Apply the necessary print settings
-                                    printJob.Settings.Apply(s =>
-                                    {
-                                        s.PaperSize = pdfPrinter.Capabilities
-                                                                .PaperSizes
-                                                                .FirstOrDefault(size => size.Name.Contains("A4"));
-                                        s.PrintingHeaderFooterEnabled = true;
-                                        // Specify the path to save the result.
-                                        s.PdfFilePath = pdfFilePath;
-                                    });
-
-                                    string browserUrl = p.Browser.Url;
-                                    printJob.PrintCompleted += (sender, args) =>
-                                    {
-                                        printCompletedTcs.TrySetResult(browserUrl);
-                                    };
-
-                                    // Tell Chromium to use the built-in PDF printer for printing.
-                                    return PrintHtmlContentResponse.Print(pdfPrinter);
-                                }
-                                catch (Exception e)
-                                {
-                                    printCompletedTcs.TrySetException(e);
-                                    throw;
-                                }
-                            });
-
-                        // 4. Initiate printing and wait until it is completed.
-                        Console.WriteLine("URL loaded. Initiate printing");
-                        browser.MainFrame.Print();
-                        string printedUrl = printCompletedTcs.Task.Result;
-                        Console.WriteLine("Printing completed for the URL: " + printedUrl);
-                    }
+                    // Initiate printing and wait until it is completed.
+                    Console.WriteLine("URL loaded. Initiate printing");
+                    browser.MainFrame.Print();
+                    string printedUrl = printCompletedTcs.Task.Result;
+                    Console.WriteLine("Printing completed for the URL: " + printedUrl);
+                    // #enddocfragment "PrintToPdf"
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
