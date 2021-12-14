@@ -33,8 +33,8 @@ using DotNetBrowser.Handlers;
 namespace ContextMenu.Wpf
 {
     /// <summary>
-    ///     The sample demonstrates how to create a context menu
-    ///     for a Browser instance.
+    ///     The sample demonstrates how to customize a context menu
+    ///     for an IBrowser instance.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -57,8 +57,7 @@ namespace ContextMenu.Wpf
                 .ContinueWith(t =>
                  {
                      WebView.InitializeFrom(browser);
-                     browser.ShowContextMenuHandler =
-                         new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse>(ShowContextMenu);
+                     ConfigureContextMenu();
                      browser.Navigation.LoadUrl("https://www.google.com/");
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
@@ -80,35 +79,59 @@ namespace ContextMenu.Wpf
             return result;
         }
 
-        private Task<ShowContextMenuResponse> ShowContextMenu(ShowContextMenuParameters parameters)
+        private void ConfigureContextMenu()
         {
-            TaskCompletionSource<ShowContextMenuResponse> tcs = new TaskCompletionSource<ShowContextMenuResponse>();
+            // #docfragment "ContextMenu.Configuration"
+            browser.ShowContextMenuHandler =
+                new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
+                >(ShowContextMenu);
+            // #enddocfragment "ContextMenu.Configuration"
+        }
+
+        // #docfragment "ContextMenu.Implementation"
+        private Task<ShowContextMenuResponse> ShowContextMenu(
+            ShowContextMenuParameters parameters)
+        {
+            TaskCompletionSource<ShowContextMenuResponse> tcs =
+                new TaskCompletionSource<ShowContextMenuResponse>();
             WebView.Dispatcher?.BeginInvoke(new Action(() =>
             {
-                System.Windows.Controls.ContextMenu popupMenu = new System.Windows.Controls.ContextMenu();
+                System.Windows.Controls.ContextMenu popupMenu =
+                    new System.Windows.Controls.ContextMenu();
 
                 if (!string.IsNullOrEmpty(parameters.LinkText))
                 {
-                    popupMenu.Items.Add(BuildMenuItem("Show the URL link", true, Visibility.Visible, delegate
-                    {
-                        string linkURL = parameters.LinkUrl;
-                        Console.WriteLine($"linkURL = {linkURL}");
-                        MessageBox.Show(linkURL, "URL");
-                        tcs.TrySetResult(ShowContextMenuResponse.Close());
-                    }));
+                    MenuItem buildMenuItem =
+                        BuildMenuItem("Show the URL link", true,
+                                      Visibility.Visible,
+                                      (sender, args) =>
+                                      {
+                                          string linkURL = parameters.LinkUrl;
+                                          Console.WriteLine($"linkURL = {linkURL}");
+                                          MessageBox.Show(linkURL, "URL");
+                                          tcs.TrySetResult(ShowContextMenuResponse.Close());
+                                      });
+                    popupMenu.Items.Add(buildMenuItem);
                 }
 
-                popupMenu.Items.Add(BuildMenuItem("Reload", true, Visibility.Visible, delegate
+                MenuItem reloadMenuItem =
+                    BuildMenuItem("Reload", true, Visibility.Visible,
+                                  (sender, args) =>
+                                  {
+                                      Console.WriteLine("Reload current web page");
+                                      browser.Navigation.Reload();
+                                      tcs.TrySetResult(ShowContextMenuResponse.Close());
+                                  });
+                popupMenu.Items.Add(reloadMenuItem);
+                popupMenu.Closed += (sender, args) =>
                 {
-                    Console.WriteLine("Reload current web page");
-                    browser.Navigation.Reload();
                     tcs.TrySetResult(ShowContextMenuResponse.Close());
-                }));
-                popupMenu.Closed += (sender, args) => { tcs.TrySetResult(ShowContextMenuResponse.Close()); };
+                };
                 popupMenu.IsOpen = true;
             }));
             return tcs.Task;
         }
+        // #enddocfragment "ContextMenu.Implementation"
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {

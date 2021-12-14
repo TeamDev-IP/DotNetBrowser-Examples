@@ -20,6 +20,7 @@
 ' OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #End Region
+
 Imports System.ComponentModel
 Imports System.Text
 Imports DotNetBrowser.Browser
@@ -33,7 +34,11 @@ Imports DotNetBrowser.WinForms
 '''     This example demonstrates how to simulate keypress.
 ''' </summary>
 Public Class Form1
-
+    Private const Html as String = "<html>
+                                        <body>
+                                            <input type='text' autofocus></input>
+                                        </body>
+                                    </html>"
     Private browser As IBrowser
     Private browserView As BrowserView
     Private engine As IEngine
@@ -45,7 +50,9 @@ Public Class Form1
         Try
             Task.Run(Sub()
                 engine = EngineFactory.Create(
-                            New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+                    New EngineOptions.Builder With {
+                                                 .RenderingMode = RenderingMode.OffScreen
+                                                 }.Build())
                 browser = engine.CreateBrowser()
             End Sub).ContinueWith(Sub(t)
                 browserView = New BrowserView()
@@ -55,15 +62,13 @@ Public Class Form1
                 browserView.InitializeFrom(browser)
                 browserView.Dock = DockStyle.Fill
 
-                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
-                                                <body>
-                                                    <input type='text' autofocus></input>
-                                                </body>
-                                            </html>")
-                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                Dim htmlBytes() As Byte =
+                        Encoding.UTF8.GetBytes(Html)
+                browser.Navigation.LoadUrl(
+                    "data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
                                      .ContinueWith(AddressOf SimulateInput)
             End Sub, TaskScheduler.FromCurrentSynchronizationContext())
-            
+
         Catch exception As Exception
             Debug.WriteLine(exception)
         End Try
@@ -72,6 +77,7 @@ Public Class Form1
     Private Async Sub SimulateInput(e As Task(Of LoadResult))
         If e.Result = LoadResult.Completed Then
             Await Task.Delay(2000)
+            ' #docfragment "KeyboardEventSimulation.Usage"
             Dim keyboard As IKeyboard = browser.Keyboard
             SimulateKey(keyboard, KeyCode.VkH, "H")
             SimulateKey(keyboard, KeyCode.VkE, "e")
@@ -80,12 +86,17 @@ Public Class Form1
             SimulateKey(keyboard, KeyCode.VkO, "o")
             SimulateKey(keyboard, KeyCode.Space, " ")
             'Simulate input of some non-letter characters
-            SimulateKey(keyboard, KeyCode.Vk5, "%", New KeyModifiers() With {.ShiftDown = True})
-            SimulateKey(keyboard, KeyCode.Vk2, "@", New KeyModifiers() With {.ShiftDown = True})
+            SimulateKey(keyboard, KeyCode.Vk5, "%",
+                        New KeyModifiers() With {.ShiftDown = True})
+            SimulateKey(keyboard, KeyCode.Vk2, "@",
+                        New KeyModifiers() With {.ShiftDown = True})
+            ' #enddocfragment "KeyboardEventSimulation.Usage"
         End If
     End Sub
 
-    Private Shared Sub SimulateKey(keyboard As IKeyboard, key As KeyCode, keyChar As String, Optional ByVal modifiers As KeyModifiers = Nothing)
+    ' #docfragment "KeyboardEventSimulation.Implementation"
+    Private Shared Sub SimulateKey(keyboard As IKeyboard, key As KeyCode, keyChar As String,
+                                   Optional modifiers As KeyModifiers = Nothing)
         modifiers = If(modifiers, New KeyModifiers())
         Dim keyPressedEventArgs = New KeyPressedEventArgs With {
                 .KeyChar = keyChar,
@@ -107,12 +118,11 @@ Public Class Form1
         keyboard.KeyTyped.Raise(keyTypedEventArgs)
         keyboard.KeyReleased.Raise(keyReleasedEventArgs)
     End Sub
-
+    '#enddocfragment "KeyboardEventSimulation.Implementation"
 
     Private Sub Form_Closing(sender As Object, e As CancelEventArgs)
         ' Dispose browser and engine when close app window.
         browser.Dispose()
         engine.Dispose()
     End Sub
-
 End Class

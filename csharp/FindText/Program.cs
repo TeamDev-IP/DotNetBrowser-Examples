@@ -33,48 +33,50 @@ using DotNetBrowser.Search.Handlers;
 namespace FindText
 {
     /// <summary>
-    ///     This example demonstrates how to find text on the loaded web page.
+    ///     This example demonstrates how to perform text search on the loaded web page.
     /// </summary>
     internal class Program
     {
+        // #docfragment "FindText"
+        private const string Html = "<html><body><p>Find me</p><p>Find me</p></body></html>";
+
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(700, 500);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        byte[] htmlBytes =
-                            Encoding.UTF8.GetBytes("<html><body><p>Find me</p><p>Find me</p></body></html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
+                    byte[] htmlBytes = Encoding.UTF8.GetBytes(Html);
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
+                    // Add a timeout to make sure the web page is rendered completely.
+                    Thread.Sleep(2000);
 
-                        Thread.Sleep(2000);
-                        // Find text from the beginning of the loaded web page.
-                        string searchText = "find me";
+                    // Find text from the beginning of the loaded web page.
+                    string searchText = "find me";
 
-                        IHandler<FindResultReceivedParameters> intermediateResultsHandler =
-                            new Handler<FindResultReceivedParameters>(ProcessSearchResults);
-                        Console.WriteLine("Find text (1/2)");
+                    IHandler<FindResultReceivedParameters> intermediateResultsHandler =
+                        new Handler<FindResultReceivedParameters>(ProcessSearchResults);
+                    Console.WriteLine("Find text (1/2)");
 
-                        FindResult findResult =
-                            browser.TextFinder.Find(searchText, null, intermediateResultsHandler).Result;
-                        Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
-                        Console.WriteLine("Find text (2/2)");
+                    ITextFinder textFinder = browser.TextFinder;
+                    FindResult findResult =
+                        textFinder.Find(searchText, null, intermediateResultsHandler)
+                                  .Result;
+                    Console
+                       .WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
+                    Console.WriteLine("Find text (2/2)");
 
-                        findResult = browser.TextFinder.Find(searchText, null, intermediateResultsHandler).Result;
-                        Console.Out.WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
-                        browser.TextFinder.StopFinding();
-                    }
+                    findResult = textFinder
+                                .Find(searchText, null, intermediateResultsHandler)
+                                .Result;
+                    Console
+                       .WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
+                    textFinder.StopFinding();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -87,18 +89,19 @@ namespace FindText
 
             if (args.IsSearchFinished)
             {
-                Console.Out.WriteLine("Found: "
-                                      + result.SelectedMatch
-                                      + "/"
-                                      + result.NumberOfMatches);
+                Console.WriteLine("Found: "
+                                  + result.SelectedMatch
+                                  + "/"
+                                  + result.NumberOfMatches);
             }
             else
             {
-                Console.Out.WriteLine("Search in progress... Found "
-                                      + result.SelectedMatch
-                                      + "/"
-                                      + result.NumberOfMatches);
+                Console.WriteLine("Search in progress... Found "
+                                  + result.SelectedMatch
+                                  + "/"
+                                  + result.NumberOfMatches);
             }
         }
+        // #enddocfragment "FindText"
     }
 }

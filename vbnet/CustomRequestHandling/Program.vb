@@ -30,22 +30,24 @@ Imports DotNetBrowser.Net
 Imports DotNetBrowser.Net.Handlers
 
 ''' <summary>
-'''     This example demonstrates how to intercept all URL requests and handle a custom protocol.
+'''     This example demonstrates how to intercept and handle URL requests with a custom URI scheme.
 ''' </summary>
 Friend Class Program
-
     Public Shared Sub Main()
-        Try
-            Dim interceptRequestHandler =
-                    New Handler(Of InterceptRequestParameters, InterceptRequestResponse)(Function(p)
+        ' #docfragment "CustomRequestHandling"
+        Dim interceptRequestHandler =
+                New Handler(Of InterceptRequestParameters, InterceptRequestResponse)(
+                    Function(p)
                         Dim options = New UrlRequestJobOptions With {
                                 .Headers = New List(Of HttpHeader) From {
-                                New HttpHeader("Content-Type", "text/html", "charset=utf-8")
+                                New HttpHeader("Content-Type", "text/html",
+                                               "charset=utf-8")
                                 }
                                 }
-                        Dim job As UrlRequestJob = p.Network.CreateUrlRequestJob(p.UrlRequest, options)
+                        Dim job As UrlRequestJob =
+                                p.Network.CreateUrlRequestJob(p.UrlRequest, options)
                         Task.Run(Sub()
-                            ' The request processing is performed in a background thread
+                            ' The request processing is performed in a worker thread
                             ' in order to avoid freezing the web page.
                             job.Write(Encoding.UTF8.GetBytes("Hello world!"))
                             job.Complete()
@@ -54,27 +56,29 @@ Friend Class Program
                     End Function)
 
 
-            Dim engineOptionsBuilder = new EngineOptions.Builder
-            With engineOptionsBuilder
-                .Schemes.Add(Scheme.Create("myscheme"), interceptRequestHandler)
-            End With
+        Dim engineOptionsBuilder = new EngineOptions.Builder
+        With engineOptionsBuilder
+            .Schemes.Add(Scheme.Create("myscheme"), interceptRequestHandler)
+        End With
 
-            Dim engineOptions = engineOptionsBuilder.Build()
-            Using engine As IEngine = EngineFactory.Create(engineOptions)
-                Console.WriteLine("Engine created")
+        Dim engineOptions = engineOptionsBuilder.Build()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    Dim loadResult As LoadResult = browser.Navigation.LoadUrl("myscheme://test1").Result
-                    Console.WriteLine("Load result: " & loadResult.ToString())
-                    Console.WriteLine("HTML: " & browser.MainFrame.Html)
-                End Using
+        Using engine As IEngine = EngineFactory.Create(engineOptions)
+
+            Using browser As IBrowser = engine.CreateBrowser()
+                Dim loadResult As LoadResult =
+                        browser.Navigation.LoadUrl("myscheme://test1").Result
+                ' If the scheme handler was not set, the LoadResult would be 
+                ' LoadResult.Stopped.
+                ' However, with the scheme handler, the web page is loaded and
+                ' the result is LoadResult.Completed.
+                Console.WriteLine("Load result: " & loadResult.ToString())
+                Console.WriteLine("HTML: " & browser.MainFrame.Html)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+        ' #enddocfragment "CustomRequestHandling"
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
-
 End Class

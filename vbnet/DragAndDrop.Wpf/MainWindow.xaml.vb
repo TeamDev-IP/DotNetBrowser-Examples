@@ -20,11 +20,8 @@
 
 #End Region
 
-Imports System
-Imports System.Collections.Generic
-Imports System.Diagnostics
+Imports System.Runtime.InteropServices.ComTypes
 Imports System.Text
-Imports System.Windows
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
@@ -32,104 +29,109 @@ Imports DotNetBrowser.Input.DragAndDrop.Events
 Imports DotNetBrowser.Input.DragAndDrop.Handlers
 Imports DotNetBrowser.Net
 
-Namespace DragAndDrop.Wpf
-	''' <summary>
-	'''     This example demonstrates how to intercept drag and drop events
-	'''     and extract data from them.
-	''' </summary>
-	Partial Public Class MainWindow
-		Inherits Window
+''' <summary>
+'''     This example demonstrates how to intercept drag and drop events
+'''     and extract data from them.
+''' </summary>
+Partial Public Class MainWindow
+    Inherits Window
 
-		Private ReadOnly browser As IBrowser
-		Private ReadOnly engine As IEngine
+    Private ReadOnly browser As IBrowser
+    Private ReadOnly engine As IEngine
 
-		Public Sub New()
-			Dim engineBuilder = New EngineOptions.Builder With {
-				.RenderingMode = RenderingMode.HardwareAccelerated,			
-				.SandboxDisabled = True
-			} 
-			engineBuilder.ChromiumSwitches.Add("--enable-com-in-drag-drop")
-			engine = EngineFactory.Create(engineBuilder.Build())
+    Public Sub New()
+        Dim engineBuilder = New EngineOptions.Builder With {
+                .RenderingMode = RenderingMode.HardwareAccelerated,
+                .SandboxDisabled = True
+                }
+        engineBuilder.ChromiumSwitches.Add("--enable-com-in-drag-drop")
+        engine = EngineFactory.Create(engineBuilder.Build())
 
-			browser = engine.CreateBrowser()
+        browser = engine.CreateBrowser()
+        ' #docfragment "DragAndDrop.Configuration"
+        browser.DragAndDrop.EnterDragHandler =
+            New Handler(Of EnterDragParameters)(AddressOf OnDragEnter)
+        browser.DragAndDrop.DropHandler = New Handler(Of DropParameters)(AddressOf OnDrop)
+        ' #enddocfragment "DragAndDrop.Configuration"
 
-			browser.DragAndDrop.EnterDragHandler = New Handler(Of EnterDragParameters)(AddressOf OnDragEnter)
-			browser.DragAndDrop.DropHandler = New Handler(Of DropParameters)(AddressOf OnDrop)
+        InitializeComponent()
+        browserView.InitializeFrom(browser)
+        browser.Navigation.LoadUrl("teamdev.com")
+    End Sub
 
-			InitializeComponent()
-			browserView.InitializeFrom(browser)
-			browser.Navigation.LoadUrl("teamdev.com")
-		End Sub
+    Private Sub ExtractData(eventName As String, dataObject As Windows.IDataObject)
+        If dataObject Is Nothing Then
+            Debug.WriteLine("IDataObject is null")
+            Return
+        End If
 
-		Private Sub ExtractData(ByVal eventName As String, ByVal dataObject As IDataObject)
-			If dataObject Is Nothing Then
-				Debug.WriteLine("IDataObject is null")
-				Return
-			End If
+        Dim sb As New StringBuilder("=====================================================")
+        sb.AppendLine(vbLf & "Event name:" & eventName)
+        sb.AppendLine(vbLf & "IDataObject:" & dataObject.ToString())
+        sb.AppendLine("=====================================================")
+        For Each format As String In dataObject.GetFormats()
+            sb.AppendLine("Format:" & format)
+            Try
+                Dim data As Object = dataObject.GetData(format)
+                sb.AppendLine(
+                    "Type:" & (If(data Is Nothing, "[null]", data.GetType().ToString())))
 
-			Dim sb As New StringBuilder("=====================================================")
-			sb.AppendLine(vbLf & "Event name:" & eventName)
-			sb.AppendLine(vbLf & "IDataObject:" & dataObject.ToString())
-			sb.AppendLine("=====================================================")
-			For Each format As String In dataObject.GetFormats()
-				sb.AppendLine("Format:" & format)
-				Try
-					Dim data As Object = dataObject.GetData(format)
-					sb.AppendLine("Type:" & (If(data Is Nothing, "[null]", data.GetType().ToString())))
+                sb.AppendLine("Data:" & data.ToString())
+                Dim strings = TryCast(data, IEnumerable(Of String))
+                If strings IsNot Nothing Then
+                    For Each s As String In strings
+                        sb.AppendLine(vbTab & "Value: " & s)
+                    Next s
+                End If
+            Catch ex As Exception
+                sb.AppendLine("Exception thrown: " & ex.Message)
+            End Try
 
-					sb.AppendLine("Data:" & data.ToString())
-					Dim strings As IEnumerable(Of String) = TryCast(data, IEnumerable(Of String))
-					If strings IsNot Nothing Then
-						For Each s As String In strings
-							sb.AppendLine(vbTab & "Value: " & s)
-						Next s
-					End If
-				Catch ex As Exception
-					sb.AppendLine("Exception thrown: " & ex.Message)
-				End Try
+            sb.AppendLine("=====================================================")
+        Next format
 
-				sb.AppendLine("=====================================================")
-			Next format
+        Dim message As String = sb.ToString()
+        Dispatcher.BeginInvoke(CType(Sub()
+            Output.Text = message
+        End Sub,
+                                     Action))
 
-			Dim message As String = sb.ToString()
-			Dispatcher.BeginInvoke(CType(Sub()
-				Output.Text = message
-			End Sub, Action))
+        Debug.WriteLine(message)
+    End Sub
 
-			Debug.WriteLine(message)
-		End Sub
+    Private Sub LogData(dropData As IDropData, evtName As String)
+        Debug.WriteLine($"{evtName}:DropData is null? {dropData Is Nothing}")
+        If dropData IsNot Nothing Then
+            For Each file As IFileValue In dropData.Files
+                Debug.WriteLine($"{evtName}:File = {file?.FileName}")
+            Next file
+        End If
+    End Sub
 
-		Private Sub LogData(ByVal dropData As IDropData, ByVal evtName As String)
-			Debug.WriteLine($"{evtName}:DropData is null? {dropData Is Nothing}")
-			If dropData IsNot Nothing Then
-				For Each file As IFileValue In dropData.Files
-					Debug.WriteLine($"{evtName}:File = {file?.FileName}")
-				Next file
-			End If
-		End Sub
+    Private Sub MainWindow_OnClosed(sender As Object, e As EventArgs)
+        browser?.Dispose()
+        engine?.Dispose()
+    End Sub
 
-		Private Sub MainWindow_OnClosed(ByVal sender As Object, ByVal e As EventArgs)
-			browser?.Dispose()
-			engine?.Dispose()
-		End Sub
+    ' #docfragment "DragAndDrop.Implementation"
+    Private Sub OnDragEnter(arg As EnterDragParameters)
+        LogData(arg.Event.DropData, NameOf(OnDragEnter))
+        Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
+        Dim dataObject As IDataObject = arg.Event.DataObject
+        If dataObject IsNot Nothing Then
+            'Process data in IDataObject
+            ExtractData(NameOf(OnDragEnter), New DataObject(dataObject))
+        End If
+    End Sub
 
-		Private Overloads Sub OnDragEnter(ByVal arg As EnterDragParameters)
-			LogData(arg.Event.DropData, NameOf(OnDragEnter))
-			Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
-			Dim dataObject As System.Runtime.InteropServices.ComTypes.IDataObject = arg.Event.DataObject
-			If dataObject IsNot Nothing Then
-				ExtractData(NameOf(OnDragEnter), New DataObject(dataObject))
-			End If
-		End Sub
-
-		Private Overloads Sub OnDrop(ByVal arg As DropParameters)
-			LogData(arg.Event.DropData, NameOf(OnDrop))
-			Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
-			Dim dataObject As System.Runtime.InteropServices.ComTypes.IDataObject = arg.Event.DataObject
-			If dataObject IsNot Nothing Then
-				ExtractData(NameOf(OnDrop), New DataObject(dataObject))
-			End If
-		End Sub
-
-	End Class
-End Namespace
+    Private Sub OnDrop(arg As DropParameters)
+        LogData(arg.Event.DropData, NameOf(OnDrop))
+        Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
+        Dim dataObject As IDataObject = arg.Event.DataObject
+        If dataObject IsNot Nothing Then
+            ' Process data in IDataObject
+            ExtractData(NameOf(OnDrop), New DataObject(dataObject))
+        End If
+    End Sub
+    ' #enddocfragment "DragAndDrop.Implementation"
+End Class

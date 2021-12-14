@@ -34,55 +34,55 @@ using DotNetBrowser.Net.Handlers;
 namespace CustomRequestHandling
 {
     /// <summary>
-    ///     This example demonstrates how to intercept all URL requests and handle a custom protocol.
+    ///     This example demonstrates how to intercept and handle URL requests with a custom URI scheme.
     /// </summary>
     internal class Program
     {
         public static void Main()
         {
-            try
-            {
-                Handler<InterceptRequestParameters, InterceptRequestResponse> handler =
-                    new Handler<InterceptRequestParameters, InterceptRequestResponse>(p =>
+            // #docfragment "CustomRequestHandling"
+            Handler<InterceptRequestParameters, InterceptRequestResponse> handler =
+                new Handler<InterceptRequestParameters, InterceptRequestResponse>(p =>
+                {
+                    UrlRequestJobOptions options = new UrlRequestJobOptions
                     {
-                        UrlRequestJobOptions options = new UrlRequestJobOptions
+                        Headers = new List<HttpHeader>
                         {
-                            Headers = new List<HttpHeader>
-                            {
-                                new HttpHeader("Content-Type", "text/html", "charset=utf-8")
-                            }
-                        };
-                        UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
-                        Task.Run(() =>
-                        {
-                            // The request processing is performed in a background thread
-                            // in order to avoid freezing the web page.
-                            job.Write(Encoding.UTF8.GetBytes("Hello world!"));
-                            job.Complete();
-                        });
-
-                        return InterceptRequestResponse.Intercept(job);
+                            new HttpHeader("Content-Type", "text/html", "charset=utf-8")
+                        }
+                    };
+                    UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
+                    Task.Run(() =>
+                    {
+                        // The request processing is performed in a worker thread
+                        // in order to avoid freezing the web page.
+                        job.Write(Encoding.UTF8.GetBytes("Hello world!"));
+                        job.Complete();
                     });
 
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                    return InterceptRequestResponse.Intercept(job);
+                });
+
+            EngineOptions engineOptions = new EngineOptions.Builder
+            {
+                Schemes = {{Scheme.Create("myscheme"), handler}}
+            }.Build();
+
+            using (IEngine engine = EngineFactory.Create(engineOptions))
+            {
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Schemes = {{Scheme.Create("myscheme"), handler}}
-                }.Build()))
-                {
-                    Console.WriteLine("Engine created");
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        LoadResult loadResult = browser.Navigation.LoadUrl("myscheme://test1").Result;
-                        Console.WriteLine("Load result: " + loadResult);
-                        Console.WriteLine("HTML: " + browser.MainFrame.Html);
-                    }
+                    LoadResult loadResult =
+                        browser.Navigation.LoadUrl("myscheme://test1").Result;
+                    // If the scheme handler was not set, the LoadResult would be 
+                    // LoadResult.Stopped.
+                    // However, with the scheme handler, the web page is loaded and
+                    // the result is LoadResult.Completed.
+                    Console.WriteLine("Load result: " + loadResult);
+                    Console.WriteLine("HTML: " + browser.MainFrame.Html);
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            // #enddocfragment "CustomRequestHandling"
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
