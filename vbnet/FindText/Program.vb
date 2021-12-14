@@ -59,15 +59,20 @@ Friend Class Program
                 Dim findResult As FindResult =
                         textFinder.Find(searchText, Nothing, intermediateResultsHandler).
                         Result
-                Console.WriteLine(
-                    $"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
-                Console.WriteLine("Find text (2/2)")
 
-                findResult =
-                    textFinder.Find(searchText, Nothing, intermediateResultsHandler).
-                        Result
-                Console.WriteLine(
-                    $"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}")
+                Dim selectedMatch = findResult.SelectedMatch
+                Dim count = findResult.NumberOfMatches
+                Console.WriteLine($"Find Result: {selectedMatch}/{count}")
+
+                Console.WriteLine("Find text (2/2)")
+                findResult = textFinder.
+                    Find(searchText, Nothing, intermediateResultsHandler).
+                    Result
+
+                selectedMatch = findResult.SelectedMatch
+                count = findResult.NumberOfMatches
+                Console.WriteLine($"Find Result: {selectedMatch}/{count}")
+
                 textFinder.StopFinding()
             End Using
         End Using

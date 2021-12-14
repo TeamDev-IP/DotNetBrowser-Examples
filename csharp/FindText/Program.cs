@@ -60,21 +60,26 @@ namespace FindText
 
                     IHandler<FindResultReceivedParameters> intermediateResultsHandler =
                         new Handler<FindResultReceivedParameters>(ProcessSearchResults);
-                    Console.WriteLine("Find text (1/2)");
 
+                    Console.WriteLine("Find text (1/2)");
                     ITextFinder textFinder = browser.TextFinder;
                     FindResult findResult =
                         textFinder.Find(searchText, null, intermediateResultsHandler)
                                   .Result;
-                    Console
-                       .WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
-                    Console.WriteLine("Find text (2/2)");
 
+                    int selectedMatch = findResult.SelectedMatch;
+                    int count = findResult.NumberOfMatches;
+                    Console.WriteLine($"Find Result: {selectedMatch}/{count}");
+
+                    Console.WriteLine("Find text (2/2)");
                     findResult = textFinder
                                 .Find(searchText, null, intermediateResultsHandler)
                                 .Result;
-                    Console
-                       .WriteLine($"Find Result: {findResult.SelectedMatch}/{findResult.NumberOfMatches}");
+
+                    selectedMatch = findResult.SelectedMatch;
+                    count = findResult.NumberOfMatches;
+                    Console.WriteLine($"Find Result: {selectedMatch}/{count}");
+
                     textFinder.StopFinding();
                 }
             }
