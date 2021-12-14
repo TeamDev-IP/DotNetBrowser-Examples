@@ -41,7 +41,6 @@ Partial Public Class Form1
     Private browser As IBrowser
     Private engine As IEngine
 
-
     Public Sub New()
         LoggerProvider.Instance.Level = SourceLevels.Verbose
         LoggerProvider.Instance.FileLoggingEnabled = True
@@ -144,9 +143,10 @@ Partial Public Class Form1
                 ' Handle the menu closed event.
                 Dim menuOnClosed As ToolStripDropDownClosedEventHandler = Nothing
                 menuOnClosed = Sub(sender, args)
-                    Dim itemNotClicked As Boolean = args.CloseReason <>
-                                                    ToolStripDropDownCloseReason.
-                                                        ItemClicked
+                    Dim itemNotClicked As Boolean = 
+                            args.CloseReason <>
+                            ToolStripDropDownCloseReason.ItemClicked
+
                     If itemNotClicked Then
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End If

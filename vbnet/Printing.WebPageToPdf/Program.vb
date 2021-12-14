@@ -53,7 +53,6 @@ Friend Class Program
                 Console.WriteLine("Loading " & url)
                 browser.Navigation.LoadUrl(url).Wait()
 
-
                 ' Configure print handlers.
                 browser.RequestPrintHandler =
                     New Handler(Of RequestPrintParameters, RequestPrintResponse )(
