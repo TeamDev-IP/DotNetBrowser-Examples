@@ -67,8 +67,11 @@ namespace ContextMenu.WinForms
                 .ContinueWith(t =>
                  {
                      webView.InitializeFrom(browser);
+                     // #docfragment "ContextMenu.WinForms.Configuration"
                      browser.ShowContextMenuHandler =
-                         new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse>(ShowMenu);
+                         new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
+                         >(ShowMenu);
+                     // #enddocfragment "ContextMenu.WinForms.Configuration"
 
                      byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
@@ -78,7 +81,8 @@ namespace ContextMenu.WinForms
                                     <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                                     </body>
                                     </html>");
-                     browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes));
+                     browser.Navigation.LoadUrl("data:text/html;base64,"
+                                                + Convert.ToBase64String(htmlBytes));
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
@@ -86,7 +90,15 @@ namespace ContextMenu.WinForms
             Controls.Add(webView);
         }
 
-        private ToolStripItem BuildMenuItem(string item, bool isEnabled, EventHandler clickHandler)
+        protected void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            browser?.Dispose();
+            engine?.Dispose();
+        }
+
+        // #docfragment "ContextMenu.WinForms.Implementation"
+        private ToolStripItem BuildMenuItem(string item, bool isEnabled,
+                                            EventHandler clickHandler)
         {
             ToolStripItem result = new ToolStripMenuItem
             {
@@ -98,15 +110,10 @@ namespace ContextMenu.WinForms
             return result;
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            browser?.Dispose();
-            engine?.Dispose();
-        }
-
         private Task<ShowContextMenuResponse> ShowMenu(ShowContextMenuParameters parameters)
         {
-            TaskCompletionSource<ShowContextMenuResponse> tcs = new TaskCompletionSource<ShowContextMenuResponse>();
+            TaskCompletionSource<ShowContextMenuResponse> tcs =
+                new TaskCompletionSource<ShowContextMenuResponse>();
             SpellCheckMenu spellCheckMenu = parameters.SpellCheckMenu;
             if (spellCheckMenu != null)
             {
@@ -128,12 +135,14 @@ namespace ContextMenu.WinForms
                     }
 
                     // Add "Add to Dictionary" menu item.
-                    string addToDictionary = spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
+                    string addToDictionary =
+                        spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
                     popupMenu.Items.Add(BuildMenuItem(addToDictionary, true, delegate
                     {
                         if (!string.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord))
                         {
-                            engine.Profiles.Default.SpellChecker?.CustomDictionary?.Add(spellCheckMenu.MisspelledWord);
+                            engine.Profiles.Default.SpellChecker?.CustomDictionary
+                                 ?.Add(spellCheckMenu.MisspelledWord);
                         }
 
                         tcs.TrySetResult(ShowContextMenuResponse.Close());
@@ -152,7 +161,8 @@ namespace ContextMenu.WinForms
                     ToolStripDropDownClosedEventHandler menuOnClosed = null;
                     menuOnClosed = (sender, args) =>
                     {
-                        bool itemNotClicked = args.CloseReason != ToolStripDropDownCloseReason.ItemClicked;
+                        bool itemNotClicked =
+                            args.CloseReason != ToolStripDropDownCloseReason.ItemClicked;
                         if (itemNotClicked)
                         {
                             tcs.TrySetResult(ShowContextMenuResponse.Close());
@@ -175,5 +185,6 @@ namespace ContextMenu.WinForms
 
             return tcs.Task;
         }
+        // #enddocfragment "ContextMenu.WinForms.Implementation"
     }
 }
