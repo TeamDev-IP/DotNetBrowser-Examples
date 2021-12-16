@@ -119,7 +119,7 @@ Partial Public Class MainWindow
         Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
         Dim dataObject As IDataObject = arg.Event.DataObject
         If dataObject IsNot Nothing Then
-            'Process data in IDataObject
+            ' Process data in IDataObject.
             ExtractData(NameOf(OnDragEnter), New DataObject(dataObject))
         End If
     End Sub
@@ -129,7 +129,7 @@ Partial Public Class MainWindow
         Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
         Dim dataObject As IDataObject = arg.Event.DataObject
         If dataObject IsNot Nothing Then
-            ' Process data in IDataObject
+            ' Process data in IDataObject.
             ExtractData(NameOf(OnDrop), New DataObject(dataObject))
         End If
     End Sub
