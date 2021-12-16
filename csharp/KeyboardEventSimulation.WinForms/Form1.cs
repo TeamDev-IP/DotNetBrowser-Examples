@@ -98,7 +98,7 @@ namespace KeyboardEventSimulation.WinForms
                 SimulateKey(keyboard, KeyCode.VkL, "l");
                 SimulateKey(keyboard, KeyCode.VkO, "o");
                 SimulateKey(keyboard, KeyCode.Space, " ");
-                //Simulate input of some non-letter characters
+                // Simulate input of some non-letter characters.
                 SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers {ShiftDown = true});
                 SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers {ShiftDown = true});
                 // #enddocfragment "KeyboardEventSimulation.Usage"
