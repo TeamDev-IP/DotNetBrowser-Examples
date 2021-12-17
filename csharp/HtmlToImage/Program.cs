@@ -42,46 +42,42 @@ namespace HtmlToImage
             uint viewWidth = 1024;
             uint viewHeight = 20000;
             Size browserSize = new Size(viewWidth, viewHeight);
-            try
+
+            using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
             {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                RenderingMode = RenderingMode.OffScreen,
+                ChromiumSwitches = {"--disable-gpu", "--max-texture-size=" + viewHeight}
+            }.Build()))
+            {
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    RenderingMode = RenderingMode.OffScreen,
-                    ChromiumSwitches = {"--disable-gpu", "--max-texture-size=" + viewHeight}
-                }.Build()))
-                {
-                    Console.WriteLine("Engine created");
+                    // #docfragment "HtmlToImage"
+                    // 1. Resize browser to the required dimension.
+                    browser.Size = browserSize;
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        // 1. Resize browser to the required dimension.
-                        browser.Size = browserSize;
+                    // 2. Load the required web page and wait until it is loaded completely.
+                    Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser");
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                           .Wait();
 
-                        // 2. Load the required web page and wait until it is loaded completely.
-                        Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser");
-                        browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait();
+                    // 3. Take the bitmap of the currently loaded web page. Its size will be 
+                    // equal to the current browser's size.
+                    DotNetBrowser.Ui.Bitmap image = browser.TakeImage();
+                    Console.WriteLine("Browser image taken");
 
-                        // 3. Take the bitmap of the currently loaded web page. Its size will be 
-                        // equal to the current browser's size.
-                        DotNetBrowser.Ui.Bitmap image = browser.TakeImage();
-                        Console.WriteLine("Browser image taken");
-
-                        // 4. Convert the bitmap to the required format and save it.
-                        Bitmap bitmap = ToBitmap(image);
-                        bitmap.Save("screenshot.png", ImageFormat.Png);
-                        Console.WriteLine("Browser image saved");
-                    }
+                    // 4. Convert the bitmap to the required format and save it.
+                    Bitmap bitmap = ToBitmap(image);
+                    bitmap.Save("screenshot.png", ImageFormat.Png);
+                    Console.WriteLine("Browser image saved");
+                    // #enddocfragment "HtmlToImage"
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
+        // #docfragment "HtmlToImage.Conversion"
         public static Bitmap ToBitmap(DotNetBrowser.Ui.Bitmap bitmap)
         {
             int width = (int) bitmap.Size.Width;
@@ -99,5 +95,6 @@ namespace HtmlToImage
             bmp.UnlockBits(bmpData);
             return bmp;
         }
+        // #enddocfragment "HtmlToImage.Conversion"
     }
 }

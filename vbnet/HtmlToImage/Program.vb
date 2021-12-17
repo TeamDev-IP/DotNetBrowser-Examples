@@ -32,59 +32,57 @@ Imports DotNetBrowser.Ui
 '''     and save it as a PNG image.
 ''' </summary>
 Friend Class Program
-
     Public Shared Sub Main()
         Dim viewWidth As UInteger = 1024
         Dim viewHeight As UInteger = 20000
         Dim browserSize As New Size(viewWidth, viewHeight)
-        Try
-            Dim builder = New EngineOptions.Builder With {
-                    .RenderingMode = RenderingMode.OffScreen
-                    }
-            builder.ChromiumSwitches.Add("--disable-gpu")
-            builder.ChromiumSwitches.Add("--max-texture-size=" & viewHeight)
 
-            Using engine As IEngine = EngineFactory.Create(builder.Build())
-                Console.WriteLine("Engine created")
+        Dim builder = New EngineOptions.Builder With {
+            .RenderingMode = RenderingMode.OffScreen
+        }
+        builder.ChromiumSwitches.Add("--disable-gpu")
+        builder.ChromiumSwitches.Add("--max-texture-size=" & viewHeight)
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    ' 1. Resize browser to the required dimension.
-                    browser.Size = browserSize
+        Using engine As IEngine = EngineFactory.Create(builder.Build())
+            Using browser As IBrowser = engine.CreateBrowser()
+                ' #docfragment "HtmlToImage"
+                ' 1. Resize browser to the required dimension.
+                browser.Size = browserSize
 
-                    ' 2. Load the required web page and wait until it is loaded completely.
-                    Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser")
-                    browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
+                ' 2. Load the required web page and wait until it is loaded completely.
+                Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser")
+                browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
 
-                    ' 3. Take the bitmap of the currently loaded web page. Its size will be 
-                    ' equal to the current browser's size.
-                    Dim image As Bitmap = browser.TakeImage()
-                    Console.WriteLine("Browser image taken")
+                ' 3. Take the bitmap of the currently loaded web page. Its size will be 
+                ' equal to the current browser's size.
+                Dim image As Bitmap = browser.TakeImage()
+                Console.WriteLine("Browser image taken")
 
-                    ' 4. Convert the bitmap to the required format and save it.
-                    Dim bitmap As Drawing.Bitmap = ToBitmap(image)
-                    bitmap.Save("screenshot.png", ImageFormat.Png)
-                    Console.WriteLine("Browser image saved")
-                End Using
+                ' 4. Convert the bitmap to the required format and save it.
+                Dim bitmap As Drawing.Bitmap = ToBitmap(image)
+                bitmap.Save("screenshot.png", ImageFormat.Png)
+                Console.WriteLine("Browser image saved")
+                ' #enddocfragment "HtmlToImage"
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
 
+    ' #docfragment "HtmlToImage.Conversion"
     Public Shared Function ToBitmap(bitmap As Bitmap) As Drawing.Bitmap
         Dim width = CInt(bitmap.Size.Width)
         Dim height = CInt(bitmap.Size.Height)
 
         Dim data() As Byte = bitmap.Pixels.ToArray()
         Dim bmp As New Drawing.Bitmap(width, height, PixelFormat.Format32bppRgb)
-        Dim bmpData As BitmapData = bmp.LockBits(New Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
-                                                 ImageLockMode.WriteOnly, bmp.PixelFormat)
+        Dim bmpData As BitmapData = bmp.LockBits(
+            New Drawing.Rectangle(0, 0, bmp.Width, bmp.Height),
+            ImageLockMode.WriteOnly, bmp.PixelFormat)
 
         Marshal.Copy(data, 0, bmpData.Scan0, data.Length)
         bmp.UnlockBits(bmpData)
         Return bmp
     End Function
-
+    ' #enddocfragment "HtmlToImage.Conversion"
 End Class
