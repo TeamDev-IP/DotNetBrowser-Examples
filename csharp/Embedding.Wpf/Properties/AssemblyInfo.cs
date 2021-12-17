@@ -11,7 +11,7 @@ using System.Windows;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TeamDev")]
-[assembly: AssemblyProduct("Example.Wpf")]
+[assembly: AssemblyProduct("Embedding.Wpf")]
 [assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
