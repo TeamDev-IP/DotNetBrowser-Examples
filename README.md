@@ -87,10 +87,12 @@ To learn more about the library please visit the [product page](https://www.team
 * List available audio and video devices. Select default media devices for <br/>the web page: [C#](csharp/DefaultMediaStreamDevice/Program.cs), [VB.NET](vbnet/DefaultMediaStreamDevice/Program.vb)
 
 #### UI
-
-* Customize context menu in WPF: [C#](csharp/ContextMenu.Wpf), [VB.NET](csharp/ContextMenu.Wpf) 
+* Embed into Windows Forms application: [C#](csharp/Embedding.WinForms), [VB.NET](vbnet/Embedding.WinForms) 
+* Embed into WPF application: [C#](csharp/Embedding.Wpf), [VB.NET](vbnet/Embedding.Wpf) 
+* Embed into Windows Forms ElementHost: [C#](csharp/ElementHostEmbedding.WinForms), [VB.NET](vbnet/ElementHostEmbedding.WinForms) 
+* Customize context menu in WPF: [C#](csharp/ContextMenu.Wpf), [VB.NET](vbnet/ContextMenu.Wpf) 
 * Customize context menu with WinForms: [C#](csharp/ContextMenu.WinForms), [VB.NET](vbnet/ContextMenu.WinForms) 
-* Customize popup windows in WPF: [C#](csharp/Popups.Wpf), [VB.NET](csharp/Popups.Wpf) 
+* Customize popup windows in WPF: [C#](csharp/Popups.Wpf), [VB.NET](vbnet/Popups.Wpf) 
 * Customize popup windows in WinForms: [C#](csharp/Popups.WinForms), [VB.NET](vbnet/Popups.WinForms) 
 * Configure custom keyboard shortcuts: [C#](csharp/CustomShortcuts.WinForms), [VB.NET](vbnet/CustomShortcuts.WinForms) 
 * Simulate keyboard input in WPF: [C#](csharp/KeyboardEventSimulation.Wpf), [VB.NET](vbnet/KeyboardEventSimulation.Wpf)
