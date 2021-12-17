@@ -38,8 +38,8 @@ Friend Class Program
         Dim browserSize As New Size(viewWidth, viewHeight)
 
         Dim builder = New EngineOptions.Builder With {
-                .RenderingMode = RenderingMode.OffScreen
-                }
+            .RenderingMode = RenderingMode.OffScreen
+        }
         builder.ChromiumSwitches.Add("--disable-gpu")
         builder.ChromiumSwitches.Add("--max-texture-size=" & viewHeight)
 
