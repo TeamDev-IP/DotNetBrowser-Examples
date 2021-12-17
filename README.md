@@ -88,7 +88,7 @@ To learn more about the library please visit the [product page](https://www.team
 
 #### UI
 * Embed into Windows Forms application: [C#](csharp/Embedding.WinForms), [VB.NET](vbnet/Embedding.WinForms) 
-* Embed into WPF application: [C#](csharp/Embedding.Wpf), [VB.NET](csharp/Embedding.Wpf) 
+* Embed into WPF application: [C#](csharp/Embedding.Wpf), [VB.NET](vbnet/Embedding.Wpf) 
 * Embed into Windows Forms ElementHost: [C#](csharp/ElementHostEmbedding.WinForms), [VB.NET](vbnet/ElementHostEmbedding.WinForms) 
 * Customize context menu in WPF: [C#](csharp/ContextMenu.Wpf), [VB.NET](vbnet/ContextMenu.Wpf) 
 * Customize context menu with WinForms: [C#](csharp/ContextMenu.WinForms), [VB.NET](vbnet/ContextMenu.WinForms) 

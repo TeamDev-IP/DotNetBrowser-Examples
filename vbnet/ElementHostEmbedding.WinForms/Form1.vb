@@ -55,7 +55,7 @@ Namespace ElementHostEmbedding.WinForms
             host = New ElementHost With {
                 .Dock = DockStyle.Fill,
                 .Child = browserView
-                }
+            }
             Controls.Add(host)
 
             ' Initialize the WPF BrowserView control.

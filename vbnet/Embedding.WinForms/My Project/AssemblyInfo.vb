@@ -5,11 +5,11 @@ Imports System.Runtime.InteropServices
 ' General Information about an assembly is controlled through the following
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
-<Assembly: AssemblyTitle("Example.WinForms")>
+<Assembly: AssemblyTitle("Embedding.WinForms")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
-<Assembly: AssemblyProduct("Example.WinForms")>
+<Assembly: AssemblyProduct("Embedding.WinForms")>
 <Assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
