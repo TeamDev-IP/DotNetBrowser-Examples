@@ -66,4 +66,4 @@ namespace Embedding.Wpf
         }
     }
 }
-// #docfragment "Embedding.Wpf"
+// #enddocfragment "Embedding.Wpf"
