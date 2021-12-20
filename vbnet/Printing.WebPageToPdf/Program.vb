@@ -69,7 +69,7 @@ Friend Class Program
                                 Dim printJob As IPrintJob(Of PdfPrinter.IHtmlSettings) =
                                         pdfPrinter.PrintJob
 
-                                ' Apply the necessary print settings
+                                ' Apply the necessary print settings.
                                 printJob.Settings.Apply(Sub(s)
                                     Dim paperSizes As IReadOnlyCollection(Of PaperSize) =
                                             pdfPrinter.Capabilities.PaperSizes
@@ -84,7 +84,7 @@ Friend Class Program
 
                                 Dim browserUrl As String = p.Browser.Url
                                 AddHandler printJob.PrintCompleted, Sub(sender, args)
-                                    ' Set the task result when the printing is completed
+                                    ' Set the task result when the printing is completed.
                                     printCompletedTcs.TrySetResult(browserUrl)
                                 End Sub
 
