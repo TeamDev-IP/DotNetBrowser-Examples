@@ -85,7 +85,7 @@ namespace Printing.WebPageToPdf
                                 IPrintJob<PdfPrinter.IHtmlSettings> printJob =
                                     pdfPrinter.PrintJob;
 
-                                // Apply the necessary print settings
+                                // Apply the necessary print settings.
                                 printJob.Settings.Apply(s =>
                                 {
                                     IReadOnlyCollection<PaperSize> paperSizes =
@@ -101,7 +101,7 @@ namespace Printing.WebPageToPdf
                                 string browserUrl = p.Browser.Url;
                                 printJob.PrintCompleted += (sender, args) =>
                                 {
-                                    // Set the task result when the printing is completed
+                                    // Set the task result when the printing is completed.
                                     printCompletedTcs.TrySetResult(browserUrl);
                                 };
 
