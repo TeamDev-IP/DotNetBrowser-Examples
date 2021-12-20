@@ -151,6 +151,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups.Wpf", "Popups.Wpf\Po
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups.WinForms", "Popups.WinForms\Popups.WinForms.csproj", "{F2CC4CD8-3E3D-40F2-B402-B3A850D53819}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck.WinForms", "ContextMenu.SpellCheck.WinForms\ContextMenu.SpellCheck.WinForms.csproj", "{B742AA6C-D02A-4A93-88B6-7FED875A95C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck.Wpf", "ContextMenu.SpellCheck.Wpf\ContextMenu.SpellCheck.Wpf.csproj", "{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -449,6 +453,14 @@ Global
 		{F2CC4CD8-3E3D-40F2-B402-B3A850D53819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2CC4CD8-3E3D-40F2-B402-B3A850D53819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2CC4CD8-3E3D-40F2-B402-B3A850D53819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
