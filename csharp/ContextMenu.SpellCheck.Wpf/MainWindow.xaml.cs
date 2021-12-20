@@ -42,8 +42,6 @@ namespace ContextMenu.SpellCheck.Wpf
     {
         private IBrowser browser;
         private IEngine engine;
-
-
         public MainWindow()
         {
             Task.Run(() =>
@@ -52,11 +50,9 @@ namespace ContextMenu.SpellCheck.Wpf
                         .Create(new EngineOptions.Builder
                                     {
                                         RenderingMode = RenderingMode.OffScreen
-                                    }
-                                   .Build());
+                                    }.Build());
                      browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
+                 }).ContinueWith(t =>
                  {
                      WebView.InitializeFrom(browser);
                      ConfigureContextMenu();

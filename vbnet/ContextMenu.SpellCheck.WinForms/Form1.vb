@@ -39,8 +39,6 @@ Partial Public Class Form1
 
     Private browser As IBrowser
     Private engine As IEngine
-
-
     Public Sub New()
         LoggerProvider.Instance.Level = SourceLevels.Verbose
         LoggerProvider.Instance.FileLoggingEnabled = True
@@ -158,7 +156,6 @@ Partial Public Class Form1
         Else
             tcs.TrySetResult(ShowContextMenuResponse.Close())
         End If
-
         Return tcs.Task
     End Function
     ' #enddocfragment "ContextMenu.WinForms.Implementation"

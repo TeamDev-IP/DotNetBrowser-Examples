@@ -41,8 +41,8 @@ Partial Public Class MainWindow
     Public Sub New()
         Task.Run(Sub()
             engine = EngineFactory.Create(New EngineOptions.Builder With {
-                                            .RenderingMode = RenderingMode.OffScreen}.
-                                        Build())
+                                            .RenderingMode = RenderingMode.OffScreen
+                                        }.Build())
             browser = engine.CreateBrowser()
         End Sub).ContinueWith(Sub(t)
             WebView.InitializeFrom(browser)

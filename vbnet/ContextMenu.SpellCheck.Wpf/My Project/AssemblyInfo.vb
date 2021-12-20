@@ -27,7 +27,7 @@ Imports System.Windows
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
-<Assembly: AssemblyTitle("ContextMenu.Wpf")>
+<Assembly: AssemblyTitle("ContextMenu.SpellCheck.Wpf")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>

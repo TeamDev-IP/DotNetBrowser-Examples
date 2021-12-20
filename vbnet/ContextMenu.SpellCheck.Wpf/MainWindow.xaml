@@ -8,8 +8,6 @@
     mc:Ignorable="d"
     Title="MainWindow" Height="480" Width="800" Closing="Window_Closing">
     <Grid>
-
         <wpf:BrowserView Name="WebView" />
-
     </Grid>
 </Window>

@@ -45,8 +45,6 @@ namespace ContextMenu.SpellCheck.WinForms
     {
         private IBrowser browser;
         private IEngine engine;
-
-
         public Form1()
         {
             LoggerProvider.Instance.Level = SourceLevels.Verbose;
@@ -60,11 +58,9 @@ namespace ContextMenu.SpellCheck.WinForms
                         .Create(new EngineOptions.Builder
                                     {
                                         RenderingMode = RenderingMode.HardwareAccelerated
-                                    }
-                                   .Build());
+                                    }.Build());
                      browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
+                 }).ContinueWith(t =>
                  {
                      webView.InitializeFrom(browser);
                      // #docfragment "ContextMenu.WinForms.Configuration"

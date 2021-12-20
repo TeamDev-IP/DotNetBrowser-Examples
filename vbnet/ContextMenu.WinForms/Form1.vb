@@ -59,10 +59,9 @@ Partial Public Class Form1
             webView.InitializeFrom(browser)
             ' #docfragment "ContextMenu.WinForms.Configuration"
             browser.ShowContextMenuHandler =
-                                 New _
-                                 AsyncHandler _
-                                 (Of ShowContextMenuParameters, ShowContextMenuResponse )(
-                                     AddressOf ShowMenu)
+                New AsyncHandler(
+                    Of ShowContextMenuParameters, ShowContextMenuResponse)(
+                        AddressOf ShowMenu)
             ' #enddocfragment "ContextMenu.WinForms.Configuration"
 
             browser.Navigation.LoadUrl("https://www.google.com/")
