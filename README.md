@@ -92,6 +92,8 @@ To learn more about the library please visit the [product page](https://www.team
 * Embed into Windows Forms ElementHost: [C#](csharp/ElementHostEmbedding.WinForms), [VB.NET](vbnet/ElementHostEmbedding.WinForms) 
 * Customize context menu in WPF: [C#](csharp/ContextMenu.Wpf), [VB.NET](vbnet/ContextMenu.Wpf) 
 * Customize context menu with WinForms: [C#](csharp/ContextMenu.WinForms), [VB.NET](vbnet/ContextMenu.WinForms) 
+* Spell checker context menu in WPF: [C#](csharp/ContextMenu.SpellCheck.Wpf), [VB.NET](vbnet/ContextMenu.SpellCheck.Wpf) 
+* Spell checker context menu in WinForms: [C#](csharp/ContextMenu.SpellCheck.WinForms), [VB.NET](vbnet/ContextMenu.SpellCheck.WinForms)
 * Customize popup windows in WPF: [C#](csharp/Popups.Wpf), [VB.NET](vbnet/Popups.Wpf) 
 * Customize popup windows in WinForms: [C#](csharp/Popups.WinForms), [VB.NET](vbnet/Popups.WinForms) 
 * Configure custom keyboard shortcuts: [C#](csharp/CustomShortcuts.WinForms), [VB.NET](vbnet/CustomShortcuts.WinForms) 

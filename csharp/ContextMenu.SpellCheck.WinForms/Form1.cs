@@ -21,8 +21,10 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
@@ -34,18 +36,15 @@ using DotNetBrowser.Logging;
 using DotNetBrowser.SpellCheck;
 using DotNetBrowser.WinForms;
 
-namespace ContextMenu.WinForms
+namespace ContextMenu.SpellCheck.WinForms
 {
     /// <summary>
-    ///     The example demonstrates how to customize a context menu
-    ///     for an IBrowser instance.
+    ///     The example demonstrates how to create a context menu with the SpellChecker functionality.
     /// </summary>
     public partial class Form1 : Form
     {
         private IBrowser browser;
         private IEngine engine;
-
-
         public Form1()
         {
             LoggerProvider.Instance.Level = SourceLevels.Verbose;
@@ -59,11 +58,9 @@ namespace ContextMenu.WinForms
                         .Create(new EngineOptions.Builder
                                     {
                                         RenderingMode = RenderingMode.HardwareAccelerated
-                                    }
-                                   .Build());
+                                    }.Build());
                      browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
+                 }).ContinueWith(t =>
                  {
                      webView.InitializeFrom(browser);
                      // #docfragment "ContextMenu.WinForms.Configuration"
@@ -72,7 +69,16 @@ namespace ContextMenu.WinForms
                          >(ShowMenu);
                      // #enddocfragment "ContextMenu.WinForms.Configuration"
 
-                     browser.Navigation.LoadUrl("https://www.google.com/");
+                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+                                    <head>
+                                      <meta charset='UTF-8'>
+                                    </head>
+                                    <body>
+                                    <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
+                                    </body>
+                                    </html>");
+                     browser.Navigation.LoadUrl("data:text/html;base64,"
+                                                + Convert.ToBase64String(htmlBytes));
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
@@ -110,29 +116,33 @@ namespace ContextMenu.WinForms
                 BeginInvoke(new Action(() =>
                 {
                     ContextMenuStrip popupMenu = new ContextMenuStrip();
-                    if(!string.IsNullOrEmpty(parameters.LinkText))
+                    IEnumerable<string> suggestions = spellCheckMenu.DictionarySuggestions;
+                    if (suggestions != null)
                     {
-                        ToolStripItem buildMenuItem =
-                            BuildMenuItem("Show the URL link", true,
-                                          (sender, args) =>
-                                          {
-                                              string linkURL = parameters.LinkUrl;
-                                              Console.WriteLine($"linkURL = {linkURL}");
-                                              MessageBox.Show(linkURL, "URL");
-                                              tcs.TrySetResult(ShowContextMenuResponse.Close());
-                                          });
-                        popupMenu.Items.Add(buildMenuItem);
+                        // Add menu items with suggestions.
+                        foreach (string suggestion in suggestions)
+                        {
+                            popupMenu.Items.Add(BuildMenuItem(suggestion, true, delegate
+                            {
+                                browser.ReplaceMisspelledWord(suggestion);
+                                tcs.TrySetResult(ShowContextMenuResponse.Close());
+                            }));
+                        }
                     }
 
-                    ToolStripItem reloadMenuItem =
-                        BuildMenuItem("Reload", true, 
-                                      (sender, args) =>
-                                      {
-                                          Console.WriteLine("Reload current web page");
-                                          browser.Navigation.Reload();
-                                          tcs.TrySetResult(ShowContextMenuResponse.Close());
-                                      });
-                    popupMenu.Items.Add(reloadMenuItem);
+                    // Add "Add to Dictionary" menu item.
+                    string addToDictionary =
+                        spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
+                    popupMenu.Items.Add(BuildMenuItem(addToDictionary, true, delegate
+                    {
+                        if (!string.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord))
+                        {
+                            engine.Profiles.Default.SpellChecker?.CustomDictionary
+                                 ?.Add(spellCheckMenu.MisspelledWord);
+                        }
+
+                        tcs.TrySetResult(ShowContextMenuResponse.Close());
+                    }));
 
                     // Close context menu when the browser requests focus back.
                     EventHandler<FocusRequestedEventArgs> onFocusRequested = null;
