@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System.Text
 Imports System.Threading.Tasks
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Events
@@ -33,7 +32,8 @@ Imports DotNetBrowser.WinForms
 
 
 ''' <summary>
-'''     The sample demonstrates how to create a context menu with the SpellChecker functionality.
+'''     The example demonstrates how to customize a context menu
+'''     for an IBrowser instance.
 ''' </summary>
 Partial Public Class Form1
     Inherits Form
@@ -59,22 +59,13 @@ Partial Public Class Form1
             webView.InitializeFrom(browser)
             ' #docfragment "ContextMenu.WinForms.Configuration"
             browser.ShowContextMenuHandler =
-                New AsyncHandler (Of ShowContextMenuParameters, ShowContextMenuResponse )(
-                    AddressOf ShowMenu)
+                                 New _
+                                 AsyncHandler _
+                                 (Of ShowContextMenuParameters, ShowContextMenuResponse )(
+                                     AddressOf ShowMenu)
             ' #enddocfragment "ContextMenu.WinForms.Configuration"
 
-            Dim htmlBytes() As Byte =
-                    Encoding.UTF8.GetBytes(
-                        "<html>
-                                <head>
-                                  <meta charset='UTF-8'>
-                                </head>
-                                <body>
-                                <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
-                                </body>
-                                </html>")
-            browser.Navigation.LoadUrl(
-                "data:text/html;base64," & Convert.ToBase64String(htmlBytes))
+            browser.Navigation.LoadUrl("https://www.google.com/")
         End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
         InitializeComponent()
@@ -106,31 +97,24 @@ Partial Public Class Form1
         If spellCheckMenu IsNot Nothing Then
             BeginInvoke(New Action(Sub()
                 Dim popupMenu As New ContextMenuStrip()
-                Dim suggestions As IEnumerable(Of String) =
-                        spellCheckMenu.DictionarySuggestions
-
-                If suggestions IsNot Nothing Then
-                    ' Add menu items with suggestions
-                    For Each suggestion As String In suggestions
-                        popupMenu.Items.Add(BuildMenuItem(suggestion, True, Sub()
-                            browser.ReplaceMisspelledWord(suggestion)
+                If Not String.IsNullOrEmpty(parameters.LinkText) Then
+                    Dim menuItem As ToolStripItem =
+                        BuildMenuItem("Show the URL link", True, Sub(sender, args)
+                            Dim linkURL As String = parameters.LinkUrl
+                            Console.WriteLine($"linkURL = {linkURL}")
+                            MessageBox.Show(linkURL, "URL")
                             tcs.TrySetResult(ShowContextMenuResponse.Close())
-                        End Sub))
-                    Next suggestion
+                        End Sub)
+                    popupMenu.Items.Add(menuItem)
                 End If
 
-                ' Add "Add to Dictionary" menu item.
-                Dim addToDictionary As String =
-                        If (spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
-
-                popupMenu.Items.Add(BuildMenuItem(addToDictionary, True, Sub()
-                    If Not String.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord) Then
-                        engine.Profiles.Default.SpellChecker?.CustomDictionary? .Add(
-                            spellCheckMenu.MisspelledWord)
-                    End If
-
-                    tcs.TrySetResult(ShowContextMenuResponse.Close())
-                End Sub))
+                Dim reloadMenuItem As ToolStripItem =
+                    BuildMenuItem("Reload", True, Sub(sender, args)
+                        Console.WriteLine("Reload current web page")
+                        browser.Navigation.Reload()
+                        tcs.TrySetResult(ShowContextMenuResponse.Close())
+                    End Sub)
+                popupMenu.Items.Add(reloadMenuItem)
 
                 ' Close context menu when the browser requests focus back.
                 Dim onFocusRequested As EventHandler(Of FocusRequestedEventArgs) = Nothing
