@@ -38,50 +38,45 @@ namespace AjaxCallsFilter
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.SendUrlRequestHandler =
+                        new Handler<SendUrlRequestParameters,
+                            SendUrlRequestResponse>(CanLoadResource);
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    browser.Navigation
+                           .LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
+                           .Wait();
+
+                    IFrame demoFrame = browser.AllFrames.FirstOrDefault(FrameHasDemoElement);
+
+                    if (demoFrame != null)
                     {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.SendUrlRequestHandler =
-                            new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(CanLoadResource);
-
-                        browser.Navigation
-                               .LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
-                               .Wait();
-
-                        IFrame demoFrame =
-                            browser.AllFrames.FirstOrDefault(f => f.Document.GetElementById("demo") != null);
-
-                        if (demoFrame != null)
-                        {
-                            Console.WriteLine("Demo frame found");
-                            demoFrame.Document.GetElementByTagName("button").Click();
-                        }
+                        Console.WriteLine("Demo frame found");
+                        demoFrame.Document.GetElementByTagName("button").Click();
 
                         Thread.Sleep(5000);
-                        Console.WriteLine("Demo HTML: " + demoFrame?.Document.GetElementById("demo").InnerHtml);
+
+                        string demoHtml = demoFrame.Document.GetElementById("demo").InnerHtml;
+                        Console.WriteLine($"Demo HTML: {demoHtml}");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
 
+        private static bool FrameHasDemoElement(IFrame frame) 
+            => frame.Document.GetElementById("demo") != null;
+
         private static SendUrlRequestResponse CanLoadResource(SendUrlRequestParameters arg)
         {
             if (arg.UrlRequest.ResourceType == ResourceType.Xhr)
             {
-                Console.WriteLine("Suppress ajax call - " + arg.UrlRequest.Url);
+                Console.WriteLine($"Suppress ajax call - {arg.UrlRequest.Url}");
                 return SendUrlRequestResponse.Cancel();
             }
 
