@@ -44,55 +44,49 @@ namespace AjaxResponseIntercept
 
         private static void Main(string[] args)
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.SendUrlRequestHandler =
+                        new Handler<SendUrlRequestParameters,
+                            SendUrlRequestResponse>(OnSendUrlRequest);
+                    engine.Profiles.Default.Network.ResponseBytesReceived += OnResponseBytesReceived;
+                    engine.Profiles.Default.Network.RequestCompleted += OnRequestCompleted;
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    browser.Navigation
+                           .LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
+                           .Wait();
+
+                    IFrame demoFrame = browser.AllFrames.FirstOrDefault(FrameHasDemoElement);
+
+                    if (demoFrame != null)
                     {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.SendUrlRequestHandler =
-                            new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(OnSendUrlRequest);
-                        engine.Profiles.Default.Network.ResponseBytesReceived += OnResponseBytesReceived;
-                        engine.Profiles.Default.Network.RequestCompleted += OnRequestCompleted;
+                        //Click the button in the demo frame to make an AJAX request.
+                        Console.WriteLine("Demo frame found");
+                        demoFrame.Document.GetElementByTagName("button").Click();
+                    }
 
-                        browser.Navigation
-                               .LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first")
-                               .Wait();
+                    Console.WriteLine("Wait for 15 seconds to be sure that at least some requests are completed.");
+                    Thread.Sleep(15000);
 
-                        IFrame demoFrame =
-                            browser.AllFrames.FirstOrDefault(f => f.Document.GetElementById("demo") != null);
-
-                        if (demoFrame != null)
-                        {
-                            //Click the button in the demo frame to make an AJAX request.
-                            Console.WriteLine("Demo frame found");
-                            demoFrame.Document.GetElementByTagName("button").Click();
-                        }
-
-                        //Wait for 15 seconds to be sure that at least some requests are completed.
-                        Thread.Sleep(15000);
-
-                        // The dictionary will contain some requests, including the one we sent by clicking the button.
-                        string key = AjaxRequests.Keys.FirstOrDefault(k => k.Contains("ajax_info.txt"));
-                        if (!string.IsNullOrEmpty(key))
-                        {
-                            HttpRequest ajaxRequest = AjaxRequests[key];
-                            Console.WriteLine($"Response intercepted: \n{ajaxRequest.Response}");
-                        }
+                    // The dictionary will contain some requests, including the one we sent by clicking the button.
+                    string key =
+                        AjaxRequests.Keys.FirstOrDefault(k => k.Contains("ajax_info.txt"));
+                    if (!string.IsNullOrEmpty(key))
+                    {
+                        HttpRequest ajaxRequest = AjaxRequests[key];
+                        Console.WriteLine($"Response intercepted: \n{ajaxRequest.Response}");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
+
+        private static bool FrameHasDemoElement(IFrame frame)
+            => frame.Document.GetElementById("demo") != null;
 
         private static void OnRequestCompleted(object s, RequestCompletedEventArgs e)
         {
