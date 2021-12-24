@@ -75,7 +75,10 @@ namespace AjaxResponseIntercept
         /// <param name="data"></param>
         public void AppendResponseBytes(byte[] data)
         {
-            responseData.AddRange(data);
+            if (data != null)
+            {
+                responseData.AddRange(data);
+            }
         }
 
         /// <summary>

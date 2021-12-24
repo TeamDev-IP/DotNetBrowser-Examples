@@ -21,7 +21,7 @@
 #endregion
 
 using System;
-using System.Linq;
+using System.Text;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Net;
@@ -36,25 +36,15 @@ namespace AccessingHttpResponseData
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.ResponseBytesReceived += OnResponseBytesReceived;
+                    browser.Navigation.LoadUrl("https://teamdev.com").Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.ResponseBytesReceived += OnResponseBytesReceived;
-                        browser.Navigation.LoadUrl("https://teamdev.com").Wait();
-
-                        Console.WriteLine("URL loaded");
-                    }
+                    Console.WriteLine("URL loaded");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -67,8 +57,12 @@ namespace AccessingHttpResponseData
             {
                 Console.WriteLine($"MimeType = {eventArgs.MimeType}");
                 Console.WriteLine($"The HTTP method = {eventArgs.UrlRequest.Method}");
-                string data = eventArgs.Data.Aggregate<byte, string>(null, (current, t) => current + (char) t);
-                Console.WriteLine($"Data = {data}\n");
+
+                if(eventArgs.Data != null)
+                {
+                    string data = Encoding.UTF8.GetString(eventArgs.Data);
+                    Console.WriteLine($"Data = {data}\n");
+                }
             }
         }
     }

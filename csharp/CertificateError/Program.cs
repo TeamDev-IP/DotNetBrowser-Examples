@@ -36,24 +36,16 @@ namespace CertificateError
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.VerifyCertificateHandler =
+                        new Handler<VerifyCertificateParameters,
+                            VerifyCertificateResponse>(HandleCertError);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.VerifyCertificateHandler =
-                            new Handler<VerifyCertificateParameters, VerifyCertificateResponse>(HandleCertError);
-                        browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait();
-                    }
+                    browser.Navigation.LoadUrl("https://untrusted-root.badssl.com/").Wait();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -62,29 +54,29 @@ namespace CertificateError
 
         private static VerifyCertificateResponse HandleCertError(VerifyCertificateParameters errorParams)
         {
-            Certificate certificate = errorParams.Certificate;
-            foreach (CertificateVerificationStatus status in errorParams.VerifyStatuses)
-            {
-                Console.WriteLine("CertificateVerificationStatus = " + status);
-            }
-
-            Console.WriteLine("SerialNumber = " + certificate.SerialNumber);
-            Console.WriteLine("FingerPrint = " + certificate.Fingerprint);
-            Console.WriteLine("CAFingerPrint = " + certificate.CaFingerPrint);
-
-            string subject = certificate.Subject;
-            Console.WriteLine("Subject = " + subject);
-
-            string issuer = certificate.Issuer;
-            Console.WriteLine("Issuer = " + issuer);
-
-            Console.WriteLine("KeyUsages = " + string.Join(", ", certificate.KeyUsages));
-            Console.WriteLine("ExtendedKeyUsages = " + string.Join(", ", certificate.ExtendedKeyUsages));
-
-            Console.WriteLine("Expired = " + certificate.Expired);
+            PrintCertificateAndErrorDetails(errorParams);
 
             // Return Valid to ignore certificate error.
             return VerifyCertificateResponse.Valid();
+        }
+
+        private static void PrintCertificateAndErrorDetails(VerifyCertificateParameters errorParams)
+        {
+            foreach (CertificateVerificationStatus status in errorParams.VerifyStatuses)
+            {
+                Console.WriteLine($"CertificateVerificationStatus = {status}");
+            }
+
+            Certificate certificate = errorParams.Certificate;
+
+            Console.WriteLine($"SerialNumber = {certificate.SerialNumber}");
+            Console.WriteLine($"FingerPrint = {certificate.Fingerprint}");
+            Console.WriteLine($"CAFingerPrint = {certificate.CaFingerPrint}");
+            Console.WriteLine($"Subject = {certificate.Subject}");
+            Console.WriteLine($"Issuer = {certificate.Issuer}");
+            Console.WriteLine($"KeyUsages = {string.Join(", ", certificate.KeyUsages)}");
+            Console.WriteLine($"ExtendedKeyUsages = {string.Join(", ", certificate.ExtendedKeyUsages)}");
+            Console.WriteLine($"Expired = {certificate.Expired}");
         }
     }
 }

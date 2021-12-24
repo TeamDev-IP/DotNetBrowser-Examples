@@ -37,25 +37,18 @@ namespace CertificateVerifier
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.VerifyCertificateHandler =
+                        new Handler<VerifyCertificateParameters,
+                            VerifyCertificateResponse>(VerifyCert);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.VerifyCertificateHandler =
-                            new Handler<VerifyCertificateParameters, VerifyCertificateResponse>(VerifyCert);
-                        LoadResult result = browser.Navigation.LoadUrl("https://google.com").Result;
-                        Console.WriteLine("LoadResult: " + result);
-                    }
+                    LoadResult result = browser.Navigation.LoadUrl("https://google.com").Result;
+
+                    Console.WriteLine($"LoadResult: {result}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -67,7 +60,7 @@ namespace CertificateVerifier
             // Reject SSL certificate for all "google.com" hosts.
             if (parameters.HostName.Contains("google.com"))
             {
-                Console.WriteLine("Rejected certificate for " + parameters.HostName);
+                Console.WriteLine($"Rejected certificate for {parameters.HostName}");
                 return VerifyCertificateResponse.Invalid();
             }
 
