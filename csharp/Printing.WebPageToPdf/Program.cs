@@ -62,7 +62,7 @@ namespace Printing.WebPageToPdf
                     browser.Size = new Size(1024, 768);
 
                     // Load the required web page and wait until it is loaded completely.
-                    Console.WriteLine("Loading " + url);
+                    Console.WriteLine($"Loading {url}");
                     browser.Navigation.LoadUrl(url).Wait();
 
 
@@ -120,7 +120,7 @@ namespace Printing.WebPageToPdf
                     Console.WriteLine("URL loaded. Initiate printing");
                     browser.MainFrame.Print();
                     string printedUrl = printCompletedTcs.Task.Result;
-                    Console.WriteLine("Printing completed for the URL: " + printedUrl);
+                    Console.WriteLine($"Printing completed for the URL: {printedUrl}");
                     // #enddocfragment "PrintToPdf"
                 }
             }
