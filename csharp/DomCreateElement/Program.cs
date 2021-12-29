@@ -35,35 +35,28 @@ namespace DomCreateElement
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    byte[] htmlBytes =
+                        Encoding.UTF8
+                                .GetBytes("<html><body><div id='root'></div></body></html>");
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
+                    Console.WriteLine($"Initial HTML: {browser.MainFrame.Html}");
+                    IDocument document = browser.MainFrame.Document;
 
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
+                    INode root = document.GetElementById("root");
+                    INode textNode = document.CreateTextNode("Some text");
+                    IElement paragraph = document.CreateElement("p");
+                    paragraph.Children.Append(textNode);
+                    root.Children.Append(paragraph);
 
-                        Console.WriteLine("Initial HTML: " + browser.MainFrame.Html);
-                        IDocument document = browser.MainFrame.Document;
-
-                        INode root = document.GetElementById("root");
-                        INode textNode = document.CreateTextNode("Some text");
-                        IElement paragraph = document.CreateElement("p");
-                        paragraph.Children.Append(textNode);
-                        root.Children.Append(paragraph);
-
-                        Console.WriteLine("Updated HTML: " + browser.MainFrame.Html);
-                    }
+                    Console.WriteLine($"Updated HTML: {browser.MainFrame.Html}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
