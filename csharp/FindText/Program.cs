@@ -52,6 +52,7 @@ namespace FindText
                     browser.Navigation
                            .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
                            .Wait();
+
                     // Add a timeout to make sure the web page is rendered completely.
                     Thread.Sleep(2000);
 
