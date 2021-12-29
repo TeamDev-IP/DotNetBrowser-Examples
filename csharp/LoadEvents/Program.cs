@@ -35,39 +35,37 @@ namespace LoadEvents
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
-
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        browser.Navigation.FrameLoadFinished += delegate(object sender, FrameLoadFinishedEventArgs e)
+                    browser.Navigation.FrameLoadFinished +=
+                        delegate(object sender, FrameLoadFinishedEventArgs e)
                         {
-                            Console.Out.WriteLine($"FrameLoadFinished: URL = {e.ValidatedUrl},"
-                                                  + $" IsMainFrame = {e.Frame.IsMain}");
+                            Console.WriteLine($"FrameLoadFinished: URL = {e.ValidatedUrl},"
+                                              + $" IsMainFrame = {e.Frame.IsMain}");
                         };
 
-                        browser.Navigation.LoadStarted += delegate { Console.Out.WriteLine("LoadStarted"); };
-                        browser.Navigation.NavigationStarted += delegate(object sender, NavigationStartedEventArgs e)
+                    browser.Navigation.LoadStarted +=
+                        delegate
                         {
-                            Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}");
+                            Console.WriteLine("LoadStarted");
                         };
 
-                        browser.Navigation.FrameDocumentLoadFinished +=
-                            delegate(object sender, FrameDocumentLoadFinishedEventArgs e)
-                            {
-                                Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}");
-                            };
+                    browser.Navigation.NavigationStarted +=
+                        delegate(object sender, NavigationStartedEventArgs e)
+                        {
+                            Console.WriteLine($"NavigationStarted: Url = {e.Url}");
+                        };
 
-                        browser.Navigation.LoadUrl("https://www.google.com").Wait();
-                    }
+                    browser.Navigation.FrameDocumentLoadFinished +=
+                        delegate(object sender, FrameDocumentLoadFinishedEventArgs e)
+                        {
+                            Console.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}");
+                        };
+
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
