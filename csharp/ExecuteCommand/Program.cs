@@ -36,33 +36,25 @@ namespace ExecuteCommand
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Navigation
+                           .LoadUrl("http://www.google.com")
+                           .Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
+                    // Inserts "TeamDev DotNetBrowser" text into Google Search field.
+                    browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"));
+                    // Inserts a new line into Google Search field to simulate Enter.
+                    browser.MainFrame.Execute(EditorCommand.InsertNewLine());
 
-                        browser.Navigation.LoadUrl("http://www.google.com")
-                               .Wait();
-                        // Inserts "TeamDev DotNetBrowser" text into Google Search field.
-                        browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"));
-                        // Inserts a new line into Google Search field to simulate Enter.
-                        browser.MainFrame.Execute(EditorCommand.InsertNewLine());
+                    Thread.Sleep(3000);
 
-                        Thread.Sleep(3000);
-                        // The page will now contain search results.
-                        Console.WriteLine("Page contents:");
-                        Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText);
-                    }
+                    // The page will now contain search results.
+                    Console.WriteLine("Page contents:");
+                    Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
