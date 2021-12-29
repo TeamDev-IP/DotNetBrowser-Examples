@@ -44,10 +44,10 @@ namespace HtmlToImage
             Size browserSize = new Size(viewWidth, viewHeight);
 
             using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
-            {
-                RenderingMode = RenderingMode.OffScreen,
-                ChromiumSwitches = {"--disable-gpu", "--max-texture-size=" + viewHeight}
-            }.Build()))
+                   {
+                       RenderingMode = RenderingMode.OffScreen,
+                       ChromiumSwitches = {"--disable-gpu", "--max-texture-size=" + viewHeight}
+                   }.Build()))
             {
                 using (IBrowser browser = engine.CreateBrowser())
                 {
@@ -57,7 +57,8 @@ namespace HtmlToImage
 
                     // 2. Load the required web page and wait until it is loaded completely.
                     Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser");
-                    browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                    browser.Navigation
+                           .LoadUrl("https://www.teamdev.com/dotnetbrowser")
                            .Wait();
 
                     // 3. Take the bitmap of the currently loaded web page. Its size will be 
