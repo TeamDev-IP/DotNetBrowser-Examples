@@ -37,36 +37,37 @@ namespace DownloadPdf
     {
         public static void Main()
         {
-            string url = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+            string url =
+                "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
 
-            try
+            using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                   {
+                       RenderingMode = RenderingMode.OffScreen
+                   }.Build()))
             {
-                using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                //1. Disable PDF viewer to trigger PDF file download on loading the URL.
+                engine.Profiles.Default.Plugins.Settings.PdfViewerEnabled = false;
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    RenderingMode = RenderingMode.OffScreen
-                }.Build()))
-                {
-                    Console.WriteLine("Engine created");
+                    // 2. Configure the download handler.
+                    TaskCompletionSource<string> downloadFinishedTcs =
+                        new TaskCompletionSource<string>();
 
-                    //1. Disable PDF viewer to trigger PDF file download on loading the URL.
-                    engine.Profiles.Default.Plugins.Settings.PdfViewerEnabled = false;
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-
-                        // 2. Configure the download handler.
-                        TaskCompletionSource<string> downloadFinishedTcs = new TaskCompletionSource<string>();
-                        browser.StartDownloadHandler = new Handler<StartDownloadParameters, StartDownloadResponse>(p =>
+                    browser.StartDownloadHandler =
+                        new Handler<StartDownloadParameters, StartDownloadResponse>(p =>
                         {
                             try
                             {
-                                Console.WriteLine("Starting download for: " + p.Download.Info.Url);
+                                Console.WriteLine($"Starting download for: {p.Download.Info.Url}");
+
                                 string suggestedFileName = p.Download.Info.SuggestedFileName;
                                 string targetPath = Path.GetFullPath(suggestedFileName);
+
                                 p.Download.Finished += (sender, args) =>
                                 {
                                     downloadFinishedTcs.TrySetResult(targetPath);
                                 };
+
                                 return StartDownloadResponse.DownloadTo(targetPath);
                             }
                             catch (Exception e)
@@ -76,20 +77,15 @@ namespace DownloadPdf
                             }
                         });
 
-                        // 2. Load the required web page and wait until it is loaded completely.
-                        Console.WriteLine("Loading " + url);
-                        browser.Navigation.LoadUrl(url).Wait();
-                        Console.WriteLine("URL loaded.");
+                    // 2. Load the required web page and wait until it is loaded completely.
+                    Console.WriteLine($"Loading {url}");
+                    browser.Navigation.LoadUrl(url).Wait();
+                    Console.WriteLine("URL loaded.");
 
-                        // 3. Wait until the download is finished.
-                        string downloadedUrl = downloadFinishedTcs.Task.Result;
-                        Console.WriteLine("Download completed: " + downloadedUrl);
-                    }
+                    // 3. Wait until the download is finished.
+                    string downloadedUrl = downloadFinishedTcs.Task.Result;
+                    Console.WriteLine($"Download completed: {downloadedUrl}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
