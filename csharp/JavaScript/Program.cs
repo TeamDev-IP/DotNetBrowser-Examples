@@ -33,36 +33,30 @@ namespace JavaScript
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    // Executes the passed JavaScript code asynchronously.
+                    browser.MainFrame.ExecuteJavaScript("document.write('<html><title>"
+                                                        + "My Title</title><body><h1>"
+                                                        + "Hello from DotNetBrowser!"
+                                                        + "</h1></body></html>');");
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
+                    // Executes the passed JavaScript code and returns the result value.
+                    string documentTitle = browser.MainFrame
+                                                  .ExecuteJavaScript<string>("document.title")
+                                                  .Result;
 
-                        // Executes the passed JavaScript code asynchronously.
-                        browser
-                           .MainFrame
-                           .ExecuteJavaScript("document.write('<html><title>"
-                                              + "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');");
+                    Console.WriteLine($"Document Title = {documentTitle}");
 
-                        // Executes the passed JavaScript code and returns the result value.
-                        string documentTitle = browser.MainFrame.ExecuteJavaScript<string>("document.title").Result;
-                        Console.Out.WriteLine("Document Title = " + documentTitle);
+                    string documentContent =
+                        browser.MainFrame
+                               .ExecuteJavaScript<string>("document.body.innerText")
+                               .Result;
 
-
-                        string documentContent =
-                            browser.MainFrame.ExecuteJavaScript<string>("document.body.innerText").Result;
-                        Console.Out.WriteLine("New content: " + documentContent);
-                    }
+                    Console.WriteLine($"New content: {documentContent}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
