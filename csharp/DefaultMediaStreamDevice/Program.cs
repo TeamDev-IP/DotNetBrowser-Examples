@@ -41,33 +41,26 @@ namespace DefaultMediaStreamDevice
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    IMediaDevices mediaDevices = engine.MediaDevices;
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
+                    Console.WriteLine("\nAvailable audio capture devices:");
+                    PrintDevices(mediaDevices.AudioCaptureDevices);
 
-                        IMediaDevices mediaDevices = engine.MediaDevices;
-                        Console.WriteLine("\nAvailable audio capture devices:");
-                        PrintDevices(mediaDevices.AudioCaptureDevices);
-                        Console.WriteLine("\nAvailable video capture devices:");
-                        PrintDevices(mediaDevices.VideoCaptureDevices);
+                    Console.WriteLine("\nAvailable video capture devices:");
+                    PrintDevices(mediaDevices.VideoCaptureDevices);
 
-                        mediaDevices.SelectMediaDeviceHandler =
-                            new Handler<SelectMediaDeviceParameters, SelectMediaDeviceResponse>(SelectDevice);
+                    mediaDevices.SelectMediaDeviceHandler =
+                        new Handler<SelectMediaDeviceParameters,
+                            SelectMediaDeviceResponse>(SelectDevice);
 
-                        browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html")
-                               .Wait();
-                    }
+                    browser.Navigation
+                           .LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html")
+                           .Wait();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -88,6 +81,7 @@ namespace DefaultMediaStreamDevice
             // Set first available device as default.
             IEnumerable<MediaDevice> availableDevices = arg.Devices;
             MediaDevice defaultDevice = availableDevices.FirstOrDefault();
+
             if (defaultDevice != null)
             {
                 Console.WriteLine($"Default device is set to {defaultDevice.Name}");

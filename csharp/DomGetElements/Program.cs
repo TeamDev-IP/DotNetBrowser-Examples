@@ -37,49 +37,43 @@ namespace DomGetElements
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Navigation
+                           .LoadUrl("https://www.teamdev.com")
+                           .Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    IDocument document = browser.MainFrame.Document;
+                    IEnumerable<INode> divs = document.GetElementsByTagName("div");
+
+                    foreach (INode node in divs)
                     {
-                        Console.WriteLine("Browser created");
-
-                        browser.Navigation.LoadUrl("https://www.google.com")
-                               .Wait();
-                        IDocument document = browser.MainFrame.Document;
-                        IEnumerable<INode> divs = document.GetElementsByTagName("div");
-                        foreach (INode div in divs)
-                        {
-                            if (div is IElement divElement)
-                            {
-                                Rectangle boundingClientRect = divElement.BoundingClientRect;
-                                Console
-                                   .Out.WriteLine(@"class = {0};"
-                                                + " boundingClientRect.Top = {1};"
-                                                + " boundingClientRect.Left = {2};"
-                                                + " boundingClientRect.Width = {3};"
-                                                + " boundingClientRect.Height = {4}"
-                                                , divElement.Attributes["class"]
-                                                , boundingClientRect.Origin.Y
-                                                , boundingClientRect.Origin.X
-                                                , boundingClientRect.Size.Width
-                                                , boundingClientRect.Size.Height
-                                                 );
-                            }
-                        }
+                        PrintBoundingClientRect(node);
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
+        }
+
+        private static void PrintBoundingClientRect(INode node)
+        {
+            IElement div = node as IElement;
+
+            if (div != null)
+            {
+                Rectangle rect = div.BoundingClientRect;
+
+                Console
+                   .Out.WriteLine($"class = {div.Attributes["class"]};\n"
+                                  + $" boundingClientRect.Top = {rect.Origin.Y};\n"
+                                  + $" boundingClientRect.Left = {rect.Origin.X};\n"
+                                  + $" boundingClientRect.Width = {rect.Size.Width};\n"
+                                  + $" boundingClientRect.Height = {rect.Size.Height}");
+            }
         }
     }
 }

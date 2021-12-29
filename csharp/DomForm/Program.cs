@@ -36,49 +36,44 @@ namespace DomForm
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    byte[] htmlBytes =
+                        Encoding.UTF8.GetBytes("<html><body><form name=\"myForm\">"
+                                               + "First name: <input type=\"text\" id=\"firstName\" name=\"firstName\"/><br/>"
+                                               + "Last name: <input type=\"text\" id=\"lastName\" name=\"lastName\"/><br/>"
+                                               + "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>"
+                                               + "<input type='button' id='saveButton' value=\"Save\" onclick=\""
+                                               + "if(document.getElementById('agreement').checked){"
+                                               + "    console.log(document.getElementById('firstName').value +' '+"
+                                               + "document.getElementById('lastName').value);}"
+                                               + "\"/>"
+                                               + "</form></body></html>");
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    IDocument document = browser.MainFrame.Document;
+                    IInputElement firstName =
+                        (IInputElement) document.GetElementByName("firstName");
+                    IInputElement lastName =
+                        (IInputElement) document.GetElementByName("lastName");
+                    IInputElement agreement =
+                        (IInputElement) document.GetElementByName("agreement");
+
+                    firstName.Value = "John";
+                    lastName.Value = "Doe";
+                    agreement.Checked = true;
+
+                    browser.ConsoleMessageReceived += (sender, args) =>
                     {
-                        Console.WriteLine("Browser created");
-
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><form name=\"myForm\">"
-                                                                  + "First name: <input type=\"text\" id=\"firstName\" name=\"firstName\"/><br/>"
-                                                                  + "Last name: <input type=\"text\" id=\"lastName\" name=\"lastName\"/><br/>"
-                                                                  + "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>"
-                                                                  + "<input type='button' id='saveButton' value=\"Save\" onclick=\""
-                                                                  + "if(document.getElementById('agreement').checked){"
-                                                                  + "    console.log(document.getElementById('firstName').value +' '+"
-                                                                  + "document.getElementById('lastName').value);}"
-                                                                  + "\"/>"
-                                                                  + "</form></body></html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
-
-                        IDocument document = browser.MainFrame.Document;
-                        IInputElement firstName = (IInputElement) document.GetElementByName("firstName");
-                        IInputElement lastName = (IInputElement) document.GetElementByName("lastName");
-                        IInputElement agreement = (IInputElement) document.GetElementByName("agreement");
-
-                        firstName.Value = "John";
-                        lastName.Value = "Doe";
-                        agreement.Checked = true;
-
-                        browser.ConsoleMessageReceived += (sender, args) =>
-                        {
-                            Console.WriteLine("JS Console: < " + args.Message);
-                        };
-                        document.GetElementById("saveButton").Click();
-                        Thread.Sleep(3000);
-                    }
+                        Console.WriteLine($"JS Console: < {args.Message}");
+                    };
+                    document.GetElementById("saveButton").Click();
+                    Thread.Sleep(3000);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

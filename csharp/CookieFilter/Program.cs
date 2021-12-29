@@ -37,27 +37,24 @@ namespace CookieFilter
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.CanGetCookiesHandler =
+                        new Handler<CanGetCookiesParameters,
+                            CanGetCookiesResponse>(CanGetCookies);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.CanGetCookiesHandler =
-                            new Handler<CanGetCookiesParameters, CanGetCookiesResponse>(CanGetCookies);
-                        engine.Profiles.Default.Network.CanSetCookieHandler =
-                            new Handler<CanSetCookieParameters, CanSetCookieResponse>(CanSetCookie);
-                        LoadResult result = browser.Navigation.LoadUrl("https://www.google.com").Result;
-                        Console.WriteLine("LoadResult: " + result);
-                    }
+                    engine.Profiles.Default.Network.CanSetCookieHandler =
+                        new Handler<CanSetCookieParameters,
+                            CanSetCookieResponse>(CanSetCookie);
+
+                    LoadResult result = browser.Navigation
+                                               .LoadUrl("https://www.google.com")
+                                               .Result;
+
+                    Console.WriteLine($"LoadResult: {result}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -67,13 +64,13 @@ namespace CookieFilter
         private static CanGetCookiesResponse CanGetCookies(CanGetCookiesParameters arg)
         {
             string cookies = arg.Cookies.Aggregate(string.Empty, (current, cookie) => current + (cookie + "\n"));
-            Console.WriteLine("CanGetCookies: " + cookies);
+            Console.WriteLine($"CanGetCookies: {cookies}");
             return CanGetCookiesResponse.Deny();
         }
 
         private static CanSetCookieResponse CanSetCookie(CanSetCookieParameters arg)
         {
-            Console.WriteLine("CanSetCookie: " + arg.Cookie);
+            Console.WriteLine($"CanSetCookie: {arg.Cookie}");
             return CanSetCookieResponse.Deny();
         }
     }

@@ -36,40 +36,30 @@ namespace DomQuerySelector
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
-
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'>"
+                    byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'>"
                                                                   + "<p>paragraph1</p>"
                                                                   + "<p>paragraph2</p>"
                                                                   + "<p>paragraph3</p>"
                                                                   + "</div></body></html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
-                               .Wait();
-                        IDocument document = browser.MainFrame.Document;
-                        IElement documentElement = document.DocumentElement;
-                        // Get the div with id = "root".
-                        INode divRoot = documentElement.GetElementByCssSelector("#root");
-                        // Get all paragraphs.
-                        IEnumerable<INode> paragraphs = divRoot.GetElementsByCssSelector("p");
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
+                    IDocument document = browser.MainFrame.Document;
+                    IElement documentElement = document.DocumentElement;
+                    // Get the div with id = "root".
+                    INode divRoot = documentElement.GetElementByCssSelector("#root");
+                    // Get all paragraphs.
+                    IEnumerable<INode> paragraphs = divRoot.GetElementsByCssSelector("p");
 
-                        foreach (INode paragraph in paragraphs)
-                        {
-                            Console.Out.WriteLine("paragraph.InnerText = " + (paragraph as IElement)?.InnerText);
-                        }
+                    foreach (INode paragraph in paragraphs)
+                    {
+                        Console.Out.WriteLine($"paragraph.InnerText = {(paragraph as IElement)?.InnerText}");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

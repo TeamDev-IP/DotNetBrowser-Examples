@@ -36,33 +36,27 @@ namespace DomGetAttributes
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    byte[] htmlBytes =
+                        Encoding.UTF8.GetBytes("<html><body><a href='#' id='link' title='link title'></a></body></html>");
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
+
+                    IDocument document = browser.MainFrame.Document;
+                    IElement link = document.GetElementById("link");
+                    IDictionary<string, string> attributes = link.Attributes;
+
+                    Console.WriteLine("Link attributes: ");
+                    foreach (KeyValuePair<string, string> attribute in attributes)
                     {
-                        Console.WriteLine("Browser created");
-
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><a href='#' id='link' title='link title'></a></body></html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
-
-                        IDocument document = browser.MainFrame.Document;
-                        IElement link = document.GetElementById("link");
-                        IDictionary<string, string> attributes = link.Attributes;
-                        Console.WriteLine("Link attributes: ");
-                        foreach (KeyValuePair<string, string> attribute in attributes)
-                        {
-                            Console.WriteLine($"- {attribute.Key} = {attribute.Value}");
-                        }
+                        Console.WriteLine($"- {attribute.Key} = {attribute.Value}");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

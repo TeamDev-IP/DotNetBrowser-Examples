@@ -37,48 +37,42 @@ namespace DomCreateEvent
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    byte[] htmlBytes =
+                        Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>");
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
+
+                    IDocument document = browser.MainFrame.Document;
+                    INode root = document.GetElementById("root");
+
+                    EventType eventType = new EventType("MyEvent");
+                    var myEvent =
+                        document.CreateEvent(eventType, new EventParameters.Builder().Build());
+
+                    EventHandler<DomEventArgs> domEventHandler = (s, e) =>
                     {
-                        Console.WriteLine("Browser created");
-
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
-
-                        IDocument document = browser.MainFrame.Document;
-                        INode root = document.GetElementById("root");
-
-                        EventType eventType = new EventType("MyEvent");
-                        var myEvent = document.CreateEvent(eventType, new EventParameters.Builder().Build());
-
-                        EventHandler<DomEventArgs> domEventHandler = (s, e) =>
+                        if (e.Event.Type == eventType)
                         {
-                            if (e.Event.Type == eventType)
-                            {
-                                Console.WriteLine("DOM event received: " + eventType.Value);
-                                INode textNode = document.CreateTextNode("Some text");
-                                IElement paragraph = document.CreateElement("p");
-                                paragraph.Children.Append(textNode);
-                                root.Children.Append(paragraph);
-                            }
-                        };
+                            Console.WriteLine($"DOM event received: {eventType.Value}");
+                            INode textNode = document.CreateTextNode("Some text");
+                            IElement paragraph = document.CreateElement("p");
+                            paragraph.Children.Append(textNode);
+                            root.Children.Append(paragraph);
+                        }
+                    };
 
-                        root.Events[eventType] += domEventHandler;
-                        Console.WriteLine("Dispatch custom DOM event: " + eventType.Value);
-                        root.DispatchEvent(myEvent);
-                        Thread.Sleep(3000);
-                        Console.WriteLine("Updated HTML: " + browser.MainFrame.Html);
-                    }
+                    root.Events[eventType] += domEventHandler;
+                    Console.WriteLine($"Dispatch custom DOM event: {eventType.Value}");
+                    root.DispatchEvent(myEvent);
+                    Thread.Sleep(3000);
+                    Console.WriteLine($"Updated HTML: {browser.MainFrame.Html}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
