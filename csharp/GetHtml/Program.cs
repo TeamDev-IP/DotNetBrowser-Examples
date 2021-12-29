@@ -34,25 +34,16 @@ namespace GetHTML
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(700, 500);
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
-                        // Get HTML of the loaded web page and write it to Console.
-                        Console.WriteLine(browser.MainFrame.Html);
-                    }
+                    // Get HTML of the loaded web page and write it to Console.
+                    Console.WriteLine(browser.MainFrame.Html);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
