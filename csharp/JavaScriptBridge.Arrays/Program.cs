@@ -37,34 +37,24 @@ namespace JavaScriptBridge.Arrays
 
         private static void Main(string[] args)
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    IJsObject arrayObject = browser.MainFrame
+                                                   .ExecuteJavaScript<IJsObject>(JsArray)
+                                                   .Result;
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    JsArray array = arrayObject.AsArray();
+                    if (array != null)
                     {
-                        Console.WriteLine("Browser created");
-                        IJsObject arrayObject = browser.MainFrame
-                                                       .ExecuteJavaScript<IJsObject>(JsArray)
-                                                       .Result;
-
-                        JsArray array = arrayObject.AsArray();
-                        if (array != null)
+                        Console.Out.WriteLine($"Item count: {array.Count}");
+                        foreach (object item in array)
                         {
-                            Console.Out.WriteLine("Item count: " + array.Count);
-                            foreach (object item in array)
-                            {
-                                Console.Out.WriteLine("Item: " + item);
-                            }
+                            Console.Out.WriteLine($"Item: {item}");
                         }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
