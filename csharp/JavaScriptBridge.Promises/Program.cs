@@ -38,17 +38,12 @@ namespace JavaScriptBridge.Promises
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
-
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+                    browser.Size = new Size(700, 500);
+                    byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                      <body>
                                         <script type='text/javascript'>
                                             function CreatePromise(success) 
@@ -65,32 +60,35 @@ namespace JavaScriptBridge.Promises
                                         </script>
                                      </body>
                                    </html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
 
-                        IJsObject window = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
-                        //Prepare promise handlers
-                        Action<object> promiseResolvedHandler = o => Console.WriteLine("Success: " + o);
-                        Action<object> promiseRejectedHandler = o => Console.Error.WriteLine("Error: " + o);
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
 
-                        //Create a promise that is fulfilled
-                        Console.WriteLine("Create a promise that is fulfilled...");
-                        IJsObject promise1 = window.Invoke<IJsObject>("CreatePromise", true);
-                        //Append fulfillment and rejection handlers to the promise
-                        promise1.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
+                    IJsObject window = browser.MainFrame
+                                              .ExecuteJavaScript<IJsObject>("window")
+                                              .Result;
 
-                        //Create a promise that is rejected
-                        Console.WriteLine("Create a promise that is rejected...");
-                        IJsObject promise2 = window.Invoke<IJsObject>("CreatePromise", false);
-                        //Append fulfillment and rejection handlers to the promise
-                        promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
+                    //Prepare promise handlers
+                    Action<object> promiseResolvedHandler =
+                        o => Console.WriteLine($"Success: {o}");
+                    Action<object> promiseRejectedHandler =
+                        o => Console.Error.WriteLine($"Error: {o}");
 
-                        CreatePromiseAsync(window).Wait();
-                    }
+                    //Create a promise that is fulfilled
+                    Console.WriteLine("Create a promise that is fulfilled...");
+                    IJsObject promise1 = window.Invoke<IJsObject>("CreatePromise", true);
+                    //Append fulfillment and rejection handlers to the promise
+                    promise1.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
+
+                    //Create a promise that is rejected
+                    Console.WriteLine("Create a promise that is rejected...");
+                    IJsObject promise2 = window.Invoke<IJsObject>("CreatePromise", false);
+                    //Append fulfillment and rejection handlers to the promise
+                    promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
+
+                    CreatePromiseAsync(window).Wait();
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -108,20 +106,20 @@ namespace JavaScriptBridge.Promises
             JsPromise promise3 = window.Invoke<IJsObject>("CreatePromise", true).AsPromise();
             JsPromise.Result result = await promise3.Then(o =>
                                                      {
-                                                         Console.WriteLine("Callback:Success: " + o);
+                                                         Console.WriteLine($"Callback:Success: {o}");
                                                          return o;
                                                      })
                                                     .ResolveAsync();
-            Console.WriteLine("Result state:" + result?.State);
-            Console.WriteLine("Result type:" + (result?.Data?.GetType().ToString() ?? "null"));
+            Console.WriteLine($"Result state:{result?.State}");
+            Console.WriteLine($"Result type:{(result?.Data?.GetType().ToString() ?? "null")}");
 
             //Create a promise that is rejected and wrap this promise
             Console.WriteLine("\nCreate another promise that is rejected...");
             JsPromise promise4 = window.Invoke<IJsObject>("CreatePromise", false).AsPromise();
             result = await promise4.ResolveAsync();
 
-            Console.WriteLine("Result state:" + result?.State);
-            Console.WriteLine("Result type:" + (result?.Data?.GetType().ToString() ?? "null"));
+            Console.WriteLine($"Result state:{result?.State}");
+            Console.WriteLine($"Result type:{(result?.Data?.GetType().ToString() ?? "null")}");
         }
     }
 }
