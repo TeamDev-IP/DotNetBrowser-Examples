@@ -36,27 +36,17 @@ namespace GetFrames
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(700, 500);
+                    browser.Navigation
+                           .LoadUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols")
+                           .Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        browser.Navigation
-                               .LoadUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols")
-                               .Wait();
-
-                        PrintFrameHierarchy(browser.MainFrame);
-                    }
+                    PrintFrameHierarchy(browser.MainFrame);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -68,7 +58,7 @@ namespace GetFrames
             if (frame != null)
             {
                 string indent = string.Empty.PadLeft(padding);
-                Console.WriteLine($"{indent}Frame '{frame.Name}'" + (frame.IsMain ? "(main)" : string.Empty));
+                Console.WriteLine($"{indent}Frame '{frame.Name}'{(frame.IsMain ? "(main)" : string.Empty)}");
                 foreach (IFrame childFrame in frame.Children)
                 {
                     PrintFrameHierarchy(childFrame, padding + 4);
