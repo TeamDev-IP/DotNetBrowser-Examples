@@ -34,32 +34,27 @@ namespace JavaScriptObjects
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    IJsObject document = browser.MainFrame
+                                                .ExecuteJavaScript<IJsObject>("document")
+                                                .Result;
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        IJsObject document = browser.MainFrame.ExecuteJavaScript<IJsObject>("document").Result;
+                    // document.title = "New Title"
+                    document.Properties["title"] = "New Title";
 
-                        // document.title = "New Title"
-                        document.Properties["title"] = "New Title";
+                    // document.write("Hello World!")
+                    document.Invoke("write", "Hello World!");
 
-                        // document.write("Hello World!")
-                        document.Invoke("write", "Hello World!");
+                    string documentContent =
+                        browser.MainFrame
+                               .ExecuteJavaScript<string>("document.body.innerText")
+                               .Result;
 
-                        string documentContent =
-                            browser.MainFrame.ExecuteJavaScript<string>("document.body.innerText").Result;
-                        Console.Out.WriteLine("New content: " + documentContent);
-                    }
+                    Console.Out.WriteLine($"New content: {documentContent}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
