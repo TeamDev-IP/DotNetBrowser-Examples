@@ -51,7 +51,9 @@ namespace CustomRequestHandling
                             new HttpHeader("Content-Type", "text/html", "charset=utf-8")
                         }
                     };
+
                     UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
+
                     Task.Run(() =>
                     {
                         // The request processing is performed in a worker thread
@@ -74,12 +76,13 @@ namespace CustomRequestHandling
                 {
                     LoadResult loadResult =
                         browser.Navigation.LoadUrl("myscheme://test1").Result;
+
                     // If the scheme handler was not set, the LoadResult would be 
                     // LoadResult.Stopped.
                     // However, with the scheme handler, the web page is loaded and
                     // the result is LoadResult.Completed.
-                    Console.WriteLine("Load result: " + loadResult);
-                    Console.WriteLine("HTML: " + browser.MainFrame.Html);
+                    Console.WriteLine($"Load result: {loadResult}");
+                    Console.WriteLine($"HTML: {browser.MainFrame.Html}");
                 }
             }
             // #enddocfragment "CustomRequestHandling"
