@@ -46,7 +46,7 @@ namespace DomQuerySelector
                                                                   + "<p>paragraph3</p>"
                                                                   + "</div></body></html>");
                     browser.Navigation
-                           .LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
                            .Wait();
                     IDocument document = browser.MainFrame.Document;
                     IElement documentElement = document.DocumentElement;
@@ -57,8 +57,7 @@ namespace DomQuerySelector
 
                     foreach (INode paragraph in paragraphs)
                     {
-                        Console.Out.WriteLine("paragraph.InnerText = "
-                                              + (paragraph as IElement)?.InnerText);
+                        Console.Out.WriteLine($"paragraph.InnerText = {(paragraph as IElement)?.InnerText}");
                     }
                 }
             }
