@@ -37,29 +37,20 @@ namespace Cookies
 
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                ICookieStore cookieStorage = engine.Profiles.Default.CookieStore;
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Navigation.LoadUrl(Url).Wait();
 
-                    ICookieStore cookieStorage = engine.Profiles.Default.CookieStore;
-                    using (IBrowser browser = engine.CreateBrowser())
+                    IEnumerable<Cookie> cookies = cookieStorage.GetAllCookies(Url).Result;
+
+                    foreach (Cookie cookie in cookies)
                     {
-                        Console.WriteLine("Browser created");
-                        browser.Navigation.LoadUrl(Url).Wait();
-
-                        IEnumerable<Cookie> cookies = cookieStorage.GetAllCookies(Url).Result;
-                        foreach (Cookie cookie in cookies)
-                        {
-                            Console.WriteLine("cookie = " + cookie);
-                        }
+                        Console.WriteLine($"cookie = {cookie}");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
