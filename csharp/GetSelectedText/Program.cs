@@ -35,30 +35,19 @@ namespace GetSelectedText
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(700, 500);
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
+                    browser.MainFrame.Execute(EditorCommand.SelectAll());
 
-                        browser.MainFrame.Execute(EditorCommand.SelectAll());
-
-
-                        Console.WriteLine("Current selection:");
-                        Console.WriteLine($"\tSelected text: {browser.MainFrame.SelectedText}");
-                        Console.WriteLine($"\tSelected HTML:  {browser.MainFrame.SelectedHtml}");
-                    }
+                    Console.WriteLine("Current selection:");
+                    Console.WriteLine($"\tSelected text: {browser.MainFrame.SelectedText}");
+                    Console.WriteLine($"\tSelected HTML:  {browser.MainFrame.SelectedHtml}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

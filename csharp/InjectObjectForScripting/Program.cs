@@ -37,27 +37,17 @@ namespace InjectObjectForScripting
     /// </summary>
     internal class Program
     {
-        private static void InjectObjectForScripting(InjectJsParameters p)
-        {
-            IJsObject window = p.Frame.ExecuteJavaScript<IJsObject>("window").Result;
-            window.Properties["external"] = ObjectForScripting.Instance;
-        }
-
         private static void Main(string[] args)
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(700, 500);
+                    browser.InjectJsHandler =
+                        new Handler<InjectJsParameters>(InjectObjectForScripting);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        browser.InjectJsHandler = new Handler<InjectJsParameters>(InjectObjectForScripting);
-
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+                    byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var SetTitle = function () 
@@ -67,21 +57,27 @@ namespace InjectObjectForScripting
                                         </script>
                                      </body>
                                    </html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait();
 
-                        browser.MainFrame.ExecuteJavaScript<IJsObject>("window.SetTitle();").Wait();
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
 
-                        Console.WriteLine($"\tBrowser title: {browser.Title}");
-                    }
+                    browser.MainFrame
+                           .ExecuteJavaScript<IJsObject>("window.SetTitle();")
+                           .Wait();
+
+                    Console.WriteLine($"\tBrowser title: {browser.Title}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
+        }
+
+        private static void InjectObjectForScripting(InjectJsParameters p)
+        {
+            IJsObject window = p.Frame.ExecuteJavaScript<IJsObject>("window").Result;
+            window.Properties["external"] = ObjectForScripting.Instance;
         }
 
         public sealed class ObjectForScripting

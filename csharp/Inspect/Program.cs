@@ -35,38 +35,29 @@ namespace Inspect
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(700, 500);
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    PointInspection pointInspection =
+                        browser.MainFrame.Inspect(new Point(50, 50));
+
+                    Console.WriteLine("Inspection result:");
+                    Console.WriteLine($"\tAbsoluteImageUrl: {pointInspection.AbsoluteImageUrl}");
+                    Console.WriteLine($"\tAbsoluteLinkUrl: {pointInspection.AbsoluteLinkUrl}");
+                    if (pointInspection.LocalPoint != null)
                     {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
-
-                        PointInspection pointInspection =
-                            browser.MainFrame.Inspect(new Point(50, 50));
-
-                        Console.WriteLine("Inspection result:");
-                        Console.WriteLine($"\tAbsoluteImageUrl: {pointInspection.AbsoluteImageUrl}");
-                        Console.WriteLine($"\tAbsoluteLinkUrl: {pointInspection.AbsoluteLinkUrl}");
-                        if (pointInspection.LocalPoint != null)
-                        {
-                            Console
-                               .WriteLine($"\tLocalPoint: ({pointInspection.LocalPoint.X},{pointInspection.LocalPoint.Y})");
-                        }
-
-                        Console.WriteLine($"\tNode: {pointInspection.Node?.NodeName}");
-                        Console.WriteLine($"\tUrlNode: {pointInspection.UrlNode?.NodeName}");
+                        Console.WriteLine($"\tLocalPoint: "
+                                          + $"({pointInspection.LocalPoint.X},"
+                                          + $"{pointInspection.LocalPoint.Y})");
                     }
+
+                    Console.WriteLine($"\tNode: {pointInspection.Node?.NodeName}");
+                    Console.WriteLine($"\tUrlNode: {pointInspection.UrlNode?.NodeName}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

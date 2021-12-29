@@ -30,26 +30,18 @@ namespace ExecuteJavaScript
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Navigation.LoadUrl("https://www.google.com").Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-
-                        browser.Navigation.LoadUrl("https://www.google.com").Wait();
-                        // Execute JavaScript code and get return value from JavaScript.
-                        string title = browser.MainFrame.ExecuteJavaScript<string>("document.title").Result;
-                        Console.Out.WriteLine($"The \"document.title\" JavaScript code returns \"{title}\"");
-                    }
+                    // Execute JavaScript code and get return value from JavaScript.
+                    string title = browser.MainFrame
+                                          .ExecuteJavaScript<string>("document.title")
+                                          .Result;
+                    Console.WriteLine($"The \"document.title\" JavaScript code returns \"{title}\"");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
