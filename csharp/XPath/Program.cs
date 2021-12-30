@@ -37,22 +37,24 @@ namespace XPath
     {
         public static void Main()
         {
-            try
+
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(1024, 768);
 
-                    using (IBrowser browser = engine.CreateBrowser())
+                    browser.Navigation
+                           .LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                           .Wait();
+
+                    IDocument document = browser.MainFrame.Document;
+
+                    string expression = "count(//div)";
+                    Console.WriteLine($"Evaluating \'{expression}\'");
+
+                    try
                     {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(1024, 768);
-
-                        browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait();
-                        IDocument document = browser.MainFrame.Document;
-
-                        string expression = "count(//div)";
-                        Console.WriteLine($"Evaluating \'{expression}\'");
                         IXPathResult result = document.Evaluate(expression);
 
                         // Make sure that result is a number.
@@ -61,18 +63,14 @@ namespace XPath
                             Console.WriteLine("Result: " + result.Numeric);
                         }
                     }
+                    // If the expression is not a valid XPath expression or the document
+                    // element is not available, we'll get an error.
+                    catch (XPathException e)
+                    {
+                        Console.WriteLine("Error message: " + e.Message);
+                        return;
+                    }
                 }
-            }
-            // If the expression is not a valid XPath expression or the document
-            // element is not available, we'll get an error.
-            catch (XPathException e)
-            {
-                Console.WriteLine("Error message: " + e.Message);
-                return;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
