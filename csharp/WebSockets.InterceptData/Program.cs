@@ -66,39 +66,29 @@ namespace WebSockets.InterceptData
 
         private static void Main(string[] args)
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(640, 480);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(640, 480);
+                    //Configure JavaScript injection
+                    browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
+                    //Load web page for testing
+                    browser.Navigation.LoadUrl("https://www.websocket.org/echo.html").Wait();
 
-                        //Configure JavaScript injection
-                        browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
-                        //Load web page for testing
-                        browser.Navigation.LoadUrl("https://www.websocket.org/echo.html").Wait();
+                    // Connect to the socket by clicking the button on the web page
+                    browser.MainFrame.Document.GetElementById("connect")?.Click();
+                    Thread.Sleep(1000);
 
-                        // Connect to the socket by clicking the button on the web page
-                        browser.MainFrame.Document.GetElementById("connect")?.Click();
-                        Thread.Sleep(1000);
+                    //Send some data
+                    browser.MainFrame.Document.GetElementById("send")?.Click();
+                    Thread.Sleep(1000);
 
-                        //Send some data
-                        browser.MainFrame.Document.GetElementById("send")?.Click();
-                        Thread.Sleep(1000);
-
-                        //Disconnect from the socket
-                        browser.MainFrame.Document.GetElementById("disconnect")?.Click();
-                        Thread.Sleep(1000);
-                    }
+                    //Disconnect from the socket
+                    browser.MainFrame.Document.GetElementById("disconnect")?.Click();
+                    Thread.Sleep(1000);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

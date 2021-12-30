@@ -37,53 +37,43 @@ namespace ShadowDom
     {
         private static void Main(string[] args)
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Size = new Size(1024, 768);
+                    browser.Navigation.LoadUrl(Path.GetFullPath("example.html")).Wait();
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        browser.Size = new Size(1024, 768);
-                        Console.WriteLine("Browser created");
-                        browser.Navigation.LoadUrl(Path.GetFullPath("example.html")).Wait();
+                    Console.WriteLine("URL loaded");
 
-                        Console.WriteLine("URL loaded");
+                    IDocument document = browser.MainFrame.Document;
+                    IJsObject container = document.GetElementById("container") as IJsObject;
 
-                        IDocument document = browser.MainFrame.Document;
-                        IJsObject container = document.GetElementById("container") as IJsObject;
+                    //Create shadow root.
+                    INode shadowRoot = container?.Invoke<INode>("attachShadow",
+                     browser
+                        .MainFrame
+                        .ParseJsonString("{\"mode\": \"open\"}"));
+                    Console.WriteLine($"Shadow root created: {(shadowRoot != null)}");
 
-                        //Create shadow root.
-                        INode shadowRoot = container?.Invoke<INode>("attachShadow",
-                                                                    browser
-                                                                       .MainFrame
-                                                                       .ParseJsonString("{\"mode\": \"open\"}"));
-                        Console.WriteLine("Shadow root created: " + (shadowRoot != null));
+                    //Fetch shadow root.
+                    shadowRoot = container?.Properties["shadowRoot"] as INode;
+                    Console.WriteLine($"Shadow root fetched: {(shadowRoot != null)}");
 
-                        //Fetch shadow root.
-                        shadowRoot = container?.Properties["shadowRoot"] as INode;
-                        Console.WriteLine("Shadow root fetched: " + (shadowRoot != null));
+                    //Add node to shadow root.
+                    IElement inside = document.CreateElement("h1");
+                    inside.InnerText = "Inside Shadow DOM";
+                    inside.Attributes["id"] = "inside";
+                    shadowRoot?.Children.Append(inside);
 
-                        //Add node to shadow root.
-                        IElement inside = document.CreateElement("h1");
-                        inside.InnerText = "Inside Shadow DOM";
-                        inside.Attributes["id"] = "inside";
-                        shadowRoot?.Children.Append(inside);
+                    //Find new node in shadow root.
+                    IElement element = shadowRoot?.GetElementById("inside");
+                    Console.WriteLine($"Inside element inner text: {element?.InnerText}");
 
-                        //Find new node in shadow root.
-                        IElement element = shadowRoot?.GetElementById("inside");
-                        Console.WriteLine("Inside element inner text: " + element?.InnerText);
-
-                        //Try finding the same node from the main document.
-                        element = document.GetElementById("inside");
-                        Console.WriteLine("Inside element found in the document: " + (element != null));
-                    }
+                    //Try finding the same node from the main document.
+                    element = document.GetElementById("inside");
+                    Console.WriteLine($"Inside element found in the document: {(element != null)}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
