@@ -36,32 +36,24 @@ namespace Zoom
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.ZoomLevels.LevelChanged +=
+                        delegate(object sender, LevelChangedEventArgs e)
+                        {
+                            Console.Out.WriteLine($"e.Host = {e.Host}");
+                            Console.Out.WriteLine($"e.ZoomLevel = {e.Level.Value}");
+                        };
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.ZoomLevels.LevelChanged +=
-                            delegate(object sender, LevelChangedEventArgs e)
-                            {
-                                Console.Out.WriteLine("e.Host = " + e.Host);
-                                Console.Out.WriteLine("e.ZoomLevel = " + e.Level.Value);
-                            };
+                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
 
-                        browser.Navigation.LoadUrl("https://www.teamdev.com").Wait();
-                        Console.WriteLine("Updating zoom level");
-                        browser.Zoom.Level = Level.P200;
-                        Thread.Sleep(3000);
-                    }
+                    Console.WriteLine("Updating zoom level");
+                    browser.Zoom.Level = Level.P200;
+
+                    Thread.Sleep(3000);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
