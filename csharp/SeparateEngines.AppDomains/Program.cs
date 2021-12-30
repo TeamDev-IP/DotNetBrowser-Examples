@@ -40,44 +40,37 @@ namespace SeparateEngines.AppDomains
             AppDomain domain1 = AppDomain.CreateDomain("Domain1");
             AppDomain domain2 = AppDomain.CreateDomain("Domain2");
 
-            try
-            {
-                // Create an instance of EngineWrapper in the first AppDomain.
-                // A proxy to the object is returned.
-                Console.WriteLine("Create wrapper1");
-                EngineWrapper wrapper1 = (EngineWrapper)
-                    domain1.CreateInstanceAndUnwrap(typeof(EngineWrapper).Assembly.FullName,
-                                                    typeof(EngineWrapper).FullName);
+            // Create an instance of EngineWrapper in the first AppDomain.
+            // A proxy to the object is returned.
+            Console.WriteLine("Create wrapper1");
+            EngineWrapper wrapper1 = (EngineWrapper)
+                domain1.CreateInstanceAndUnwrap(typeof(EngineWrapper).Assembly.FullName,
+                                                typeof(EngineWrapper).FullName);
 
-                // Create an instance of EngineWrapper in the second AppDomain.
-                // A proxy to the object is returned.
-                Console.WriteLine("Create wrapper2");
-                EngineWrapper wrapper2 = (EngineWrapper)
-                    domain2.CreateInstanceAndUnwrap(typeof(EngineWrapper).Assembly.FullName,
-                                                    typeof(EngineWrapper).FullName);
+            // Create an instance of EngineWrapper in the second AppDomain.
+            // A proxy to the object is returned.
+            Console.WriteLine("Create wrapper2");
+            EngineWrapper wrapper2 = (EngineWrapper)
+                domain2.CreateInstanceAndUnwrap(typeof(EngineWrapper).Assembly.FullName,
+                                                typeof(EngineWrapper).FullName);
 
-                //Execute an action in the first application domain.
-                string title1 = wrapper1.LoadAndGetTitle("teamdev.com");
-                Console.WriteLine("Title 1: {0}", title1);
+            //Execute an action in the first application domain.
+            string title1 = wrapper1.LoadAndGetTitle("teamdev.com");
+            Console.WriteLine("Title 1: {0}", title1);
 
-                //Dispose the wrapper and unload the first application domain.
-                Console.WriteLine("Dispose wrapper1");
-                wrapper1.Dispose();
-                AppDomain.Unload(domain1);
+            //Dispose the wrapper and unload the first application domain.
+            Console.WriteLine("Dispose wrapper1");
+            wrapper1.Dispose();
+            AppDomain.Unload(domain1);
 
-                //After unloading the first domain, the engine in the second domain is alive, and we can execute actions.
-                string title2 = wrapper2.LoadAndGetTitle("teamdev.com/dotnetbrowser");
-                Console.WriteLine("Title 2: {0}", title2);
+            //After unloading the first domain, the engine in the second domain is alive, and we can execute actions.
+            string title2 = wrapper2.LoadAndGetTitle("teamdev.com/dotnetbrowser");
+            Console.WriteLine("Title 2: {0}", title2);
 
-                //Dispose the wrapper and unload the second application domain.
-                Console.WriteLine("Dispose wrapper2");
-                wrapper2.Dispose();
-                AppDomain.Unload(domain2);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+            //Dispose the wrapper and unload the second application domain.
+            Console.WriteLine("Dispose wrapper2");
+            wrapper2.Dispose();
+            AppDomain.Unload(domain2);
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
@@ -116,21 +109,15 @@ namespace SeparateEngines.AppDomains
         public string LoadAndGetTitle(string url)
         {
             string result = null;
-            Console.WriteLine("Loading URL '{0}' in '{1}'.", url, Thread.GetDomain().FriendlyName);
-            try
+            Console.WriteLine("Loading URL '{0}' in '{1}'.", url,
+                              Thread.GetDomain().FriendlyName);
+            using (IBrowser browser = Engine.CreateBrowser())
             {
-                using (IBrowser browser = Engine.CreateBrowser())
-                {
-                    Console.WriteLine("Browser created");
-                    browser.Size = new Size(700, 500);
-                    browser.Navigation.LoadUrl(url).Wait();
-                    Console.WriteLine("URL loaded");
-                    result = browser.Title;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+                Console.WriteLine("Browser created");
+                browser.Size = new Size(700, 500);
+                browser.Navigation.LoadUrl(url).Wait();
+                Console.WriteLine("URL loaded");
+                result = browser.Title;
             }
 
             return result;
