@@ -37,31 +37,25 @@ namespace WebStorage
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    browser.Navigation.LoadUrl(Path.GetFullPath("html.html")).Wait();
+                    IWebStorage webStorage = browser.MainFrame.LocalStorage;
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
+                    // Read and display the 'myKey' storage value.
+                    Console.Out.WriteLine($"The initial myKey value: {webStorage["myKey"]}");
 
-                        browser.Navigation.LoadUrl(Path.GetFullPath("html.html")).Wait();
-                        IWebStorage webStorage = browser.MainFrame.LocalStorage;
-                        // Read and display the 'myKey' storage value.
-                        Console.Out.WriteLine("The initial myKey value: " + webStorage["myKey"]);
-                        // Modify the 'myKey' storage value.
-                        webStorage["myKey"] = "Hello from Local Storage";
-                        string updatedValue = browser.MainFrame.ExecuteJavaScript<IJsObject>("window")
-                                                     .Result.Invoke<string>("myFunction");
-                        Console.Out.WriteLine("The updated myKey value: " + updatedValue);
-                    }
+                    // Modify the 'myKey' storage value.
+                    webStorage["myKey"] = "Hello from Local Storage";
+
+                    string updatedValue = browser
+                                         .MainFrame.ExecuteJavaScript<IJsObject>("window")
+                                         .Result.Invoke<string>("myFunction");
+
+                    Console.Out.WriteLine($"The updated myKey value: {updatedValue}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
