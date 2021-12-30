@@ -49,17 +49,13 @@ namespace SaveImageFromPage
 
         private static void Main(string[] args)
         {
-            try
-            {
                 Size browserSize = new Size(500, 500);
                 using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
+                       {
+                           RenderingMode = RenderingMode.OffScreen,
+                           ChromiumSwitches = {"--allow-file-access-from-files"}
+                       }.Build()))
                 {
-                    RenderingMode = RenderingMode.OffScreen,
-                    ChromiumSwitches = {"--allow-file-access-from-files"}
-                }.Build()))
-                {
-                    Console.WriteLine("Engine created");
-
                     using (IBrowser browser = engine.CreateBrowser())
                     {
                         // 1. Resize browser to the required dimension.
@@ -70,7 +66,9 @@ namespace SaveImageFromPage
 
                         // 3. Create canvas, set its width and height
                         IJsObject canvas = browser
-                                          .MainFrame.ExecuteJavaScript<IJsObject>("document.createElement('canvas');")
+                                          .MainFrame
+                                          .ExecuteJavaScript<
+                                               IJsObject>("document.createElement('canvas');")
                                           .Result;
                         IElement image = browser.MainFrame.Document.GetElementByTagName("img");
 
@@ -85,11 +83,12 @@ namespace SaveImageFromPage
 
                         // 5. Get the data URL and convert it to bytes
                         string dataUrl = canvas.Invoke("toDataURL", "image/png") as string;
-                        Console.WriteLine("Data URL: " + dataUrl);
+                        Console.WriteLine($"Data URL: {dataUrl}");
                         byte[] bitmapData = Convert.FromBase64String(FixBase64ForImage(dataUrl));
 
                         // 4. Save image to file.
-                        using (FileStream fs = new FileStream("image.png", FileMode.Create, FileAccess.Write))
+                        using (FileStream fs =
+                               new FileStream("image.png", FileMode.Create, FileAccess.Write))
                         {
                             fs.Write(bitmapData, 0, bitmapData.Length);
                         }
@@ -97,13 +96,8 @@ namespace SaveImageFromPage
                         Console.WriteLine("Image saved.");
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
 
-            Console.WriteLine("Press any key to terminate...");
+                Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
         }
     }
