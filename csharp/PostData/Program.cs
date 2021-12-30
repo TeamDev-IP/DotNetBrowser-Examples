@@ -39,36 +39,27 @@ namespace PostData
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.SendUploadDataHandler =
+                        new Handler<SendUploadDataParameters,
+                            SendUploadDataResponse>(OnSendUploadData);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        engine.Profiles.Default.Network.SendUploadDataHandler =
-                            new Handler<SendUploadDataParameters, SendUploadDataResponse>(OnSendUploadData);
-
-                        LoadUrlParameters parameters =
-                            new LoadUrlParameters("https://postman-echo.com/post")
+                    LoadUrlParameters parameters =
+                        new LoadUrlParameters("https://postman-echo.com/post")
+                        {
+                            PostData = "key=value",
+                            HttpHeaders = new[]
                             {
-                                PostData = "key=value",
-                                HttpHeaders = new[]
-                                {
-                                    new HttpHeader("Content-Type", "text/plain")
-                                }
-                            };
+                                new HttpHeader("Content-Type", "text/plain")
+                            }
+                        };
 
-                        browser.Navigation.LoadUrl(parameters).Wait();
-                        Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText);
-                    }
+                    browser.Navigation.LoadUrl(parameters).Wait();
+                    Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

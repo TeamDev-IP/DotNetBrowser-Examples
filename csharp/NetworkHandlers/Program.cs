@@ -39,28 +39,22 @@ namespace NetworkHandlers
     {
         public static void Main()
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
+                    engine.Profiles.Default.Network.SendUrlRequestHandler =
+                        new Handler<SendUrlRequestParameters,
+                            SendUrlRequestResponse>(OnSendUrlRequest);
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        engine.Profiles.Default.Network.SendUrlRequestHandler =
-                            new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(OnSendUrlRequest);
-                        engine.Profiles.Default.Network.StartTransactionHandler =
-                            new Handler<StartTransactionParameters, StartTransactionResponse>(OnStartTransaction);
+                    engine.Profiles.Default.Network.StartTransactionHandler =
+                        new Handler<StartTransactionParameters,
+                            StartTransactionResponse>(OnStartTransaction);
 
-                        Console.WriteLine("Loading https://www.teamdev.com/");
-                        browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait();
-                        Console.WriteLine($"Loaded URL: {browser.Url}");
-                    }
+                    Console.WriteLine("Loading https://www.teamdev.com/");
+                    browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait();
+                    Console.WriteLine($"Loaded URL: {browser.Url}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
@@ -72,7 +66,7 @@ namespace NetworkHandlers
             // If navigate to teamdev.com, then change URL to google.com.
             if (parameters.UrlRequest.Url == "https://www.teamdev.com/")
             {
-                Console.WriteLine("Redirecting to  https://www.google.com/");
+                Console.WriteLine("Redirecting to https://www.google.com/");
                 return SendUrlRequestResponse.Override("https://www.google.com");
             }
 
@@ -84,9 +78,12 @@ namespace NetworkHandlers
             // If navigate to google.com, then print User-Agent header value.
             if (parameters.UrlRequest.Url == "https://www.google.com/")
             {
-                IEnumerable<IHttpHeader> headers = parameters.Headers;
-                Console.WriteLine("User-Agent: "
-                                  + headers.FirstOrDefault(h => h.Name.Equals("User-Agent"))?.Values.FirstOrDefault());
+                string userAgent = parameters.Headers
+                                             .FirstOrDefault(h => h.Name.Equals("User-Agent"))
+                                            ?.Values
+                                             .FirstOrDefault();
+
+                Console.WriteLine($"User-Agent: {userAgent}");
             }
 
             return StartTransactionResponse.Continue();

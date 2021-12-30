@@ -60,35 +60,29 @@ namespace Notifications.InterceptData
 
         private static void Main(string[] args)
         {
-            try
+            using (IEngine engine = EngineFactory.Create())
             {
-                using (IEngine engine = EngineFactory.Create())
+                // Grant a permission to display notifications
+                engine.Profiles.Default.Permissions.RequestPermissionHandler
+                    = new Handler<RequestPermissionParameters,
+                        RequestPermissionResponse>(OnRequestPermission);
+
+                using (IBrowser browser = engine.CreateBrowser())
                 {
-                    Console.WriteLine("Engine created");
-                    // Grant a permission to display notifications
-                    engine.Profiles.Default.Permissions.RequestPermissionHandler
-                        = new Handler<RequestPermissionParameters, RequestPermissionResponse>(OnRequestPermission);
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(640, 480);
+                    browser.Size = new Size(640, 480);
 
-                        //Configure JavaScript injection
-                        browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
-                        //Load web page for testing
-                        browser.Navigation.LoadUrl(DemoUrl).Wait();
+                    //Configure JavaScript injection
+                    browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
+                    //Load web page for testing
+                    browser.Navigation.LoadUrl(DemoUrl).Wait();
 
-                        //Create a notification by clicking the button on the web page
-                        browser.MainFrame.Document
-                               .GetElementByCssSelector(".demo-wrapper > p:nth-child(5) > button:nth-child(1)")
-                              ?.Click();
-                        Thread.Sleep(5000);
-                    }
+                    //Create a notification by clicking the button on the web page
+                    browser.MainFrame.Document
+                           .GetElementByCssSelector(".demo-wrapper > p:nth-child(5) > button:nth-child(1)")
+                          ?.Click();
+
+                    Thread.Sleep(5000);
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");

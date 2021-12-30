@@ -40,20 +40,16 @@ namespace JavaScriptBridge
     {
         public static void Main()
         {
-            try
-            {
-                LoggerProvider.Instance.Level = SourceLevels.Information;
-                LoggerProvider.Instance.FileLoggingEnabled = true;
-                LoggerProvider.Instance.OutputFile = "dnb.log";
-                using (IEngine engine = EngineFactory.Create())
-                {
-                    Console.WriteLine("Engine created");
+            LoggerProvider.Instance.Level = SourceLevels.Information;
+            LoggerProvider.Instance.FileLoggingEnabled = true;
+            LoggerProvider.Instance.OutputFile = "dnb.log";
 
-                    using (IBrowser browser = engine.CreateBrowser())
-                    {
-                        Console.WriteLine("Browser created");
-                        browser.Size = new Size(700, 500);
-                        byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+            using (IEngine engine = EngineFactory.Create())
+            {
+                using (IBrowser browser = engine.CreateBrowser())
+                {
+                    browser.Size = new Size(700, 500);
+                    byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                      <body>
                                         <script type='text/javascript'>
                                             var ShowData = function (a) 
@@ -66,25 +62,24 @@ namespace JavaScriptBridge
                                         </script>
                                      </body>
                                    </html>");
-                        browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
-                               .Wait();
 
-                        Person person = new Person("Jack", 30, true)
-                        {
-                            Children = new Dictionary<double, Person>()
-                        };
+                    browser.Navigation
+                           .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                           .Wait();
 
-                        person.Children.Add(1.0, new Person("Oliver", 10, true));
-                        IJsObject value = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
-                        value.Invoke("ShowData", person);
+                    Person person = new Person("Jack", 30, true)
+                    {
+                        Children = new Dictionary<double, Person>()
+                    };
 
-                        Console.WriteLine($"\tBrowser title: {browser.Title}");
-                    }
+                    person.Children.Add(1.0, new Person("Oliver", 10, true));
+                    IJsObject value = browser.MainFrame
+                                             .ExecuteJavaScript<IJsObject>("window")
+                                             .Result;
+                    value.Invoke("ShowData", person);
+
+                    Console.WriteLine($"\tBrowser title: {browser.Title}");
                 }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
             }
 
             Console.WriteLine("Press any key to terminate...");
