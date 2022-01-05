@@ -31,7 +31,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("Profiles.WinForms")>
-<Assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

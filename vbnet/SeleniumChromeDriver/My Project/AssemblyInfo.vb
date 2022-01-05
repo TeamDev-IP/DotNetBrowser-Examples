@@ -34,7 +34,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("SeleniumChromeDriver")>
-<Assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
