@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2021, TeamDev. All rights reserved.
+// Copyright © 2022, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ContextMenu.SpellCheck.WinForms")]
-[assembly: AssemblyCopyright("Copyright © 2021, TeamDev. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
