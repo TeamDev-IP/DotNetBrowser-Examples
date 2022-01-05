@@ -32,7 +32,7 @@ Imports System.Windows
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("MVVM.Wpf")>
-<Assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved")>
+<Assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

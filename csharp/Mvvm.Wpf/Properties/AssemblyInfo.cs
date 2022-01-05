@@ -32,7 +32,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("MVVM.Wpf")]
-[assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved")]
+[assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

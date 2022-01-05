@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("MailToHandling.WinForms")]
-[assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved")]
+[assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
