@@ -1,4 +1,4 @@
-Imports System.Reflection
+﻿Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
 Imports System.Security
@@ -11,7 +11,7 @@ Imports System.Security
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("MyOutlookAddIn")>
-<Assembly: AssemblyCopyright("Copyright © 2020, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
