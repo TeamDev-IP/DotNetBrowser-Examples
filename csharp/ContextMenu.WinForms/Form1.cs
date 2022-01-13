@@ -104,6 +104,7 @@ namespace ContextMenu.WinForms
         {
             TaskCompletionSource<ShowContextMenuResponse> tcs =
                 new TaskCompletionSource<ShowContextMenuResponse>();
+
             SpellCheckMenu spellCheckMenu = parameters.SpellCheckMenu;
             if (spellCheckMenu != null)
             {

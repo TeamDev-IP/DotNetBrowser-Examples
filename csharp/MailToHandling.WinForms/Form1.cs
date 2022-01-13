@@ -73,7 +73,7 @@ namespace MailToHandling.WinForms
         {
             string url = parameters.Url;
 
-            Debug.WriteLine("OnStartNavigation: url = " + url);
+            Debug.WriteLine($"OnStartNavigation: url = {url}");
 
 
             if (url.StartsWith("mailto:"))

@@ -30,9 +30,6 @@ using DotNetBrowser.Engine;
 
 namespace ChromiumBinariesResolver.Wpf
 {
-    /// <summary>
-    ///     Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
         private readonly string chromiumDirectory;

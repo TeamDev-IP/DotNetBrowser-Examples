@@ -106,11 +106,8 @@ namespace CreateHtmlUi.Wpf
 
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    MessageBox.Show(this,
-                                    "Login: "
-                                    + login
-                                    + "\nPassword: "
-                                    + password, "Data");
+                    MessageBox.Show(this, $"Login: {login}\n"
+                                          + $"Password: {password}", "Data");
                 }));
             });
         }

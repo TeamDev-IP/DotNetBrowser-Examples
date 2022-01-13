@@ -41,29 +41,22 @@ namespace UiAutomation.Wpf
 
         public MainWindow()
         {
-            try
-            {
-                Task.Run(() =>
+            Task.Run(() =>
+                 {
+                     engine = EngineFactory.Create(new EngineOptions.Builder
                      {
-                         engine = EngineFactory.Create(new EngineOptions.Builder
-                         {
-                             RenderingMode = RenderingMode.HardwareAccelerated,
-                             ChromiumSwitches = {"--force-renderer-accessibility"}
-                         }.Build());
-                         browser = engine.CreateBrowser();
-                     })
-                    .ContinueWith(t =>
-                     {
-                         BrowserView.InitializeFrom(browser);
-                         browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
-                     }, TaskScheduler.FromCurrentSynchronizationContext());
+                         RenderingMode = RenderingMode.HardwareAccelerated,
+                         ChromiumSwitches = {"--force-renderer-accessibility"}
+                     }.Build());
+                     browser = engine.CreateBrowser();
+                 })
+                .ContinueWith(t =>
+                 {
+                     BrowserView.InitializeFrom(browser);
+                     browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
+                 }, TaskScheduler.FromCurrentSynchronizationContext());
 
-                InitializeComponent();
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception);
-            }
+            InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -79,36 +72,38 @@ namespace UiAutomation.Wpf
                     Log("-- Element Properties --");
                     AutomationProperty[] properties =
                         chromiumElement.GetSupportedProperties();
+
                     foreach (AutomationProperty prop in properties)
                     {
-                        Log("ProgrammaticName: " + prop.ProgrammaticName);
-                        Log("\tProperty Name: " + Automation.PropertyName(prop));
+                        Log($"ProgrammaticName: {prop.ProgrammaticName}");
+                        Log($"\tProperty Name: {Automation.PropertyName(prop)}");
                         var currentPropertyValue =
                             chromiumElement.GetCurrentPropertyValue(prop);
-                        Log("\tProperty Value: " + currentPropertyValue);
+                        Log($"\tProperty Value: {currentPropertyValue}");
                     }
 
                     Log("-- Element Patterns --");
                     AutomationPattern[] patterns =
                         chromiumElement.GetSupportedPatterns();
+
                     foreach (AutomationPattern pattern in patterns)
                     {
-                        Log("ProgrammaticName: " + pattern.ProgrammaticName);
-                        Log("\tPattern Name: " + Automation.PatternName(pattern));
+                        Log($"ProgrammaticName: {pattern.ProgrammaticName}");
+                        Log($"\tPattern Name: {Automation.PatternName(pattern)}");
                         object currentPattern = chromiumElement.GetCurrentPattern(pattern);
-                        Log("\tPattern Value: " + currentPattern);
+                        Log($"\tPattern Value: {currentPattern}");
                         if (currentPattern is ValuePattern)
                         {
                             ValuePattern valuePattern = currentPattern as ValuePattern;
                             string value = valuePattern.Current.Value;
-                            Log("\tValuePattern Value: " + value);
+                            Log($"\tValuePattern Value: {value}");
                         }
                     }
 
-                    var children = chromiumElement.FindAll(TreeScope.Descendants,
+                    AutomationElementCollection children = chromiumElement.FindAll(TreeScope.Descendants,
                                                            Condition.TrueCondition);
                     Log("-- Element Children --");
-                    Log("Children count: " + children.Count);
+                    Log($"Children count: {children.Count}");
                     Log("-- End --");
                 }
                 else
@@ -125,6 +120,7 @@ namespace UiAutomation.Wpf
             {
                 AutomationElement rootElement =
                     AutomationElement.FromHandle(process.MainWindowHandle);
+
                 if (rootElement == null)
                 {
                     return null;

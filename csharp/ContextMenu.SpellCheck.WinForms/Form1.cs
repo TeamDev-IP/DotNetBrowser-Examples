@@ -65,8 +65,8 @@ namespace ContextMenu.SpellCheck.WinForms
                      webView.InitializeFrom(browser);
                      // #docfragment "ContextMenu.WinForms.Configuration"
                      browser.ShowContextMenuHandler =
-                         new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
-                         >(ShowMenu);
+                         new AsyncHandler<ShowContextMenuParameters,
+                                          ShowContextMenuResponse>(ShowMenu);
                      // #enddocfragment "ContextMenu.WinForms.Configuration"
 
                      byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
@@ -77,8 +77,8 @@ namespace ContextMenu.SpellCheck.WinForms
                                     <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                                     </body>
                                     </html>");
-                     browser.Navigation.LoadUrl("data:text/html;base64,"
-                                                + Convert.ToBase64String(htmlBytes));
+
+                     browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
@@ -110,6 +110,7 @@ namespace ContextMenu.SpellCheck.WinForms
         {
             TaskCompletionSource<ShowContextMenuResponse> tcs =
                 new TaskCompletionSource<ShowContextMenuResponse>();
+
             SpellCheckMenu spellCheckMenu = parameters.SpellCheckMenu;
             if (spellCheckMenu != null)
             {
@@ -133,6 +134,7 @@ namespace ContextMenu.SpellCheck.WinForms
                     // Add "Add to Dictionary" menu item.
                     string addToDictionary =
                         spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
+
                     popupMenu.Items.Add(BuildMenuItem(addToDictionary, true, delegate
                     {
                         if (!string.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord))

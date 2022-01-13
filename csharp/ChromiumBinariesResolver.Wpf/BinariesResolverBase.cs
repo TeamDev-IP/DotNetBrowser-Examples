@@ -96,7 +96,7 @@ namespace ChromiumBinariesResolver.Wpf
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Exception caught: {0} ", e);
+                Debug.WriteLine($"Exception caught: {e} ");
             }
 
             return null;

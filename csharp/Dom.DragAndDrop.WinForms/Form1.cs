@@ -63,7 +63,7 @@ namespace Dom.DragAndDrop.WinForms
                      browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
                      browser.ConsoleMessageReceived += (sender, args) =>
                      {
-                         Debug.WriteLine(args.LineNumber + " > " + args.Message);
+                         Debug.WriteLine($"{args.LineNumber} > {args.Message}");
                      };
                      byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
@@ -88,7 +88,7 @@ namespace Dom.DragAndDrop.WinForms
                                     </div >
                                     </body>
                                     </html>");
-                     browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+                     browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
                             .ContinueWith(OnHtmlLoaded);
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
@@ -98,7 +98,7 @@ namespace Dom.DragAndDrop.WinForms
 
         public void Drop(IJsObject data)
         {
-            WriteLine("JavaScript Drop callback received: " + data);
+            WriteLine($"JavaScript Drop callback received: {data}");
             if (data.Properties.Contains("length"))
             {
                 double length = (double) data.Properties["length"];
@@ -136,16 +136,19 @@ namespace Dom.DragAndDrop.WinForms
 
             //Configure DOM event handlers.
             IElement dropZone = browser.MainFrame.Document.GetElementById("dropZone");
+
             dropZone.Events[new EventType("dragover")].EventReceived += (s, e) =>
             {
                 e.Event.PreventDefault();
                 WriteLine("DOM DragOver event received");
             };
+
             dropZone.Events[new EventType("drop")].EventReceived += (s, e) =>
             {
                 e.Event.PreventDefault();
                 WriteLine("DOM Drop event received");
             };
+
             WriteLine("DOM DnD events configured");
         }
 
