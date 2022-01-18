@@ -76,7 +76,7 @@ namespace DragAndDrop.Wpf
 
             StringBuilder sb =
                 new StringBuilder("=====================================================");
-            sb.AppendLine($"\nEvent name:{name}");
+            sb.AppendLine($"\nEvent name: {name}");
             sb.AppendLine($"\nIDataObject:{dataObject}");
             sb.AppendLine("=====================================================");
 
