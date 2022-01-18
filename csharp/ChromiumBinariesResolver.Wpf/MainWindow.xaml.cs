@@ -30,6 +30,10 @@ using DotNetBrowser.Engine;
 
 namespace ChromiumBinariesResolver.Wpf
 {
+    /// <summary>
+    ///     This example demonstrates how to deploy Chromium binaries
+    ///     over network.
+    /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
         private readonly string chromiumDirectory;
