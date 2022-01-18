@@ -48,11 +48,9 @@ namespace KeyboardEventSimulation.Wpf
             Task.Run(() =>
                  {
                      engine = EngineFactory.Create(new EngineOptions.Builder
-                                                       {
-                                                           RenderingMode =
-                                                               RenderingMode.OffScreen
-                                                       }
-                                                      .Build());
+                     {
+                         RenderingMode = RenderingMode.OffScreen
+                     }.Build());
 
                      browser = engine.CreateBrowser();
                  })
