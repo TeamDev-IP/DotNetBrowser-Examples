@@ -43,12 +43,9 @@ namespace Kiosk.Wpf
             Task.Run(() =>
                  {
                      engine = EngineFactory.Create(new EngineOptions.Builder
-                                                       {
-                                                           RenderingMode =
-                                                               RenderingMode
-                                                                  .HardwareAccelerated
-                                                       }
-                                                      .Build());
+                     {
+                         RenderingMode = RenderingMode.HardwareAccelerated
+                     }.Build());
 
                      browser = engine.CreateBrowser();
                  })
