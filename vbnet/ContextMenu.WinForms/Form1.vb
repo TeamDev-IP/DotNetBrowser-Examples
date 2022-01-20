@@ -48,13 +48,12 @@ Partial Public Class Form1
         Dim webView As New BrowserView With {.Dock = DockStyle.Fill}
 
         Task.Run(Sub()
-            engine =
-                    EngineFactory.Create(
-                        New EngineOptions.Builder _
-                                            With { _
-                                            .RenderingMode =
-                                            RenderingMode.HardwareAccelerated}.Build())
-            browser = engine.CreateBrowser()
+             engine = EngineFactory.Create(
+                New EngineOptions.Builder _
+                                    With {
+                                    .RenderingMode =
+                                    RenderingMode.HardwareAccelerated}.Build())
+             browser = engine.CreateBrowser()
         End Sub).ContinueWith(Sub(t)
             webView.InitializeFrom(browser)
             ' #docfragment "ContextMenu.WinForms.Configuration"
@@ -93,6 +92,7 @@ Partial Public Class Form1
         As Task(Of ShowContextMenuResponse)
         Dim tcs As New TaskCompletionSource(Of ShowContextMenuResponse)()
         Dim spellCheckMenu As SpellCheckMenu = parameters.SpellCheckMenu
+
         If spellCheckMenu IsNot Nothing Then
             BeginInvoke(New Action(Sub()
                 Dim popupMenu As New ContextMenuStrip()

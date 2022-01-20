@@ -32,31 +32,29 @@ Imports DotNetBrowser.Net.Handlers
 ''' </summary>
 Friend Class Program
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    engine.Profiles.Default.Network.SendUrlRequestHandler =
-                        New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf CanLoadResource)
-                    browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").
-                        Wait()
-                    Dim demoFrame As IFrame =
-                            browser.AllFrames.FirstOrDefault(
-                                Function(f) f.Document.GetElementById("demo") IsNot Nothing)
-                    If demoFrame IsNot Nothing Then
-                        Console.WriteLine("Demo frame found")
-                        demoFrame.Document.GetElementByTagName("button").Click()
-                    End If
+                engine.Profiles.Default.Network.SendUrlRequestHandler =
+                    New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf CanLoadResource)
 
-                    Thread.Sleep(5000)
-                    Console.WriteLine("Demo HTML: " & demoFrame?.Document.GetElementById("demo").InnerHtml)
-                End Using
+                browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").Wait()
+
+                Dim demoFrame As IFrame =
+                        browser.AllFrames.FirstOrDefault(
+                            Function(f) f.Document.GetElementById("demo") IsNot Nothing)
+
+                If demoFrame IsNot Nothing Then
+                    Console.WriteLine("Demo frame found")
+                    demoFrame.Document.GetElementByTagName("button").Click()
+                End If
+
+                Thread.Sleep(5000)
+                Console.WriteLine("Demo HTML: " & demoFrame?.Document.GetElementById("demo").InnerHtml)
+
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
