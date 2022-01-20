@@ -109,6 +109,7 @@ Partial Public Class MainWindow
             ' Add "Add to Dictionary" menu item.
             Dim addToDictionary As String =
                     If(spellCheckMenu.AddToDictionaryMenuItemText, "Add to Dictionary")
+
             popupMenu.Items.Add(BuildMenuItem(addToDictionary, True, Sub()
                 If Not String.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord) Then
                     engine.Profiles.Default.SpellChecker?.CustomDictionary?.Add(
@@ -120,6 +121,7 @@ Partial Public Class MainWindow
             AddHandler popupMenu.Closed, Sub(sender, args)
                 tcs.TrySetResult(ShowContextMenuResponse.Close())
             End Sub
+
             popupMenu.IsOpen = True
         End Sub))
         Return tcs.Task

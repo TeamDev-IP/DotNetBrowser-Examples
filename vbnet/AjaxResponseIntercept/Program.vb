@@ -36,40 +36,35 @@ Friend Class Program
     Private Shared ReadOnly AjaxRequests As New Dictionary(Of String, HttpRequest)()
 
     Public Shared Sub Main(ByVal args() As String)
-        Try
-            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    engine.Profiles.Default.Network.SendUrlRequestHandler = New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
-                    AddHandler engine.Profiles.Default.Network.ResponseBytesReceived, AddressOf OnResponseBytesReceived
-                    AddHandler engine.Profiles.Default.Network.RequestCompleted, AddressOf OnRequestCompleted
+                engine.Profiles.Default.Network.SendUrlRequestHandler = New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
+                AddHandler engine.Profiles.Default.Network.ResponseBytesReceived, AddressOf OnResponseBytesReceived
+                AddHandler engine.Profiles.Default.Network.RequestCompleted, AddressOf OnRequestCompleted
 
-                    browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").Wait()
+                browser.Navigation.LoadUrl("https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first").Wait()
 
-                    Dim demoFrame As IFrame = browser.AllFrames.FirstOrDefault(Function(f) f.Document.GetElementById("demo") IsNot Nothing)
+                Dim demoFrame As IFrame = browser.AllFrames.FirstOrDefault(Function(f) f.Document.GetElementById("demo") IsNot Nothing)
 
-                    If demoFrame IsNot Nothing Then
-                        'Click the button in the demo frame to make an AJAX request.
-                        Console.WriteLine("Demo frame found")
-                        demoFrame.Document.GetElementByTagName("button").Click()
-                    End If
+                If demoFrame IsNot Nothing Then
+                    'Click the button in the demo frame to make an AJAX request.
+                    Console.WriteLine("Demo frame found")
+                    demoFrame.Document.GetElementByTagName("button").Click()
+                End If
 
-                    'Wait for 15 seconds to be sure that at least some requests are completed.
-                    Thread.Sleep(15000)
+                'Wait for 15 seconds to be sure that at least some requests are completed.
+                Thread.Sleep(15000)
 
-                    ' The dictionary will contain some requests, including the one we sent by clicking the button.
-                    Dim key As String = AjaxRequests.Keys.FirstOrDefault(Function(k) k.Contains("ajax_info.txt"))
-                    If Not String.IsNullOrEmpty(key) Then
-                        Dim ajaxRequest As HttpRequest = AjaxRequests(key)
-                        Console.WriteLine($"Response intercepted: " & vbLf & ajaxRequest.Response)
-                    End If
-                End Using
+                ' The dictionary will contain some requests, including the one we sent by clicking the button.
+                Dim key As String = AjaxRequests.Keys.FirstOrDefault(Function(k) k.Contains("ajax_info.txt"))
+                If Not String.IsNullOrEmpty(key) Then
+                    Dim ajaxRequest As HttpRequest = AjaxRequests(key)
+                    Console.WriteLine($"Response intercepted: " & vbLf & ajaxRequest.Response)
+                End If
+
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
 
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()

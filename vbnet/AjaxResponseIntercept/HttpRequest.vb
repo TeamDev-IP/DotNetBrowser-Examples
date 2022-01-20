@@ -87,7 +87,9 @@ Friend NotInheritable Class HttpRequest
     ''' </summary>
     ''' <param name="data"></param>
     Public Sub AppendResponseBytes(ByVal data() As Byte)
-        _responseData.AddRange(data)
+        If data IsNot Nothing Then
+            _responseData.AddRange(data)
+        End If
     End Sub
 
 End Class

@@ -68,8 +68,7 @@ Partial Public Class Form1
                         <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                         </body>
                         </html>")
-            browser.Navigation.LoadUrl(
-                "data:text/html;base64," & Convert.ToBase64String(htmlBytes))
+            browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
         End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
         InitializeComponent()
@@ -104,6 +103,7 @@ Partial Public Class Form1
                 Dim popupMenu As New ContextMenuStrip()
                 Dim suggestions As IEnumerable(Of String) =
                         spellCheckMenu.DictionarySuggestions
+
                 If suggestions IsNot Nothing Then
                     ' Add menu items with suggestions.
                     For Each suggestion As String In suggestions

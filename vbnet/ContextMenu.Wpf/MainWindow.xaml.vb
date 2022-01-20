@@ -41,13 +41,13 @@ Partial Public Class MainWindow
 
     Public Sub New()
         Task.Run(Sub()
-            engine =
-                    EngineFactory.Create(
-                        New EngineOptions.Builder _
-                                            With {.RenderingMode = RenderingMode.OffScreen}.
-                                            Build())
-            browser = engine.CreateBrowser()
-        End Sub).ContinueWith(Sub(t)
+            engine = EngineFactory.Create(
+                New EngineOptions.Builder _
+                                    With {.RenderingMode = RenderingMode.OffScreen}.
+                                    Build())
+
+                     browser = engine.CreateBrowser()
+                 End Sub).ContinueWith(Sub(t)
             WebView.InitializeFrom(browser)
             ConfigureContextMenu()
             browser.Navigation.LoadUrl("https://www.google.com/")
