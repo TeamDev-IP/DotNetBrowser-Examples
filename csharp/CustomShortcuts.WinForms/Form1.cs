@@ -73,7 +73,7 @@ namespace CustomShortcuts.WinForms
 
         private InputEventResponse HandleKeyPress(IKeyPressedEventArgs e)
         {
-            Debug.WriteLine("Key: " + e.VirtualKey);
+            Debug.WriteLine($"Key: {e.VirtualKey}");
             // Map Ctrl-'P' to "Print"
             if (e.Modifiers.ControlDown && e.VirtualKey == KeyCode.VkP)
             {

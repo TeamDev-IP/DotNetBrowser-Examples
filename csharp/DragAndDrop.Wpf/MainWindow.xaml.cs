@@ -76,31 +76,31 @@ namespace DragAndDrop.Wpf
 
             StringBuilder sb =
                 new StringBuilder("=====================================================");
-            sb.AppendLine("\nEvent name:" + name);
-            sb.AppendLine("\nIDataObject:" + dataObject);
+            sb.AppendLine($"\nEvent name: {name}");
+            sb.AppendLine($"\nIDataObject:{dataObject}");
             sb.AppendLine("=====================================================");
+
             foreach (string format in dataObject.GetFormats())
             {
-                sb.AppendLine("Format:" + format);
+                sb.AppendLine($"Format:{format}");
                 try
                 {
                     object data = dataObject.GetData(format);
-                    sb.AppendLine("Type:"
-                                  + (data == null ? "[null]" : data.GetType().ToString()));
+                    sb.AppendLine($"Type:{(data == null ? "[null]" : data.GetType().ToString())}");
 
-                    sb.AppendLine("Data:" + data);
+                    sb.AppendLine($"Data:{data}");
                     IEnumerable<string> strings = data as IEnumerable<string>;
                     if (strings != null)
                     {
                         foreach (string s in strings)
                         {
-                            sb.AppendLine("\tValue: " + s);
+                            sb.AppendLine($"\tValue: {s}");
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    sb.AppendLine("Exception thrown: " + ex.Message);
+                    sb.AppendLine($"Exception thrown: {ex.Message}");
                 }
 
                 sb.AppendLine("=====================================================");
@@ -134,7 +134,8 @@ namespace DragAndDrop.Wpf
         private void OnDragEnter(EnterDragParameters arg)
         {
             LogData(arg.Event.DropData, nameof(OnDragEnter));
-            Debug.WriteLine("Data is null? " + (arg.Event.DataObject == null));
+            Debug.WriteLine($"Data is null? {(arg.Event.DataObject == null)}");
+
             System.Runtime.InteropServices.ComTypes.IDataObject dataObject =
                 arg.Event.DataObject;
             if (dataObject != null)
@@ -147,7 +148,8 @@ namespace DragAndDrop.Wpf
         private void OnDrop(DropParameters arg)
         {
             LogData(arg.Event.DropData, nameof(OnDrop));
-            Debug.WriteLine("Data is null? " + (arg.Event.DataObject == null));
+            Debug.WriteLine($"Data is null? {(arg.Event.DataObject == null)}");
+
             System.Runtime.InteropServices.ComTypes.IDataObject dataObject =
                 arg.Event.DataObject;
             if (dataObject != null)

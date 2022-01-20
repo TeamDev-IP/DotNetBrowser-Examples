@@ -64,8 +64,7 @@ namespace ContextMenu.SpellCheck.Wpf
                                     <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                                     </body>
                                     </html>");
-                     browser.Navigation.LoadUrl("data:text/html;base64,"
-                                                + Convert.ToBase64String(htmlBytes));
+                     browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
                  }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
@@ -90,8 +89,8 @@ namespace ContextMenu.SpellCheck.Wpf
         {
             // #docfragment "ContextMenu.Configuration"
             browser.ShowContextMenuHandler =
-                new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
-                >(ShowContextMenu);
+                new AsyncHandler<ShowContextMenuParameters, 
+                                 ShowContextMenuResponse>(ShowContextMenu);
             // #enddocfragment "ContextMenu.Configuration"
         }
 
@@ -101,6 +100,7 @@ namespace ContextMenu.SpellCheck.Wpf
         {
             TaskCompletionSource<ShowContextMenuResponse> tcs =
                 new TaskCompletionSource<ShowContextMenuResponse>();
+
             SpellCheckMenu spellCheckMenu = parameters.SpellCheckMenu;
             WebView.Dispatcher?.BeginInvoke(new Action(() =>
             {
@@ -128,6 +128,7 @@ namespace ContextMenu.SpellCheck.Wpf
                 // Add "Add to Dictionary" menu item.
                 string addToDictionary =
                     spellCheckMenu.AddToDictionaryMenuItemText ?? "Add to Dictionary";
+
                 popupMenu.Items.Add(BuildMenuItem(addToDictionary, true, delegate
                 {
                     if (!string.IsNullOrWhiteSpace(spellCheckMenu.MisspelledWord))
@@ -138,10 +139,12 @@ namespace ContextMenu.SpellCheck.Wpf
 
                     tcs.TrySetResult(ShowContextMenuResponse.Close());
                 }));
+
                 popupMenu.Closed += (sender, args) =>
                 {
                     tcs.TrySetResult(ShowContextMenuResponse.Close());
                 };
+
                 popupMenu.IsOpen = true;
             }));
             return tcs.Task;

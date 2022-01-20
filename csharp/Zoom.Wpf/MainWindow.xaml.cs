@@ -44,30 +44,22 @@ namespace Zoom.Wpf
 
         public MainWindow()
         {
-            try
-            {
-                Task.Run(() =>
+            Task.Run(() =>
+                 {
+                     engine = EngineFactory.Create(new EngineOptions.Builder
                      {
-                         engine = EngineFactory.Create(new EngineOptions.Builder
-                         {
-                             RenderingMode = RenderingMode.HardwareAccelerated
-                         }.Build());
-                         browser = engine.CreateBrowser();
-                         browser.Navigation.LoadUrl("teamdev.com");
-                         browser.Mouse.WheelMoved.Handler =
-                             new Handler<IMouseWheelMovedEventArgs, InputEventResponse>(OnMouseWheelMoved);
-                     })
-                    .ContinueWith(t =>
-                     {
-                         BrowserView.InitializeFrom(browser);
-                     }, TaskScheduler.FromCurrentSynchronizationContext());
+                         RenderingMode = RenderingMode.HardwareAccelerated
+                     }.Build());
+                     browser = engine.CreateBrowser();
+                     browser.Navigation.LoadUrl("teamdev.com");
+                     browser.Mouse.WheelMoved.Handler =
+                         new Handler<IMouseWheelMovedEventArgs,
+                             InputEventResponse>(OnMouseWheelMoved);
+                 })
+                .ContinueWith(t => { BrowserView.InitializeFrom(browser); },
+                              TaskScheduler.FromCurrentSynchronizationContext());
 
-                InitializeComponent();
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception);
-            }
+            InitializeComponent();
         }
 
         private void EnableZoom(bool zoomEnabled)

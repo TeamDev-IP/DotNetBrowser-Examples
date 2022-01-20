@@ -83,8 +83,8 @@ namespace ContextMenu.Wpf
         {
             // #docfragment "ContextMenu.Configuration"
             browser.ShowContextMenuHandler =
-                new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
-                >(ShowContextMenu);
+                new AsyncHandler<ShowContextMenuParameters, 
+                                 ShowContextMenuResponse>(ShowContextMenu);
             // #enddocfragment "ContextMenu.Configuration"
         }
 
@@ -94,6 +94,7 @@ namespace ContextMenu.Wpf
         {
             TaskCompletionSource<ShowContextMenuResponse> tcs =
                 new TaskCompletionSource<ShowContextMenuResponse>();
+
             WebView.Dispatcher?.BeginInvoke(new Action(() =>
             {
                 System.Windows.Controls.ContextMenu popupMenu =
@@ -123,12 +124,15 @@ namespace ContextMenu.Wpf
                                       tcs.TrySetResult(ShowContextMenuResponse.Close());
                                   });
                 popupMenu.Items.Add(reloadMenuItem);
+
                 popupMenu.Closed += (sender, args) =>
                 {
                     tcs.TrySetResult(ShowContextMenuResponse.Close());
                 };
+
                 popupMenu.IsOpen = true;
             }));
+
             return tcs.Task;
         }
         // #enddocfragment "ContextMenu.Implementation"

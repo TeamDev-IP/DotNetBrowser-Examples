@@ -40,33 +40,25 @@ namespace Kiosk.Wpf
 
         public MainWindow()
         {
-            try
-            {
-                Task.Run(() =>
+            Task.Run(() =>
+                 {
+                     engine = EngineFactory.Create(new EngineOptions.Builder
                      {
-                         engine = EngineFactory.Create(new EngineOptions.Builder
-                                                           {
-                                                               RenderingMode = RenderingMode.HardwareAccelerated
-                                                           }
-                                                          .Build());
+                         RenderingMode = RenderingMode.HardwareAccelerated
+                     }.Build());
 
-                         browser = engine.CreateBrowser();
-                     })
-                    .ContinueWith(t =>
-                     {
-                         BrowserView.InitializeFrom(browser);
-                         //Disable default context menu
-                         browser.ShowContextMenuHandler = null;
-                         browser.Navigation.LoadUrl(@"https://www.teamdev.com");
-                     }, TaskScheduler.FromCurrentSynchronizationContext());
+                     browser = engine.CreateBrowser();
+                 })
+                .ContinueWith(t =>
+                 {
+                     BrowserView.InitializeFrom(browser);
+                     //Disable default context menu
+                     browser.ShowContextMenuHandler = null;
+                     browser.Navigation.LoadUrl(@"https://www.teamdev.com");
+                 }, TaskScheduler.FromCurrentSynchronizationContext());
 
-                // Initialize Wpf Application UI.
-                InitializeComponent();
-            }
-            catch (Exception exception)
-            {
-                Debug.WriteLine(exception);
-            }
+            // Initialize Wpf Application UI.
+            InitializeComponent();
         }
 
         private void MainWindow_OnClosed(object sender, EventArgs e)

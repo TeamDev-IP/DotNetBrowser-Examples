@@ -72,8 +72,7 @@ namespace KeyboardEventSimulation.WinForms
                      browserView.InitializeFrom(browser);
                      byte[] htmlBytes = Encoding.UTF8.GetBytes(Html);
                      browser.Navigation
-                            .LoadUrl("data:text/html;base64,"
-                                     + Convert.ToBase64String(htmlBytes))
+                            .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
                             .ContinueWith(SimulateInput);
                  }, TaskScheduler.FromCurrentSynchronizationContext());
         }

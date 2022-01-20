@@ -44,6 +44,7 @@ namespace JavaScriptBridge.WinForms
             BrowserView webView = new BrowserView {Dock = DockStyle.Fill};
             tableLayoutPanel1.Controls.Add(webView, 1, 0);
             tableLayoutPanel1.SetRowSpan(webView, 2);
+
             engine = EngineFactory
                .Create(new EngineOptions.Builder
                            {
@@ -52,7 +53,9 @@ namespace JavaScriptBridge.WinForms
                           .Build());
             browser = engine.CreateBrowser();
             webView.InitializeFrom(browser);
+
             browser.ConsoleMessageReceived += (sender, args) => { };
+
             byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                         <head>
                           <meta charset='UTF-8'>
@@ -67,8 +70,10 @@ namespace JavaScriptBridge.WinForms
                         </div>
                         </body>
                         </html>");
-            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+
+            browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
                    .Wait();
+
             IJsObject window = browser.MainFrame.ExecuteJavaScript<IJsObject>("window").Result;
             window.Properties["updateForm"] = (Action<string>) UpdateForm;
             FormClosing += Form1_FormClosing;

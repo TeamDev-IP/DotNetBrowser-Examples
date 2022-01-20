@@ -31,7 +31,8 @@ using DotNetBrowser.Engine;
 namespace ChromiumBinariesResolver.Wpf
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    ///     This example demonstrates how to deploy Chromium binaries
+    ///     over network.
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
