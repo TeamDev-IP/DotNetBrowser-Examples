@@ -32,38 +32,34 @@ Imports DotNetBrowser.Net.Handlers
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    engine.Profiles.Default.Network.CanGetCookiesHandler =
-                        New Handler(Of CanGetCookiesParameters, CanGetCookiesResponse)(AddressOf CanGetCookies)
-                    engine.Profiles.Default.Network.CanSetCookieHandler =
-                        New Handler(Of CanSetCookieParameters, CanSetCookieResponse)(AddressOf CanSetCookie)
-                    Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
-                    Console.WriteLine("LoadResult: " & result)
-                End Using
+                engine.Profiles.Default.Network.CanGetCookiesHandler =
+                    New Handler(Of CanGetCookiesParameters, CanGetCookiesResponse)(AddressOf CanGetCookies)
+                engine.Profiles.Default.Network.CanSetCookieHandler =
+                    New Handler(Of CanSetCookieParameters, CanSetCookieResponse)(AddressOf CanSetCookie)
+                Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
+                Console.WriteLine($"LoadResult: {result}")
+
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
 
     Private Shared Function CanGetCookies(arg As CanGetCookiesParameters) As CanGetCookiesResponse
-        Dim cookies As String = 
+        Dim cookies As String =
                 arg.Cookies.Aggregate(String.Empty,
                                       Function(current, cookie) current + (cookie.ToString() & vbLf))
 
-        Console.WriteLine("CanGetCookies: " & cookies)
+        Console.WriteLine($"CanGetCookies: {cookies}")
         Return CanGetCookiesResponse.Deny()
     End Function
 
     Private Shared Function CanSetCookie(arg As CanSetCookieParameters) As CanSetCookieResponse
-        Console.WriteLine("CanSetCookie: " & arg.Cookie.ToString())
+        Console.WriteLine($"CanSetCookie: {arg.Cookie}")
         Return CanSetCookieResponse.Deny()
     End Function
 

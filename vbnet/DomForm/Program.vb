@@ -32,44 +32,40 @@ Imports DotNetBrowser.Engine
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><form name=""myForm"">" &
+                                                                 "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" &
+                                                                 "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" &
+                                                                 "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" &
+                                                                 "<input type='button' id='saveButton' value=""Save"" onclick=""" &
+                                                                 "if(document.getElementById('agreement').checked){" &
+                                                                 "    console.log(document.getElementById('firstName').value +' '+" &
+                                                                 "document.getElementById('lastName').value);}" &
+                                                                 """/>" &
+                                                                 "</form></body></html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 
-                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><form name=""myForm"">" &
-                                                                     "First name: <input type=""text"" id=""firstName"" name=""firstName""/><br/>" &
-                                                                     "Last name: <input type=""text"" id=""lastName"" name=""lastName""/><br/>" &
-                                                                     "<input type='checkbox' id='agreement' name='agreement' value='agreed'>I agree<br>" &
-                                                                     "<input type='button' id='saveButton' value=""Save"" onclick=""" &
-                                                                     "if(document.getElementById('agreement').checked){" &
-                                                                     "    console.log(document.getElementById('firstName').value +' '+" &
-                                                                     "document.getElementById('lastName').value);}" &
-                                                                     """/>" &
-                                                                     "</form></body></html>")
-                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
+                Dim document As IDocument = browser.MainFrame.Document
+                Dim firstName = DirectCast(document.GetElementByName("firstName"), IInputElement)
+                Dim lastName = DirectCast(document.GetElementByName("lastName"), IInputElement)
+                Dim agreement = DirectCast(document.GetElementByName("agreement"), IInputElement)
 
-                    Dim document As IDocument = browser.MainFrame.Document
-                    Dim firstName = DirectCast(document.GetElementByName("firstName"), IInputElement)
-                    Dim lastName = DirectCast(document.GetElementByName("lastName"), IInputElement)
-                    Dim agreement = DirectCast(document.GetElementByName("agreement"), IInputElement)
+                firstName.Value = "John"
+                lastName.Value = "Doe"
+                agreement.Checked = True
 
-                    firstName.Value = "John"
-                    lastName.Value = "Doe"
-                    agreement.Checked = True
+                AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
+                    Console.WriteLine("JS Console: < " & args.Message)
+                End Sub
 
-                    AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
-                        Console.WriteLine("JS Console: < " & args.Message)
-                    End Sub
-                    document.GetElementById("saveButton").Click()
-                    Thread.Sleep(3000)
-                End Using
+                document.GetElementById("saveButton").Click()
+                Thread.Sleep(3000)
+
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

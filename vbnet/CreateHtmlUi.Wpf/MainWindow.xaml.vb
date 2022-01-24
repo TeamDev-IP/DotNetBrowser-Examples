@@ -61,13 +61,16 @@ Namespace CreateHtmlUi.Wpf
 
         Private Sub browser1_FrameLoadFinished(ByVal sender As Object, ByVal e As FrameLoadFinishedEventArgs)
             If Not e.Frame.IsDisposed AndAlso e.Frame.IsMain Then
+
                 Dim document As IDocument = browser1.MainFrame.Document
                 Dim inputs As IEnumerable(Of IElement) = document.GetElementsByTagName("input")
+
                 For Each element As IElement In inputs
                     If element.Attributes("type").ToLower().Equals("submit") Then
                         AddHandler element.Events.Click, AddressOf OnSubmitClicked
                     End If
                 Next element
+
             End If
         End Sub
 
@@ -85,9 +88,10 @@ Namespace CreateHtmlUi.Wpf
                          login = DirectCast(document.GetElementById("login"), IInputElement).Value
                          password = DirectCast(document.GetElementById("password"), IInputElement).Value
 
-                         Application.Current.Dispatcher.BeginInvoke(New Action(Sub()
-                                                                                   MessageBox.Show(Me, "Login: " & login & vbLf & "Password: " & password, "Data")
-                                                                               End Sub))
+                         Application.Current.Dispatcher.BeginInvoke(New Action(
+                             Sub()
+                                 MessageBox.Show(Me, $"Login: {login}{vbLf}Password: {password}", "Data")
+                             End Sub))
                      End Sub)
         End Sub
 

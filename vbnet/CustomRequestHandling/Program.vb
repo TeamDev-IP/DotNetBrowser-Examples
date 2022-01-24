@@ -44,14 +44,17 @@ Friend Class Program
                                                "charset=utf-8")
                                 }
                                 }
+
                         Dim job As UrlRequestJob =
                                 p.Network.CreateUrlRequestJob(p.UrlRequest, options)
+
                         Task.Run(Sub()
-                            ' The request processing is performed in a worker thread
-                            ' in order to avoid freezing the web page.
-                            job.Write(Encoding.UTF8.GetBytes("Hello world!"))
-                            job.Complete()
-                        End Sub)
+                                     ' The request processing is performed in a worker thread
+                                     ' in order to avoid freezing the web page.
+                                     job.Write(Encoding.UTF8.GetBytes("Hello world!"))
+                                     job.Complete()
+                                 End Sub)
+
                         Return InterceptRequestResponse.Intercept(job)
                     End Function)
 
@@ -72,8 +75,8 @@ Friend Class Program
                 ' LoadResult.Stopped.
                 ' However, with the scheme handler, the web page is loaded and
                 ' the result is LoadResult.Completed.
-                Console.WriteLine("Load result: " & loadResult.ToString())
-                Console.WriteLine("HTML: " & browser.MainFrame.Html)
+                Console.WriteLine($"Load result: {loadResult}")
+                Console.WriteLine($"HTML: {browser.MainFrame.Html}")
             End Using
         End Using
         ' #enddocfragment "CustomRequestHandling"

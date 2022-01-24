@@ -31,28 +31,25 @@ Imports DotNetBrowser.Engine
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes(
+                    "<html><body><a href='#' id='link' title='link title'></a></body></html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 
-                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes(
-                        "<html><body><a href='#' id='link' title='link title'></a></body></html>")
-                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
-                    Dim document As IDocument = browser.MainFrame.Document
-                    Dim link As IElement = document.GetElementById("link")
-                    Dim attributes As IDictionary(Of String, String) = link.Attributes
-                    Console.WriteLine("Link attributes: ")
-                    For Each attribute In attributes
-                        Console.WriteLine($"- {attribute.Key} = {attribute.Value}")
-                    Next attribute
-                End Using
+                Dim document As IDocument = browser.MainFrame.Document
+                Dim link As IElement = document.GetElementById("link")
+                Dim attributes As IDictionary(Of String, String) = link.Attributes
+
+                Console.WriteLine("Link attributes: ")
+                For Each attribute In attributes
+                    Console.WriteLine($"- {attribute.Key} = {attribute.Value}")
+                Next attribute
+
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
