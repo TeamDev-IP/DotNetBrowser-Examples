@@ -35,30 +35,25 @@ Public Class WindowMain
     Inherits Window
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                Dim mediaDevices As IMediaDevices = engine.MediaDevices
+                Console.WriteLine(vbLf & "Available audio capture devices:")
+                PrintDevices(mediaDevices.AudioCaptureDevices)
+                Console.WriteLine(vbLf & "Available video capture devices:")
+                PrintDevices(mediaDevices.VideoCaptureDevices)
 
-                    Dim mediaDevices As IMediaDevices = engine.MediaDevices
-                    Console.WriteLine(vbLf & "Available audio capture devices:")
-                    PrintDevices(mediaDevices.AudioCaptureDevices)
-                    Console.WriteLine(vbLf & "Available video capture devices:")
-                    PrintDevices(mediaDevices.VideoCaptureDevices)
+                mediaDevices.SelectMediaDeviceHandler =
+                    New Handler(Of SelectMediaDeviceParameters, SelectMediaDeviceResponse)(
+                        AddressOf SelectDevice)
 
-                    mediaDevices.SelectMediaDeviceHandler =
-                        New Handler(Of SelectMediaDeviceParameters, SelectMediaDeviceResponse)(
-                            AddressOf SelectDevice)
+                browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html") _
+                    .Wait()
 
-                    browser.Navigation.LoadUrl("https://alexandre.alapetite.fr/doc-alex/html5-webcam/index.en.html") _
-                        .Wait()
-                End Using
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

@@ -33,42 +33,37 @@ Imports DotNetBrowser.Engine
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
+                Dim document As IDocument = browser.MainFrame.Document
 
-                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><div id='root'></div></body></html>")
-                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
-                    Dim document As IDocument = browser.MainFrame.Document
+                Dim eventType As New EventType("MyEvent")
+                Dim myEvent = document.CreateEvent(eventType, (New EventParameters.Builder()).Build())
 
-                    Dim eventType As New EventType("MyEvent")
-                    Dim myEvent = document.CreateEvent(eventType, (New EventParameters.Builder()).Build())
+                Dim root As INode = document.GetElementById("root")
 
-                    Dim root As INode = document.GetElementById("root")
+                Dim domEventHandler As EventHandler(Of DomEventArgs) = Sub(s, e)
+                    If e.Event.Type Is eventType Then
+                        Console.WriteLine($"DOM event received: {eventType.Value}")
+                        Dim textNode As INode = document.CreateTextNode("Some text")
+                        Dim paragraph As IElement = document.CreateElement("p")
+                        paragraph.Children.Append(textNode)
+                        root.Children.Append(paragraph)
+                    End If
+                End Sub
 
-                    Dim domEventHandler As EventHandler(Of DomEventArgs) = Sub(s, e)
-                        If e.Event.Type Is eventType Then
-                            Console.WriteLine("DOM event received: " & eventType.Value)
-                            Dim textNode As INode = document.CreateTextNode("Some text")
-                            Dim paragraph As IElement = document.CreateElement("p")
-                            paragraph.Children.Append(textNode)
-                            root.Children.Append(paragraph)
-                        End If
-                    End Sub
+                AddHandler root.Events(eventType).EventReceived, domEventHandler
+                Console.WriteLine($"Dispatch custom DOM event: {eventType.Value}")
+                root.DispatchEvent(myEvent)
+                Thread.Sleep(3000)
+                Console.WriteLine($"Updated HTML: {browser.MainFrame.Html}")
 
-                    AddHandler root.Events(eventType).EventReceived, domEventHandler
-                    Console.WriteLine("Dispatch custom DOM event: " & eventType.Value)
-                    root.DispatchEvent(myEvent)
-                    Thread.Sleep(3000)
-                    Console.WriteLine("Updated HTML: " & browser.MainFrame.Html)
-                End Using
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

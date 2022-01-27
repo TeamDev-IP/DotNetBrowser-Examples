@@ -48,9 +48,11 @@ Namespace Dom.DragAndDrop.WinForms
 			End Sub).ContinueWith(Sub(t)
 					 browserView1.InitializeFrom(browser)
 					 browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
+
 					 AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
-						 Debug.WriteLine(args.LineNumber & " > " & args.Message)
+						 Debug.WriteLine($"{args.LineNumber} > {args.Message}")
 					 End Sub
+
 			         Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                                         <head>
                                           <meta charset='UTF-8'>
@@ -74,6 +76,7 @@ Namespace Dom.DragAndDrop.WinForms
                                         </div >
                                         </body>
                                         </html>")
+
 			         browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
                                      .ContinueWith(AddressOf OnHtmlLoaded)
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
@@ -83,7 +86,7 @@ Namespace Dom.DragAndDrop.WinForms
 		End Sub
 
 		Public Sub Drop(ByVal data As IJsObject)
-			WriteLine("JavaScript Drop callback received: " & data.ToString())
+			WriteLine($"JavaScript Drop callback received: {data}")
 			If data.Properties.Contains("length") Then
 				Dim length As Double = DirectCast(data.Properties("length"), Double)
 				For i As UInteger = 0 To length - 1
@@ -116,14 +119,17 @@ Namespace Dom.DragAndDrop.WinForms
 
 			'Configure DOM event handlers.
 			Dim dropZone As IElement = browser.MainFrame.Document.GetElementById("dropZone")
+
 			AddHandler dropZone.Events(New EventType("dragover")).EventReceived, Sub(s, e)
 				e.Event.PreventDefault()
 				WriteLine("DOM DragOver event received")
 			End Sub
+
 			AddHandler dropZone.Events(New EventType("drop")).EventReceived, Sub(s, e)
 				e.Event.PreventDefault()
 				WriteLine("DOM Drop event received")
 			End Sub
+
 			WriteLine("DOM DnD events configured")
 		End Sub
 

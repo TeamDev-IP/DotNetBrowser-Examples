@@ -31,24 +31,20 @@ Friend Class Program
     Private Const Url As String = "https://google.com"
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Dim cookieStorage As ICookieStore = engine.Profiles.Default.CookieStore
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Dim cookieStorage As ICookieStore = engine.Profiles.Default.CookieStore
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Navigation.LoadUrl(Url).Wait()
+                browser.Navigation.LoadUrl(Url).Wait()
 
-                    Dim cookies As IEnumerable(Of Cookie) = cookieStorage.GetAllCookies(Url).Result
-                    For Each cookie As Cookie In cookies
-                        Console.WriteLine("cookie = " & cookie.ToString())
-                    Next cookie
-                End Using
+                Dim cookies As IEnumerable(Of Cookie) = cookieStorage.GetAllCookies(Url).Result
+                For Each cookie As Cookie In cookies
+                    Console.WriteLine($"cookie = {cookie}")
+                Next cookie
+
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
