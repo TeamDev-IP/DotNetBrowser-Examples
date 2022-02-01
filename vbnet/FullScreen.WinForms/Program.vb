@@ -1,7 +1,4 @@
 ﻿Imports System
-Imports System.Collections.Generic
-Imports System.Linq
-Imports System.Threading.Tasks
 Imports System.Windows.Forms
 
 Namespace FullScreen.WinForms

@@ -20,8 +20,6 @@
 
 #End Region
 
-Imports System
-Imports System.Windows.Forms
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine

@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers
@@ -62,35 +61,29 @@ Friend Class Program
     Private Shared ReadOnly myWebSocketCallback As New WebSocketCallback()
 
     Public Shared Sub Main(ByVal args() As String)
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(640, 480)
+                browser.Size = New Size(640, 480)
 
-                    'Configure JavaScript injection
-                    browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
-                    'Load web page for testing
-                    browser.Navigation.LoadUrl("https://www.websocket.org/echo.html").Wait()
+                'Configure JavaScript injection
+                browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
+                'Load web page for testing
+                browser.Navigation.LoadUrl("https://www.websocket.org/echo.html").Wait()
 
-                    ' Connect to the socket by clicking the button on the web page
-                    browser.MainFrame.Document.GetElementById("connect")?.Click()
-                    Thread.Sleep(1000)
+                ' Connect to the socket by clicking the button on the web page
+                browser.MainFrame.Document.GetElementById("connect")?.Click()
+                Thread.Sleep(1000)
 
-                    'Send some data
-                    browser.MainFrame.Document.GetElementById("send")?.Click()
-                    Thread.Sleep(1000)
+                'Send some data
+                browser.MainFrame.Document.GetElementById("send")?.Click()
+                Thread.Sleep(1000)
 
-                    'Disconnect from the socket
-                    browser.MainFrame.Document.GetElementById("disconnect")?.Click()
-                    Thread.Sleep(1000)
-                End Using
+                'Disconnect from the socket
+                browser.MainFrame.Document.GetElementById("disconnect")?.Click()
+                Thread.Sleep(1000)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
 
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
@@ -110,7 +103,7 @@ Friend Class Program
         End Sub
 
         Public Sub OnMessage(ByVal socket As IJsObject, ByVal data As Object)
-            Console.WriteLine("WebSocketCallback.OnMessage: " & data?.ToString())
+            Console.WriteLine($"WebSocketCallback.OnMessage: {data}")
         End Sub
 
         Public Sub OnOpen(ByVal socket As IJsObject)
@@ -118,7 +111,7 @@ Friend Class Program
         End Sub
 
         Public Sub OnSend(ByVal socket As IJsObject, ByVal data As Object)
-            Console.WriteLine("WebSocketCallback.OnSend: " & data?.ToString())
+            Console.WriteLine($"WebSocketCallback.OnSend: {data}")
         End Sub
 
     End Class
