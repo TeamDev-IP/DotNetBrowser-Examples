@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers

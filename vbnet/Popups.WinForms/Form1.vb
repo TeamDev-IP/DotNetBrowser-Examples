@@ -23,7 +23,6 @@
 Imports System.IO
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
-Imports DotNetBrowser.WinForms
 
 Namespace Popups.WinForms
     ''' <summary>
