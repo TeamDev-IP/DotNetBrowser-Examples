@@ -31,37 +31,33 @@ Imports DotNetBrowser.Navigation.Events
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    AddHandler browser.Navigation.FrameLoadFinished,
-                        Sub(sender As Object, e As FrameLoadFinishedEventArgs)
-                            Console.Out.WriteLine(
-                                $"FrameLoadFinished: URL = {e.ValidatedUrl}, IsMainFrame = {e.Frame.IsMain}")
-                        End Sub
-
-                    AddHandler browser.Navigation.LoadStarted, Sub()
-                        Console.Out.WriteLine("LoadStarted")
+                AddHandler browser.Navigation.FrameLoadFinished,
+                    Sub(sender As Object, e As FrameLoadFinishedEventArgs)
+                        Console.Out.WriteLine(
+                            $"FrameLoadFinished: URL = {e.ValidatedUrl}, IsMainFrame = {e.Frame.IsMain}")
                     End Sub
 
-                    AddHandler browser.Navigation.NavigationStarted,
-                        Sub(sender As Object, e As NavigationStartedEventArgs)
-                            Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}")
-                        End Sub
+                AddHandler browser.Navigation.LoadStarted, Sub()
+                    Console.Out.WriteLine("LoadStarted")
+                End Sub
 
-                    AddHandler browser.Navigation.FrameDocumentLoadFinished,
-                        Sub(sender As Object, e As FrameDocumentLoadFinishedEventArgs)
-                            Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}")
-                        End Sub
+                AddHandler browser.Navigation.NavigationStarted,
+                    Sub(sender As Object, e As NavigationStartedEventArgs)
+                        Console.Out.WriteLine($"NavigationStarted: Url = {e.Url}")
+                    End Sub
 
-                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
-                End Using
+                AddHandler browser.Navigation.FrameDocumentLoadFinished,
+                    Sub(sender As Object, e As FrameDocumentLoadFinishedEventArgs)
+                        Console.Out.WriteLine($"FrameDocumentLoadFinished: IsMainFrame = {e.Frame.IsMain}")
+                    End Sub
+
+                browser.Navigation.LoadUrl("https://www.google.com").Wait()
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

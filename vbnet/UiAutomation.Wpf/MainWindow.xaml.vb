@@ -35,23 +35,21 @@ Partial Public Class MainWindow
     Private engine As IEngine
 
     Public Sub New()
-        Try
-            Task.Run(Sub()
-                Dim builder = New EngineOptions.Builder With {
-                        .RenderingMode = RenderingMode.HardwareAccelerated
-                        }
-                builder.ChromiumSwitches.Add("--force-renderer-accessibility")
-                engine = EngineFactory.Create(builder.Build())
-                browser = engine.CreateBrowser()
-            End Sub).ContinueWith(Sub(t)
-                BrowserView.InitializeFrom(browser)
-                browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser")
-            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+        Task.Run(Sub()
+            Dim builder = New EngineOptions.Builder With 
+            {
+                .RenderingMode = RenderingMode.HardwareAccelerated
+            }
+            builder.ChromiumSwitches.Add("--force-renderer-accessibility")
 
-            InitializeComponent()
-        Catch exception As Exception
-            Debug.WriteLine(exception)
-        End Try
+            engine = EngineFactory.Create(builder.Build())
+            browser = engine.CreateBrowser()
+        End Sub).ContinueWith(Sub(t)
+            BrowserView.InitializeFrom(browser)
+            browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser")
+        End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+
+        InitializeComponent()
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
@@ -59,6 +57,7 @@ Partial Public Class MainWindow
         Task.Run(Sub()
             Dim currentProcess As Process = Process.GetCurrentProcess()
             Dim chromiumElement As AutomationElement = GetChromiumElement(currentProcess)
+
             If chromiumElement IsNot Nothing Then
                 Log("-- Element Properties --")
                 Dim properties() As AutomationProperty = chromiumElement.GetSupportedProperties()
@@ -76,8 +75,10 @@ Partial Public Class MainWindow
                 For Each pattern As AutomationPattern In patterns
                     Log("ProgrammaticName: " & pattern.ProgrammaticName)
                     Log(vbTab & "Pattern Name: " & Automation.PatternName(pattern))
+
                     Dim currentPattern = chromiumElement.GetCurrentPattern(pattern)
                     Log(vbTab & "Pattern Value: " & currentPattern.ToString())
+
                     If TypeOf currentPattern Is ValuePattern Then
                         Dim valuePattern = TryCast(currentPattern, ValuePattern)
                         Dim value As String = valuePattern.Current.Value
@@ -98,10 +99,12 @@ Partial Public Class MainWindow
     Private Shared Function GetChromiumElement(process As Process) As AutomationElement
         Dim element As AutomationElement = Nothing
         If process IsNot Nothing AndAlso process.MainWindowHandle <> IntPtr.Zero Then
+
             Dim rootElement As AutomationElement = AutomationElement.FromHandle(process.MainWindowHandle)
             If rootElement Is Nothing Then
                 Return Nothing
             End If
+
             Dim conditions As Condition = New AndCondition(
                 New PropertyCondition(AutomationElement.ClassNameProperty, "Chrome_RenderWidgetHostHWND"),
                 New PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Document))

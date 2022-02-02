@@ -34,46 +34,40 @@ Imports DotNetBrowser.Js
 Friend Class Program
 
     Public Shared Sub Main(ByVal args() As String)
-        Try
-            Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    browser.Size = New Size(1024, 768)
-                    Console.WriteLine("Browser created")
-                    browser.Navigation.LoadUrl(Path.GetFullPath("example.html")).Wait()
+                browser.Size = New Size(1024, 768)
+                browser.Navigation.LoadUrl(Path.GetFullPath("example.html")).Wait()
 
-                    Console.WriteLine("URL loaded")
+                Console.WriteLine("URL loaded")
 
-                    Dim document As IDocument = browser.MainFrame.Document
-                    Dim container As IJsObject = TryCast(document.GetElementById("container"), IJsObject)
+                Dim document As IDocument = browser.MainFrame.Document
+                Dim container As IJsObject = TryCast(document.GetElementById("container"), IJsObject)
 
-                    'Create shadow root.
-                    Dim shadowRoot As INode = container?.Invoke(Of INode)("attachShadow", browser.MainFrame.ParseJsonString("{""mode"": ""open""}"))
-                    Console.WriteLine("Shadow root created: " & (shadowRoot IsNot Nothing))
+                'Create shadow root.
+                Dim shadowRoot As INode = container?.Invoke(Of INode)("attachShadow", browser.MainFrame.ParseJsonString("{""mode"": ""open""}"))
+                Console.WriteLine($"Shadow root created: {(shadowRoot IsNot Nothing)}")
 
-                    'Fetch shadow root.
-                    shadowRoot = TryCast(container?.Properties("shadowRoot"), INode)
-                    Console.WriteLine("Shadow root fetched: " & (shadowRoot IsNot Nothing))
+                'Fetch shadow root.
+                shadowRoot = TryCast(container?.Properties("shadowRoot"), INode)
+                Console.WriteLine($"Shadow root fetched: {(shadowRoot IsNot Nothing)}")
 
-                    'Add node to shadow root.
-                    Dim inside As IElement = document.CreateElement("h1")
-                    inside.InnerText = "Inside Shadow DOM"
-                    inside.Attributes("id") = "inside"
-                    shadowRoot?.Children.Append(inside)
+                'Add node to shadow root.
+                Dim inside As IElement = document.CreateElement("h1")
+                inside.InnerText = "Inside Shadow DOM"
+                inside.Attributes("id") = "inside"
+                shadowRoot?.Children.Append(inside)
 
-                    'Find new node in shadow root.
-                    Dim element As IElement = shadowRoot?.GetElementById("inside")
-                    Console.WriteLine("Inside element inner text: " & element?.InnerText)
+                'Find new node in shadow root.
+                Dim element As IElement = shadowRoot?.GetElementById("inside")
+                Console.WriteLine($"Inside element inner text: {element?.InnerText}")
 
-                    'Try finding the same node from the main document.
-                    element = document.GetElementById("inside")
-                    Console.WriteLine("Inside element found in the document: " & (element IsNot Nothing))
-                End Using
+                'Try finding the same node from the main document.
+                element = document.GetElementById("inside")
+                Console.WriteLine($"Inside element found in the document: {(element IsNot Nothing)}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
 
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()

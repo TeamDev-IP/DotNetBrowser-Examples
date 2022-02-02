@@ -33,35 +33,33 @@ Imports DotNetBrowser.Geometry
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(1024, 768)
+                browser.Size = New Size(1024, 768)
 
-                    browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
-                    Dim document As IDocument = browser.MainFrame.Document
+                browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
+                Dim document As IDocument = browser.MainFrame.Document
 
+                Try
                     Dim expression = "count(//div)"
                     Console.WriteLine($"Evaluating '{expression}'")
                     Dim result As IXPathResult = document.Evaluate(expression)
 
                     ' Make sure that result is a number.
                     If result.Type = XPathResultType.Number Then
-                        Console.WriteLine("Result: " & result.Numeric)
+                        Console.WriteLine($"Result: {result.Numeric}")
                     End If
-                End Using
+
+                ' If the expression is not a valid XPath expression or the document
+                ' element is not available, we'll get an error.
+                Catch e As XPathException
+                    Console.WriteLine("Error message: " + e.Message)
+                    Return
+                End Try
+                
             End Using
-        ' If the expression is not a valid XPath expression or the document
-        ' element is not available, we'll get an error.
-        Catch e As XPathException
-            Console.WriteLine("Error message: " + e.Message)
-            Return
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
 
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()

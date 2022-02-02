@@ -34,54 +34,51 @@ Imports JavaScriptBridge.Promises
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(700, 500)
-                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
-                                     <body>
-                                        <script type='text/javascript'>
-                                            function CreatePromise(success) 
-                                            {
-                                                 return new Promise(function(resolve, reject) {
-                                                    if(success) {
-                                                        resolve('Promise fulfilled.');
-                                                    }
-                                                    else {
-                                                        reject('Promise rejected.');
-                                                    }
-                                                 });
-                                            };
-                                        </script>
-                                     </body>
-                                   </html>")
-                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
-                    Dim window As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
-                    'Prepare promise handlers
-                    Dim promiseResolvedHandler As Action(Of Object) = Sub(o) Console.WriteLine("Success: " & o.ToString())
-                    Dim promiseRejectedHandler As Action(Of Object) = Sub(o) Console.Error.WriteLine("Error: " & o.ToString())
+                browser.Size = New Size(700, 500)
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+                                 <body>
+                                    <script type='text/javascript'>
+                                        function CreatePromise(success) 
+                                        {
+                                             return new Promise(function(resolve, reject) {
+                                                if(success) {
+                                                    resolve('Promise fulfilled.');
+                                                }
+                                                else {
+                                                    reject('Promise rejected.');
+                                                }
+                                             });
+                                        };
+                                    </script>
+                                 </body>
+                               </html>")
 
-                    'Create a promise that is fulfilled
-                    Console.WriteLine("Create a promise that is fulfilled...")
-                    Dim promise1 = window.Invoke(Of IJsObject)("CreatePromise", True)
-                    'Append fulfillment and rejection handlers to the promise
-                    promise1.Invoke("then", promiseResolvedHandler, promiseRejectedHandler)
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
+                Dim window As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
+                'Prepare promise handlers
+                Dim promiseResolvedHandler As Action(Of Object) = Sub(o) Console.WriteLine(
+                    $"Success: {o}")
+                Dim promiseRejectedHandler As Action(Of Object) = Sub(o) Console.Error.WriteLine(
+                    $"Error: {o}")
 
-                    'Create a promise that is rejected
-                    Console.WriteLine("Create a promise that is rejected...")
-                    Dim promise2 = window.Invoke(Of IJsObject)("CreatePromise", False)
-                    'Append fulfillment and rejection handlers to the promise
-                    promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler)
+                'Create a promise that is fulfilled
+                Console.WriteLine("Create a promise that is fulfilled...")
+                Dim promise1 = window.Invoke(Of IJsObject)("CreatePromise", True)
+                'Append fulfillment and rejection handlers to the promise
+                promise1.Invoke("then", promiseResolvedHandler, promiseRejectedHandler)
 
-                    CreatePromiseAsync(window).Wait()
-                End Using
+                'Create a promise that is rejected
+                Console.WriteLine("Create a promise that is rejected...")
+                Dim promise2 = window.Invoke(Of IJsObject)("CreatePromise", False)
+                'Append fulfillment and rejection handlers to the promise
+                promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler)
+
+                CreatePromiseAsync(window).Wait()
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
 
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
@@ -93,22 +90,22 @@ Friend Class Program
         'with async/await in the .NET application.
 
         'Create a promise that is fulfilled and wrap this promise
-        Console.WriteLine(vbLf & "Create another promise that is fulfilled...")
+        Console.WriteLine($"{vbLf}Create another promise that is fulfilled...")
         Dim promise3 As JsPromise = window.Invoke(Of IJsObject)("CreatePromise", True).AsPromise()
         Dim result As JsPromise.Result = Await promise3.Then(Function(o)
-            Console.WriteLine("Callback:Success: " & o?.ToString())
+            Console.WriteLine($"Callback:Success: {o}")
             Return o
         End Function).ResolveAsync()
-        Console.WriteLine("Result state:" & result?.State.ToString())
-        Console.WriteLine("Result type:" & (If(result?.Data?.GetType().ToString(), "null")))
+        Console.WriteLine($"Result state:{result?.State}")
+        Console.WriteLine($"Result type:{(If(result?.Data?.GetType().ToString(), "null"))}")
 
         'Create a promise that is rejected and wrap this promise
-        Console.WriteLine(vbLf & "Create another promise that is rejected...")
+        Console.WriteLine($"{vbLf}Create another promise that is rejected...")
         Dim promise4 As JsPromise = window.Invoke(Of IJsObject)("CreatePromise", False).AsPromise()
         result = Await promise4.ResolveAsync()
 
-        Console.WriteLine("Result state:" & result?.State.ToString())
-        Console.WriteLine("Result type:" & (If(result?.Data?.GetType().ToString(), "null")))
+        Console.WriteLine($"Result state:{result?.State}")
+        Console.WriteLine($"Result type:{(If(result?.Data?.GetType().ToString(), "null"))}")
     End Function
 
 End Class

@@ -33,24 +33,20 @@ Imports DotNetBrowser.Net.Handlers
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    engine.Profiles.Default.Network.SendUrlRequestHandler =
-                        New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
-                    engine.Profiles.Default.Network.StartTransactionHandler =
-                        New Handler(Of StartTransactionParameters, StartTransactionResponse)(AddressOf OnStartTransaction)
+                engine.Profiles.Default.Network.SendUrlRequestHandler =
+                    New Handler(Of SendUrlRequestParameters, SendUrlRequestResponse)(AddressOf OnSendUrlRequest)
+                engine.Profiles.Default.Network.StartTransactionHandler =
+                    New Handler(Of StartTransactionParameters, StartTransactionResponse)(AddressOf OnStartTransaction)
 
-                    Console.WriteLine("Loading https://www.teamdev.com/")
-                    browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait()
-                    Console.WriteLine($"Loaded URL: {browser.Url}")
-                End Using
+                Console.WriteLine("Loading https://www.teamdev.com/")
+                browser.Navigation.LoadUrl("https://www.teamdev.com/").Wait()
+                Console.WriteLine($"Loaded URL: {browser.Url}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

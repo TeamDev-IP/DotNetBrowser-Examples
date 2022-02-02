@@ -66,25 +66,26 @@ Partial Public Class MainWindow
         End If
 
         Dim sb As New StringBuilder("=====================================================")
-        sb.AppendLine(vbLf & "Event name:" & eventName)
-        sb.AppendLine(vbLf & "IDataObject:" & dataObject.ToString())
+        sb.AppendLine($"{vbLf}Event name:{eventName}")
+        sb.AppendLine($"{vbLf}IDataObject:{dataObject}")
         sb.AppendLine("=====================================================")
+
         For Each format As String In dataObject.GetFormats()
-            sb.AppendLine("Format:" & format)
+            sb.AppendLine($"Format:{format}")
             Try
                 Dim data As Object = dataObject.GetData(format)
                 sb.AppendLine(
-                    "Type:" & (If(data Is Nothing, "[null]", data.GetType().ToString())))
+                    $"Type:{(If(data Is Nothing, "[null]", data.GetType().ToString()))}")
 
-                sb.AppendLine("Data:" & data.ToString())
+                sb.AppendLine($"Data:{data}")
                 Dim strings = TryCast(data, IEnumerable(Of String))
                 If strings IsNot Nothing Then
                     For Each s As String In strings
-                        sb.AppendLine(vbTab & "Value: " & s)
+                        sb.AppendLine($"{vbTab}Value: {s}")
                     Next s
                 End If
             Catch ex As Exception
-                sb.AppendLine("Exception thrown: " & ex.Message)
+                sb.AppendLine($"Exception thrown: {ex.Message}")
             End Try
 
             sb.AppendLine("=====================================================")
@@ -116,8 +117,9 @@ Partial Public Class MainWindow
     ' #docfragment "DragAndDrop.Implementation"
     Private Sub OnDragEnter(arg As EnterDragParameters)
         LogData(arg.Event.DropData, NameOf(OnDragEnter))
-        Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
+        Debug.WriteLine($"Data is null? {(arg.Event.DataObject Is Nothing)}")
         Dim dataObject As IDataObject = arg.Event.DataObject
+
         If dataObject IsNot Nothing Then
             ' Process data in IDataObject.
             ExtractData(NameOf(OnDragEnter), New DataObject(dataObject))
@@ -126,8 +128,9 @@ Partial Public Class MainWindow
 
     Private Sub OnDrop(arg As DropParameters)
         LogData(arg.Event.DropData, NameOf(OnDrop))
-        Debug.WriteLine("Data is null? " & (arg.Event.DataObject Is Nothing))
+        Debug.WriteLine($"Data is null? {(arg.Event.DataObject Is Nothing)}")
         Dim dataObject As IDataObject = arg.Event.DataObject
+
         If dataObject IsNot Nothing Then
             ' Process data in IDataObject.
             ExtractData(NameOf(OnDrop), New DataObject(dataObject))

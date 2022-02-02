@@ -34,43 +34,39 @@ Imports DotNetBrowser.Logging
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            LoggerProvider.Instance.Level = SourceLevels.Information
-            LoggerProvider.Instance.FileLoggingEnabled = True
-            LoggerProvider.Instance.OutputFile = "dnb.log"
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        LoggerProvider.Instance.Level = SourceLevels.Information
+        LoggerProvider.Instance.FileLoggingEnabled = True
+        LoggerProvider.Instance.OutputFile = "dnb.log"
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(700, 500)
-                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
-                                     <body>
-                                        <script type='text/javascript'>
-                                            var ShowData = function (a) 
-                                            {
-                                                 document.title = a.FullName 
-                                                 + ' ' + a.Age + '. ' + a.Walk(a.Children.get_Item(1))
-                                                 + ' ' + a.Children.get_Item(1).FullName 
-                                                 + ' ' + a.Children.get_Item(1).Age;
-                                            };
-                                        </script>
-                                     </body>
-                                   </html>")
-                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
-                    .Wait()
-                    Dim person = New Person("Jack", 30, True)
-                    person.Children = New Dictionary(Of Double, Person)()
-                    person.Children.Add(1.0, New Person("Oliver", 10, True))
-                    Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result
-                    value.Invoke("ShowData", person)
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                    Console.WriteLine(vbTab & "Browser title: " & browser.Title)
-                End Using
+                browser.Size = New Size(700, 500)
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+                                 <body>
+                                    <script type='text/javascript'>
+                                        var ShowData = function (a) 
+                                        {
+                                             document.title = a.FullName 
+                                             + ' ' + a.Age + '. ' + a.Walk(a.Children.get_Item(1))
+                                             + ' ' + a.Children.get_Item(1).FullName 
+                                             + ' ' + a.Children.get_Item(1).Age;
+                                        };
+                                    </script>
+                                 </body>
+                               </html>")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                .Wait()
+                Dim person = New Person("Jack", 30, True)
+                person.Children = New Dictionary(Of Double, Person)()
+                person.Children.Add(1.0, New Person("Oliver", 10, True))
+                Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result
+                value.Invoke("ShowData", person)
+
+                Console.WriteLine($"{vbTab}Browser title: {browser.Title}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

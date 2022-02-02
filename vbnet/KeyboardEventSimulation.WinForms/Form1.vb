@@ -47,31 +47,27 @@ Public Class Form1
         InitializeComponent()
         AddHandler Closing, AddressOf Form_Closing
 
-        Try
-            Task.Run(Sub()
-                engine = EngineFactory.Create(
-                    New EngineOptions.Builder With {
-                                                 .RenderingMode = RenderingMode.OffScreen
-                                                 }.Build())
-                browser = engine.CreateBrowser()
-            End Sub).ContinueWith(Sub(t)
-                browserView = New BrowserView()
-                ' Embed BrowserView component into main layout.
-                Controls.Add(browserView)
+        Task.Run(Sub()
+            engine = EngineFactory.Create(
+                New EngineOptions.Builder With {
+                                             .RenderingMode = RenderingMode.OffScreen
+                                             }.Build())
+            browser = engine.CreateBrowser()
+        End Sub).ContinueWith(Sub(t)
+            browserView = New BrowserView()
+            ' Embed BrowserView component into main layout.
+            Controls.Add(browserView)
 
-                browserView.InitializeFrom(browser)
-                browserView.Dock = DockStyle.Fill
+            browserView.InitializeFrom(browser)
+            browserView.Dock = DockStyle.Fill
 
-                Dim htmlBytes() As Byte =
-                        Encoding.UTF8.GetBytes(Html)
-                browser.Navigation.LoadUrl(
-                    "data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
-                                     .ContinueWith(AddressOf SimulateInput)
-            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+            Dim htmlBytes() As Byte =
+                    Encoding.UTF8.GetBytes(Html)
+            browser.Navigation.LoadUrl(
+                "data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                                 .ContinueWith(AddressOf SimulateInput)
+        End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-        Catch exception As Exception
-            Debug.WriteLine(exception)
-        End Try
     End Sub
 
     Private Async Sub SimulateInput(e As Task(Of LoadResult))

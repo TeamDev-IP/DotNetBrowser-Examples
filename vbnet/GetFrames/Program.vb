@@ -32,22 +32,17 @@ Imports DotNetBrowser.Geometry
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(700, 500)
-                    browser.Navigation.LoadUrl(
-                        "https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols").Wait()
+                browser.Size = New Size(700, 500)
+                browser.Navigation.LoadUrl(
+                    "https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_frame_cols").Wait()
 
-                    PrintFrameHierarhy(browser.MainFrame)
-                End Using
+                PrintFrameHierarhy(browser.MainFrame)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

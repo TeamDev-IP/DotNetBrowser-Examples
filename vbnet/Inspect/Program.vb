@@ -30,31 +30,26 @@ Imports DotNetBrowser.Geometry
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(700, 500)
-                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
+                browser.Size = New Size(700, 500)
+                browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
 
-                    Dim pointInspection = browser.MainFrame.Inspect(New Point(50, 50))
+                Dim pointInspection = browser.MainFrame.Inspect(New Point(50, 50))
 
-                    Console.WriteLine("Inspection result:")
-                    Console.WriteLine(vbTab & "AbsoluteImageUrl: {pointInspection.AbsoluteImageUrl}")
-                    Console.WriteLine(vbTab & "AbsoluteLinkUrl: {pointInspection.AbsoluteLinkUrl}")
-                    If pointInspection.LocalPoint IsNot Nothing Then
-                        Console.WriteLine(
-                            vbTab & "LocalPoint: ({pointInspection.LocalPoint.X},{pointInspection.LocalPoint.Y})")
-                    End If
-                    Console.WriteLine(vbTab & "Node: {pointInspection.Node?.NodeName}")
-                    Console.WriteLine(vbTab & "UrlNode: {pointInspection.UrlNode?.NodeName}")
-                End Using
+                Console.WriteLine("Inspection result:")
+                Console.WriteLine($"{vbTab}AbsoluteImageUrl: {pointInspection.AbsoluteImageUrl}")
+                Console.WriteLine($"{vbTab}AbsoluteLinkUrl: {pointInspection.AbsoluteLinkUrl}")
+                If pointInspection.LocalPoint IsNot Nothing Then
+                    Console.WriteLine(
+                        vbTab & "LocalPoint: ({pointInspection.LocalPoint.X},{pointInspection.LocalPoint.Y})")
+                End If
+                Console.WriteLine($"{vbTab}Node: {pointInspection.Node?.NodeName}")
+                Console.WriteLine($"{vbTab}UrlNode: {pointInspection.UrlNode?.NodeName}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

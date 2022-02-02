@@ -30,29 +30,24 @@ Imports DotNetBrowser.Js
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    Dim document As IJsObject =
-                            browser.MainFrame.ExecuteJavaScript (Of IJsObject)("document").Result
+                Dim document As IJsObject =
+                        browser.MainFrame.ExecuteJavaScript (Of IJsObject)("document").Result
 
-                    ' document.title = "New Title"
-                    document.Properties("title") = "New Title"
+                ' document.title = "New Title"
+                document.Properties("title") = "New Title"
 
-                    ' document.write("Hello World!")
-                    document.Invoke("write", "Hello World!")
+                ' document.write("Hello World!")
+                document.Invoke("write", "Hello World!")
 
-                    Dim documentContent As String =
-                            browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
-                    Console.Out.WriteLine("New content: " & documentContent)
-                End Using
+                Dim documentContent As String =
+                        browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
+                Console.Out.WriteLine($"New content: {documentContent}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

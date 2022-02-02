@@ -32,27 +32,21 @@ Imports DotNetBrowser.Zoom.Events
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                AddHandler engine.Profiles.Default.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
+                    Console.Out.WriteLine($"e.Host = {e.Host}")
+                    Console.Out.WriteLine($"e.ZoomLevel = {e.Level}")
+                End Sub
 
-                    AddHandler engine.Profiles.Default.ZoomLevels.LevelChanged, Sub(sender As Object, e As LevelChangedEventArgs)
-                        Console.Out.WriteLine("e.Host = " & e.Host)
-                        Console.Out.WriteLine("e.ZoomLevel = " & e.Level.ToString())
-                    End Sub
-
-                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
-                    Console.WriteLine("Updating zoom level")
-                    browser.Zoom.Level = Level.P200
-                    Thread.Sleep(3000)
-                End Using
+                browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
+                Console.WriteLine("Updating zoom level")
+                browser.Zoom.Level = Level.P200
+                Thread.Sleep(3000)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

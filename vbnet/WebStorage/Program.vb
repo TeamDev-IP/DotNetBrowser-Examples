@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Frames
@@ -33,29 +32,23 @@ Imports DotNetBrowser.Js
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                browser.Navigation.LoadUrl(System.IO.Path.GetFullPath("html.html")).Wait()
 
-                    browser.Navigation.LoadUrl(System.IO.Path.GetFullPath("html.html")).Wait()
-
-                    Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
-                    ' Read and display the 'myKey' storage value.
-                    Console.Out.WriteLine("The initial myKey value: " & webStorage("myKey"))
-                    ' Modify the 'myKey' storage value.
-                    webStorage("myKey") = "Hello from Local Storage"
-                    Dim updatedValue =
-                            browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result.Invoke (Of String)(
-                                "myFunction")
-                    Console.Out.WriteLine("The updated myKey value: " & updatedValue)
-                End Using
+                Dim webStorage As IWebStorage = browser.MainFrame.LocalStorage
+                ' Read and display the 'myKey' storage value.
+                Console.Out.WriteLine($"The initial myKey value: {webStorage("myKey")}")
+                ' Modify the 'myKey' storage value.
+                webStorage("myKey") = "Hello from Local Storage"
+                Dim updatedValue =
+                        browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result.Invoke (Of String)(
+                            "myFunction")
+                Console.Out.WriteLine($"The updated myKey value: {updatedValue}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

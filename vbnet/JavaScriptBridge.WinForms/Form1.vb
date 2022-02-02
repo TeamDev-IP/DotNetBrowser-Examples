@@ -41,11 +41,13 @@ Namespace JavaScriptBridge.WinForms
 			Dim webView = New BrowserView With {.Dock = DockStyle.Fill}
 			tableLayoutPanel1.Controls.Add(webView, 1, 0)
 			tableLayoutPanel1.SetRowSpan(webView, 2)
+
 			engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
 			browser = engine.CreateBrowser()
 			webView.InitializeFrom(browser)
 			AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
 			End Sub
+
 			Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
                         <head>
                           <meta charset='UTF-8'>
@@ -60,8 +62,10 @@ Namespace JavaScriptBridge.WinForms
                         </div>
                         </body>
                         </html>")
+
 			browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
 			Dim window As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window").Result
+
 			window.Properties("updateForm") = CType(AddressOf UpdateForm, Action(Of String))
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing
 		End Sub

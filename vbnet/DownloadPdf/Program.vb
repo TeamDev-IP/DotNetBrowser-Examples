@@ -37,45 +37,40 @@ Namespace DownloadPdf
 		Public Shared Sub Main()
 			Dim url As String = "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
 
-			Try
-				Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-					Console.WriteLine("Engine created")
+			Using engine As IEngine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
 
-					'1. Disable PDF viewer to trigger PDF file download on loading the URL.
-					engine.Profiles.Default.Plugins.Settings.PdfViewerEnabled = False
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
+				'1. Disable PDF viewer to trigger PDF file download on loading the URL.
+				engine.Profiles.Default.Plugins.Settings.PdfViewerEnabled = False
 
-						' 2. Configure the download handler.
-						Dim downloadFinishedTcs As New TaskCompletionSource(Of String)()
-						browser.StartDownloadHandler = New Handler(Of StartDownloadParameters, StartDownloadResponse)(Function(p)
-							Try
-								Console.WriteLine("Starting download for: " & p.Download.Info.Url)
-								Dim suggestedFileName As String = p.Download.Info.SuggestedFileName
-								Dim targetPath As String = Path.GetFullPath(suggestedFileName)
-								AddHandler p.Download.Finished, Sub(sender, args)
-									downloadFinishedTcs.TrySetResult(targetPath)
-								End Sub
-								Return StartDownloadResponse.DownloadTo(targetPath)
-							Catch e As Exception
-								downloadFinishedTcs.TrySetException(e)
-								Throw
-							End Try
-						End Function)
+				Using browser As IBrowser = engine.CreateBrowser()
 
-						' 2. Load the required web page and wait until it is loaded completely.
-						Console.WriteLine("Loading " & url)
-						browser.Navigation.LoadUrl(url).Wait()
-						Console.WriteLine("URL loaded.")
+					' 2. Configure the download handler.
+					Dim downloadFinishedTcs As New TaskCompletionSource(Of String)()
+					browser.StartDownloadHandler = New Handler(Of StartDownloadParameters, StartDownloadResponse)(Function(p)
+						Try
+							Console.WriteLine($"Starting download for: {p.Download.Info.Url}")
+							Dim suggestedFileName As String = p.Download.Info.SuggestedFileName
+							Dim targetPath As String = Path.GetFullPath(suggestedFileName)
+							AddHandler p.Download.Finished, Sub(sender, args)
+								downloadFinishedTcs.TrySetResult(targetPath)
+							End Sub
+							Return StartDownloadResponse.DownloadTo(targetPath)
+						Catch e As Exception
+							downloadFinishedTcs.TrySetException(e)
+							Throw
+						End Try
+					End Function)
 
-						' 3. Wait until the download is finished.
-						Dim downloadedUrl As String = downloadFinishedTcs.Task.Result
-						Console.WriteLine("Download completed: " & downloadedUrl)
-					End Using
+					' 2. Load the required web page and wait until it is loaded completely.
+					Console.WriteLine($"Loading {url}")
+					browser.Navigation.LoadUrl(url).Wait()
+					Console.WriteLine("URL loaded.")
+
+					' 3. Wait until the download is finished.
+					Dim downloadedUrl As String = downloadFinishedTcs.Task.Result
+					Console.WriteLine($"Download completed: {downloadedUrl}")
 				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
+			End Using
 
 			Console.WriteLine("Press any key to terminate...")
 			Console.ReadKey()
