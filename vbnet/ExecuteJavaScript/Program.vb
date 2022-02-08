@@ -26,22 +26,16 @@ Imports DotNetBrowser.Engine
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-
-                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
-                    ' Execute JavaScript code and get return value from JavaScript.
-                    Dim title As String = browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
-                    Console.Out.WriteLine($"The ""document.title"" JavaScript code returns ""{title}""")
-                End Using
+                browser.Navigation.LoadUrl("https://www.google.com").Wait()
+                ' Execute JavaScript code and get return value from JavaScript.
+                Dim title As String = browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
+                Console.Out.WriteLine($"The ""document.title"" JavaScript code returns ""{title}""")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

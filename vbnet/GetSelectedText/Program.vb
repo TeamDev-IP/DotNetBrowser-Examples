@@ -31,26 +31,21 @@ Imports DotNetBrowser.Geometry
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(700, 500)
-                    browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
+                browser.Size = New Size(700, 500)
+                browser.Navigation.LoadUrl("https://www.teamdev.com").Wait()
 
-                    browser.MainFrame.Execute(EditorCommand.SelectAll())
+                browser.MainFrame.Execute(EditorCommand.SelectAll())
 
 
-                    Console.WriteLine("Current selection:")
-                    Console.WriteLine(vbTab & "Selected text: {browser.MainFrame.SelectedText}")
-                    Console.WriteLine(vbTab & "Selected HTML:  {browser.MainFrame.SelectedHtml}")
-                End Using
+                Console.WriteLine("Current selection:")
+                Console.WriteLine(vbTab & "Selected text: {browser.MainFrame.SelectedText}")
+                Console.WriteLine(vbTab & "Selected HTML:  {browser.MainFrame.SelectedHtml}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

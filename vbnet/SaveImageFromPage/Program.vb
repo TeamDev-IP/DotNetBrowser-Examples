@@ -46,51 +46,48 @@ Namespace SaveImageFromPage
 		End Function
 
 		Public Shared Sub Main(ByVal args() As String)
-			Try
-				Dim browserSize As New Size(500, 500)
-			    Dim builder  = New EngineOptions.Builder With {
-                    .RenderingMode = RenderingMode.OffScreen
-                }
-                builder.ChromiumSwitches.Add("--allow-file-access-from-files")
-			    Using engine As IEngine = EngineFactory.Create(builder.Build())
-					Console.WriteLine("Engine created")
+			Dim browserSize As New Size(500, 500)
+			Dim builder  = New EngineOptions.Builder With {
+                .RenderingMode = RenderingMode.OffScreen
+            }
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						' 1. Resize browser to the required dimension.
-						browser.Size = browserSize
+            builder.ChromiumSwitches.Add("--allow-file-access-from-files")
 
-						' 2. Load the required web page and wait until it is loaded completely.
-						browser.Navigation.LoadUrl(Path.GetFullPath("sample.html")).Wait()
+			Using engine As IEngine = EngineFactory.Create(builder.Build())
+				Using browser As IBrowser = engine.CreateBrowser()
 
-						' 3. Create canvas, set its width and height
-						Dim canvas As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("document.createElement('canvas');").Result
-						Dim image As IElement = browser.MainFrame.Document.GetElementByTagName("img")
+					' 1. Resize browser to the required dimension.
+					browser.Size = browserSize
 
-						Dim width As String = image.Attributes("width")
-						canvas.Properties("width") = width
-						Dim height As String = image.Attributes("height")
-						canvas.Properties("height") = height
+					' 2. Load the required web page and wait until it is loaded completely.
+					browser.Navigation.LoadUrl(Path.GetFullPath("sample.html")).Wait()
 
-						' 4. Get the canvas context and draw the image on it
-						Dim ctx As IJsObject = TryCast(canvas.Invoke("getContext", "2d"), IJsObject)
-						ctx.Invoke("drawImage", image, 0, 0)
+					' 3. Create canvas, set its width and height
+					Dim canvas As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("document.createElement('canvas');").Result
+					Dim image As IElement = browser.MainFrame.Document.GetElementByTagName("img")
 
-						' 5. Get the data URL and convert it to bytes
-						Dim dataUrl As String = TryCast(canvas.Invoke("toDataURL", "image/png"), String)
-						Console.WriteLine("Data URL: " & dataUrl)
-						Dim bitmapData() As Byte = Convert.FromBase64String(FixBase64ForImage(dataUrl))
+					Dim width As String = image.Attributes("width")
+					canvas.Properties("width") = width
+					Dim height As String = image.Attributes("height")
+					canvas.Properties("height") = height
 
-						' 4. Save image to file.
-						Using fs As New FileStream("image.png", FileMode.Create, FileAccess.Write)
-							fs.Write(bitmapData, 0, bitmapData.Length)
-						End Using
+					' 4. Get the canvas context and draw the image on it
+					Dim ctx As IJsObject = TryCast(canvas.Invoke("getContext", "2d"), IJsObject)
+					ctx.Invoke("drawImage", image, 0, 0)
 
-						Console.WriteLine("Image saved.")
+					' 5. Get the data URL and convert it to bytes
+					Dim dataUrl As String = TryCast(canvas.Invoke("toDataURL", "image/png"), String)
+					Console.WriteLine($"Data URL: {dataUrl}")
+					Dim bitmapData() As Byte = Convert.FromBase64String(FixBase64ForImage(dataUrl))
+
+					' 4. Save image to file.
+					Using fs As New FileStream("image.png", FileMode.Create, FileAccess.Write)
+						fs.Write(bitmapData, 0, bitmapData.Length)
 					End Using
+
+					Console.WriteLine("Image saved.")
 				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
+			End Using
 
 			Console.WriteLine("Press any key to terminate...")
 			Console.ReadKey()

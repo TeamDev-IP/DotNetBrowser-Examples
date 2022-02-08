@@ -29,32 +29,26 @@ Imports DotNetBrowser.Engine
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                ' Executes the passed JavaScript code asynchronously.
+                browser.MainFrame.ExecuteJavaScript(
+                    "document.write('<html><title>" &
+                    "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');")
 
-                    ' Executes the passed JavaScript code asynchronously.
-                    browser.MainFrame.ExecuteJavaScript(
-                        "document.write('<html><title>" &
-                        "My Title</title><body><h1>Hello from DotNetBrowser!</h1></body></html>');")
-
-                    ' Executes the passed JavaScript code and returns the result value.
-                    Dim documentTitle As String =
-                            browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
-                    Console.Out.WriteLine("Document Title = " & documentTitle)
+                ' Executes the passed JavaScript code and returns the result value.
+                Dim documentTitle As String =
+                        browser.MainFrame.ExecuteJavaScript (Of String)("document.title").Result
+                Console.Out.WriteLine($"Document Title = {documentTitle}")
 
 
-                    Dim documentContent As String =
-                            browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
-                    Console.Out.WriteLine("New content: " & documentContent)
-                End Using
+                Dim documentContent As String =
+                        browser.MainFrame.ExecuteJavaScript (Of String)("document.body.innerText").Result
+                Console.Out.WriteLine($"New content: {documentContent}")
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

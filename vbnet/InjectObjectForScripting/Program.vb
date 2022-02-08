@@ -44,10 +44,8 @@ Namespace InjectObjectForScripting
 		Public Shared Sub Main(ByVal args() As String)
 			Try
 				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
-
 					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
+
 						browser.Size = New Size(700, 500)
 						browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf InjectObjectForScripting)
 					    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
@@ -64,7 +62,7 @@ Namespace InjectObjectForScripting
 
 						browser.MainFrame.ExecuteJavaScript(Of IJsObject)("window.SetTitle();").Wait()
 
-						Console.WriteLine(vbTab & "Browser title: " & browser.Title)
+						Console.WriteLine($"{vbTab}Browser title: {browser.Title}")
 					End Using
 				End Using
 			Catch e As Exception

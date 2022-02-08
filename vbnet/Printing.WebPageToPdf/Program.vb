@@ -50,7 +50,7 @@ Friend Class Program
                 browser.Size = New Size(1024, 768)
 
                 ' Load the required web page and wait until it is loaded completely.
-                Console.WriteLine("Loading " & url)
+                Console.WriteLine($"Loading {url}")
                 browser.Navigation.LoadUrl(url).Wait()
 
                 ' Configure print handlers.
@@ -101,7 +101,7 @@ Friend Class Program
                 Console.WriteLine("URL loaded. Initiate printing")
                 browser.MainFrame.Print()
                 Dim printedUrl As String = printCompletedTcs.Task.Result
-                Console.WriteLine("Printing completed for the URL: " & printedUrl)
+                Console.WriteLine($"Printing completed for the URL: {printedUrl}")
                 ' #enddocfragment "PrintToPdf"
             End Using
         End Using

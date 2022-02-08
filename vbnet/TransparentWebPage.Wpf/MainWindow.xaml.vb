@@ -36,38 +36,33 @@ Partial Public Class MainWindow
     Private engine As IEngine
 
     Public Sub New()
-        Try
-            Task.Run(Sub()
-                engine =
-                        EngineFactory.Create(
-                            New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-                browser = engine.CreateBrowser()
-                browser.Settings.TransparentBackgroundEnabled = True
-            End Sub).ContinueWith(Sub(t)
-                WebBrowser1.InitializeFrom(browser)
-                Dim htmlBytes() As Byte =
-                        Encoding.UTF8.GetBytes(
-                            "<html>" & vbLf &
-                            "     <body>" &
-                            "         <div style='background: yellow; opacity: 0.7;'>" & vbLf &
-                            "             This text is in the yellow half-transparent div." &
-                            "        </div>" & vbLf &
-                            "         <div style='background: red;'>" & vbLf &
-                            "             This text is in the red opaque div and should appear as is." &
-                            "        </div>" & vbLf &
-                            "         <div>" & vbLf &
-                            "             This text is in the non-styled div and should appear as a text" &
-                            " on the completely transparent background." &
-                            "        </div>" & vbLf &
-                            "    </body>" & vbLf &
-                            " </html>")
-                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
-            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+        Task.Run(Sub()
+            engine = EngineFactory.Create(
+                        New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+            browser = engine.CreateBrowser()
+            browser.Settings.TransparentBackgroundEnabled = True
+        End Sub).ContinueWith(Sub(t)
+            WebBrowser1.InitializeFrom(browser)
+            Dim htmlBytes() As Byte =
+                    Encoding.UTF8.GetBytes(
+                        $"<html>" & vbLf &
+                        "     <body>" &
+                        "         <div style='background: yellow; opacity: 0.7;'>" & vbLf &
+                        "             This text is in the yellow half-transparent div." &
+                        "        </div>" & vbLf &
+                        "         <div style='background: red;'>" & vbLf &
+                        "             This text is in the red opaque div and should appear as is." &
+                        "        </div>" & vbLf &
+                        "         <div>" & vbLf &
+                        "             This text is in the non-styled div and should appear as a text" &
+                        " on the completely transparent background." &
+                        "        </div>" & vbLf &
+                        "    </body>" & vbLf &
+                        " </html>")
+            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
+        End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-            InitializeComponent()
-        Catch exception As Exception
-            Debug.WriteLine(exception)
-        End Try
+        InitializeComponent()
     End Sub
 
     Private Sub Window_Closed(sender As Object, e As EventArgs)

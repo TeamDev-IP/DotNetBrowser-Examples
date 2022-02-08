@@ -41,33 +41,29 @@ Partial Public Class MainWindow
     Private engine As IEngine
 
     Public Sub New()
-        Try
-            Task.Run(Sub()
-                engine =
-                        EngineFactory.Create(
-                            New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
-                browser = engine.CreateBrowser()
-            End Sub).ContinueWith(Sub(t)
-                browserView = New BrowserView()
-                ' Embed BrowserView component into main layout.
-                mainLayout.Children.Add(browserView)
+        Task.Run(Sub()
+            engine =
+                    EngineFactory.Create(
+                        New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+            browser = engine.CreateBrowser()
+        End Sub).ContinueWith(Sub(t)
+            browserView = New BrowserView()
+            ' Embed BrowserView component into main layout.
+            mainLayout.Children.Add(browserView)
 
-                browserView.InitializeFrom(browser)
+            browserView.InitializeFrom(browser)
 
-                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
-                                                <body>
-                                                    <input type='text' autofocus></input>
-                                                </body>
-                                            </html>")
-                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
-                                     .ContinueWith(AddressOf SimulateInput)
-            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+            Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+                                            <body>
+                                                <input type='text' autofocus></input>
+                                            </body>
+                                        </html>")
+            browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                                 .ContinueWith(AddressOf SimulateInput)
+        End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-            ' Initialize WPF Application UI.
-            InitializeComponent()
-        Catch exception As Exception
-            Debug.WriteLine(exception)
-        End Try
+        ' Initialize WPF Application UI.
+        InitializeComponent()
     End Sub
 
     Private Async Sub SimulateInput(e As Task(Of LoadResult))

@@ -55,28 +55,24 @@ Friend Class Program
     Private Shared ReadOnly notificationCallback As New NotificationCallback()
 
     Public Shared Sub Main(ByVal args() As String)
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
-                ' Grant a permission to display notifications
-                engine.Profiles.Default.Permissions.RequestPermissionHandler = New Handler(Of RequestPermissionParameters, RequestPermissionResponse)(AddressOf OnRequestPermission)
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    browser.Size = New Size(640, 480)
+        Using engine As IEngine = EngineFactory.Create()
 
-                    'Configure JavaScript injection
-                    browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
-                    'Load web page for testing
-                    browser.Navigation.LoadUrl(DemoUrl).Wait()
+            ' Grant a permission to display notifications
+            engine.Profiles.Default.Permissions.RequestPermissionHandler = New Handler(Of RequestPermissionParameters, RequestPermissionResponse)(AddressOf OnRequestPermission)
 
-                    'Create a notification by clicking the button on the web page
-                    browser.MainFrame.Document.GetElementByCssSelector(".demo-wrapper > p:nth-child(5) > button:nth-child(1)")? .Click()
-                    Thread.Sleep(5000)
-                End Using
+            Using browser As IBrowser = engine.CreateBrowser()
+                browser.Size = New Size(640, 480)
+
+                'Configure JavaScript injection
+                browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
+                'Load web page for testing
+                browser.Navigation.LoadUrl(DemoUrl).Wait()
+
+                'Create a notification by clicking the button on the web page
+                browser.MainFrame.Document.GetElementByCssSelector(".demo-wrapper > p:nth-child(5) > button:nth-child(1)")? .Click()
+                Thread.Sleep(5000)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
 
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()

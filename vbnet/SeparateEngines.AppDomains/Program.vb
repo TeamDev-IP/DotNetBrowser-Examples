@@ -37,37 +37,33 @@ Namespace SeparateEngines.AppDomains
 			Dim domain1 As AppDomain = AppDomain.CreateDomain("Domain1")
 			Dim domain2 As AppDomain = AppDomain.CreateDomain("Domain2")
 
-			Try
-				' Create an instance of EngineWrapper in the first AppDomain.
-				' A proxy to the object is returned.
-				Console.WriteLine("Create wrapper1")
-				Dim wrapper1 As EngineWrapper = DirectCast(domain1.CreateInstanceAndUnwrap(GetType(EngineWrapper).Assembly.FullName, GetType(EngineWrapper).FullName), EngineWrapper)
+			' Create an instance of EngineWrapper in the first AppDomain.
+			' A proxy to the object is returned.
+			Console.WriteLine("Create wrapper1")
+			Dim wrapper1 As EngineWrapper = DirectCast(domain1.CreateInstanceAndUnwrap(GetType(EngineWrapper).Assembly.FullName, GetType(EngineWrapper).FullName), EngineWrapper)
 
-				' Create an instance of EngineWrapper in the second AppDomain.
-				' A proxy to the object is returned.
-				Console.WriteLine("Create wrapper2")
-				Dim wrapper2 As EngineWrapper = DirectCast(domain2.CreateInstanceAndUnwrap(GetType(EngineWrapper).Assembly.FullName, GetType(EngineWrapper).FullName), EngineWrapper)
+			' Create an instance of EngineWrapper in the second AppDomain.
+			' A proxy to the object is returned.
+			Console.WriteLine("Create wrapper2")
+			Dim wrapper2 As EngineWrapper = DirectCast(domain2.CreateInstanceAndUnwrap(GetType(EngineWrapper).Assembly.FullName, GetType(EngineWrapper).FullName), EngineWrapper)
 
-				'Execute an action in the first application domain.
-				Dim title1 As String = wrapper1.LoadAndGetTitle("teamdev.com")
-				Console.WriteLine("Title 1: {0}", title1)
+			'Execute an action in the first application domain.
+			Dim title1 As String = wrapper1.LoadAndGetTitle("teamdev.com")
+			Console.WriteLine("Title 1: {0}", title1)
 
-				'Dispose the wrapper and unload the first application domain.
-				Console.WriteLine("Dispose wrapper1")
-				wrapper1.Dispose()
-				AppDomain.Unload(domain1)
+			'Dispose the wrapper and unload the first application domain.
+			Console.WriteLine("Dispose wrapper1")
+			wrapper1.Dispose()
+			AppDomain.Unload(domain1)
 
-				'After unloading the first domain, the engine in the second domain is alive, and we can execute actions.
-				Dim title2 As String = wrapper2.LoadAndGetTitle("teamdev.com/dotnetbrowser")
-				Console.WriteLine("Title 2: {0}", title2)
+			'After unloading the first domain, the engine in the second domain is alive, and we can execute actions.
+			Dim title2 As String = wrapper2.LoadAndGetTitle("teamdev.com/dotnetbrowser")
+			Console.WriteLine("Title 2: {0}", title2)
 
-				'Dispose the wrapper and unload the second application domain.
-				Console.WriteLine("Dispose wrapper2")
-				wrapper2.Dispose()
-				AppDomain.Unload(domain2)
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
+			'Dispose the wrapper and unload the second application domain.
+			Console.WriteLine("Dispose wrapper2")
+			wrapper2.Dispose()
+			AppDomain.Unload(domain2)
 
 			Console.WriteLine("Press any key to terminate...")
 			Console.ReadKey()
@@ -109,7 +105,6 @@ Namespace SeparateEngines.AppDomains
 			Console.WriteLine("Loading URL '{0}' in '{1}'.", url, Thread.GetDomain().FriendlyName)
 			Try
 				Using browser As IBrowser = Engine.CreateBrowser()
-					Console.WriteLine("Browser created")
 					browser.Size = New Size(700, 500)
 					browser.Navigation.LoadUrl(url).Wait()
 					Console.WriteLine("URL loaded")

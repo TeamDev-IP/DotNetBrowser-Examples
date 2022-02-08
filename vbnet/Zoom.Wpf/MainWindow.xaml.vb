@@ -20,10 +20,6 @@
 
 #End Region
 
-Imports System
-Imports System.Diagnostics
-Imports System.Threading.Tasks
-Imports System.Windows
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Handlers
@@ -42,20 +38,16 @@ Namespace Zoom.Wpf
 		Private engine As IEngine
 
 		Public Sub New()
-			Try
-				Task.Run(Sub()
-						 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated}.Build())
-						 browser = engine.CreateBrowser()
-						 browser.Navigation.LoadUrl("teamdev.com")
-						 browser.Mouse.WheelMoved.Handler = New Handler(Of IMouseWheelMovedEventArgs, InputEventResponse)(AddressOf OnMouseWheelMoved)
-				End Sub).ContinueWith(Sub(t)
-						 BrowserView.InitializeFrom(browser)
-				End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+			Task.Run(Sub()
+					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated}.Build())
+					 browser = engine.CreateBrowser()
+					 browser.Navigation.LoadUrl("teamdev.com")
+					 browser.Mouse.WheelMoved.Handler = New Handler(Of IMouseWheelMovedEventArgs, InputEventResponse)(AddressOf OnMouseWheelMoved)
+			End Sub).ContinueWith(Sub(t)
+					 BrowserView.InitializeFrom(browser)
+			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
-				InitializeComponent()
-			Catch exception As Exception
-				Debug.WriteLine(exception)
-			End Try
+			InitializeComponent()
 		End Sub
 
 		Private Sub EnableZoom(ByVal zoomEnabled As Boolean)

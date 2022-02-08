@@ -33,27 +33,22 @@ Imports DotNetBrowser.Net.Handlers
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine = EngineFactory.Create()
+            Using browser = engine.CreateBrowser()
 
-                Using browser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
-                    engine.Profiles.Default.Network.SendUploadDataHandler =
-                        New Handler(Of SendUploadDataParameters, SendUploadDataResponse)(AddressOf OnSendUploadData)
+                engine.Profiles.Default.Network.SendUploadDataHandler =
+                    New Handler(Of SendUploadDataParameters, SendUploadDataResponse)(AddressOf OnSendUploadData)
 
-                    Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {
-                            .PostData = "key=value",
-                            .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
-                            }
+                Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {
+                        .PostData = "key=value",
+                        .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
+                        }
 
-                    browser.Navigation.LoadUrl(parameters).Wait()
-                    Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
-                End Using
+                browser.Navigation.LoadUrl(parameters).Wait()
+                Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

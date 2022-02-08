@@ -39,11 +39,11 @@ Friend Class Program
     Public Shared Sub Main()
         Using engine As IEngine = EngineFactory.Create()
             Using browser As IBrowser = engine.CreateBrowser()
+
                 browser.Size = New Size(700, 500)
 
                 Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes(Html)
-                browser.Navigation.LoadUrl(
-                    $"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}").Wait()
+                browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}").Wait()
                 ' Add a timeout to make sure the web page is rendered completely.
                 Thread.Sleep(2000)
 
@@ -86,11 +86,9 @@ Friend Class Program
 
         If args.IsSearchFinished Then
             Console.WriteLine(
-                "Found: " & result.SelectedMatch & "/" & result.NumberOfMatches)
+                $"Found: {result.SelectedMatch}/{result.NumberOfMatches}")
         Else
-            Console.WriteLine(
-                "Search in progress... Found " & result.SelectedMatch & "/" &
-                result.NumberOfMatches)
+            Console.WriteLine($"Search in progress... Found {result.SelectedMatch}/{result.NumberOfMatches}")
         End If
     End Sub
     ' #enddocfragment "FindText"

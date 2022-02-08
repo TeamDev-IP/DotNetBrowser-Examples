@@ -33,26 +33,20 @@ Namespace JavaScriptBridge.Arrays
 		Private Const JsArray As String = "['Cabbage', 'Turnip', 'Radish', 'Carrot']"
 
 		Public Shared Sub Main(ByVal args() As String)
-			Try
-				Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
-					Console.WriteLine("Engine created")
+			Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+				Using browser As IBrowser = engine.CreateBrowser()
 
-					Using browser As IBrowser = engine.CreateBrowser()
-						Console.WriteLine("Browser created")
-						Dim arrayObject As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)(JsArray).Result
+					Dim arrayObject As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)(JsArray).Result
 
-						Dim array As JsArray = arrayObject.AsArray()
-						If array IsNot Nothing Then
-							Console.Out.WriteLine("Item count: " & array.Count)
-							For Each item As Object In array
-								Console.Out.WriteLine("Item: " & item.ToString())
-							Next item
-						End If
-					End Using
+					Dim array As JsArray = arrayObject.AsArray()
+					If array IsNot Nothing Then
+						Console.Out.WriteLine($"Item count: {array.Count}")
+						For Each item As Object In array
+							Console.Out.WriteLine($"Item: {item}")
+						Next item
+					End If
 				End Using
-			Catch e As Exception
-				Console.WriteLine(e)
-			End Try
+			End Using
 
 			Console.WriteLine("Press any key to terminate...")
 			Console.ReadKey()

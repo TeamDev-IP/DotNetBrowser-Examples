@@ -32,28 +32,22 @@ Imports DotNetBrowser.Frames
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                browser.Navigation.LoadUrl("https://www.google.com").Wait()
+                ' Inserts "TeamDev DotNetBrowser" text into Google Search field.
+                browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"))
+                ' Inserts a new line into Google Search field to simulate Enter.
+                browser.MainFrame.Execute(EditorCommand.InsertNewLine())
 
-                    browser.Navigation.LoadUrl("https://www.google.com").Wait()
-                    ' Inserts "TeamDev DotNetBrowser" text into Google Search field.
-                    browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"))
-                    ' Inserts a new line into Google Search field to simulate Enter.
-                    browser.MainFrame.Execute(EditorCommand.InsertNewLine())
-
-                    Thread.Sleep(3000)
-                    ' The page will now contain search results.
-                    Console.WriteLine("Page contents:")
-                    Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
-                End Using
+                Thread.Sleep(3000)
+                ' The page will now contain search results.
+                Console.WriteLine("Page contents:")
+                Console.WriteLine(browser.MainFrame.Document.DocumentElement.InnerText)
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub

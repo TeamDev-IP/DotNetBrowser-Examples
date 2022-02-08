@@ -31,34 +31,30 @@ Imports DotNetBrowser.Engine
 Friend Class Program
 
     Public Shared Sub Main()
-        Try
-            Using engine As IEngine = EngineFactory.Create()
-                Console.WriteLine("Engine created")
+        Using engine As IEngine = EngineFactory.Create()
+            Using browser As IBrowser = engine.CreateBrowser()
 
-                Using browser As IBrowser = engine.CreateBrowser()
-                    Console.WriteLine("Browser created")
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><div id='root'>" &
+                                                                 "<p>paragraph1</p>" &
+                                                                 "<p>paragraph2</p>" &
+                                                                 "<p>paragraph3</p>" &
+                                                                 "</div></body></html>")
 
-                    Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html><body><div id='root'>" &
-                                                                     "<p>paragraph1</p>" &
-                                                                     "<p>paragraph2</p>" &
-                                                                     "<p>paragraph3</p>" &
-                                                                     "</div></body></html>")
-                    browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
-                    Dim document As IDocument = browser.MainFrame.Document
-                    Dim documentElement As IElement = document.DocumentElement
-                    ' Get the div with id = "root".
-                    Dim divRoot As INode = documentElement.GetElementByCssSelector("#root")
-                    ' Get all paragraphs.
-                    Dim paragraphs As IEnumerable(Of INode) = divRoot.GetElementsByCssSelector("p")
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)).Wait()
+                Dim document As IDocument = browser.MainFrame.Document
+                Dim documentElement As IElement = document.DocumentElement
 
-                    For Each paragraph In paragraphs
-                        Console.Out.WriteLine("paragraph.InnerText = " & TryCast(paragraph, IElement)?.InnerText)
-                    Next paragraph
-                End Using
+                ' Get the div with id = "root".
+                Dim divRoot As INode = documentElement.GetElementByCssSelector("#root")
+                ' Get all paragraphs.
+                Dim paragraphs As IEnumerable(Of INode) = divRoot.GetElementsByCssSelector("p")
+
+                For Each paragraph In paragraphs
+                    Console.Out.WriteLine($"paragraph.InnerText = {TryCast(paragraph, IElement)?.InnerText}")
+                Next paragraph
             End Using
-        Catch e As Exception
-            Console.WriteLine(e)
-        End Try
+        End Using
+
         Console.WriteLine("Press any key to terminate...")
         Console.ReadKey()
     End Sub
