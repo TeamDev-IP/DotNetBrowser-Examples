@@ -155,6 +155,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck.WinF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck.Wpf", "ContextMenu.SpellCheck.Wpf\ContextMenu.SpellCheck.Wpf.csproj", "{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementVisibility.WinForms", "ElementVisibility.WinForms\ElementVisibility.WinForms.csproj", "{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -461,6 +463,10 @@ Global
 		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

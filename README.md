@@ -54,6 +54,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Get DOM node by mouse location (WPF): [C#](csharp/Inspect.Wpf), [VB.NET](vbnet/Inspect.Wpf)
 * Evaluate an XPath expression. Work with the evaluation result.: [C#](csharp/XPath/Program.cs), [VB.NET](vbnet/XPath/Program.vb)
 * Work with Shadow DOM: [C#](csharp/ShadowDom/Program.cs), [VB.NET](vbnet/ShadowDom/Program.vb)
+* Modify DOM element CSS style. Change DOM element visibility: [C#](csharp/ElementVisibility.WinForms), [VB.NET](vbnet/ElementVisibility.WinForms)
 
 #### JS-.NET bridge
 
