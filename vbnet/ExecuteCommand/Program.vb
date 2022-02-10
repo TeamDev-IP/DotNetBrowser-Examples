@@ -35,11 +35,13 @@ Friend Class Program
         Using engine As IEngine = EngineFactory.Create()
             Using browser As IBrowser = engine.CreateBrowser()
 
+                ' #docfragment "Editor commands"
                 browser.Navigation.LoadUrl("https://www.google.com").Wait()
                 ' Inserts "TeamDev DotNetBrowser" text into Google Search field.
                 browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"))
                 ' Inserts a new line into Google Search field to simulate Enter.
                 browser.MainFrame.Execute(EditorCommand.InsertNewLine())
+                ' #enddocfragment "Editor commands"
 
                 Thread.Sleep(3000)
                 ' The page will now contain search results.

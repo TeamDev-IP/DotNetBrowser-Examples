@@ -40,6 +40,7 @@ namespace ExecuteCommand
             {
                 using (IBrowser browser = engine.CreateBrowser())
                 {
+                    // #docfragment "Editor commands"
                     browser.Navigation
                            .LoadUrl("http://www.google.com")
                            .Wait();
@@ -48,6 +49,7 @@ namespace ExecuteCommand
                     browser.MainFrame.Execute(EditorCommand.InsertText("TeamDev DotNetBrowser"));
                     // Inserts a new line into Google Search field to simulate Enter.
                     browser.MainFrame.Execute(EditorCommand.InsertNewLine());
+                    // #enddocfragment "Editor commands"
 
                     Thread.Sleep(3000);
 
