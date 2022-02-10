@@ -30,6 +30,10 @@ using DotNetBrowser.Js;
 
 namespace ElementVisibility.WinForms
 {
+    /// <summary>
+    ///     This example demonstrates how to change DOM element visibility
+    ///     by modifying its CSS style.
+    /// </summary>
     public partial class Form1 : Form
     {
         private readonly IBrowser browser;

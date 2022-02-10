@@ -29,6 +29,10 @@ Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Js
 
 Namespace ElementVisibility.WinForms
+	''' <summary>
+	'''		This example demonstrates how to change DOM element visibility
+	'''		by modifying its CSS style.
+	''' </summary>
 	Partial Public Class Form1
 		Inherits Form
 
