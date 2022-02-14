@@ -43,7 +43,10 @@ Friend Class Program
                 browser.Size = New Size(700, 500)
 
                 Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes(Html)
-                browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}").Wait()
+                browser.Navigation.
+                        LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}").
+                        Wait()
+
                 ' Add a timeout to make sure the web page is rendered completely.
                 Thread.Sleep(2000)
 
@@ -88,7 +91,8 @@ Friend Class Program
             Console.WriteLine(
                 $"Found: {result.SelectedMatch}/{result.NumberOfMatches}")
         Else
-            Console.WriteLine($"Search in progress... Found {result.SelectedMatch}/{result.NumberOfMatches}")
+            Console.WriteLine(
+                $"Search in progress... Found {result.SelectedMatch}/{result.NumberOfMatches}")
         End If
     End Sub
     ' #enddocfragment "FindText"
