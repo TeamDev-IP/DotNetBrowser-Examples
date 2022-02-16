@@ -85,7 +85,7 @@ namespace ComWrapper.WinForms
         {
             LoggerProvider.Instance.Level = SourceLevels.Information;
             LoggerProvider.Instance.FileLoggingEnabled = true;
-            string outputFile = Path.GetFullPath("dotnetbrowser.log");
+            string outputFile = Path.GetFullPath($"dotnetbrowser-comwrapper-{Guid.NewGuid()}.log");
             LoggerProvider.Instance.OutputFile = outputFile;
             EventLogWrapper.Log($"DotNetBrowser logs can be found at {outputFile}", EventLogEntryType.Information, 202);
         }
