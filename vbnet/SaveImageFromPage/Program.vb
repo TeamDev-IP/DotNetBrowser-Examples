@@ -20,78 +20,66 @@
 
 #End Region
 
-Imports System
+Imports System.Drawing.Imaging
 Imports System.IO
-Imports System.Text
+Imports System.Runtime.InteropServices
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
-Imports DotNetBrowser.Js
+Imports DotNetBrowser.Ui
 
 Namespace SaveImageFromPage
-	''' <summary>
-	'''     This example demonstrates how to obtain an image from the web page and save it as file.
-	''' </summary>
-	Friend Class Program
-
-		Public Shared Function FixBase64ForImage(ByVal image As String) As String
-			Dim sbText As New StringBuilder(image, image.Length)
-			sbText.Replace(vbCrLf, String.Empty)
-			sbText.Replace(" ", String.Empty)
-			Dim base64ForImage As String = sbText.ToString()
-			'Remove prefix
-			base64ForImage = base64ForImage.Split(","c)(1)
-			Return base64ForImage
-		End Function
-
-		Public Shared Sub Main(ByVal args() As String)
-			Dim browserSize As New Size(500, 500)
-			Dim builder  = New EngineOptions.Builder With {
-                .RenderingMode = RenderingMode.OffScreen
+    ''' <summary>
+    '''     This example demonstrates how to obtain an image from the web page
+    '''     and save it as file.
+    ''' </summary>
+    Friend Class Program
+        Public Shared Sub Main(args() As String)
+            Dim browserSize As New Size(500, 500)
+            Dim builder  = New EngineOptions.Builder With {
+                    .RenderingMode = RenderingMode.OffScreen,
+                    .FileAccessFromFilesAllowed = true
             }
+            Using engine As IEngine = EngineFactory.Create(builder.Build())
+                Using browser As IBrowser = engine.CreateBrowser()
+                    ' 1. Resize browser to the required dimension.
+                    browser.Size = browserSize
 
-            builder.ChromiumSwitches.Add("--allow-file-access-from-files")
+                    ' 2. Load the required web page and wait until it is loaded completely.
+                    browser.Navigation.LoadUrl(Path.GetFullPath("sample.html")).Wait()
 
-			Using engine As IEngine = EngineFactory.Create(builder.Build())
-				Using browser As IBrowser = engine.CreateBrowser()
+                    ' 3. Fetch image contents from the IMG tag.
+                    Dim img = TryCast(browser.MainFrame.Document.GetElementByTagName("img"),
+                                      IImageElement)
+                    Dim contents As Bitmap = img.Contents
 
-					' 1. Resize browser to the required dimension.
-					browser.Size = browserSize
+                    ' 4. Convert the bitmap to the required format and save it.
+                    Dim bitmap As Drawing.Bitmap = ToBitmap(contents)
+                    bitmap.Save("image.png", ImageFormat.Png)
 
-					' 2. Load the required web page and wait until it is loaded completely.
-					browser.Navigation.LoadUrl(Path.GetFullPath("sample.html")).Wait()
+                    Console.WriteLine("Image saved.")
+                End Using
+            End Using
 
-					' 3. Create canvas, set its width and height
-					Dim canvas As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)("document.createElement('canvas');").Result
-					Dim image As IElement = browser.MainFrame.Document.GetElementByTagName("img")
+            Console.WriteLine("Press any key to terminate...")
+            Console.ReadKey()
+        End Sub
 
-					Dim width As String = image.Attributes("width")
-					canvas.Properties("width") = width
-					Dim height As String = image.Attributes("height")
-					canvas.Properties("height") = height
+        Private Shared Function ToBitmap(contents As Bitmap) As Drawing.Bitmap
+            Dim width = CInt(contents.Size.Width)
+            Dim height = CInt(contents.Size.Height)
 
-					' 4. Get the canvas context and draw the image on it
-					Dim ctx As IJsObject = TryCast(canvas.Invoke("getContext", "2d"), IJsObject)
-					ctx.Invoke("drawImage", image, 0, 0)
+            Dim data() As Byte = contents.Pixels.ToArray()
+            Dim bmp As New Drawing.Bitmap(width, height, PixelFormat.Format32bppArgb)
 
-					' 5. Get the data URL and convert it to bytes
-					Dim dataUrl As String = TryCast(canvas.Invoke("toDataURL", "image/png"), String)
-					Console.WriteLine($"Data URL: {dataUrl}")
-					Dim bitmapData() As Byte = Convert.FromBase64String(FixBase64ForImage(dataUrl))
+            Dim bmpData As BitmapData = bmp.LockBits(
+                New Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly,
+                bmp.PixelFormat)
 
-					' 4. Save image to file.
-					Using fs As New FileStream("image.png", FileMode.Create, FileAccess.Write)
-						fs.Write(bitmapData, 0, bitmapData.Length)
-					End Using
-
-					Console.WriteLine("Image saved.")
-				End Using
-			End Using
-
-			Console.WriteLine("Press any key to terminate...")
-			Console.ReadKey()
-		End Sub
-
-	End Class
+            Marshal.Copy(data, 0, bmpData.Scan0, data.Length)
+            bmp.UnlockBits(bmpData)
+            Return bmp
+        End Function
+    End Class
 End Namespace
