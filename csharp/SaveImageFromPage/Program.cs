@@ -1,4 +1,4 @@
-﻿#region Copyright
+#region Copyright
 
 // Copyright © 2022, TeamDev. All rights reserved.
 // 
@@ -21,40 +21,32 @@
 #endregion
 
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
+using System.Linq;
+using System.Runtime.InteropServices;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
-using DotNetBrowser.Geometry;
-using DotNetBrowser.Js;
+using Size = DotNetBrowser.Geometry.Size;
 
 namespace SaveImageFromPage
 {
     /// <summary>
-    ///     This example demonstrates how to obtain an image from the web page and save it as file.
+    ///     This example demonstrates how to obtain an image from the web page
+    ///     and save it as file.
     /// </summary>
     internal class Program
     {
-        public static string FixBase64ForImage(string image)
-        {
-            StringBuilder sbText = new StringBuilder(image, image.Length);
-            sbText.Replace("\r\n", string.Empty);
-            sbText.Replace(" ", string.Empty);
-            string base64ForImage = sbText.ToString();
-            //Remove prefix
-            base64ForImage = base64ForImage.Split(',')[1];
-            return base64ForImage;
-        }
-
         private static void Main(string[] args)
         {
             Size browserSize = new Size(500, 500);
             using (IEngine engine = EngineFactory.Create(new EngineOptions.Builder
-                   {
-                       RenderingMode = RenderingMode.OffScreen,
-                       ChromiumSwitches = {"--allow-file-access-from-files"}
-                   }.Build()))
+            {
+                RenderingMode = RenderingMode.OffScreen,
+                FileAccessFromFilesAllowed = true
+            }.Build()))
             {
                 using (IBrowser browser = engine.CreateBrowser())
                 {
@@ -64,33 +56,15 @@ namespace SaveImageFromPage
                     // 2. Load the required web page and wait until it is loaded completely.
                     browser.Navigation.LoadUrl(Path.GetFullPath("sample.html")).Wait();
 
-                    // 3. Create canvas, set its width and height
-                    IJsObject canvas = browser
-                                      .MainFrame
-                                      .ExecuteJavaScript<
-                                           IJsObject>("document.createElement('canvas');")
-                                      .Result;
-                    IElement image = browser.MainFrame.Document.GetElementByTagName("img");
+                    // 3. Fetch image contents from the IMG tag.
+                    IImageElement img =
+                        browser.MainFrame.Document
+                               .GetElementByTagName("img") as IImageElement;
+                    DotNetBrowser.Ui.Bitmap contents = img.Contents;
 
-                    string width = image.Attributes["width"];
-                    canvas.Properties["width"] = width;
-                    string height = image.Attributes["height"];
-                    canvas.Properties["height"] = height;
-
-                    // 4. Get the canvas context and draw the image on it
-                    IJsObject ctx = canvas.Invoke("getContext", "2d") as IJsObject;
-                    ctx.Invoke("drawImage", image, 0, 0);
-
-                    // 5. Get the data URL and convert it to bytes
-                    string dataUrl = canvas.Invoke("toDataURL", "image/png") as string;
-                    Console.WriteLine($"Data URL: {dataUrl}");
-                    byte[] bitmapData = Convert.FromBase64String(FixBase64ForImage(dataUrl));
-
-                    // 4. Save image to file.
-                    using (FileStream fs = new FileStream("image.png", FileMode.Create, FileAccess.Write))
-                    {
-                        fs.Write(bitmapData, 0, bitmapData.Length);
-                    }
+                    // 4. Convert the bitmap to the required format and save it.
+                    Bitmap bitmap = ToBitmap(contents);
+                    bitmap.Save("image.png", ImageFormat.Png);
 
                     Console.WriteLine("Image saved.");
                 }
@@ -98,6 +72,24 @@ namespace SaveImageFromPage
 
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
+        }
+
+        private static Bitmap ToBitmap(DotNetBrowser.Ui.Bitmap contents)
+        {
+            int width = (int) contents.Size.Width;
+            int height = (int) contents.Size.Height;
+
+            byte[] data = contents.Pixels.ToArray();
+            Bitmap bmp = new Bitmap(width,
+                                    height,
+                                    PixelFormat.Format32bppArgb);
+
+            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
+                                              ImageLockMode.WriteOnly, bmp.PixelFormat);
+
+            Marshal.Copy(data, 0, bmpData.Scan0, data.Length);
+            bmp.UnlockBits(bmpData);
+            return bmp;
         }
     }
 }
