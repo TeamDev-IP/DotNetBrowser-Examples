@@ -113,6 +113,11 @@ namespace DotNetBrowser.WinForms.Demo.Components
             LoadUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/cursor");
         }
 
+        private void developerToolsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Browser?.DevTools.Show();
+        }
+
         private void downloadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadUrl("https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/2.7/dotnetbrowser-net45-2.7.zip");

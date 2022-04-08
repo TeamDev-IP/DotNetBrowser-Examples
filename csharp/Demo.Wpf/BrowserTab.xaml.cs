@@ -213,6 +213,11 @@ namespace Demo.Wpf
             }
         }
 
+        private void OpenDevTools(object sender, RoutedEventArgs e)
+        {
+            Browser?.DevTools.Show();
+        }
+
         private void Print(object sender, RoutedEventArgs e)
         {
             Browser?.MainFrame?.Print();
