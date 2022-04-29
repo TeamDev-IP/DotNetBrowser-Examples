@@ -38,6 +38,7 @@ namespace Demo.Wpf
     public partial class BrowserTab
     {
         private IBrowser browser;
+        private bool isCaretBrowsingEnabled;
 
         public IBrowser Browser
         {
@@ -53,6 +54,20 @@ namespace Demo.Wpf
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
                     LoadUrl(AddressBar.Text);
+                    isCaretBrowsingEnabled = Browser.Profile.Preferences.CaretBrowsingEnabled;
+                }
+            }
+        }
+
+        public bool IsCaretBrowsingEnabled
+        {
+            get => isCaretBrowsingEnabled;
+            set
+            {
+                if (isCaretBrowsingEnabled != value)
+                {
+                    isCaretBrowsingEnabled = value;
+                    Browser.Profile.Preferences.CaretBrowsingEnabled = value;
                 }
             }
         }
@@ -81,6 +96,11 @@ namespace Demo.Wpf
         private void Browser_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             Dispatcher.BeginInvoke((Action) (() => { Title.Text = e.Title; }));
+        }
+
+        private void BrowserTab_GotFocus(object sender, RoutedEventArgs e)
+        {
+            isCaretBrowsingEnabled = Browser?.Profile.Preferences.CaretBrowsingEnabled ?? false;
         }
 
         private void HideJsConsole(object sender, RoutedEventArgs e)

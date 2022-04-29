@@ -59,6 +59,7 @@
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.developerToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.caretBrowsingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.layoutPanel.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.controlsPanel.SuspendLayout();
@@ -255,25 +256,28 @@
             // contextMenuStrip
             // 
             this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.javaScriptConsoleToolStripMenuItem,
-            this.hideScrollbarsToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.popupWindowsToolStripMenuItem,
-            this.selectOptionToolStripMenuItem,
-            this.uploadFileToolStripMenuItem,
-            this.downloadFileToolStripMenuItem,
-            this.javaScriptDialogsToolStripMenuItem,
-            this.pDFViewerToolStripMenuItem,
-            this.googleMapsToolStripMenuItem,
-            this.hTML5VideoToolStripMenuItem,
-            this.cssCursorsToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.printToolStripMenuItem,
-            this.takeScreenshotToolStripMenuItem,
-            this.developerToolsToolStripMenuItem});
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[]
+            {
+                this.javaScriptConsoleToolStripMenuItem,
+                this.hideScrollbarsToolStripMenuItem,
+                this.caretBrowsingToolStripMenuItem,
+                this.toolStripSeparator1,
+                this.popupWindowsToolStripMenuItem,
+                this.selectOptionToolStripMenuItem,
+                this.uploadFileToolStripMenuItem,
+                this.downloadFileToolStripMenuItem,
+                this.javaScriptDialogsToolStripMenuItem,
+                this.pDFViewerToolStripMenuItem,
+                this.googleMapsToolStripMenuItem,
+                this.hTML5VideoToolStripMenuItem,
+                this.cssCursorsToolStripMenuItem,
+                this.toolStripSeparator2,
+                this.printToolStripMenuItem,
+                this.takeScreenshotToolStripMenuItem,
+                this.developerToolsToolStripMenuItem
+            });
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(211, 380);
+            this.contextMenuStrip.Size = new System.Drawing.Size(181, 368);
             // 
             // javaScriptConsoleToolStripMenuItem
             // 
@@ -385,6 +389,15 @@
             this.developerToolsToolStripMenuItem.Text = "Developer Tools";
             this.developerToolsToolStripMenuItem.Click += new System.EventHandler(this.developerToolsToolStripMenuItem_Click);
             // 
+            // caretBrowsingToolStripMenuItem
+            // 
+            this.caretBrowsingToolStripMenuItem.CheckOnClick = true;
+            this.caretBrowsingToolStripMenuItem.Name = "caretBrowsingToolStripMenuItem";
+            this.caretBrowsingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.caretBrowsingToolStripMenuItem.Text = "Caret Browsing";
+            this.caretBrowsingToolStripMenuItem.CheckedChanged +=
+                new System.EventHandler(this.caretBrowsingToolStripMenuItem_CheckedChanged);
+            // 
             // TabContents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -437,5 +450,6 @@
         private System.Windows.Forms.RichTextBox jsConsoleOutput;
         private System.Windows.Forms.TextBox jsConsoleInput;
         private System.Windows.Forms.ToolStripMenuItem developerToolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem caretBrowsingToolStripMenuItem;
     }
 }
