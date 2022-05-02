@@ -29,11 +29,14 @@
              FocusManager.FocusedElement="{Binding Source={x:Reference browserView}}"
              IsTabStop="False"
              FocusManager.IsFocusScope="True"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             GotFocus="BrowserTab_GotFocus"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <TabItem.Resources>
         <ContextMenu x:Key="BrowserMenu">
             <MenuItem Header="JavaScript Console" IsCheckable="True" Checked="ShowJsConsole" Unchecked="HideJsConsole"/>
             <MenuItem Header="Hide Scrollbars" IsCheckable="True" Checked="HideScrollbars" Unchecked="ShowScrollbars"/>
+            <MenuItem Header="Caret Browsing" IsCheckable="True" IsChecked="{Binding (local:BrowserTab.IsCaretBrowsingEnabled)}"/>
             <Separator />
             <MenuItem Header="Popup Windows" Click="LoadPopupUrl"/>
             <MenuItem Header="Select &amp; Option" Click="LoadSelectOptionUrl"/>

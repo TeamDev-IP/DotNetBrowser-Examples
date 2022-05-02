@@ -54,6 +54,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
                     LoadUrl(AddressBar.Text);
+                    UpdateContents();
                 }
             }
         }
@@ -85,6 +86,11 @@ namespace DotNetBrowser.WinForms.Demo.Components
             }
         }
 
+        public void UpdateContents()
+        {
+            caretBrowsingToolStripMenuItem.Checked = Browser?.Profile.Preferences.CaretBrowsingEnabled ?? false;
+        }
+
         private void AddressBar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -106,6 +112,18 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private void Browser_TitleChanged(object sender, TitleChangedEventArgs e)
         {
             BeginInvoke((Action) (() => { Title = e.Title; }));
+        }
+
+        private void caretBrowsingToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Browser != null)
+            {
+                if (Browser.Profile.Preferences.CaretBrowsingEnabled != caretBrowsingToolStripMenuItem.Checked)
+                {
+                    Browser.Profile.Preferences.CaretBrowsingEnabled = caretBrowsingToolStripMenuItem.Checked;
+                    Browser.Focus();
+                }
+            }
         }
 
         private void cssCursorsToolStripMenuItem_Click(object sender, EventArgs e)

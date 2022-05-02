@@ -39,7 +39,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             set
             {
                 selected = value;
-
+                Contents.UpdateContents();
                 BackColor = !selected ? Color.FromArgb(150, 150, 150) : defaultBackground;
             }
         }
