@@ -29,7 +29,7 @@ Imports DotNetBrowser.Js.Collections
 
 Namespace JavaScriptBridge.Arrays
 	''' <summary>
-	'''     This example demonstrates how to implement an IJsObject wrapper and
+	'''     This example demonstrates how to use IJsArray to
 	'''     simplify work with the common JavaScript arrays.
 	''' </summary>
 	Friend Class Program

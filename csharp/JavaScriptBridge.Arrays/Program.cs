@@ -30,7 +30,7 @@ using DotNetBrowser.Js.Collections;
 namespace JavaScriptBridge.Arrays
 {
     /// <summary>
-    ///     This example demonstrates how to implement an IJsObject wrapper and
+    ///     This example demonstrates how to use IJsArray to
     ///     simplify work with the common JavaScript arrays.
     /// </summary>
     internal class Program
