@@ -21,8 +21,8 @@ To learn more about the library please visit the [product page](https://www.team
 * Create two separate Chromium engines in different AppDomains: [C#](csharp/SeparateEngines.AppDomains/Program.cs), [VB.NET](vbnet/SeparateEngines.AppDomains/Program.vb)
 * Create separate Chromium profiles: [C#](csharp/Profiles.WinForms), [VB.NET](vbnet/Profiles.WinForms)
 * Load URL and listen to the navigation events: [C#](csharp/LoadEvents/Program.cs), [VB.NET](vbnet/LoadEvents/Program.vb)
-* Embed into .NET Core WPF applications: [C#](csharp/NETCore30.Wpf)
-* Embed into .NET Core WinForms applications: [C#](csharp/NETCore30.WinForms)
+* Embed into Windows Forms application: [C#](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/csharp/Embedding.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/vbnet/Embedding.WinForms) 
+* Embed into WPF application: [C#](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/csharp/Embedding.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/vbnet/Embedding.Wpf) 
 
 #### Web page content
 
@@ -88,8 +88,6 @@ To learn more about the library please visit the [product page](https://www.team
 * List available audio and video devices. Select default media devices for <br/>the web page: [C#](csharp/DefaultMediaStreamDevice/Program.cs), [VB.NET](vbnet/DefaultMediaStreamDevice/Program.vb)
 
 #### UI
-* Embed into Windows Forms application: [C#](csharp/Embedding.WinForms), [VB.NET](vbnet/Embedding.WinForms) 
-* Embed into WPF application: [C#](csharp/Embedding.Wpf), [VB.NET](vbnet/Embedding.Wpf) 
 * Embed into Windows Forms ElementHost: [C#](csharp/ElementHostEmbedding.WinForms), [VB.NET](vbnet/ElementHostEmbedding.WinForms) 
 * Customize context menu in WPF: [C#](csharp/ContextMenu.Wpf), [VB.NET](vbnet/ContextMenu.Wpf) 
 * Customize context menu with WinForms: [C#](csharp/ContextMenu.WinForms), [VB.NET](vbnet/ContextMenu.WinForms) 
