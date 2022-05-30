@@ -20,9 +20,12 @@
 
 #End Region
 
+Imports System
+Imports System.Collections.Generic
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Js
+Imports DotNetBrowser.Js.Collections
 
 Namespace JavaScriptBridge.Arrays
 	''' <summary>
@@ -33,24 +36,19 @@ Namespace JavaScriptBridge.Arrays
 		Private Const JsArray As String = "['Cabbage', 'Turnip', 'Radish', 'Carrot']"
 
 		Public Shared Sub Main(ByVal args() As String)
-			Using engine As IEngine = EngineFactory.Create((New EngineOptions.Builder()).Build())
+			Using engine As IEngine = EngineFactory.Create()
 				Using browser As IBrowser = engine.CreateBrowser()
-
-					Dim arrayObject As IJsObject = browser.MainFrame.ExecuteJavaScript(Of IJsObject)(JsArray).Result
-
-					Dim array As JsArray = arrayObject.AsArray()
-					If array IsNot Nothing Then
-						Console.Out.WriteLine($"Item count: {array.Count}")
-						For Each item As Object In array
-							Console.Out.WriteLine($"Item: {item}")
-						Next item
-					End If
+					Dim arrayObject As IJsArray = browser.MainFrame.ExecuteJavaScript(Of IJsArray)(JsArray).Result
+					Console.Out.WriteLine($"Item count: {arrayObject.Count}")
+					Dim list As IReadOnlyList(Of String) = arrayObject.ToReadOnlyList(Of String)()
+					For Each item As String In list
+						Console.Out.WriteLine($"Item: {item}")
+					Next item
 				End Using
 			End Using
 
 			Console.WriteLine("Press any key to terminate...")
 			Console.ReadKey()
 		End Sub
-
 	End Class
 End Namespace

@@ -21,9 +21,11 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Js;
+using DotNetBrowser.Js.Collections;
 
 namespace JavaScriptBridge.Arrays
 {
@@ -41,18 +43,14 @@ namespace JavaScriptBridge.Arrays
             {
                 using (IBrowser browser = engine.CreateBrowser())
                 {
-                    IJsObject arrayObject = browser.MainFrame
-                                                   .ExecuteJavaScript<IJsObject>(JsArray)
+                    IJsArray arrayObject = browser.MainFrame
+                                                   .ExecuteJavaScript<IJsArray>(JsArray)
                                                    .Result;
-
-                    JsArray array = arrayObject.AsArray();
-                    if (array != null)
+                    Console.Out.WriteLine($"Item count: {arrayObject.Count}");
+                    IReadOnlyList<string> list = arrayObject.ToReadOnlyList<string>();
+                    foreach(string item in list)
                     {
-                        Console.Out.WriteLine($"Item count: {array.Count}");
-                        foreach (object item in array)
-                        {
-                            Console.Out.WriteLine($"Item: {item}");
-                        }
+                        Console.Out.WriteLine($"Item: {item}");
                     }
                 }
             }
