@@ -157,6 +157,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck.Wpf"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementVisibility.WinForms", "ElementVisibility.WinForms\ElementVisibility.WinForms.csproj", "{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementHostEmbedding.WinForms", "ElementHostEmbedding.WinForms\ElementHostEmbedding.WinForms.csproj", "{0EDCFB1B-85FB-4C94-92B8-7E390872953A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -467,6 +469,10 @@ Global
 		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C359B97-BCE8-4B0B-9C99-461E3DA337E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EDCFB1B-85FB-4C94-92B8-7E390872953A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EDCFB1B-85FB-4C94-92B8-7E390872953A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EDCFB1B-85FB-4C94-92B8-7E390872953A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EDCFB1B-85FB-4C94-92B8-7E390872953A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
