@@ -82,6 +82,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Accept or reject SSL certificates: [C#](csharp/CertificateVerifier/Program.cs), [VB.NET](vbnet/CertificateVerifier/Program.vb) 
 * Filter out incoming and outgoing cookies: [C#](csharp/CookieFilter/Program.cs), [VB.NET](vbnet/CookieFilter/Program.vb) 
 * Get all stored cookies by URL: [C#](csharp/Cookies/Program.cs), [VB.NET](vbnet/Cookies/Program.vb) 
+* Share cookies between two IEngine instances with different user data directories (WinForms): [C#](csharp/CookiesSharing.WinForms), [VB.NET](vbnet/CookiesSharing.WinForms)
 
 #### Media
 
