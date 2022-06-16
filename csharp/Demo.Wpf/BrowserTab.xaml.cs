@@ -23,6 +23,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -100,7 +101,14 @@ namespace Demo.Wpf
 
         private void BrowserTab_GotFocus(object sender, RoutedEventArgs e)
         {
-            isCaretBrowsingEnabled = Browser?.Profile.Preferences.CaretBrowsingEnabled ?? false;
+            if (Browser == null)
+            {
+                isCaretBrowsingEnabled = false;
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem((s)
+                => isCaretBrowsingEnabled = Browser.Profile.Preferences.CaretBrowsingEnabled);
         }
 
         private void HideJsConsole(object sender, RoutedEventArgs e)
