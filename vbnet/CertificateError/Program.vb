@@ -49,8 +49,10 @@ Friend Class Program
     Private Shared Function HandleCertError(errorParams As VerifyCertificateParameters) As VerifyCertificateResponse
         Dim certificate As Certificate = errorParams.Certificate
 
-        For Each status As CertificateVerificationStatus In errorParams.VerifyStatuses
-            Console.WriteLine("CertificateVerifyStatus = " & status.ToString())
+        For Each certificateVerificationError As CertificateVerificationError In errorParams.VerifyErrors
+            Console.WriteLine("CertificateVerifyStatus = " & certificateVerificationError.VerifyStatus.ToString())
+            Console.WriteLine("Short description = " & certificateVerificationError.ShortDescription)
+            Console.WriteLine("Detailed description = " & certificateVerificationError.DetailedDescription)
         Next
 
         Console.WriteLine("SerialNumber = " & certificate.SerialNumber)
