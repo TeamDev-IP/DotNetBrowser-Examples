@@ -49,22 +49,22 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DotNetBrowser">
-      <HintPath>..\packages\DotNetBrowser.2.15.0\lib\net45\DotNetBrowser.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.2.15.1\lib\net45\DotNetBrowser.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x64">
-      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x64.2.15.0\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x64.2.15.1\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x86">
-      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x86.2.15.0\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.Chromium.Win-x86.2.15.1\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Core">
-      <HintPath>..\packages\DotNetBrowser.2.15.0\lib\net45\DotNetBrowser.Core.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.2.15.1\lib\net45\DotNetBrowser.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Logging">
-      <HintPath>..\packages\DotNetBrowser.2.15.0\lib\net45\DotNetBrowser.Logging.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.2.15.1\lib\net45\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.WinForms">
-      <HintPath>..\packages\DotNetBrowser.WinForms.2.15.0\lib\net45\DotNetBrowser.WinForms.dll</HintPath>
+      <HintPath>..\packages\DotNetBrowser.WinForms.2.15.1\lib\net45\DotNetBrowser.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>

@@ -62,9 +62,11 @@ namespace CertificateError
 
         private static void PrintCertificateAndErrorDetails(VerifyCertificateParameters errorParams)
         {
-            foreach (CertificateVerificationStatus status in errorParams.VerifyStatuses)
+            foreach (CertificateVerificationError certificateVerificationError in errorParams.VerifyErrors)
             {
-                Console.WriteLine($"CertificateVerificationStatus = {status}");
+                Console.WriteLine($"CertificateVerificationStatus = {certificateVerificationError.VerifyStatus}");
+                Console.WriteLine($"Short description = {certificateVerificationError.ShortDescription}");
+                Console.WriteLine($"Detailed description = {certificateVerificationError.DetailedDescription}");
             }
 
             Certificate certificate = errorParams.Certificate;
