@@ -45,6 +45,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Create new DOM element: [C#](csharp/DomCreateElement/Program.cs), [VB.NET](vbnet/DomCreateElement/Program.vb)
 * Create and dispatch any DOM event (including custom events): [C#](csharp/DomCreateEvent/Program.cs), [VB.NET](vbnet/DomCreateEvent/Program.vb)
 * Fill in and submit a form: [C#](csharp/DomForm/Program.cs), [VB.NET](vbnet/DomForm/Program.vb)
+* Fill in and submit a multipage form: [C#](csharp/SimulateUserInput.WinForms), [VB.NET](vbnet/SimulateUserInput.WinForms)
 * Work with attributes of the specific DOM element: [C#](csharp/DomGetAttributes/Program.cs), [VB.NET](vbnet/DomGetAttributes/Program.vb)
 * Get DOM elements by tag name: [C#](csharp/DomGetElements/Program.cs), [VB.NET](vbnet/DomGetElements/Program.vb)
 * Find element by CSS Selector: [C#](csharp/DomQuerySelector/Program.cs), [VB.NET](vbnet/DomQuerySelector/Program.vb)

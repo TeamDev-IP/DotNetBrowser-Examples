@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<script>
+function loadNextForm(){
+window.location = 'form2.html';
+}
+</script>
+<body>
+
+<h2>HTML Form 1</h2>
+
+<form onSubmit='\' method='post'>
+  First name:<br>
+  <input type='text' id='firstname' >
+  <br>
+  Last name:<br>
+  <input type='text' id='lastname'>
+  <br><br>
+  <input id='submitForm1' type='button' value='Submit' onclick='loadNextForm()'>
+</form>
+</body>
+</html>
