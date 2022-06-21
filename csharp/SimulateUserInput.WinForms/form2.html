@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<script>
+function submitFormConfirmation(){
+alert('The form was submitted.');
+}
+</script>
+<body>
+
+<h2>HTML Form 2</h2>
+
+<form onSubmit='submitFormConfirmation()' method='post'>
+  Gender:<br>
+  <select id="gender">
+    <option>Female</option>
+    <option>Male</option>
+  </select>
+  <br><br>
+  Confirm:<br>
+  <input type="checkbox" id="checkbox" value="Checked">
+  <br><br>
+  <input id='submitForm2' type='submit' value='Submit'>
+</form> 
+</body>
+</html>

@@ -161,6 +161,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElementHostEmbedding.WinFor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookiesSharing.WinForms", "CookiesSharing.WinForms\CookiesSharing.WinForms.csproj", "{1D9D7F20-FD07-407C-8120-188BA4C782B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimulateUserInput.WinForms", "SimulateUserInput.WinForms\SimulateUserInput.WinForms.csproj", "{5C347B7F-1D3D-45A7-8FE0-DDC9A8FF2666}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -479,6 +481,10 @@ Global
 		{1D9D7F20-FD07-407C-8120-188BA4C782B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D9D7F20-FD07-407C-8120-188BA4C782B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D9D7F20-FD07-407C-8120-188BA4C782B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C347B7F-1D3D-45A7-8FE0-DDC9A8FF2666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C347B7F-1D3D-45A7-8FE0-DDC9A8FF2666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C347B7F-1D3D-45A7-8FE0-DDC9A8FF2666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C347B7F-1D3D-45A7-8FE0-DDC9A8FF2666}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
