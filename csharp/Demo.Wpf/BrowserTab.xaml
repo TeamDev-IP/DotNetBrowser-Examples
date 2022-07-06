@@ -67,7 +67,7 @@
         </Grid>
     </TabItem.Header>
     <TabItem.Content>
-        <Grid>
+        <Grid KeyboardNavigation.TabNavigation ="Cycle">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
