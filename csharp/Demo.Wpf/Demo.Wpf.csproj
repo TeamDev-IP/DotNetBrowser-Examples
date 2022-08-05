@@ -29,10 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="2.15.1" />
-    <PackageReference Include="DotNetBrowser.Chromium.Win-x86" Version="2.15.1" />
-    <PackageReference Include="DotNetBrowser.Chromium.Win-x64" Version="2.15.1" />
-    <PackageReference Include="DotNetBrowser.WPF" Version="2.15.1" />
+    <PackageReference Include="DotNetBrowser" Version="2.16.0" />
+    <PackageReference Include="DotNetBrowser.Chromium.Win-x86" Version="2.16.0" />
+    <PackageReference Include="DotNetBrowser.Chromium.Win-x64" Version="2.16.0" />
+    <PackageReference Include="DotNetBrowser.WPF" Version="2.16.0" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='netcoreapp3.0'" />
