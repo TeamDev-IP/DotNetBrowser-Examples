@@ -55,9 +55,9 @@ namespace JavaScriptBridge
                                             var ShowData = function (a) 
                                             {
                                                  document.title = a.FullName 
-                                                                + ' ' + a.Age + '. ' + a.Walk(a.Children.get_Item(1))
-                                                                + ' ' + a.Children.get_Item(1).FullName 
-                                                                + ' ' + a.Children.get_Item(1).Age;
+                                                                + ' ' + a.Age + '. ' + a.Walk(a.Children[1])
+                                                                + ' ' + a.Children[1].FullName 
+                                                                + ' ' + a.Children[1].Age;
                                             };
                                         </script>
                                      </body>
@@ -69,10 +69,10 @@ namespace JavaScriptBridge
 
                     Person person = new Person("Jack", 30, true)
                     {
-                        Children = new Dictionary<double, Person>()
+                        Children = new Dictionary<int, Person>()
                     };
 
-                    person.Children.Add(1.0, new Person("Oliver", 10, true));
+                    person.Children.Add(1, new Person("Oliver", 10, true));
                     IJsObject value = browser.MainFrame
                                              .ExecuteJavaScript<IJsObject>("window")
                                              .Result;
@@ -90,7 +90,7 @@ namespace JavaScriptBridge
         {
             public double Age { get; }
 
-            public IDictionary<double, Person> Children { get; set; }
+            public IDictionary<int, Person> Children { get; set; }
 
             public string FullName { get; }
 

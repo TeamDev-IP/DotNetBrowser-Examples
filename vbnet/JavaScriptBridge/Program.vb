@@ -48,9 +48,9 @@ Friend Class Program
                                         var ShowData = function (a) 
                                         {
                                              document.title = a.FullName 
-                                             + ' ' + a.Age + '. ' + a.Walk(a.Children.get_Item(1))
-                                             + ' ' + a.Children.get_Item(1).FullName 
-                                             + ' ' + a.Children.get_Item(1).Age;
+                                             + ' ' + a.Age + '. ' + a.Walk(a.Children[1])
+                                             + ' ' + a.Children[1].FullName 
+                                             + ' ' + a.Children[1].Age;
                                         };
                                     </script>
                                  </body>
@@ -58,8 +58,8 @@ Friend Class Program
                 browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
                 .Wait()
                 Dim person = New Person("Jack", 30, True)
-                person.Children = New Dictionary(Of Double, Person)()
-                person.Children.Add(1.0, New Person("Oliver", 10, True))
+                person.Children = New Dictionary(Of Integer, Person)()
+                person.Children.Add(1, New Person("Oliver", 10, True))
                 Dim value As IJsObject = browser.MainFrame.ExecuteJavaScript (Of IJsObject)("window").Result
                 value.Invoke("ShowData", person)
 
@@ -75,7 +75,7 @@ Friend Class Program
 
         Public ReadOnly Property Age As Double
 
-        Public Property Children As IDictionary(Of Double, Person)
+        Public Property Children As IDictionary(Of Integer, Person)
         Public ReadOnly Property FullName As String
 
         Public ReadOnly Property Gender As Boolean
