@@ -53,28 +53,23 @@ namespace KeyboardEventSimulation.WinForms
             InitializeComponent();
             Closing += Form1_Closing;
 
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                                                       {
-                                                           RenderingMode =
-                                                               RenderingMode.OffScreen
-                                                       }
-                                                      .Build());
-
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     BrowserView browserView = new BrowserView();
-                     // Embed BrowserView component into main layout.
-                     Controls.Add(browserView);
-                     browserView.InitializeFrom(browser);
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes(Html);
-                     browser.Navigation
-                            .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
-                            .ContinueWith(SimulateInput);
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.OffScreen
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              BrowserView browserView = new BrowserView();
+                              // Embed BrowserView component into main layout.
+                              Controls.Add(browserView);
+                              browserView.InitializeFrom(browser);
+                              byte[] htmlBytes = Encoding.UTF8.GetBytes(Html);
+                              browser.Navigation
+                                     .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                                     .ContinueWith(SimulateInput);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void Form1_Closing(object sender, CancelEventArgs e)

@@ -42,28 +42,24 @@ namespace WPF.SaveWebPage
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                                                       {
-                                                           RenderingMode = RenderingMode.OffScreen
-                                                       }
-                                                      .Build());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.OffScreen
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              // Create WPF BrowserView component.
+                              BrowserView browserView = new BrowserView();
+                              // Embed BrowserView component into main layout.
+                              mainLayout.Children.Add(browserView);
 
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     // Create WPF BrowserView component.
-                     BrowserView browserView = new BrowserView();
-                     // Embed BrowserView component into main layout.
-                     mainLayout.Children.Add(browserView);
+                              browserView.InitializeFrom(browser);
 
-                     browserView.InitializeFrom(browser);
-
-                     browser.Navigation.LoadUrl("https://www.teamdev.com/")
-                            .ContinueWith(SaveWebPage);
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Navigation.LoadUrl("https://www.teamdev.com/")
+                                     .ContinueWith(SaveWebPage);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
             // Initialize WPF Application UI.
             InitializeComponent();
         }

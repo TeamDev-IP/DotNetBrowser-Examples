@@ -43,23 +43,21 @@ namespace MailToHandling.WinForms
 
         public Form1()
         {
-            Task.Run(() =>
-                 {
-                     EngineOptions engineOptions = new EngineOptions.Builder
-                         {
-                             RenderingMode = RenderingMode.HardwareAccelerated
-                         }
-                        .Build();
-                     engine = EngineFactory.Create(engineOptions);
-                     browser = engine.CreateBrowser();
-                     browser.Navigation.StartNavigationHandler =
-                         new Handler<StartNavigationParameters, StartNavigationResponse>(OnStartNavigation);
-                 })
-                .ContinueWith(t =>
-                 {
-                     browserView1.InitializeFrom(browser);
-                     browser.Navigation.LoadUrl("https://www.teamdev.com/contact");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browser.Navigation.StartNavigationHandler =
+                                  new Handler<StartNavigationParameters,
+                                      StartNavigationResponse>(OnStartNavigation);
+
+                              browserView1.InitializeFrom(browser);
+                              browser.Navigation.LoadUrl("https://www.teamdev.com/contact");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
             InitializeComponent();
         }
 

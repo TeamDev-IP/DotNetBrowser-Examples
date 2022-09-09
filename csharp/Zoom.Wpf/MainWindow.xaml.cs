@@ -44,20 +44,20 @@ namespace Zoom.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                     {
-                         RenderingMode = RenderingMode.HardwareAccelerated
-                     }.Build());
-                     browser = engine.CreateBrowser();
-                     browser.Navigation.LoadUrl("teamdev.com");
-                     browser.Mouse.WheelMoved.Handler =
-                         new Handler<IMouseWheelMovedEventArgs,
-                             InputEventResponse>(OnMouseWheelMoved);
-                 })
-                .ContinueWith(t => { BrowserView.InitializeFrom(browser); },
-                              TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browser.Navigation.LoadUrl("teamdev.com");
+                              browser.Mouse.WheelMoved.Handler =
+                                  new Handler<IMouseWheelMovedEventArgs,
+                                      InputEventResponse>(OnMouseWheelMoved);
+                              BrowserView.InitializeFrom(browser);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }

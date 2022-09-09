@@ -52,24 +52,22 @@ namespace ContextMenu.SpellCheck.WinForms
             LoggerProvider.Instance.OutputFile = "log.txt";
             BrowserView webView = new BrowserView {Dock = DockStyle.Fill};
 
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory
-                        .Create(new EngineOptions.Builder
-                                    {
-                                        RenderingMode = RenderingMode.HardwareAccelerated
-                                    }.Build());
-                     browser = engine.CreateBrowser();
-                 }).ContinueWith(t =>
-                 {
-                     webView.InitializeFrom(browser);
-                     // #docfragment "ContextMenu.WinForms.Configuration"
-                     browser.ShowContextMenuHandler =
-                         new AsyncHandler<ShowContextMenuParameters,
-                                          ShowContextMenuResponse>(ShowMenu);
-                     // #enddocfragment "ContextMenu.WinForms.Configuration"
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              webView.InitializeFrom(browser);
+                              // #docfragment "ContextMenu.WinForms.Configuration"
+                              browser.ShowContextMenuHandler =
+                                  new AsyncHandler<ShowContextMenuParameters,
+                                      ShowContextMenuResponse>(ShowMenu);
+                              // #enddocfragment "ContextMenu.WinForms.Configuration"
 
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+                              byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
                                     </head>
@@ -78,8 +76,9 @@ namespace ContextMenu.SpellCheck.WinForms
                                     </body>
                                     </html>");
 
-                     browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Navigation
+                                     .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
             FormClosing += Form1_FormClosing;

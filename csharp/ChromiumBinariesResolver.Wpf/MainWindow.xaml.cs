@@ -77,26 +77,25 @@ namespace ChromiumBinariesResolver.Wpf
 
             DataContext = this;
 
-            Task.Run(() =>
-                 {
-                     IsInitializationInProgress = true;
-                     EngineOptions engineOptions = new EngineOptions.Builder
-                         {
-                             RenderingMode = RenderingMode.HardwareAccelerated,
-                             ChromiumDirectory = chromiumDirectory
-                         }
-                        .Build();
-                     InitializationStatus = "Creating DotNetBrowser engine";
-                     engine = EngineFactory.Create(engineOptions);
-                     InitializationStatus = "DotNetBrowser engine created";
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     BrowserView.InitializeFrom(browser);
-                     IsInitializationInProgress = false;
-                     browser.Navigation.LoadUrl("https://www.teamdev.com/");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            IsInitializationInProgress = true;
+            EngineOptions engineOptions = new EngineOptions.Builder
+                {
+                    RenderingMode = RenderingMode.HardwareAccelerated,
+                    ChromiumDirectory = chromiumDirectory
+                }
+               .Build();
+
+            InitializationStatus = "Creating DotNetBrowser engine";
+            EngineFactory.CreateAsync(engineOptions)
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              InitializationStatus = "DotNetBrowser engine created";
+                              browser = engine.CreateBrowser();
+                              BrowserView.InitializeFrom(browser);
+                              IsInitializationInProgress = false;
+                              browser.Navigation.LoadUrl("https://www.teamdev.com/");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }

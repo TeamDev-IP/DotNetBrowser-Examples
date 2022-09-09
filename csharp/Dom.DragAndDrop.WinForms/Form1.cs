@@ -47,25 +47,21 @@ namespace Dom.DragAndDrop.WinForms
 
         public Form1()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory
-                        .Create(new EngineOptions.Builder
-                                    {
-                                        RenderingMode = RenderingMode.HardwareAccelerated
-                                    }
-                                   .Build());
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     browserView1.InitializeFrom(browser);
-                     browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
-                     browser.ConsoleMessageReceived += (sender, args) =>
-                     {
-                         Debug.WriteLine($"{args.LineNumber} > {args.Message}");
-                     };
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browserView1.InitializeFrom(browser);
+                              browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
+                              browser.ConsoleMessageReceived += (sender, args) =>
+                              {
+                                  Debug.WriteLine($"{args.LineNumber} > {args.Message}");
+                              };
+                              byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
                                       <style type='text/css'>
@@ -88,9 +84,9 @@ namespace Dom.DragAndDrop.WinForms
                                     </div >
                                     </body>
                                     </html>");
-                     browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
-                            .ContinueWith(OnHtmlLoaded);
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                                     .ContinueWith(OnHtmlLoaded);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
             FormClosing += Form1_FormClosing;

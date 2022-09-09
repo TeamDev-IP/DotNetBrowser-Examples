@@ -44,19 +44,17 @@ namespace ContextMenu.SpellCheck.Wpf
         private IEngine engine;
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory
-                        .Create(new EngineOptions.Builder
-                                    {
-                                        RenderingMode = RenderingMode.OffScreen
-                                    }.Build());
-                     browser = engine.CreateBrowser();
-                 }).ContinueWith(t =>
-                 {
-                     WebView.InitializeFrom(browser);
-                     ConfigureContextMenu();
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              WebView.InitializeFrom(browser);
+                              ConfigureContextMenu();
+                              byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                     <head>
                                       <meta charset='UTF-8'>
                                     </head>
@@ -64,8 +62,9 @@ namespace ContextMenu.SpellCheck.Wpf
                                     <textarea autofocus cols='30' rows='20'>Simpple mistakee</textarea>
                                     </body>
                                     </html>");
-                     browser.Navigation.LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Navigation
+                                     .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }

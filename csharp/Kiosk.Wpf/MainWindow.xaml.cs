@@ -40,22 +40,19 @@ namespace Kiosk.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                     {
-                         RenderingMode = RenderingMode.HardwareAccelerated
-                     }.Build());
-
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     BrowserView.InitializeFrom(browser);
-                     //Disable default context menu
-                     browser.ShowContextMenuHandler = null;
-                     browser.Navigation.LoadUrl(@"https://www.teamdev.com");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              BrowserView.InitializeFrom(browser);
+                              //Disable default context menu
+                              browser.ShowContextMenuHandler = null;
+                              browser.Navigation.LoadUrl(@"https://www.teamdev.com");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             // Initialize Wpf Application UI.
             InitializeComponent();

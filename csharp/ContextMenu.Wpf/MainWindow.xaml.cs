@@ -44,22 +44,18 @@ namespace ContextMenu.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory
-                        .Create(new EngineOptions.Builder
-                                    {
-                                        RenderingMode = RenderingMode.OffScreen
-                                    }
-                                   .Build());
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     WebView.InitializeFrom(browser);
-                     ConfigureContextMenu();
-                     browser.Navigation.LoadUrl("https://www.google.com/");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.OffScreen
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              WebView.InitializeFrom(browser);
+                              ConfigureContextMenu();
+                              browser.Navigation.LoadUrl("https://www.google.com/");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }

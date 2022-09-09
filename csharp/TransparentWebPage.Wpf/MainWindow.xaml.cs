@@ -41,35 +41,34 @@ namespace TransparentWebPage.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                     {
-                         RenderingMode = RenderingMode.OffScreen
-                     }.Build());
-                     browser = engine.CreateBrowser();
-                     browser.Settings.TransparentBackgroundEnabled = true;
-                 })
-                .ContinueWith(t =>
-                 {
-                     WebBrowser1.InitializeFrom(browser);
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes("<html>\n"
-                         + "     <body>"
-                         + "         <div style='background: yellow; opacity: 0.7;'>\n"
-                         + "             This text is in the yellow half-transparent div."
-                         + "        </div>\n"
-                         + "         <div style='background: red;'>\n"
-                         + "             This text is in the red opaque div and should appear as is."
-                         + "        </div>\n"
-                         + "         <div>\n"
-                         + "             This text is in the non-styled div and should appear as a text"
-                         + " on the completely transparent background."
-                         + "        </div>\n"
-                         + "    </body>\n"
-                         + " </html>");
-                     browser.Navigation
-                            .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.OffScreen
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browser.Settings.TransparentBackgroundEnabled = true;
+
+                              WebBrowser1.InitializeFrom(browser);
+                              byte[] htmlBytes = Encoding.UTF8.GetBytes("<html>\n"
+                                  + "     <body>"
+                                  + "         <div style='background: yellow; opacity: 0.7;'>\n"
+                                  + "             This text is in the yellow half-transparent div."
+                                  + "        </div>\n"
+                                  + "         <div style='background: red;'>\n"
+                                  + "             This text is in the red opaque div and should appear as is."
+                                  + "        </div>\n"
+                                  + "         <div>\n"
+                                  + "             This text is in the non-styled div and should appear as a text"
+                                  + " on the completely transparent background."
+                                  + "        </div>\n"
+                                  + "    </body>\n"
+                                  + " </html>");
+                              browser.Navigation
+                                     .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }
