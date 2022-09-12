@@ -35,16 +35,14 @@ Partial Public Class MainWindow
     Private engine As IEngine
 
     Public Sub New()
-        Task.Run(Sub()
-            Dim builder = New EngineOptions.Builder With 
-            {
-                .RenderingMode = RenderingMode.HardwareAccelerated
-            }
-            builder.ChromiumSwitches.Add("--force-renderer-accessibility")
+        Dim builder = New EngineOptions.Builder With {
+                    .RenderingMode = RenderingMode.HardwareAccelerated
+                }
+        builder.ChromiumSwitches.Add("--force-renderer-accessibility")
 
-            engine = EngineFactory.Create(builder.Build())
+        EngineFactory.CreateAsync(builder.Build()).ContinueWith(Sub(t)
+            engine = t.Result
             browser = engine.CreateBrowser()
-        End Sub).ContinueWith(Sub(t)
             BrowserView.InitializeFrom(browser)
             browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser")
         End Sub, TaskScheduler.FromCurrentSynchronizationContext())

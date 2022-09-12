@@ -38,16 +38,18 @@ Namespace CustomShortcuts.WinForms
 		Private engine As IEngine
 
 		Public Sub New()
-			Task.Run(Sub()
-					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
-					 browser = engine.CreateBrowser()
-			End Sub).ContinueWith(Sub(t)
-					 browserView1.InitializeFrom(browser)
-					 browser.Navigation.LoadUrl("https://teamdev.com")
-					 ' Set focus to browser.
-					 browser.Focus()
+		    EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                         .RenderingMode = RenderingMode.HardwareAccelerated
+                                         }.Build()) _
+		    .ContinueWith(Sub(t)
+                engine = t.Result
+                browser = engine.CreateBrowser()
+                browserView1.InitializeFrom(browser)
+                browser.Navigation.LoadUrl("https://teamdev.com")
+                ' Set focus to browser.
+                browser.Focus()
 
-					 browser.Keyboard.KeyPressed.Handler = New Handler(Of IKeyPressedEventArgs, InputEventResponse)(AddressOf HandleKeyPress)
+                browser.Keyboard.KeyPressed.Handler = New Handler(Of IKeyPressedEventArgs, InputEventResponse)(AddressOf HandleKeyPress)
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 			InitializeComponent()
 			AddHandler Me.FormClosing, AddressOf Form1_FormClosing

@@ -36,12 +36,13 @@ Partial Public Class MainWindow
     Private engine As IEngine
 
     Public Sub New()
-        Task.Run(Sub()
-            engine = EngineFactory.Create(
-                        New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+        EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                     .RenderingMode = RenderingMode.OffScreen
+                                     }.Build()) _
+        .ContinueWith(Sub(t)
+            engine = t.Result
             browser = engine.CreateBrowser()
             browser.Settings.TransparentBackgroundEnabled = True
-        End Sub).ContinueWith(Sub(t)
             WebBrowser1.InitializeFrom(browser)
             Dim htmlBytes() As Byte =
                     Encoding.UTF8.GetBytes(
@@ -63,7 +64,9 @@ Partial Public Class MainWindow
         End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
         InitializeComponent()
+
     End Sub
+
 
     Private Sub Window_Closed(sender As Object, e As EventArgs)
         engine?.Dispose()

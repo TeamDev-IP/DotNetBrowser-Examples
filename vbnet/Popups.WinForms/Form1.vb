@@ -36,14 +36,13 @@ Namespace Popups.WinForms
         Private engine As IEngine
 
         Public Sub New()
-            Task.Run(Sub()
-                         engine = EngineFactory.Create()
-                         browser = engine.CreateBrowser()
-                     End Sub).ContinueWith(Sub(t)
-                                               browserView.InitializeFrom(browser)
-                                               browser.OpenPopupHandler = New OpenPopupHandler(browserView)
-                                               browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"))
-                                           End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+            EngineFactory.CreateAsync().ContinueWith(Sub(t)
+                engine = t.Result
+                browser = engine.CreateBrowser()
+                browserView.InitializeFrom(browser)
+                browser.OpenPopupHandler = New OpenPopupHandler(browserView)
+                browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"))
+            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
             InitializeComponent()
         End Sub
 

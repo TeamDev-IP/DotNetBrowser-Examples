@@ -40,14 +40,14 @@ Namespace MailToHandling.WinForms
 		Private engine As IEngine
 
 		Public Sub New()
-			Task.Run(Sub()
-					 Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build()
-					 engine = EngineFactory.Create(engineOptions)
-					 browser = engine.CreateBrowser()
-					 browser.Navigation.StartNavigationHandler = New Handler(Of StartNavigationParameters, StartNavigationResponse)(AddressOf OnStartNavigation)
-			End Sub).ContinueWith(Sub(t)
-					 browserView1.InitializeFrom(browser)
-					 browser.Navigation.LoadUrl("https://www.teamdev.com/contact")
+		    Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build()
+
+		    EngineFactory.CreateAsync(engineOptions).ContinueWith(Sub(t)
+		        engine = t.Result
+		        browser = engine.CreateBrowser()
+                browser.Navigation.StartNavigationHandler = New Handler(Of StartNavigationParameters, StartNavigationResponse)(AddressOf OnStartNavigation)
+                browserView1.InitializeFrom(browser)
+                browser.Navigation.LoadUrl("https://www.teamdev.com/contact")
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 			InitializeComponent()
 		End Sub

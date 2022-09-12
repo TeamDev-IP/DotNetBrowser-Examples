@@ -40,21 +40,21 @@ Namespace CreateHtmlUi.Wpf
         Private engine As IEngine
 
         Public Sub New()
-            Task.Run(Sub()
-                         engine = EngineFactory.Create(New EngineOptions.Builder With {
-                             .RenderingMode = RenderingMode.HardwareAccelerated,
-                             .RemoteDebuggingPort = 9222
-                         }.Build())
-                         browser1 = engine.CreateBrowser()
-                         browser2 = engine.CreateBrowser()
-                     End Sub).ContinueWith(Sub(t)
-                                               browserView1.InitializeFrom(browser1)
-                                               browserView2.InitializeFrom(browser2)
+            EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                         .RenderingMode = RenderingMode.HardwareAccelerated,
+                                         .RemoteDebuggingPort = 9222
+                                         }.Build()) _
+            .ContinueWith(Sub(t)
+                engine = t.Result
+                browser1 = engine.CreateBrowser()
+                browser2 = engine.CreateBrowser()
+                browserView1.InitializeFrom(browser1)
+                browserView2.InitializeFrom(browser2)
 
-                                               AddHandler browser1.Navigation.FrameLoadFinished, AddressOf browser1_FrameLoadFinished
-                                               browser1.Navigation.LoadUrl(Path.GetFullPath("UI.html"))
-                                               browser2.Navigation.LoadUrl(browser1.DevTools.RemoteDebuggingUrl)
-                                           End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+                AddHandler browser1.Navigation.FrameLoadFinished, AddressOf browser1_FrameLoadFinished
+                browser1.Navigation.LoadUrl(Path.GetFullPath("UI.html"))
+                browser2.Navigation.LoadUrl(browser1.DevTools.RemoteDebuggingUrl)
+            End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
             InitializeComponent()
         End Sub
