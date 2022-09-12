@@ -38,14 +38,13 @@ Namespace Popups.Wpf
 		Private browser As IBrowser
 		Private engine As IEngine
 
-		Public Sub New()
-			Task.Run(Sub()
-					 engine = EngineFactory.Create()
-					 browser = engine.CreateBrowser()
-			End Sub).ContinueWith(Sub(t)
-					 BrowserView.InitializeFrom(browser)
-					 browser.OpenPopupHandler = New OpenPopupHandler(BrowserView)
-					 browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"))
+        Public Sub New()
+            EngineFactory.CreateAsync().ContinueWith(Sub(t)
+                engine = t.Result
+                browser = engine.CreateBrowser()
+                BrowserView.InitializeFrom(browser)
+                browser.OpenPopupHandler = New OpenPopupHandler(BrowserView)
+                browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"))
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 			InitializeComponent()
 		End Sub

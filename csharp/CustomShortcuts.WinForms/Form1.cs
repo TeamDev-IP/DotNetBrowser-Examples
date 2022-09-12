@@ -43,25 +43,22 @@ namespace CustomShortcuts.WinForms
 
         public Form1()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                                                       {
-                                                           RenderingMode = RenderingMode.HardwareAccelerated
-                                                       }
-                                                      .Build());
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     browserView1.InitializeFrom(browser);
-                     browser.Navigation.LoadUrl("https://teamdev.com");
-                     // Set focus to browser.
-                     browser.Focus();
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browserView1.InitializeFrom(browser);
+                              browser.Navigation.LoadUrl("https://teamdev.com");
+                              // Set focus to browser.
+                              browser.Focus();
 
-                     browser.Keyboard.KeyPressed.Handler =
-                         new Handler<IKeyPressedEventArgs, InputEventResponse>(HandleKeyPress);
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Keyboard.KeyPressed.Handler =
+                                  new Handler<IKeyPressedEventArgs, InputEventResponse>(HandleKeyPress);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
             InitializeComponent();
             FormClosing += Form1_FormClosing;
         }

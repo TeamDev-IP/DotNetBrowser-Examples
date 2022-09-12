@@ -39,26 +39,23 @@ namespace DevTools.WinForms
 
         public Form1()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory
-                        .Create(new EngineOptions.Builder
-                                    {
-                                        RenderingMode = RenderingMode.HardwareAccelerated,
-                                        RemoteDebuggingPort = 9222
-                                    }
-                                   .Build());
-                     browser1 = engine.CreateBrowser();
-                     browser2 = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     browserView1.InitializeFrom(browser1);
-                     browserView2.InitializeFrom(browser2);
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated,
+                              RemoteDebuggingPort = 9222
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser1 = engine.CreateBrowser();
+                              browser2 = engine.CreateBrowser();
 
-                     browser1.Navigation.LoadUrl("https://www.teamdev.com");
-                     browser2.Navigation.LoadUrl(browser1.DevTools.RemoteDebuggingUrl);
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browserView1.InitializeFrom(browser1);
+                              browserView2.InitializeFrom(browser2);
+
+                              browser1.Navigation.LoadUrl("https://www.teamdev.com");
+                              browser2.Navigation.LoadUrl(browser1.DevTools.RemoteDebuggingUrl);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
             InitializeComponent();
         }
 

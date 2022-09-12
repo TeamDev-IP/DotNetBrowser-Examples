@@ -40,17 +40,15 @@ namespace Popups.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create();
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     BrowserView.InitializeFrom(browser);
-                     browser.OpenPopupHandler = new OpenPopupHandler(BrowserView);
-                     browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"));
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder().Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              BrowserView.InitializeFrom(browser);
+                              browser.OpenPopupHandler = new OpenPopupHandler(BrowserView);
+                              browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"));
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
             InitializeComponent();
         }
 

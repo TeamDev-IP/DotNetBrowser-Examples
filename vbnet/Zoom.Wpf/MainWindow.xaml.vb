@@ -38,12 +38,14 @@ Namespace Zoom.Wpf
 		Private engine As IEngine
 
 		Public Sub New()
-			Task.Run(Sub()
-					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated}.Build())
-					 browser = engine.CreateBrowser()
-					 browser.Navigation.LoadUrl("teamdev.com")
-					 browser.Mouse.WheelMoved.Handler = New Handler(Of IMouseWheelMovedEventArgs, InputEventResponse)(AddressOf OnMouseWheelMoved)
-			End Sub).ContinueWith(Sub(t)
+		    EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                         .RenderingMode = RenderingMode.HardwareAccelerated
+                                         }.Build()) _ 
+		    .ContinueWith(Sub(t)
+				engine = t.Result
+		        browser = engine.CreateBrowser()
+		        browser.Navigation.LoadUrl("teamdev.com")
+		        browser.Mouse.WheelMoved.Handler = New Handler(Of IMouseWheelMovedEventArgs, InputEventResponse)(AddressOf OnMouseWheelMoved)
 					 BrowserView.InitializeFrom(browser)
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 

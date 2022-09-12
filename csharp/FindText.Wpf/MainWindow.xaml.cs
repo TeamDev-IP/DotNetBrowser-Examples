@@ -38,20 +38,17 @@ namespace FindText.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                                                       {
-                                                           RenderingMode = RenderingMode.OffScreen
-                                                       }
-                                                      .Build());
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     browserView.InitializeFrom(browser);
-                     browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.OffScreen
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browserView.InitializeFrom(browser);
+                              browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }

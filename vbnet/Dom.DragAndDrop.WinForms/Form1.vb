@@ -42,43 +42,45 @@ Namespace Dom.DragAndDrop.WinForms
 		Private engine As IEngine
 
 		Public Sub New()
-			Task.Run(Sub()
-					 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
-					 browser = engine.CreateBrowser()
-			End Sub).ContinueWith(Sub(t)
-					 browserView1.InitializeFrom(browser)
-					 browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
+		    EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                         .RenderingMode = RenderingMode.HardwareAccelerated
+                                         }.Build()) _
+		    .ContinueWith(Sub(t)
+                engine = t.Result
+                browser = engine.CreateBrowser()
+                browserView1.InitializeFrom(browser)
+                browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
 
-					 AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
-						 Debug.WriteLine($"{args.LineNumber} > {args.Message}")
-					 End Sub
+                AddHandler browser.ConsoleMessageReceived, Sub(sender, args)
+                 Debug.WriteLine($"{args.LineNumber} > {args.Message}")
+                End Sub
 
-			         Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
-                                        <head>
-                                          <meta charset='UTF-8'>
-                                          <style type='text/css'>
-                                            #dropZone {
-                                                text-align: center;    
-        
-                                                width: 400px;
-                                                padding: 50px 0;
-                                                margin: 50px auto;
-                                                
-                                                background: #eee;
-                                                border: 1px solid #ccc;
-                                            }
-                                          </style>
-                                        </head>
-                                        <body>
+                Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<html>
+                                <head>
+                                  <meta charset='UTF-8'>
+                                  <style type='text/css'>
+                                    #dropZone {
+                                        text-align: center;    
+
+                                        width: 400px;
+                                        padding: 50px 0;
+                                        margin: 50px auto;
                                         
-                                        <div id='dropZone'>
-                                            Drop a file here.
-                                        </div >
-                                        </body>
-                                        </html>")
+                                        background: #eee;
+                                        border: 1px solid #ccc;
+                                    }
+                                  </style>
+                                </head>
+                                <body>
+                                
+                                <div id='dropZone'>
+                                    Drop a file here.
+                                </div >
+                                </body>
+                                </html>")
 
-			         browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
-                                     .ContinueWith(AddressOf OnHtmlLoaded)
+                browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes)) _
+                             .ContinueWith(AddressOf OnHtmlLoaded)
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
 			InitializeComponent()

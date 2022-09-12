@@ -81,17 +81,18 @@ Partial Public Class MainWindow
 
         DataContext = Me
 
-        Task.Run(Sub()
-            IsInitializationInProgress = True
-            Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {
-                    .RenderingMode = RenderingMode.HardwareAccelerated,
-                    .ChromiumDirectory = chromiumDirectory
-                    } .Build()
-            InitializationStatus = "Creating DotNetBrowser engine"
-            engine = EngineFactory.Create(engineOptions)
+        IsInitializationInProgress = True
+        Dim engineOptions As EngineOptions = New EngineOptions.Builder With {
+                .RenderingMode = RenderingMode.HardwareAccelerated,
+                .ChromiumDirectory = chromiumDirectory
+                } .Build()
+
+        InitializationStatus = "Creating DotNetBrowser engine"
+
+        EngineFactory.CreateAsync(engineOptions).ContinueWith(Sub(t)
+            engine = t.Result
             InitializationStatus = "DotNetBrowser engine created"
             browser = engine.CreateBrowser()
-        End Sub).ContinueWith(Sub(t)
             BrowserView.InitializeFrom(browser)
             IsInitializationInProgress = False
             browser.Navigation.LoadUrl("https://www.teamdev.com/")

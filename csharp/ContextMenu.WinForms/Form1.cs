@@ -53,27 +53,23 @@ namespace ContextMenu.WinForms
             LoggerProvider.Instance.OutputFile = "log.txt";
             BrowserView webView = new BrowserView {Dock = DockStyle.Fill};
 
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory
-                        .Create(new EngineOptions.Builder
-                                    {
-                                        RenderingMode = RenderingMode.HardwareAccelerated
-                                    }
-                                   .Build());
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     webView.InitializeFrom(browser);
-                     // #docfragment "ContextMenu.WinForms.Configuration"
-                     browser.ShowContextMenuHandler =
-                         new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
-                         >(ShowMenu);
-                     // #enddocfragment "ContextMenu.WinForms.Configuration"
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              webView.InitializeFrom(browser);
+                              // #docfragment "ContextMenu.WinForms.Configuration"
+                              browser.ShowContextMenuHandler =
+                                  new AsyncHandler<ShowContextMenuParameters, ShowContextMenuResponse
+                                  >(ShowMenu);
+                              // #enddocfragment "ContextMenu.WinForms.Configuration"
 
-                     browser.Navigation.LoadUrl("https://www.google.com/");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Navigation.LoadUrl("https://www.google.com/");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
             FormClosing += Form1_FormClosing;

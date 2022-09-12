@@ -47,14 +47,12 @@ Partial Public Class Form1
         LoggerProvider.Instance.OutputFile = "log.txt"
         Dim webView As New BrowserView With {.Dock = DockStyle.Fill}
 
-        Task.Run(Sub()
-             engine = EngineFactory.Create(
-                New EngineOptions.Builder _
-                                    With {
-                                    .RenderingMode =
-                                    RenderingMode.HardwareAccelerated}.Build())
-             browser = engine.CreateBrowser()
-        End Sub).ContinueWith(Sub(t)
+        EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                     .RenderingMode = RenderingMode.HardwareAccelerated
+                                     }.Build()) _
+        .ContinueWith(Sub(t)
+            engine = t.Result
+            browser = engine.CreateBrowser()
             webView.InitializeFrom(browser)
             ' #docfragment "ContextMenu.WinForms.Configuration"
             browser.ShowContextMenuHandler =

@@ -35,11 +35,12 @@ Partial Public Class MainWindow
     Private engine As IEngine
 
     Public Sub New()
-        Task.Run(Sub()
-            engine = EngineFactory.Create(
-                        New EngineOptions.Builder With {.RenderingMode = RenderingMode.OffScreen}.Build())
+        EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                     .RenderingMode = RenderingMode.OffScreen
+                                     }.Build()) _
+        .ContinueWith(Sub(t)
+            engine = t.Result
             browser = engine.CreateBrowser()
-        End Sub).ContinueWith(Sub(t)
             browserView.InitializeFrom(browser)
 
             browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser")

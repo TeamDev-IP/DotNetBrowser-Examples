@@ -35,16 +35,17 @@ Namespace Kiosk.Wpf
 		Private engine As IEngine
 
 		Public Sub New()
-			Task.Run(Sub()
-						 engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated}.Build())
-
-						 browser = engine.CreateBrowser()
-					 End Sub).ContinueWith(Sub(t)
-											   BrowserView.InitializeFrom(browser)
-											   'Disable default context menu
-											   browser.ShowContextMenuHandler = Nothing
-											   browser.Navigation.LoadUrl("https://www.teamdev.com")
-										   End Sub, TaskScheduler.FromCurrentSynchronizationContext())
+		    EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                         .RenderingMode = RenderingMode.HardwareAccelerated
+                                         }.Build()) _
+            .ContinueWith(Sub(t)
+                engine = t.Result
+                browser = engine.CreateBrowser()
+                BrowserView.InitializeFrom(browser)
+                'Disable default context menu
+                browser.ShowContextMenuHandler = Nothing
+                browser.Navigation.LoadUrl("https://www.teamdev.com")
+			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
 			' Initialize Wpf Application UI.
 			InitializeComponent()

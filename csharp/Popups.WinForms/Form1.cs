@@ -40,17 +40,15 @@ namespace Popups.WinForms
 
         public Form1()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create();
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     browserView.InitializeFrom(browser);
-                     browser.OpenPopupHandler = new OpenPopupHandler(browserView);
-                     browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"));
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder().Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              browserView.InitializeFrom(browser);
+                              browser.OpenPopupHandler = new OpenPopupHandler(browserView);
+                              browser?.Navigation.LoadUrl(Path.GetFullPath("popup.html"));
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
             InitializeComponent();
         }
 

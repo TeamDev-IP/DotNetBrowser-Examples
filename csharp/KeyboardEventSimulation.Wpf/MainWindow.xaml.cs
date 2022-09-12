@@ -45,30 +45,27 @@ namespace KeyboardEventSimulation.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                     {
-                         RenderingMode = RenderingMode.OffScreen
-                     }.Build());
-
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     BrowserView browserView = new BrowserView();
-                     // Embed BrowserView component into main layout.
-                     MainLayout.Children.Add(browserView);
-                     browserView.InitializeFrom(browser);
-                     byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.OffScreen
+                          }.Build())
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              BrowserView browserView = new BrowserView();
+                              // Embed BrowserView component into main layout.
+                              MainLayout.Children.Add(browserView);
+                              browserView.InitializeFrom(browser);
+                              byte[] htmlBytes = Encoding.UTF8.GetBytes(@"<html>
                                             <body>
                                                 <input type='text' autofocus></input>
                                             </body>
                                            </html>");
-                     browser.Navigation
-                            .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
-                            .ContinueWith(SimulateInput);
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+                              browser.Navigation
+                                     .LoadUrl($"data:text/html;base64,{Convert.ToBase64String(htmlBytes)}")
+                                     .ContinueWith(SimulateInput);
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             // Initialize Wpf Application UI.
             InitializeComponent();

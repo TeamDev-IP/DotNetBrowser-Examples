@@ -41,20 +41,19 @@ namespace UiAutomation.Wpf
 
         public MainWindow()
         {
-            Task.Run(() =>
-                 {
-                     engine = EngineFactory.Create(new EngineOptions.Builder
-                     {
-                         RenderingMode = RenderingMode.HardwareAccelerated,
-                         ChromiumSwitches = {"--force-renderer-accessibility"}
-                     }.Build());
-                     browser = engine.CreateBrowser();
-                 })
-                .ContinueWith(t =>
-                 {
-                     BrowserView.InitializeFrom(browser);
-                     browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
-                 }, TaskScheduler.FromCurrentSynchronizationContext());
+            EngineFactory.CreateAsync(new EngineOptions.Builder
+                          {
+                              RenderingMode = RenderingMode.HardwareAccelerated,
+                              ChromiumSwitches = {"--force-renderer-accessibility"}
+                          }.Build())
+
+                         .ContinueWith(t =>
+                          {
+                              engine = t.Result;
+                              browser = engine.CreateBrowser();
+                              BrowserView.InitializeFrom(browser);
+                              browser.Navigation.LoadUrl("https://teamdev.com/dotnetbrowser");
+                          }, TaskScheduler.FromCurrentSynchronizationContext());
 
             InitializeComponent();
         }

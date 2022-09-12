@@ -39,12 +39,12 @@ Partial Public Class MainWindow
 
 
     Public Sub New()
-        Task.Run(Sub()
-            engine = EngineFactory.Create(New EngineOptions.Builder With {
-                                            .RenderingMode = RenderingMode.OffScreen
-                                        }.Build())
+        EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                     .RenderingMode = RenderingMode.OffScreen
+                                     }.Build()) _
+        .ContinueWith(Sub(t)
+            engine = t.Result
             browser = engine.CreateBrowser()
-        End Sub).ContinueWith(Sub(t)
             WebView.InitializeFrom(browser)
             ConfigureContextMenu()
             Dim htmlBytes() As Byte =
