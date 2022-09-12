@@ -82,7 +82,7 @@ Partial Public Class MainWindow
         DataContext = Me
 
         IsInitializationInProgress = True
-        Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {
+        Dim engineOptions As EngineOptions = New EngineOptions.Builder With {
                 .RenderingMode = RenderingMode.HardwareAccelerated,
                 .ChromiumDirectory = chromiumDirectory
                 } .Build()

@@ -35,9 +35,9 @@ Namespace Kiosk.Wpf
 		Private engine As IEngine
 
 		Public Sub New()
-			EngineFactory.CreateAsync(New EngineOptions.Builder With {
-                                    .RenderingMode = RenderingMode.HardwareAccelerated
-                                 }.Build()) _
+		    EngineFactory.CreateAsync(New EngineOptions.Builder With {
+                                         .RenderingMode = RenderingMode.HardwareAccelerated
+                                         }.Build()) _
             .ContinueWith(Sub(t)
                 engine = t.Result
                 browser = engine.CreateBrowser()
