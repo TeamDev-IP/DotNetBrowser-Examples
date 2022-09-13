@@ -27,7 +27,7 @@
     <RootNamespace></RootNamespace>
     <AssemblyName>MyOutlookAddIn</AssemblyName>
     <LoadBehavior>3</LoadBehavior>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>false</DefineTrace>
     <DefineConstants>VSTO40=True</DefineConstants>
