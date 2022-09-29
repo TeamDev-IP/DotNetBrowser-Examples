@@ -62,6 +62,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Execute any JavaScript on the web page. Get JavaScript return value.: [C#](csharp/JavaScript/Program.cs), [VB.NET](vbnet/JavaScript/Program.vb)
 * Work with JavaScript objects, update their properties and <br/>invoke methods.: [C#](csharp/JavaScriptObjects/Program.cs), [VB.NET](vbnet/JavaScriptObjects/Program.vb)
 * Work with JavaScript arrays: [C#](csharp/JavaScriptBridge.Arrays/Program.cs), [VB.NET](vbnet/JavaScriptBridge.Arrays/Program.vb)
+* Work with JavaScript name converting: [C#](csharp/JavaScriptBridge.NameConverter/Program.cs), [VB.NET](vbnet/JavaScriptBridge.NameConverter/Program.vb)
 * Work with JavaScript Promises: [C#](csharp/JavaScriptBridge.Promises/Program.cs), [VB.NET](vbnet/JavaScriptBridge.Promises/Program.vb)
 * Inject a .NET object into JavaScript. Get its properties and invoke <br/>public methods from the JavaScript side.: [C#](csharp/JavaScriptBridge/Program.cs), [VB.NET](vbnet/JavaScriptBridge/Program.vb)
 * Execute JavaScript on UI event. Call back from JavaScript to <br/>.NET UI (WinForms): [C#](csharp/JavaScriptBridge.WinForms), [VB.NET](vbnet/JavaScriptBridge.WinForms)
