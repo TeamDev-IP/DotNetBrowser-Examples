@@ -23,7 +23,7 @@
 using System;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
-using DotNetBrowser.Browser.Events;
+using DotNetBrowser.Browser.FullScreen.Events;
 using DotNetBrowser.Engine;
 using DotNetBrowser.WinForms;
 
@@ -50,8 +50,8 @@ namespace FullScreen.WinForms
                            }
                           .Build());
             browser = engine.CreateBrowser();
-            browser.FullScreenEntered += OnFullScreenEntered;
-            browser.FullScreenExited += OnFullScreenExited;
+            browser.FullScreen.Entered += OnFullScreenEntered;
+            browser.FullScreen.Exited += OnFullScreenExited;
             browserView.InitializeFrom(browser);
             browser.Navigation.LoadUrl("http://www.w3.org/2010/05/video/mediaevents.html");
             Controls.Add(browserView);
