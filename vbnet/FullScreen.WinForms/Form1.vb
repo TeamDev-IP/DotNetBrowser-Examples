@@ -21,7 +21,7 @@
 #End Region
 
 Imports DotNetBrowser.Browser
-Imports DotNetBrowser.Browser.Events
+Imports DotNetBrowser.Browser.FullScreen.Events
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.WinForms
 
@@ -42,8 +42,8 @@ Namespace FullScreen.WinForms
 			browserView = New BrowserView With {.Dock = DockStyle.Fill}
 			engine = EngineFactory.Create(New EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build())
 			browser = engine.CreateBrowser()
-			AddHandler browser.FullScreenEntered, AddressOf OnFullScreenEntered
-			AddHandler browser.FullScreenExited, AddressOf OnFullScreenExited
+			AddHandler browser.FullScreen.Entered, AddressOf OnFullScreenEntered
+			AddHandler browser.FullScreen.Exited, AddressOf OnFullScreenExited
 			browserView.InitializeFrom(browser)
 			browser.Navigation.LoadUrl("http://www.w3.org/2010/05/video/mediaevents.html")
 			Controls.Add(browserView)
