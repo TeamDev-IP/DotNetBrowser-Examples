@@ -67,7 +67,10 @@ namespace CustomRequestHandling
 
             EngineOptions engineOptions = new EngineOptions.Builder
             {
-                Schemes = {{Scheme.Create("myscheme"), handler}}
+                Schemes = 
+                {
+                    { Scheme.Create("myscheme"), handler }
+                }
             }.Build();
 
             using (IEngine engine = EngineFactory.Create(engineOptions))
