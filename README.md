@@ -34,6 +34,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Save web page: [C#](csharp/SaveWebPage.Wpf), [VB.NET](vbnet/SaveWebPage.Wpf)
 * Save an image from the web page: [C#](csharp/SaveImageFromPage/Program.cs), [VB.NET](vbnet/SaveImageFromPage/Program.vb)
 * Create web page screenshot: [C#](csharp/HtmlToImage/Program.cs), [VB.NET](vbnet/HtmlToImage/Program.vb)
+* Create web page screenshot (cross-platform, uses SkiaSharp): [C#](csharp/HtmlToImage.SkiaSharp/Program.cs), [VB.NET](vbnet/HtmlToImage.SkiaSharp/Program.vb)
 * Execute editor commands (Cut, Copy, Paste, Undo, Select All,<br/> Insert Text etc.): [C#](csharp/ExecuteCommand/Program.cs), [VB.NET](vbnet/ExecuteCommand/Program.vb)
 * Access local storage of the web page: [C#](csharp/WebStorage), [VB.NET](vbnet/WebStorage/Program.vb)
 * Update the zoom level on the web page: [C#](csharp/Zoom/Program.cs), [VB.NET](vbnet/Zoom/Program.vb)
