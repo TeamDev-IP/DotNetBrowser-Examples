@@ -26,6 +26,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Geometry;
+using DotNetBrowser.Ui;
 using SkiaSharp;
 
 /// <summary>
@@ -35,7 +37,7 @@ using SkiaSharp;
 
 uint viewWidth = 1024;
 uint viewHeight = 20000;
-DotNetBrowser.Geometry.Size browserSize = new DotNetBrowser.Geometry.Size(viewWidth, viewHeight);
+Size browserSize = new Size(viewWidth, viewHeight);
 
 using(IEngine engine = EngineFactory.Create(new EngineOptions.Builder
 {
@@ -57,7 +59,7 @@ using(IEngine engine = EngineFactory.Create(new EngineOptions.Builder
 
         // 3. Take the bitmap of the currently loaded web page. Its size will be 
         // equal to the current browser's size.
-        DotNetBrowser.Ui.Bitmap image = browser.TakeImage();
+        Bitmap image = browser.TakeImage();
         Console.WriteLine("Browser image taken");
 
         // 4. Convert the bitmap to the required format and save it.
@@ -74,7 +76,7 @@ using(IEngine engine = EngineFactory.Create(new EngineOptions.Builder
 }
 
 // #docfragment "HtmlToImage.SKBitmap.Conversion"
-static SKBitmap ToSKBitmap(DotNetBrowser.Ui.Bitmap browserBitmap)
+static SKBitmap ToSKBitmap(Bitmap browserBitmap)
 {
     int width = (int)browserBitmap.Size.Width;
     int height = (int)browserBitmap.Size.Height;
