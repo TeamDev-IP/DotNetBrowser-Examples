@@ -38,10 +38,10 @@ Public Class Program
                 engine.Profiles.Default.Network.VerifyCertificateHandler =
                     New Handler(Of VerifyCertificateParameters, VerifyCertificateResponse)(AddressOf VerifyCert)
 
-                Dim result As LoadResult = browser.Navigation.LoadUrl("https://google.com").Result
+                Dim result As NavigationResult = browser.Navigation.LoadUrl("https://google.com").Result
                 ' The certificate for google.com is correct, however, it is rejected in the handler.
                 ' As a result, the navigation fails.
-                Console.WriteLine("Load page result: " & result.ToString())
+                Console.WriteLine("Load page result: " & result.LoadResult.ToString())
 
             End Using
         End Using

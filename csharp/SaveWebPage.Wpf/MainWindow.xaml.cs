@@ -64,7 +64,7 @@ namespace WPF.SaveWebPage
             InitializeComponent();
         }
 
-        private void SaveWebPage(Task<LoadResult> obj)
+        private void SaveWebPage(Task<NavigationResult> obj)
         {
             string filePath = Path.GetFullPath("SavedPages\\index.html");
             string dirPath = Path.GetFullPath("SavedPages\\resources");

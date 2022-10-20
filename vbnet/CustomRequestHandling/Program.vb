@@ -69,13 +69,13 @@ Friend Class Program
         Using engine As IEngine = EngineFactory.Create(engineOptions)
 
             Using browser As IBrowser = engine.CreateBrowser()
-                Dim loadResult As LoadResult =
+                Dim result As NavigationResult =
                         browser.Navigation.LoadUrl("myscheme://test1").Result
                 ' If the scheme handler was not set, the LoadResult would be 
                 ' LoadResult.Stopped.
                 ' However, with the scheme handler, the web page is loaded and
                 ' the result is LoadResult.Completed.
-                Console.WriteLine($"Load result: {loadResult}")
+                Console.WriteLine($"Load result: result.LoadResult.ToString()}")
                 Console.WriteLine($"HTML: {browser.MainFrame.Html}")
             End Using
         End Using

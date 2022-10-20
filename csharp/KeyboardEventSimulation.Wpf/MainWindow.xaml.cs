@@ -71,9 +71,9 @@ namespace KeyboardEventSimulation.Wpf
             InitializeComponent();
         }
 
-        private async void SimulateInput(Task<LoadResult> e)
+        private async void SimulateInput(Task<NavigationResult> e)
         {
-            if (e.Result == LoadResult.Completed)
+            if (e.Result.LoadResult == LoadResult.Completed)
             {
                 await Task.Delay(2000);
                 IKeyboard keyboard = browser.Keyboard;
