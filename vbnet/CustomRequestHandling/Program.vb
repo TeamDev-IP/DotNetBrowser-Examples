@@ -75,7 +75,7 @@ Friend Class Program
                 ' LoadResult.Stopped.
                 ' However, with the scheme handler, the web page is loaded and
                 ' the result is LoadResult.Completed.
-                Console.WriteLine($"Load result: result.LoadResult.ToString()}")
+                Console.WriteLine($"Load result: {result.LoadResult.ToString()}")
                 Console.WriteLine($"HTML: {browser.MainFrame.Html}")
             End Using
         End Using
