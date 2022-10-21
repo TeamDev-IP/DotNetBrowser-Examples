@@ -69,8 +69,8 @@ Public Class Form1
 
     End Sub
 
-    Private Async Sub SimulateInput(e As Task(Of LoadResult))
-        If e.Result = LoadResult.Completed Then
+    Private Async Sub SimulateInput(e As Task(Of NavigationResult))
+        If e.Result.LoadResult = LoadResult.Completed Then
             Await Task.Delay(2000)
             ' #docfragment "KeyboardEventSimulation.Usage"
             Dim keyboard As IKeyboard = browser.Keyboard

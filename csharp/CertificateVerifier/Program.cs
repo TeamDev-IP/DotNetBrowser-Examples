@@ -45,9 +45,9 @@ namespace CertificateVerifier
                         new Handler<VerifyCertificateParameters,
                             VerifyCertificateResponse>(VerifyCert);
 
-                    LoadResult result = browser.Navigation.LoadUrl("https://google.com").Result;
+                    NavigationResult result = browser.Navigation.LoadUrl("https://google.com").Result;
 
-                    Console.WriteLine($"LoadResult: {result}");
+                    Console.WriteLine($"LoadResult: {result.LoadResult}");
                 }
             }
 

@@ -114,7 +114,7 @@ namespace Dom.DragAndDrop.WinForms
             engine?.Dispose();
         }
 
-        private void OnHtmlLoaded(Task<LoadResult> t)
+        private void OnHtmlLoaded(Task<NavigationResult> t)
         {
             //Configure JavaScript event handlers to invoke .NET callback for files.
             browser.MainFrame.ExecuteJavaScript(@"

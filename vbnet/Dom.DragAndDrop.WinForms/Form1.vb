@@ -104,7 +104,7 @@ Namespace Dom.DragAndDrop.WinForms
 			engine?.Dispose()
 		End Sub
 
-		Private Sub OnHtmlLoaded(ByVal t As Task(Of LoadResult))
+		Private Sub OnHtmlLoaded(ByVal t As Task(Of NavigationResult))
 			'Configure JavaScript event handlers to invoke .NET callback for files.
 			browser.MainFrame.ExecuteJavaScript("
                                         var drop = function (event) {

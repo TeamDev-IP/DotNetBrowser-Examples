@@ -66,8 +66,8 @@ Partial Public Class MainWindow
         InitializeComponent()
     End Sub
 
-    Private Async Sub SimulateInput(e As Task(Of LoadResult))
-        If e.Result = LoadResult.Completed Then
+    Private Async Sub SimulateInput(e As Task(Of NavigationResult))
+        If e.Result.LoadResult = LoadResult.Completed Then
             Await Task.Delay(2000)
             Dim keyboard As IKeyboard = browser.Keyboard
             SimulateKey(keyboard, KeyCode.VkH, "H")

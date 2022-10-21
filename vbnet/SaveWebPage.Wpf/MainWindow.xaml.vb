@@ -59,7 +59,7 @@ Partial Public Class MainWindow
         InitializeComponent()
     End Sub
 
-    Private Sub SaveWebPage(obj As Task(Of LoadResult))
+    Private Sub SaveWebPage(obj As Task(Of NavigationResult))
         Dim filePath As String = Path.GetFullPath("SavedPages\index.html")
         Dim dirPath As String = Path.GetFullPath("SavedPages\resources")
         Directory.CreateDirectory(dirPath)

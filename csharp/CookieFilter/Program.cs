@@ -49,11 +49,11 @@ namespace CookieFilter
                         new Handler<CanSetCookieParameters,
                             CanSetCookieResponse>(CanSetCookie);
 
-                    LoadResult result = browser.Navigation
+                    NavigationResult result = browser.Navigation
                                                .LoadUrl("https://www.google.com")
                                                .Result;
 
-                    Console.WriteLine($"LoadResult: {result}");
+                    Console.WriteLine($"LoadResult: {result.LoadResult}");
                 }
             }
 
