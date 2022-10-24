@@ -139,7 +139,7 @@
       <HintPath>..\packages\DotNetBrowser.WinForms.2.18.0\lib\net45\DotNetBrowser.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
+      <HintPath>..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net.Reflection">
       <HintPath>..\packages\protobuf-net.Reflection.2.3.17\lib\net40\protobuf-net.Reflection.dll</HintPath>
