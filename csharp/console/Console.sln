@@ -91,8 +91,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadPdf", "DownloadPdf\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShadowDom", "ShadowDom\ShadowDom.csproj", "{283899B0-32EE-4319-9DEA-DD629F722B6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck.WinForms", "ContextMenu.SpellCheck.WinForms\ContextMenu.SpellCheck.WinForms.csproj", "{B742AA6C-D02A-4A93-88B6-7FED875A95C5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptBridge.NameConverter", "JavaScriptBridge.NameConverter\JavaScriptBridge.NameConverter.csproj", "{D318DE64-932E-4BD2-A325-FF4AE094C592}"
 EndProject
 Global
@@ -273,10 +271,6 @@ Global
 		{283899B0-32EE-4319-9DEA-DD629F722B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{283899B0-32EE-4319-9DEA-DD629F722B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{283899B0-32EE-4319-9DEA-DD629F722B6F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B742AA6C-D02A-4A93-88B6-7FED875A95C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D318DE64-932E-4BD2-A325-FF4AE094C592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D318DE64-932E-4BD2-A325-FF4AE094C592}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D318DE64-932E-4BD2-A325-FF4AE094C592}.Release|Any CPU.ActiveCfg = Release|Any CPU
