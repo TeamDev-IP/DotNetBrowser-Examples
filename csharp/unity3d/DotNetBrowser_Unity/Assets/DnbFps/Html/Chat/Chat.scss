@@ -1,0 +1,157 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, figure,
+a, abbr, acronym, address, big, cite,
+del, dfn, em, font, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  border: 0;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+$bg-color: #1d252b;
+$blue: #4dffff;
+$beige: #efdab7;
+
+$skew-size: 20px;
+$horizontal-padding: 24px;
+$header-font-size: 14px;
+$font-size: 12px;
+$time-font-size: 11px;
+$message-color: white;
+$name-color: $beige;
+$time-color: rgba(white, .54);
+
+.chat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba($bg-color, .6);
+  clip-path: polygon(0 0, 80% 0, calc(80% + #{$skew-size}) $skew-size, 100% $skew-size, 100% 100%, 0 100%);
+  -webkit-transition: background-color .25s ease-in-out;
+  transition: background-color .25s ease-in-out;
+
+  &:hover {
+    background-color: rgba($bg-color, .8);
+  }
+}
+
+.header {
+  position: relative;
+  padding: 16px $horizontal-padding;
+  margin-bottom: 8px;
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(270deg, rgba($blue, 0) 0%, $blue 50%, rgba($blue, 0) 100%);
+    height: 2px;
+    left: 0;
+  }
+
+  &:before {
+    width: 70%;
+    top: 0;
+  }
+
+  &:after {
+    width: 100%;
+    bottom: 0;
+  }
+
+  h3 {
+    font-size: $header-font-size;
+    color: white;
+    font-weight: 500;
+  }
+}
+
+.chat-items {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden auto;
+  margin-right: 8px;
+
+  .chat-item {
+    padding: 6px $horizontal-padding;
+    font-size: $font-size;
+    font-weight: 500;
+    color: $message-color;
+    line-height: 1.5;
+
+    .name-holder {
+      margin-bottom: 2px;
+
+      .name {
+        color: $name-color;
+      }
+
+      .time {
+        font-size: $time-font-size;
+        color: $time-color;
+        margin-left: 4px;
+      }
+    }
+  }
+}
+
+.reply {
+  flex: 0 0 auto;
+  padding: 8px $horizontal-padding 24px;
+
+  .textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #f2ddba;
+    background-color: rgba($bg-color, .7);
+    color: white;
+
+    &:focus {
+      outline: 0;
+      background-color: $bg-color;
+    }
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0 1px rgba($blue, .2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba($blue, .15);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($blue, .54);
+}

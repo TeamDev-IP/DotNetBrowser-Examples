@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="Style.css" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<!-- Redirection Counter -->
+<script type="text/javascript">
+    var count = 0; // Timer
+    var redirect = "MenuPage.html"; // Target URL
+
+    function countDown() {
+        var timer = document.getElementById("timer"); // Timer ID
+        if (count++ < 7) {
+            timer.innerHTML = timer.innerHTML === "" ? "Coming soon!!!" : ""; // Timer Message
+            setTimeout("countDown()", 250);
+        } else {
+            window.location.href = redirect;
+        }
+    }
+</script>
+
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<h1 class="game_name">My Super Game</h1>
+<br />
+<table>
+    <tr style="height: 50%"></tr>
+    <tr>
+        <td style="width: 50%"></td>
+        <td nowrap>
+            <h1 id="timer" align="center">
+                <script type="text/javascript">
+                    countDown();
+                </script>
+                Coming soon!!!
+            </h1>
+        </td>
+        <td style="width: 50%"></td>
+    </tr>
+    <tr style="height: 50%"></tr>
+</table>
+</body>
+</html>

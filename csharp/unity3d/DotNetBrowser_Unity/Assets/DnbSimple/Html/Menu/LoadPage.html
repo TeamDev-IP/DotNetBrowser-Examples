@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="Style.css" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+<!-- Redirection Counter -->
+<script type="text/javascript">
+    var count = 0; // Timer
+    var redirect = "GamePage.html"; // Target URL
+    var phrase = "I\0\0\0 won't let\0 you go!!!";
+
+    var progress = [
+        '▒▒▒▒▒▒▒▒▒▒ 0%',
+        '█▒▒▒▒▒▒▒▒▒ 10%',
+        '██▒▒▒▒▒▒▒▒ 20%',
+        '███▒▒▒▒▒▒▒ 30%',
+        '████▒▒▒▒▒▒ 40%',
+        '█████▒▒▒▒▒ 50%',
+        '██████▒▒▒▒ 60%',
+        '███████▒▒▒ 70%',
+        '████████▒▒ 80%',
+        '█████████▒ 90%',
+        '██████████ 100%'
+    ];
+
+    function countDown() {
+        var timer = document.getElementById("timer"); // Timer ID
+        if (count++ < 10) {
+            timer.innerHTML = progress[count]; // Timer Message
+            setTimeout("countDown()", 400);
+        } else {
+            window.location.href = redirect;
+        }
+    }
+</script>
+    
+<br/><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<div align="center">
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%"></td>
+            <td>
+                <h2 align="left">Loading...</h2>
+                <h1 id="timer" align="left">
+                    <script type="text/javascript">
+                        countDown();
+                    </script>
+                </h1>
+                <br />
+            </td>
+            <td style="width: 50%"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

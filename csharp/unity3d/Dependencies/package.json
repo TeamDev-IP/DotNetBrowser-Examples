@@ -1,0 +1,7 @@
+{
+    "name": "com.teamdev.dotnetbrowser.deps",
+    "displayName": "DotNetBrowser dependencies",
+    "version": "2.16.1",
+    "unity": "2018.3",
+    "description": "DotNetBrowser dependencies"
+}

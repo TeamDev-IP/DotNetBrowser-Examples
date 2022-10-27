@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="Style.css" />
+    <style>
+        h6 {
+            color: black;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+        }
+    </style>
+    <meta charset="utf-8"/>
+    <title></title>
+</head>
+<body>
+<!-- Redirection Counter -->
+<script type="text/javascript">
+    var count = -1; // Timer
+    var redirect = "MenuPage.html"; // Target URL
+    var phrase = "I\0\0\0 won't let\0 you go!!!";
+
+    function countDown() {
+        var timer = document.getElementById("timer"); // Timer ID
+        if (count++ < 7) {
+            timer.innerHTML = phrase.slice(0, count * 5); // Timer Message
+            setTimeout("countDown()", 700);
+        } else {
+            window.location.href = redirect;
+        }
+    }
+</script>
+
+<div align="center">
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%"></td>
+            <td>
+                <h6 align="left">
+                        ▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄<br>
+                    ____█____▒▒▒▒▒▒▒▒▒▒▒▒__▀▀▄<br>
+                    ___█___▒▒▒▒▒▒________▒▒▒__█<br>
+                    __█______▄██▀▄▄_____▄▄▄___█<br>
+                    _▀▒▄▄▄▒_█▀▀▀▀▄▄█___██▄▄█___█<br>
+                    █▒█▒▄_▀▄▄▄▀________█___▒▒▒▒▒█<br>
+                    █▒█_█▀▄▄_____█▀____▀▄__▄▀▀▀▄▒█<br>
+                    _█▀▄_█▄_█▀▄▄_▀_▀▀_▄▄▀____█__█<br>
+                    __█__▀▄▀█▄▄_█▀▀▀▄▄▄▄▀▀█▀██_█<br>
+                    ___█__██__▀█▄▄▄█▄▄█▄████_█<br>
+                    ____█___▀▀▄_█___█_███████_█<br>
+                    _____▀▄___▀▀▄▄▄█▄█▄█▄█▄▀__█<br>
+                    _______▀▄▄_▒▒▒▒__________█<br>
+                    __________▀▀▄▄_▒▒▒▒▒▒▒▒▒▒_█<br>
+                    ______________▀▄▄▄▄▄_____█<br>
+                </h6>
+                <h1 id="timer" align="center" style="color: black">
+                    <script type="text/javascript">
+                        countDown();
+                    </script>
+                </h1>
+                <br />
+            </td>
+            <td style="width: 50%"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
