@@ -106,3 +106,15 @@ NuGet.Config
 
 #Ignore Visual Studio cache
 *.vs
+
+#Ignore resumable Unity3D files
+/csharp/unity3d/DotNetBrowser_Unity/Assets/Assemblies/
+/csharp/unity3d/DotNetBrowser_Unity/*.csproj
+/csharp/unity3d/DotNetBrowser_Unity/Library/
+/csharp/unity3d/DotNetBrowser_Unity/Logs/
+/csharp/unity3d/DotNetBrowser_Unity/Temp/
+/csharp/unity3d/DotNetBrowser_Unity/.vsconfig
+/csharp/unity3d/DotNetBrowser_Unity/DotNetBrowser_Unity.sln
+/csharp/unity3d/DotNetBrowser_Unity/UserSettings/
+
+!/csharp/unity3d/DotNetBrowser_Unity/[Ll]ibrary/LastSceneManagerSetup.txt
