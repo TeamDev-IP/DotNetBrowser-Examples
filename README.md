@@ -122,7 +122,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Integrate with Selenium Chrome Driver: [C#](csharp/selenium/SeleniumChromeDriver), [VB.NET](vbnet/selenium/SeleniumChromeDriver)
 * VSTO Add-In for Microsoft Outlook: [C#](csharp/vsto/MyOutlookAddIn), [VB.NET](vbnet/vsto/MyOutlookAddIn)
 * COM/ActiveX wrapper: [C#](csharp/activex/ComWrapper), [VB.NET](vbnet/activex/ComWrapper)
-* Integration with Unity3D: [C#](csharp/unity3d)
+* Integrate with Unity3D: [C#](csharp/unity3d)
 
 #### Examples for tutorials
 * Нow to deploy Chromium binaries over network: [C#](csharp/wpf/ChromiumBinariesResolver), [VB.NET](vbnet/wpf/ChromiumBinariesResolver)
