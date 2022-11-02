@@ -79,6 +79,7 @@ namespace Assets.Scripts
 
             EngineOptions engineOptions = new EngineOptions.Builder
             {
+                // LicenseKey = "your_license_key",
                 RenderingMode = RenderingMode.OffScreen
             }.Build();
             Engine = EngineFactory.Create(engineOptions);
