@@ -24,6 +24,16 @@ The main idea consists of four classes located in _DotNetBrowser_Unity\Assets\Dn
 
 You can use `BrowserViewScript` directly if you need to display the web page and perform input handling on a static mesh. But it will look better to bring some action to the scene and a bit of classic browser UI. `CubeScript`, `PlaneScript` and `SphereScript` are `BrowserViewScript` subclasses that add a some additional behavior directly to according primitives. `PlaneScript` has a little bit of classic browser UI. It allows typing a URL and performing back/forward navigation. `SphereScript` and `CubeScript` just add a simple rotation to bring some action to the scene.
 
+You must have a license key to make it work. You can use a _dotnetbrowser.license_ file or you can find a place in the code to set it in `BrowserScript` class. It looks like this:
+```
+  EngineOptions engineOptions = new EngineOptions.Builder
+  {
+      // LicenseKey = "your_license_key",
+      RenderingMode = RenderingMode.OffScreen
+  }.Build();
+```
+More details how to install the license is in the [documentation](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-license).
+
 ### Scene content
 Both examples have their own content. However, _DnbSimple_ has the base content and _DnbFps_ uses it as a basement.
 
