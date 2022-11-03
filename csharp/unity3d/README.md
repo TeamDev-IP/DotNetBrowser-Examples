@@ -14,6 +14,15 @@ Please note that this project uses a dedicated local package to automate pulling
 
 The package will check and download the latest version of **DotNetBrowser** libraries on loading the Unity project. The same check is performed on recompiling the Unity project scripts.
 
+You must have a license key to make it work. You can use a _dotnetbrowser.license_ file or you can find a place in the code to set it in `BrowserScript` class. It looks like [this](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/5d7344fb90ef2b28d468ce0ca1b0197aac7203a9/csharp/unity3d/DotNetBrowser_Unity/Assets/DnbSimple/Scripts/BrowserScript.cs#L82):
+```
+  EngineOptions engineOptions = new EngineOptions.Builder
+  {
+      // LicenseKey = "your_license_key",
+      RenderingMode = RenderingMode.OffScreen
+  }.Build();
+```
+
 ### How it works
 The main idea consists of four classes located in _DotNetBrowser_Unity\Assets\DnbSimple\Scripts\\_:
 
@@ -24,14 +33,6 @@ The main idea consists of four classes located in _DotNetBrowser_Unity\Assets\Dn
 
 You can use `BrowserViewScript` directly if you need to display the web page and perform input handling on a static mesh. But it will look better to bring some action to the scene and a bit of classic browser UI. `CubeScript`, `PlaneScript` and `SphereScript` are `BrowserViewScript` subclasses that add a some additional behavior directly to according primitives. `PlaneScript` has a little bit of classic browser UI. It allows typing a URL and performing back/forward navigation. `SphereScript` and `CubeScript` just add a simple rotation to bring some action to the scene.
 
-You must have a license key to make it work. You can use a _dotnetbrowser.license_ file or you can find a place in the code to set it in `BrowserScript` class. It looks like this:
-```
-  EngineOptions engineOptions = new EngineOptions.Builder
-  {
-      // LicenseKey = "your_license_key",
-      RenderingMode = RenderingMode.OffScreen
-  }.Build();
-```
 More details how to install the license is in the [documentation](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-license).
 
 ### Scene content
