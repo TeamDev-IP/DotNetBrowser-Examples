@@ -101,8 +101,5 @@ UpgradeLog*.htm
 #License files
 *.license
 
-# Ignore custom NuGet configurations
-NuGet.Config
-
 #Ignore Visual Studio cache
 *.vs
