@@ -14,7 +14,7 @@ Please note that this project uses a dedicated local package to automate pulling
 
 The package will check and download the latest version of **DotNetBrowser** libraries on loading the Unity project. The same check is performed on recompiling the Unity project scripts.
 
-You must have a license key to make it work. You can use a _dotnetbrowser.license_ file or you can find a place in the code to set it in `BrowserScript` class. It looks like [this](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/5d7344fb90ef2b28d468ce0ca1b0197aac7203a9/csharp/unity3d/DotNetBrowser_Unity/Assets/DnbSimple/Scripts/BrowserScript.cs#L82):
+You must have a license key to make it work. You can use a [_dotnetbrowser.license_](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-license:~:text=working%20directory.-,Installing%20key%20through%20a%20license%20file,-The%20license%20file) file and put it in the [Editor](https://github.com/TeamDev-IP/DotNetBrowser-Examples/tree/unity-proof-of-concept/csharp/unity3d/DotNetBrowser_Unity/Assets/Editor) directory of your project. It will be copied to the directory with executables after the building automatically. Or, you can set the license through the code by setting it in `EngineOptions` in the `BrowserScript` class. It looks like [this](https://github.com/TeamDev-IP/DotNetBrowser-Examples/blob/5d7344fb90ef2b28d468ce0ca1b0197aac7203a9/csharp/unity3d/DotNetBrowser_Unity/Assets/DnbSimple/Scripts/BrowserScript.cs#L82):
 ```
   EngineOptions engineOptions = new EngineOptions.Builder
   {
