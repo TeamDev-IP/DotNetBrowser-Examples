@@ -1,12 +1,7 @@
 ﻿using Assets.Scripts;
 using DotNetBrowser.Dom;
-using DotNetBrowser.Dom.Events;
-using DotNetBrowser.Js;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DnbEventType = DotNetBrowser.Dom.Events.EventType;
 
 namespace Assets.DnbFps.Scripts
 {
@@ -15,6 +10,16 @@ namespace Assets.DnbFps.Scripts
         public event EventHandler ContinueEvent;
         public event EventHandler NewGameEvent;
         public event EventHandler QuitEvent;
+
+        protected override void Start()
+        {
+#if UNITY_EDITOR
+            DefaultUrl = @"Assets\DnbFps\Html\Menu\MenuPage.html";
+#else
+            DefaultUrl = Path.Combine(Environment.CurrentDirectory, @"DnbFps\Html\Menu\MenuPage.html");
+#endif
+            base.Start();
+        }
 
         protected override void CreateBrowser()
         {
@@ -29,7 +34,7 @@ namespace Assets.DnbFps.Scripts
             IElement btnContinue = document.GetElementById("btnContinue");
             if (btnContinue != null)
             {
-                btnContinue.Events[EventType.Click] += (s, e) => {
+                btnContinue.Events[DnbEventType.Click] += (s, e) => {
                     ContinueEvent?.Invoke(s, e);
                 };
             }
@@ -37,7 +42,7 @@ namespace Assets.DnbFps.Scripts
             IElement btnNewGame = document.GetElementById("btnNewGame");
             if (btnNewGame != null)
             {
-                btnNewGame.Events[EventType.Click] += (s, e) => {
+                btnNewGame.Events[DnbEventType.Click] += (s, e) => {
                     NewGameEvent?.Invoke(s, e);
                 };
             }
@@ -45,7 +50,7 @@ namespace Assets.DnbFps.Scripts
             IElement btnQuit = document.GetElementById("btnQuit");
             if (btnQuit != null)
             {
-                btnQuit.Events[EventType.Click] += (s, e) => {
+                btnQuit.Events[DnbEventType.Click] += (s, e) => {
                     QuitEvent?.Invoke(s, e);
                 };
             }

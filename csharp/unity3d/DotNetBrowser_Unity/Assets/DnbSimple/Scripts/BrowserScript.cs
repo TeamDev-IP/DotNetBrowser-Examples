@@ -114,6 +114,9 @@ namespace Assets.Scripts
             LoggerProvider.Instance.OutputFile = Path.GetFullPath(logFile);
         }
 
-        private void Start() => Navigate(DefaultUrl);
+        protected virtual void Start()
+        {
+            Navigate(DefaultUrl);
+        }
     }
 }
