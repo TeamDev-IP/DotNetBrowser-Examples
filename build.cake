@@ -1,8 +1,11 @@
+#addin "nuget:?package=CommandLineParser&version=2.4.3"
+#addin "nuget:?package=Cake.FileHelpers&version=4.0.1"
+
 #tool "nuget:?package=NuGet.CommandLine&version=6.3.1"
 
 var target = Argument("target", "Build-Solutions");
 var configuration = Argument("configuration", "Debug");
-var lang = Argument("lang", "vbnet");
+var lang = Argument("lang", "csharp");
 FilePathCollection slnFiles = new FilePathCollection();
 
 //////////////////////////////////////////////////////////////////////
