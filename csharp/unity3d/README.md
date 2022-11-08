@@ -24,7 +24,7 @@ You must have a license key to make it work. You can use a [_dotnetbrowser.licen
 ```
 
 ### How it works
-The main idea consists of four classes located in _DotNetBrowser_Unity\Assets\DnbSimple\Scripts\\_:
+The main idea consists of four classes located in [the Scripts folder](DotNetBrowser_Unity/Assets/DnbSimple/Scripts/):
 
 1. `BrowserScript` - encapsulates the logic to control the browser lifecycle. It creates `IEngine` and `IBrowser` and disposes of them at the end of the work. Also provides the picture of the loaded web page as an instance of `Bitmap`.
 2. `BrowserViewScript` - this script requires a `BrowserScript` instance to work. Updates texture of geometry primitive with `BrowserScript.Bitmap` pixel data. Does forwarding of input to the browser and focus management. Several `BrowserViewScript` can use the same `BrowserScript` to simultaneously show the same web page from the same browser on their attached primitives with separated input forwarding.
