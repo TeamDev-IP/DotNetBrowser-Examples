@@ -16,7 +16,8 @@ namespace Assets.DnbFps.Scripts
 #if UNITY_EDITOR
             DefaultUrl = @"Assets\DnbFps\Html\Menu\MenuPage.html";
 #else
-            DefaultUrl = Path.Combine(Environment.CurrentDirectory, @"DnbFps\Html\Menu\MenuPage.html");
+            DefaultUrl = System.IO.Path.Combine(Environment.CurrentDirectory,
+                                                @"DnbFps\Html\Menu\MenuPage.html");
 #endif
             base.Start();
         }

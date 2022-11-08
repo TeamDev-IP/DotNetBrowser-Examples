@@ -118,3 +118,4 @@ NuGet.Config
 /csharp/unity3d/DotNetBrowser_Unity/UserSettings/
 
 !/csharp/unity3d/DotNetBrowser_Unity/[Ll]ibrary/LastSceneManagerSetup.txt
+/csharp/unity3d/DotNetBrowser_Unity/Assets/Editor/dotnetbrowser.license.meta
