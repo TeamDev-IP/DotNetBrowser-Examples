@@ -5,7 +5,7 @@
 This example project has two scenes that demonstrate how to use DotNetBrowser with Unity3D to show the browser in the 3D scene on surfaces of geometry primitives.
 
 1. "DnbSimple" folder contains content for "DotNetBrowserScene.unity" scene, where you can see how to use a browser on base geometry primitives in the simplest way.
-2. "DnbFps" folder contains content for the modified Unity "[Fps Microgame](https://learn.unity.com/project/fps-template)" project. It is a base for the first-person shooter where DotNetBrowser renders the menu and concept of the game chat.
+2. "DnbFps" folder contains content for the modified [Unity FPS Microgame](https://learn.unity.com/project/fps-template) project. It is a base for the first-person shooter where DotNetBrowser renders the menu and concept of the game chat.
 ### How to run
 
 The folder of the Unity3D project is **DotNetBrowser_Unity**. It should be selected in [**Unity Hub**](https://unity.com/unity-hub) as [**Unity3D**](https://unity3d.com) project to open.
