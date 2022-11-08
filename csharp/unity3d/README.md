@@ -22,6 +22,7 @@ You must have a license key to make it work. You can use a [_dotnetbrowser.licen
       RenderingMode = RenderingMode.OffScreen
   }.Build();
 ```
+More details how to install the license is in the [documentation](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-license).
 
 ### How it works
 The main idea consists of four classes located in [the Scripts folder](DotNetBrowser_Unity/Assets/DnbSimple/Scripts/):
@@ -32,8 +33,6 @@ The main idea consists of four classes located in [the Scripts folder](DotNetBro
 4. `KeyboardHelper` - contains logic that is used to redirect keyboard input.
 
 You can use `BrowserViewScript` directly if you need to display the web page and perform input handling on a static mesh. But it will look better to bring some action to the scene and a bit of classic browser UI. `CubeScript`, `PlaneScript` and `SphereScript` are `BrowserViewScript` subclasses that add a some additional behavior directly to according primitives. `PlaneScript` has a little bit of classic browser UI. It allows typing a URL and performing back/forward navigation. `SphereScript` and `CubeScript` just add a simple rotation to bring some action to the scene.
-
-More details how to install the license is in the [documentation](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-license).
 
 ### Scene content
 Both examples have their own content. However, _DnbSimple_ has the base content and _DnbFps_ uses it as a basement.
