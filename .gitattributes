@@ -26,3 +26,8 @@
 *.filters text eol=crlf
 
 *.patch eol=lf
+
+*.doc diff=word
+*.xsl diff=excel
+*.xlsx diff=zip
+*.docx diff=zip

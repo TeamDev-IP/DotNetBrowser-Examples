@@ -1,0 +1,41 @@
+body {
+    /*background-image: url('MenuBackground.jpg');*/
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+a {
+    text-decoration: none;
+    border: 2px solid #dedede;
+    background-color: rgba(50, 200, 50, .2);
+    color: black;
+    border-radius: 30px;
+    border-color: rgba(15, 200, 150, .2);
+    padding: 5px;
+    user-select: none;
+}
+
+a:hover {
+    color: red
+}
+
+a.disabled {
+    color: rgba(0,0,0,.5);
+    user-select: none;
+}
+
+a.disabled:hover {
+    color: rgba(0,0,0,.5);
+}
+
+h2 {
+    cursor: pointer;
+    background: transparent;
+    text-align: center;
+}
+
+.game_name {
+    text-align: center;
+    color: rgb(60, 0, 60);
+}
