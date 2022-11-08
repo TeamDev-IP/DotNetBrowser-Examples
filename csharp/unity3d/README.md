@@ -64,7 +64,7 @@ This field is set to the empty scene object that has attached `BrowserScript`. I
 Also, you can see an **EventSystem** and **Canvas** with UI elements in the scene tree. The UI elements are bound to `PlaneScript`(see the `PlaneScript` component picture above). And there are default **Main Camera** and **Directional Light** objects for the normal rendering process.
 
 #### DnbFps and MainScene
-DnbFps is a Unity Fps Microgame with an implemented custom HTML menu and a design concept of the game chat. It has subclasses `MenuBrowserScript` and `MenuViewScript` that extend `BrowserViewScript` and allow it to affect the game from the HTML page of the menu.
+DnbFps is a [Unity FPS Microgame](https://learn.unity.com/project/fps-template) with an implemented custom HTML menu and a design concept of the game chat. It has subclasses `MenuBrowserScript` and `MenuViewScript` that extend `BrowserViewScript` and allow it to affect the game from the HTML page of the menu.
 
 Necessary scene objects are geometry primitives, UI elements, and empty objects for `BrowserScript` and `MenuBrowserScript`:
 ![image](https://user-images.githubusercontent.com/85240195/196393367-821b32a7-063c-48d6-9e1c-cf815471e4fd.png)
