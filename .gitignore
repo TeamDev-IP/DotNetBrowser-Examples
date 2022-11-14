@@ -18,6 +18,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+[Tt]ools/
 
 # Roslyn cache directories
 *.ide/
@@ -100,9 +101,6 @@ UpgradeLog*.htm
 
 #License files
 *.license
-
-# Ignore custom NuGet configurations
-NuGet.Config
 
 #Ignore Visual Studio cache
 *.vs
