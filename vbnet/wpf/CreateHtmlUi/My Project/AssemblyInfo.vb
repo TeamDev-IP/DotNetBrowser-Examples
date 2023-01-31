@@ -10,7 +10,7 @@ Imports System.Windows
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("CreateHtmlUi.Wpf")>
-<Assembly: AssemblyCopyright("Copyright ©  2022, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright ©  2023, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
