@@ -1,6 +1,6 @@
 ﻿#region Copyright
 
-// Copyright © 2022, TeamDev. All rights reserved.
+// Copyright © 2023, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,7 +32,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("ChromiumBinariesResolver.Wpf")]
-[assembly: AssemblyCopyright("Copyright © 2022, TeamDev. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2023, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

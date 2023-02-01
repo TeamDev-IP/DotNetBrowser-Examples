@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("KeyboardEventSimulation.WinForms")>
-<Assembly: AssemblyCopyright("Copyright ©  2022, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright ©  2023, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
