@@ -84,7 +84,7 @@ namespace SeleniumChromeDriver
         {
             await Task.Run(() =>
             {
-                IWebElement evaluateButton = webDriver.FindElement(By.XPath("//*[@id='header']/div[1]/div/ul/li[5]/a"));
+                IWebElement evaluateButton = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[1]/div/div/a"));
                 evaluateButton.Click();
 
                 IWebElement nameTextbox = webDriver.FindElement(By.Name("name"));
