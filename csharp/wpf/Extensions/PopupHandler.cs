@@ -44,6 +44,8 @@ namespace Extensions.Wpf
                 window.Width = 254;
                 window.Height = 480;
 
+                window.Closed += new EventHandler((sender, e) => { parameters.PopupBrowser.Dispose(); });
+
                 window.Content = browserView;
                 window.Show();
             }));

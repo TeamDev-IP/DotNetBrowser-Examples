@@ -27,6 +27,7 @@ using DotNetBrowser.Extensions.Handlers;
 using DotNetBrowser.Extensions;
 using DotNetBrowser.Handlers;
 using System.ComponentModel;
+using System;
 
 namespace Extensions.Wpf
 {
@@ -80,7 +81,7 @@ namespace Extensions.Wpf
             extension?.GetAction(browser).Click();
         }
 
-        private void Window_Closing(object sender, CancelEventArgs e)
+        private void Window_Closed(object sender, EventArgs e)
         {
             engine.Dispose();
         }
