@@ -63,26 +63,25 @@ namespace Extensions.Wpf
 
         private void OnInstallExtension(object sender, RoutedEventArgs e)
         {
-            var extensions = engine.Profiles.Default.Extensions;
-            extensions.ValidatePermissionsHandler =
-                new Handler<ValidatePermissionsParameters, ValidatePermissionsResponse>(
-                    p => ValidatePermissionsResponse.Grant()
-               );
-            extension = extensions.Install(ExtensionUrl).Result;
-            browser.OpenExtensionActionPopupHandler = new PopupHandler(WebView);
+            if (extension == null)
+            {
+                var extensions = engine.Profiles.Default.Extensions;
+                extensions.ValidatePermissionsHandler =
+                    new Handler<ValidatePermissionsParameters, ValidatePermissionsResponse>(
+                        p => ValidatePermissionsResponse.Grant()
+                   );
+                extension = extensions.Install(ExtensionUrl).Result;
+                browser.OpenExtensionActionPopupHandler = new PopupHandler(WebView);
+            }
         }
 
         private void OnLaunchExtension(object sender, RoutedEventArgs e)
         {
-            if (extension != null)
-            {
-                extension.GetAction(browser).Click();
-            }
+            extension?.GetAction(browser).Click();
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            browser.Dispose();
             engine.Dispose();
         }
     }
