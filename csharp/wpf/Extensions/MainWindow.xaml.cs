@@ -62,7 +62,7 @@ namespace Extensions.Wpf
             browser.Navigation.LoadUrl("https://teamdev.com");
         }
 
-        private async void OnInstallExtension(object sender, RoutedEventArgs e)
+        private void OnInstallExtension(object sender, RoutedEventArgs e)
         {
             if (extension == null)
             {
@@ -71,8 +71,7 @@ namespace Extensions.Wpf
                     new Handler<ValidatePermissionsParameters, ValidatePermissionsResponse>(
                         p => ValidatePermissionsResponse.Grant()
                    );
-                extension = await extensions.Install(ExtensionUrl);
-                browser.OpenExtensionActionPopupHandler = new PopupHandler(WebView);
+                extension = extensions.Install(ExtensionUrl).Result;
             }
         }
 
