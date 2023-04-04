@@ -26,7 +26,6 @@ using DotNetBrowser.Engine;
 using DotNetBrowser.Extensions.Handlers;
 using DotNetBrowser.Extensions;
 using DotNetBrowser.Handlers;
-using System.ComponentModel;
 using System;
 
 namespace Extensions.Wpf
