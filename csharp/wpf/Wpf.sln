@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups", "Popups\Popups.Wpf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck", "ContextMenu.SpellCheck\ContextMenu.SpellCheck.Wpf.csproj", "{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions", "Extensions\Extensions.Wpf.csproj", "{03842BBD-7657-46F2-9438-CF2FEFAA7187}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
