@@ -77,6 +77,26 @@ namespace Extensions.Wpf
         private void OnLaunchExtension(object sender, RoutedEventArgs e)
         {
             extension?.GetAction(browser).Click();
+
+            // By default, DotNetBrowser will open a new window with the extension's
+            // popup when the action is "clicked".
+            //
+            // It's easy to override by implementing your own event handler, as shown below.
+            // For example, you can use it to automatically configure the extension and
+            // never show the pop-up end-users.
+            //
+            // browser.OpenExtensionActionPopupHandler =
+            //    new Handler<OpenExtensionActionPopupParameters, OpenExtensionActionPopupResponse>(p =>
+            //    {
+            //        p.PopupBrowser.Navigation.FrameLoadFinished += (s, e) =>
+            //        {
+            //            if (e.Frame.IsMain)
+            //            {
+            //                e.Frame.ExecuteJavaScript("document.querySelector('input').click()");
+            //            }
+            //        };
+            //        return OpenExtensionActionPopupResponse.Open();
+            //    });
         }
 
         private void Window_Closed(object sender, EventArgs e)
