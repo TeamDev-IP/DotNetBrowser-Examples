@@ -1,0 +1,21 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
+    x:Class="Extensions.Wpf.MainWindow"
+    mc:Ignorable="d"
+    Title="Chrome extension" Height="480" Width="800" Closed="Window_Closed">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Height="40" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Margin="5" Padding="5" Click="OnInstallExtension">Install</Button>
+            <Button Margin="5" Padding="5" Click="OnLaunchExtension">Launch</Button>
+        </StackPanel>
+        <wpf:BrowserView Grid.Row="1" Name="WebView" />
+    </Grid>
+</Window>
