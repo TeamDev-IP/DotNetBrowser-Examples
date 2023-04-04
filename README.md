@@ -21,8 +21,8 @@ To learn more about the library please visit the [product page](https://www.team
 * Create two separate Chromium engines in different AppDomains: [C#](csharp/console/SeparateEngines.AppDomains/Program.cs), [VB.NET](vbnet/console/SeparateEngines.AppDomains/Program.vb)
 * Create separate Chromium profiles: [C#](csharp/winforms/Profiles), [VB.NET](vbnet/winforms/Profiles)
 * Load URL and listen to the navigation events: [C#](csharp/console/LoadEvents/Program.cs), [VB.NET](vbnet/console/LoadEvents/Program.vb)
-* Embed into Windows Forms application: [C#](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/csharp/Embedding.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/vbnet/Embedding.WinForms) 
-* Embed into WPF application: [C#](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/csharp/Embedding.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/vbnet/Embedding.Wpf) 
+* Embed into Windows Forms application: [C#](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/tree/main/csharp/Embedding.WinForms), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/tree/main/vbnet/Embedding.WinForms) 
+* Embed into WPF application: [C#](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/tree/main/csharp/Embedding.Wpf), [VB.NET](https://github.com/TeamDev-IP/DotNetBrowser-QuickStart/tree/main/vbnet/Embedding.Wpf)
 
 #### Web page content
 
