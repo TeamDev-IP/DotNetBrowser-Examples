@@ -6,7 +6,7 @@
     xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
     x:Class="Extensions.Wpf.MainWindow"
     mc:Ignorable="d"
-    Title="MainWindow" Height="480" Width="800" Closed="Window_Closed">
+    Title="Chrome extension" Height="480" Width="800" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
