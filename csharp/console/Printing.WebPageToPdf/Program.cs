@@ -37,7 +37,7 @@ namespace Printing.WebPageToPdf
     /// </summary>
     internal class Program
     {
-        private static async Task Main()
+        public static async Task Main()
         {
             var engineOptions = new EngineOptions.Builder
             {
