@@ -1,6 +1,6 @@
 ## How to generate PDF in C# with DotNetBrowser
 
-The original tutorial: [](https://teamdev.com/dotnetbrowser/blog/how-to-generate-pdf-in-c-sharp)
+The original tutorial: [https://teamdev.com/dotnetbrowser/blog/how-to-generate-pdf-in-c-sharp](https://teamdev.com/dotnetbrowser/blog/how-to-generate-pdf-in-c-sharp)
 
 This is a simple console application that generates a PDF document from the HTML template.
 
@@ -20,7 +20,7 @@ To run the project:
     dotnet run
     ```
 
-    The PDF file will appear in this directory.
+    The generated PDF file will appear in this directory.
 
 ## Related reading
 
