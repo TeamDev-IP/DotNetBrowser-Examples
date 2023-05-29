@@ -37,6 +37,7 @@ namespace Printing.WebPageToPdf
     /// </summary>
     internal class Program
     {
+        // #docfragment "PrintToPdf"
         public static async Task Main()
         {
             var engineOptions = new EngineOptions.Builder
@@ -49,7 +50,9 @@ namespace Printing.WebPageToPdf
             using var browser = engine.CreateBrowser();
 
             await browser.Navigation.LoadUrl(Path.GetFullPath("template.html"));
+            // #enddocfragment "PrintToPdf"
             FillInData(browser);
+            // #docfragment "PrintToPdf"
 
             var whenPrintCompleted = ConfigurePrinting(browser);
             browser.MainFrame.Print();
@@ -59,30 +62,6 @@ namespace Printing.WebPageToPdf
             Console.ReadKey();
         }
 
-        private static void FillInData(IBrowser browser)
-        {
-            var accountNumber = "123-4567";
-            var name = "Dr. Emmett Brown";
-            var address = "1640 Riverside Drive";
-            var reportingPeriod = "Oct 25 — November 25, 1985";
-
-            // This JavaScript function is embedded into the template HTML page.
-            // Since this is a regular web page, you can use any JavaScript library,
-            // WebGL, SVG, and other technologies available in Chromium.
-            browser.MainFrame.ExecuteJavaScript(
-                $"setBillInfo('{accountNumber}', '{name}', '{address}', '{reportingPeriod}')"
-            );
-
-            var dayCost = 500;
-            var nightCost = 312;
-            var dayUsage = 1.212;
-            var nightUsage = 88;
-
-            browser.MainFrame.ExecuteJavaScript(
-                $"addCharge('Day Tariff', {dayUsage}, {dayCost});" +
-                $"addCharge('Night Tariff', {nightUsage}, {nightCost});"
-            );
-        }
 
         private static TaskCompletionSource<string> ConfigurePrinting(IBrowser browser)
         {
@@ -115,6 +94,33 @@ namespace Printing.WebPageToPdf
                     return PrintHtmlContentResponse.Print(printer);
                 });
             return whenCompleted;
+        }
+        // #enddocfragment "PrintToPdf"
+
+        private static void FillInData(IBrowser browser)
+        {
+            var accountNumber = "123-4567";
+            var name = "Dr. Emmett Brown";
+            var address = "1640 Riverside Drive";
+            var reportingPeriod = "Oct 25 — November 25, 1985";
+
+            // This JavaScript function is embedded into the template HTML page.
+            // Since this is a regular web page, you can use any JavaScript library,
+            // WebGL, SVG, and other technologies available in Chromium.
+            browser.MainFrame.ExecuteJavaScript(
+                $"setBillInfo('{accountNumber}', '{name}', '{address}', '{reportingPeriod}')"
+            );
+
+            // Arbitrary numbers.
+            var dayCost = 500;
+            var nightCost = 312;
+            var dayUsage = 1.212;
+            var nightUsage = 88;
+
+            browser.MainFrame.ExecuteJavaScript(
+                $"addCharge('Day Tariff', {dayUsage}, {dayCost});" +
+                $"addCharge('Night Tariff', {nightUsage}, {nightCost});"
+            );
         }
     }
 }
