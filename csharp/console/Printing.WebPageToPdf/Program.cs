@@ -21,18 +21,14 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Engine;
-using DotNetBrowser.Geometry;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Print;
 using DotNetBrowser.Print.Handlers;
-using DotNetBrowser.Print.Settings;
 
 namespace Printing.WebPageToPdf
 {
@@ -41,92 +37,84 @@ namespace Printing.WebPageToPdf
     /// </summary>
     internal class Program
     {
-        public static void Main()
+        private static async Task Main()
         {
-            string url =
-                "https://dotnetbrowser-support.teamdev.com/docs/guides/gs/printing.html";
-            string pdfFilePath = Path.GetFullPath("result.pdf");
-
-            EngineOptions engineOptions = new EngineOptions.Builder
+            var engineOptions = new EngineOptions.Builder
             {
                 RenderingMode = RenderingMode.OffScreen,
-                GpuDisabled = true
+                LicenseKey = "your license key"
             }.Build();
 
-            using (IEngine engine = EngineFactory.Create(engineOptions))
-            {
-                using (IBrowser browser = engine.CreateBrowser())
-                {
-                    // #docfragment "PrintToPdf"
-                    // Resize browser to the required dimension.
-                    browser.Size = new Size(1024, 768);
+            using var engine = EngineFactory.Create(engineOptions);
+            using var browser = engine.CreateBrowser();
 
-                    // Load the required web page and wait until it is loaded completely.
-                    Console.WriteLine($"Loading {url}");
-                    browser.Navigation.LoadUrl(url).Wait();
+            await browser.Navigation.LoadUrl(Path.GetFullPath("template.html"));
+            FillInData(browser);
 
-
-                    // Configure print handlers.
-                    browser.RequestPrintHandler =
-                        new Handler<RequestPrintParameters, RequestPrintResponse
-                        >(p => RequestPrintResponse.Print());
-
-                    TaskCompletionSource<string> printCompletedTcs =
-                        new TaskCompletionSource<string>();
-                    browser.PrintHtmlContentHandler
-                        = new Handler<PrintHtmlContentParameters, PrintHtmlContentResponse
-                        >(p =>
-                        {
-                            try
-                            {
-                                // Get the print job for the built-in PDF printer.
-                                PdfPrinter<PdfPrinter.IHtmlSettings> pdfPrinter =
-                                    p.Printers.Pdf;
-                                IPrintJob<PdfPrinter.IHtmlSettings> printJob =
-                                    pdfPrinter.PrintJob;
-
-                                // Apply the necessary print settings.
-                                printJob.Settings.Apply(s =>
-                                {
-                                    IReadOnlyCollection<PaperSize> paperSizes =
-                                        pdfPrinter.Capabilities.PaperSizes;
-                                    s.PaperSize =
-                                        paperSizes.First(size => size.Name.Contains("A4"));
-
-                                    s.PrintingHeaderFooterEnabled = true;
-                                    // Specify the path to save the result.
-                                    s.PdfFilePath = pdfFilePath;
-                                });
-
-                                string browserUrl = p.Browser.Url;
-                                printJob.PrintCompleted += (sender, args) =>
-                                {
-                                    // Set the task result when the printing is completed.
-                                    printCompletedTcs.TrySetResult(browserUrl);
-                                };
-
-                                // Tell Chromium to use the built-in PDF printer
-                                // for printing.
-                                return PrintHtmlContentResponse.Print(pdfPrinter);
-                            }
-                            catch (Exception e)
-                            {
-                                printCompletedTcs.TrySetException(e);
-                                throw;
-                            }
-                        });
-
-                    // Initiate printing and wait until it is completed.
-                    Console.WriteLine("URL loaded. Initiate printing");
-                    browser.MainFrame.Print();
-                    string printedUrl = printCompletedTcs.Task.Result;
-                    Console.WriteLine($"Printing completed for the URL: {printedUrl}");
-                    // #enddocfragment "PrintToPdf"
-                }
-            }
-
+            var whenPrintCompleted = ConfigurePrinting(browser);
+            browser.MainFrame.Print();
+            var resultPath = await whenPrintCompleted.Task;
+            Console.WriteLine($"PDF is generated: {resultPath}");
             Console.WriteLine("Press any key to terminate...");
             Console.ReadKey();
+        }
+
+        private static void FillInData(IBrowser browser)
+        {
+            var accountNumber = "123-4567";
+            var name = "Dr. Emmett Brown";
+            var address = "1640 Riverside Drive";
+            var reportingPeriod = "Oct 25 — November 25, 1985";
+
+            // This JavaScript function is embedded into the template HTML page.
+            // Since this is a regular web page, you can use any JavaScript library,
+            // WebGL, SVG, and other technologies available in Chromium.
+            browser.MainFrame.ExecuteJavaScript(
+                $"setBillInfo('{accountNumber}', '{name}', '{address}', '{reportingPeriod}')"
+            );
+
+            var dayCost = 500;
+            var nightCost = 312;
+            var dayUsage = 1.212;
+            var nightUsage = 88;
+
+            browser.MainFrame.ExecuteJavaScript(
+                $"addCharge('Day Tariff', {dayUsage}, {dayCost});" +
+                $"addCharge('Night Tariff', {nightUsage}, {nightCost});"
+            );
+        }
+
+        private static TaskCompletionSource<string> ConfigurePrinting(IBrowser browser)
+        {
+            // Tell the browser to print automatically instead of showing the print preview.
+            browser.RequestPrintHandler = new Handler<RequestPrintParameters, RequestPrintResponse>(
+               p => RequestPrintResponse.Print()
+            );
+
+            TaskCompletionSource<string> whenCompleted = new();
+            // When the browser prints an HTML page.
+            browser.PrintHtmlContentHandler = new Handler<PrintHtmlContentParameters, PrintHtmlContentResponse>(
+                parameters =>
+                {
+                    // Use the PDF printer.
+                    var printer = parameters.Printers.Pdf;
+                    var job = printer.PrintJob;
+
+                    // Generate a random name for PDF file.
+                    var guid = Guid.NewGuid();
+                    var path = Path.GetFullPath($"{guid}.pdf");
+                    job.Settings.PdfFilePath = path;
+
+                    // Remove white areas on the sides.
+                    job.Settings.PageMargins = PageMargins.None;
+                    // Remove default browser headers and footers.
+                    job.Settings.PrintingHeaderFooterEnabled = false;
+                    job.PrintCompleted += (_, _) => whenCompleted.SetResult(path);
+
+                    // Proceed with printing using the PDF printer.
+                    return PrintHtmlContentResponse.Print(printer);
+                });
+            return whenCompleted;
         }
     }
 }
