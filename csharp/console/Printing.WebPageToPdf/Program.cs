@@ -71,7 +71,7 @@ namespace Printing.WebPageToPdf
             );
 
             TaskCompletionSource<string> whenCompleted = new();
-            // When the browser prints an HTML page.
+            // Configure how the browser prints an HTML page.
             browser.PrintHtmlContentHandler = new Handler<PrintHtmlContentParameters, PrintHtmlContentResponse>(
                 parameters =>
                 {
