@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DotNetBrowser PDF preview</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            color: #262626;
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrapper {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .main {
+            flex-grow: 1;
+        }
+
+        .footer {
+            flex-shrink: 0;
+        }
+
+            .footer .line {
+                background-color: #FFA000;
+                width: 100%;
+                height: 24px;
+            }
+
+        .header {
+            position: relative;
+            height: 200px;
+        }
+
+            .header svg {
+                position: absolute;
+            }
+
+            .header .logo {
+                position: absolute;
+                color: #fff;
+                font-size: 40px;
+                font-weight: 300;
+                margin-left: 40px;
+            }
+
+        .container {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        a {
+            color: #1d5de0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .left-aligned {
+            text-align: left;
+        }
+
+        .right-aligned {
+            text-align: right;
+        }
+
+        .address-row {
+            display: flex;
+            gap: 60px;
+        }
+
+            .address-row .left-col,
+            .address-row .right-col {
+                flex: 1 0;
+            }
+
+            .address-row table tr td {
+                border-bottom: 1px solid #DBDBDB;
+                padding: 8px 0;
+            }
+
+                .address-row table tr td:first-child {
+                    width: 180px;
+                }
+
+            .address-row .right-col table tr td:first-child {
+                width: 116px;
+            }
+
+        .main-table-row {
+            margin-top: 60px;
+        }
+
+            .main-table-row table tr th {
+                background-color: #FFA000;
+                color: white;
+                font-size: 14px;
+                padding: 12px 16px;
+            }
+
+            .main-table-row table tr td {
+                font-size: 14px;
+                padding: 12px 16px;
+                border-bottom: 1px solid #DBDBDB;
+            }
+
+            .main-table-row .table-total {
+                text-align: right;
+                font-weight: 700;
+                padding-right: 16px;
+            }
+
+        .bill-row {
+            display: flex;
+            gap: 60px;
+            margin: 40px 0 80px;
+        }
+
+            .bill-row .info {
+                flex: 1 0;
+            }
+
+                .bill-row .info h3 {
+                    margin-top: 0;
+                    color: #999;
+                }
+
+                .bill-row .info ol {
+                    padding-left: 16px;
+                    color: #666;
+                }
+
+                    .bill-row .info ol li {
+                        margin-bottom: 8px;
+                    }
+
+        .bill-summary {
+            background-color: #fafafa;
+            padding: 16px;
+            min-width: 380px;
+            height: fit-content;
+        }
+
+            .bill-summary table tr td {
+                padding: 12px 0;
+                border-bottom: 1px dotted #cccccc;
+            }
+
+            .bill-summary table tr:last-child td {
+                border-bottom: none;
+            }
+
+            .bill-summary table tr td.total {
+                font-size: 20px;
+            }
+    </style>
+    <script type="application/javascript">
+        window.total = 0;
+
+        function setBillInfo(accountNumber, name, address, reportingPeriod) {
+            document.querySelector("#account-number").innerHTML = accountNumber;
+            document.querySelector("#customer-name").innerHTML = name;
+            document.querySelector("#customer-address").innerHTML = address;
+            document.querySelector("#reporting-period").innerHTML = reportingPeriod;
+        }
+
+        function addCharge(tariff, usage, cost) {
+            const table = document.querySelector("#charges-table");
+            const newRow = document.createElement("tr");
+            const amount = Math.round(cost * usage);
+            window.total += amount;
+            newRow.innerHTML = `
+                <td>${tariff}</td>
+                <td class="right-aligned">${usage}</td>
+                <td class="right-aligned">${cost}</td>
+                <td class="right-aligned">$${amount}</td>
+            `;
+            table.appendChild(newRow);
+
+            document.querySelectorAll(".total-amount").forEach((element) => {
+                element.innerHTML = window.total;
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main">
+            <div class="header">
+                <svg width="1000px" height="199.5px" viewBox="0 0 1000 199.5" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Group">
+                            <path d="M0,0 L0,199.5 C64.7572371,150.183623 255.257237,131.850289 571.5,144.5 C779.833333,152.833333 922.666667,104.666667 1000,0 L0,0 Z"
+                                  id="Path-8" fill="#FFA000"></path>
+                            <path d="M0,177 C96.3333333,139.333333 248.333333,120.5 456,120.5 C663.666667,120.5 791.5,80.3333333 839.5,0 L0,0 L0,177 Z"
+                                  id="Path-7" fill="#0E0F29"></path>
+                        </g>
+                    </g>
+                </svg>
+                <div class="logo">
+                    <p>💡 Electricity <b>Bill</b></p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="address-row">
+                    <div class="left-col">
+                        <table>
+                            <tr>
+                                <td>Account number:</td>
+                                <td id="account-number">1234 2123 13232 12322</td>
+                            </tr>
+                            <tr>
+                                <td>Customer name:</td>
+                                <td id="customer-name">Joe Doe</td>
+                            </tr>
+                            <tr>
+                                <td>Customer address:</td>
+                                <td id="customer-address">123 Your Street, Your Town</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="right-col">
+                        <table>
+                            <tr>
+                                <td>Company:</td>
+                                <td>Hill Valley GridCo</td>
+                            </tr>
+                            <tr>
+                                <td>Phone:</td>
+                                <td>(111)&nbsp;123&#8209;5678</td>
+                            </tr>
+                            <tr>
+                                <td>Email:</td>
+                                <td><a href="mailto:info@hillvalley.grid">info@hillvalley.grid</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="main-table-row">
+                    <h2>Electricity account summary (<span id="reporting-period">Apr 3 — Apr 28, 2023</span>)</h2>
+                    <table id="charges-table">
+                        <tr>
+                            <th class="left-aligned">Tariff</th>
+                            <th class="right-aligned">Usage, GWh</th>
+                            <th class="right-aligned">Price USD/GWh</th>
+                            <th class="right-aligned">Amount, USD</th>
+                        </tr>
+                    </table>
+                    <div class="table-total">
+                        <p><span>$</span><span class="total-amount">9000</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="bill-row">
+                    <div class="info">
+                        <h3>Reminders</h3>
+                        <ol>
+                            <li>Present your Statement of Account when paying your utility&nbsp;bill.</li>
+                            <li>
+                                Without this document, you will be required to provide the&nbsp;account number, account
+                                name, and amount to&nbsp;be&nbsp;paid.
+                            </li>
+                            <li>
+                                Please check your online accounts after payment in order to&nbsp;make sure that the&nbsp;payment
+                                is pushed through.
+                            </li>
+                            <li>
+                                If you have any questions, please contact us at (111)&nbsp;123&#8209;5467 or email us at <a href="mailto:info@hillvalley.grid">info@hillvalley.grid</a>.
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="bill-summary">
+                        <table>
+                            <tr>
+                                <td>Due date:</td>
+                                <td class="right-aligned">December 25, 1985</td>
+                            </tr>
+                            <tr>
+                                <td>Total amount:</td>
+                                <td class="right-aligned total"><b>$<span class="total-amount">9100</span></b></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="line"></div>
+        </div>
+    </div>
+</body>
+</html>
