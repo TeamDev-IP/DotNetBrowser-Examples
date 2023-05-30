@@ -62,7 +62,6 @@ namespace Printing.WebPageToPdf
             Console.ReadKey();
         }
 
-
         private static TaskCompletionSource<string> ConfigurePrinting(IBrowser browser)
         {
             // Tell the browser to print automatically instead of showing the print preview.
