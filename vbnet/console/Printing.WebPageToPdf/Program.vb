@@ -24,89 +24,93 @@ Imports System.IO
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers
 Imports DotNetBrowser.Engine
-Imports DotNetBrowser.Geometry
 Imports DotNetBrowser.Handlers
 Imports DotNetBrowser.Print
 Imports DotNetBrowser.Print.Handlers
-Imports DotNetBrowser.Print.Settings
 
 ''' <summary>
 '''     This example demonstrates how to load a web page and print it to PDF.
 ''' </summary>
 Friend Class Program
+    ' #docfragment "PrintToPdf"
     Public Shared Sub Main()
-        Dim url = "https://dotnetbrowser-support.teamdev.com/docs/guides/gs/printing.html"
-        Dim pdfFilePath As String = Path.GetFullPath("result.pdf")
-
-        Dim engineOptions As EngineOptions = New EngineOptions.Builder With {
+        Dim engineOptions As New EngineOptions.Builder With {
                 .RenderingMode = RenderingMode.OffScreen,
-                .GpuDisabled = True
-                }.Build()
+                .LicenseKey = "your license key"
+                }
 
-        Using engine As IEngine = EngineFactory.Create(engineOptions)
-            Using browser As IBrowser = engine.CreateBrowser()
-                ' #docfragment "PrintToPdf"
-                ' Resize browser to the required dimension.
-                browser.Size = New Size(1024, 768)
+        Using engine = EngineFactory.Create(engineOptions.Build())
+            Using browser = engine.CreateBrowser()
 
-                ' Load the required web page and wait until it is loaded completely.
-                Console.WriteLine($"Loading {url}")
-                browser.Navigation.LoadUrl(url).Wait()
-
-                ' Configure print handlers.
-                browser.RequestPrintHandler =
-                    New Handler(Of RequestPrintParameters, RequestPrintResponse )(
-                        Function(p) RequestPrintResponse.Print())
-
-                Dim printCompletedTcs As New TaskCompletionSource(Of String)()
-                browser.PrintHtmlContentHandler =
-                    New Handler(Of PrintHtmlContentParameters, PrintHtmlContentResponse )(
-                        Function(p)
-                            Try
-                                ' Get the print job for the built-in PDF printer.
-                                Dim pdfPrinter As PdfPrinter(Of PdfPrinter.IHtmlSettings) =
-                                        p.Printers.Pdf
-                                Dim printJob As IPrintJob(Of PdfPrinter.IHtmlSettings) =
-                                        pdfPrinter.PrintJob
-
-                                ' Apply the necessary print settings.
-                                printJob.Settings.Apply(Sub(s)
-                                    Dim paperSizes As IReadOnlyCollection(Of PaperSize) =
-                                            pdfPrinter.Capabilities.PaperSizes
-                                    s.PaperSize = 
-                                        paperSizes.First(
-                                            Function(size) size.Name.Contains("A4"))
-
-                                    s.PrintingHeaderFooterEnabled = True
-                                    ' Specify the path to save the result.
-                                    s.PdfFilePath = pdfFilePath
-                                End Sub)
-
-                                Dim browserUrl As String = p.Browser.Url
-                                AddHandler printJob.PrintCompleted, Sub(sender, args)
-                                    ' Set the task result when the printing is completed.
-                                    printCompletedTcs.TrySetResult(browserUrl)
-                                End Sub
-
-                                ' Tell Chromium to use the built-in PDF printer
-                                ' for printing.
-                                Return PrintHtmlContentResponse.Print(pdfPrinter)
-                            Catch e As Exception
-                                printCompletedTcs.TrySetException(e)
-                                Throw
-                            End Try
-                        End Function)
-
-                ' Initiate printing and wait until it is completed.
-                Console.WriteLine("URL loaded. Initiate printing")
-                browser.MainFrame.Print()
-                Dim printedUrl As String = printCompletedTcs.Task.Result
-                Console.WriteLine($"Printing completed for the URL: {printedUrl}")
+                browser.Navigation.LoadUrl(Path.GetFullPath("template.html")).Wait()
                 ' #enddocfragment "PrintToPdf"
+                FillInData(browser)
+                ' #docfragment "PrintToPdf"
+
+                Dim whenPrintCompleted = ConfigurePrinting(browser)
+                browser.MainFrame.Print()
+                Dim resultPath = whenPrintCompleted.Task.Result
+                Console.WriteLine($"PDF is generated: {resultPath}")
+                Console.WriteLine("Press any key to terminate...")
+                Console.ReadKey()
             End Using
         End Using
+    End Sub
 
-        Console.WriteLine("Press any key to terminate...")
-        Console.ReadKey()
+    Private Shared Function ConfigurePrinting(browser As IBrowser) _
+        As TaskCompletionSource(Of String)
+        ' Tell the browser to print automatically instead of showing the print preview.
+        browser.RequestPrintHandler =
+            New Handler(Of RequestPrintParameters, RequestPrintResponse)(
+                Function(p) RequestPrintResponse.Print())
+
+        Dim whenCompleted As New TaskCompletionSource(Of String)()
+        ' Configure how the browser prints an HTML page.
+        browser.PrintHtmlContentHandler =
+            New Handler(Of PrintHtmlContentParameters, PrintHtmlContentResponse)(
+                Function(parameters)
+                    ' Use the PDF printer.
+                    Dim printer = parameters.Printers.Pdf
+                    Dim job = printer.PrintJob
+
+                    ' Generate a random name for PDF file.
+                    Dim guid As Guid = Guid.NewGuid()
+                    Dim path As String = IO.Path.GetFullPath($"{guid}.pdf")
+                    job.Settings.PdfFilePath = path
+
+                    ' Remove white areas on the sides.
+                    job.Settings.PageMargins = PageMargins.None
+                    ' Remove default browser headers and footers.
+                    job.Settings.PrintingHeaderFooterEnabled = False
+                    AddHandler job.PrintCompleted, Sub(o, e) whenCompleted.SetResult(path)
+
+                    ' Proceed with printing using the PDF printer.
+                    Return PrintHtmlContentResponse.Print(printer)
+                End Function)
+        Return whenCompleted
+    End Function
+    ' #enddocfragment "PrintToPdf"
+
+    Private Shared Sub FillInData(browser As IBrowser)
+        Dim accountNumber = "123-4567"
+        Dim name = "Dr. Emmett Brown"
+        Dim address = "1640 Riverside Drive"
+        Dim reportingPeriod = "Oct 25 — November 25, 1985"
+
+        ' This JavaScript function is embedded into the template HTML page.
+        ' Since this is a regular web page, you can use any JavaScript library,
+        ' WebGL, SVG, and other technologies available in Chromium.
+        browser.MainFrame.ExecuteJavaScript(
+            $"setBillInfo('{accountNumber}', '{name}', '{address}', '{reportingPeriod}')")
+
+        ' Arbitrary numbers.
+        Dim dayCost = 500
+        Dim nightCost = 312
+        Dim dayUsage = 1.212
+        Dim nightUsage = 88
+
+        browser.MainFrame.ExecuteJavaScript(
+            $"addCharge('Day Tariff', {dayUsage}, {dayCost});" &
+            $"addCharge('Night Tariff', {nightUsage}, {nightCost});")
     End Sub
 End Class
