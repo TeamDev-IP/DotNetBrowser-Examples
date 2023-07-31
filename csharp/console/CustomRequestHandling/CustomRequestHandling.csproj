@@ -34,20 +34,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetBrowser, Version=2.23.1.3694, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.23.1\lib\net45\DotNetBrowser.dll</HintPath>
+    <Reference Include="DotNetBrowser, Version=2.23.2.3762, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.2.23.2\lib\net45\DotNetBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium.Win-x64, Version=2.23.1.3694, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x64.Net45.2.23.1\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
+    <Reference Include="DotNetBrowser.Chromium.Win-x64, Version=2.23.2.3762, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x64.Net45.2.23.2\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium.Win-x86, Version=2.23.1.3694, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x86.Net45.2.23.1\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
+    <Reference Include="DotNetBrowser.Chromium.Win-x86, Version=2.23.2.3762, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x86.Net45.2.23.2\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Core, Version=2.23.1.3694, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.23.1\lib\net45\DotNetBrowser.Core.dll</HintPath>
+    <Reference Include="DotNetBrowser.Core, Version=2.23.2.3762, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.2.23.2\lib\net45\DotNetBrowser.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Logging, Version=2.23.1.3694, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.23.1\lib\net45\DotNetBrowser.Logging.dll</HintPath>
+    <Reference Include="DotNetBrowser.Logging, Version=2.23.2.3762, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.2.23.2\lib\net45\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
