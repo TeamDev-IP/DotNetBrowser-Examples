@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright ï¿½ 2023, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -24,7 +24,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace KeyboardEventSimulation.AvaloniaUi
+namespace ContextMenu
 {
     public class App : Application
     {

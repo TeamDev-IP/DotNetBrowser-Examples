@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright Â© 2023, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -34,7 +34,7 @@ using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.SpellCheck;
 
-namespace ContextMenu.SpellCheck.AvaloniaUI
+namespace ContextMenu.SpellCheck
 {
     /// <summary>
     ///     The example demonstrates how to create a context menu with the SpellChecker functionality.

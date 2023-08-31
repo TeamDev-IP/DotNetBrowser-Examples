@@ -1,7 +1,7 @@
-﻿using Avalonia;
-using System;
+﻿using System;
+using Avalonia;
 
-namespace Popups.AvaloniaUi
+namespace ContextMenu
 {
     internal class Program
     {

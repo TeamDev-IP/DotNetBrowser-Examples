@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright Â© 2023, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -31,10 +31,10 @@ using DotNetBrowser.Input.Keyboard;
 using DotNetBrowser.Input.Keyboard.Events;
 using DotNetBrowser.Navigation;
 
-namespace KeyboardEventSimulation.AvaloniaUi
+namespace KeyboardEventSimulation
 {
     /// <summary>
-    ///     This example demonstrates how to simulate keypress.
+    ///     This example demonstrates how to simulate keyboard input.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -82,8 +82,10 @@ namespace KeyboardEventSimulation.AvaloniaUi
                 SimulateKey(keyboard, KeyCode.VkO, "o");
                 SimulateKey(keyboard, KeyCode.Space, " ");
                 //Simulate input of some non-letter characters
-                SimulateKey(keyboard, KeyCode.Vk5, "%", new KeyModifiers {ShiftDown = true});
-                SimulateKey(keyboard, KeyCode.Vk2, "@", new KeyModifiers {ShiftDown = true});
+                SimulateKey(keyboard, KeyCode.Vk5, "%",
+                            new KeyModifiers { ShiftDown = true });
+                SimulateKey(keyboard, KeyCode.Vk2, "@",
+                            new KeyModifiers { ShiftDown = true });
             }
         }
 

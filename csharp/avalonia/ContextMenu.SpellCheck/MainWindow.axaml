@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:a="clr-namespace:DotNetBrowser.AvaloniaUi;assembly=DotNetBrowser.AvaloniaUi"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="ContextMenu.AvaloniaUI.MainWindow"
-        Title="ContextMenu.AvaloniaUI" Closing="Window_Closing">
+        x:Class="ContextMenu.SpellCheck.MainWindow"
+        Title="ContextMenu.SpellCheck" Closing="Window_Closing">
     <a:BrowserView x:Name="BrowserView"/>
 </Window>

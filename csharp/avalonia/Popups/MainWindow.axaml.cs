@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright Â© 2023, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -26,7 +26,7 @@ using Avalonia.Controls;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 
-namespace Popups.AvaloniaUi
+namespace Popups
 {
     /// <summary>
     ///     This example demonstrates how to implement and configure a custom

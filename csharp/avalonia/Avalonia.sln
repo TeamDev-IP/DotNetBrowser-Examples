@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContextMenu.SpellCheck.AvaloniaUI", "ContextMenu.SpellCheck.Avalonia\ContextMenu.SpellCheck.AvaloniaUI.csproj", "{010F2EF3-5ADD-4F32-AE73-0EA5EA03C6DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContextMenu.SpellCheck", "ContextMenu.SpellCheck\ContextMenu.SpellCheck.csproj", "{010F2EF3-5ADD-4F32-AE73-0EA5EA03C6DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.AvaloniaUI", "ContextMenu.AvaloniaUI\ContextMenu.AvaloniaUI.csproj", "{40ABB0B7-DF87-470C-930B-7EE355036201}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu", "ContextMenu\ContextMenu.csproj", "{40ABB0B7-DF87-470C-930B-7EE355036201}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardEventSimulation.AvaloniaUi", "KeyboardEventSimulation.AvaloniaUi\KeyboardEventSimulation.AvaloniaUi.csproj", "{01599A71-7037-4035-ADDC-1B563C06BEE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardEventSimulation", "KeyboardEventSimulation\KeyboardEventSimulation.csproj", "{01599A71-7037-4035-ADDC-1B563C06BEE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups.AvaloniaUi", "Popups.AvaloniaUi\Popups.AvaloniaUi.csproj", "{D2854942-BB6F-4195-A5A7-6A63E2C9B973}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups", "Popups\Popups.csproj", "{D2854942-BB6F-4195-A5A7-6A63E2C9B973}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,7 +30,7 @@ using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Geometry;
 using DotNetBrowser.Handlers;
 
-namespace Popups.AvaloniaUi
+namespace Popups
 {
     public class OpenPopupHandler : IHandler<OpenPopupParameters>
     {

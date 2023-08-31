@@ -1,7 +1,7 @@
-﻿using Avalonia;
-using System;
+﻿using System;
+using Avalonia;
 
-namespace ContextMenu.AvaloniaUI
+namespace ContextMenu.SpellCheck
 {
     internal class Program
     {

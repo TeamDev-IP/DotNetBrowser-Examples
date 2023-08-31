@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:a="clr-namespace:DotNetBrowser.AvaloniaUi;assembly=DotNetBrowser.AvaloniaUi"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Popups.AvaloniaUi.MainWindow"
+        x:Class="Popups.MainWindow"
         Title="Popups.AvaloniaUi" Closing="MainWindow_OnClosing">
     <a:BrowserView x:Name="BrowserView"/>
 </Window>

@@ -6,6 +6,7 @@
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
 
@@ -17,12 +18,6 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
     <PackageReference Include="DotNetBrowser.AvaloniaUi" Version="2.23.3-b3831-eap" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <None Update="..\..\..\dotnetbrowser.license">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
+    <PackageReference Include="MessageBox.Avalonia" Version="3.1.4" />
   </ItemGroup>
 </Project>
