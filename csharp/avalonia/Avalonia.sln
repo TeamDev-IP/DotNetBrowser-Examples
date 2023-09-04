@@ -5,11 +5,15 @@ VisualStudioVersion = 17.7.34009.444
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContextMenu.SpellCheck", "ContextMenu.SpellCheck\ContextMenu.SpellCheck.csproj", "{010F2EF3-5ADD-4F32-AE73-0EA5EA03C6DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu", "ContextMenu\ContextMenu.csproj", "{40ABB0B7-DF87-470C-930B-7EE355036201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContextMenu", "ContextMenu\ContextMenu.csproj", "{40ABB0B7-DF87-470C-930B-7EE355036201}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardEventSimulation", "KeyboardEventSimulation\KeyboardEventSimulation.csproj", "{01599A71-7037-4035-ADDC-1B563C06BEE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardEventSimulation", "KeyboardEventSimulation\KeyboardEventSimulation.csproj", "{01599A71-7037-4035-ADDC-1B563C06BEE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups", "Popups\Popups.csproj", "{D2854942-BB6F-4195-A5A7-6A63E2C9B973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Popups", "Popups\Popups.csproj", "{D2854942-BB6F-4195-A5A7-6A63E2C9B973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk", "Kiosk\Kiosk.csproj", "{CD83A9D6-610A-4775-9308-94DE0833CAD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvvm", "Mvvm\Mvvm.csproj", "{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{D2854942-BB6F-4195-A5A7-6A63E2C9B973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2854942-BB6F-4195-A5A7-6A63E2C9B973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2854942-BB6F-4195-A5A7-6A63E2C9B973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD83A9D6-610A-4775-9308-94DE0833CAD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD83A9D6-610A-4775-9308-94DE0833CAD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD83A9D6-610A-4775-9308-94DE0833CAD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD83A9D6-610A-4775-9308-94DE0833CAD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
