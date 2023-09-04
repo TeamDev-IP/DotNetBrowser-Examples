@@ -95,13 +95,17 @@ To learn more about the library please visit the [product page](https://www.team
 * Embed into Windows Forms ElementHost: [C#](csharp/winforms/ElementHostEmbedding), [VB.NET](vbnet/winforms/ElementHostEmbedding) 
 * Customize context menu in WPF: [C#](csharp/wpf/ContextMenu), [VB.NET](vbnet/wpf/ContextMenu) 
 * Customize context menu with WinForms: [C#](csharp/winforms/ContextMenu), [VB.NET](vbnet/winforms/ContextMenu) 
+* Customize context menu with Avalonia: [C#](csharp/avalonia/ContextMenu)
 * Spell checker context menu in WPF: [C#](csharp/wpf/ContextMenu.SpellCheck), [VB.NET](vbnet/wpf/ContextMenu.SpellCheck) 
 * Spell checker context menu in WinForms: [C#](csharp/winforms/ContextMenu.SpellCheck), [VB.NET](vbnet/winforms/ContextMenu.SpellCheck)
+* Spell checker context menu in Avalonia: [C#](csharp/avalonia/ContextMenu.SpellCheck)
 * Customize popup windows in WPF: [C#](csharp/wpf/Popups), [VB.NET](vbnet/wpf/Popups) 
 * Customize popup windows in WinForms: [C#](csharp/winforms/Popups), [VB.NET](vbnet/winforms/Popups) 
+* Customize popup windows in Avalonia: [C#](csharp/avalonia/Popups)
 * Configure custom keyboard shortcuts: [C#](csharp/winforms/CustomShortcuts), [VB.NET](vbnet/winforms/CustomShortcuts) 
 * Simulate keyboard input in WPF: [C#](csharp/wpf/KeyboardEventSimulation), [VB.NET](vbnet/wpf/KeyboardEventSimulation)
 * Simulate keyboard input in WinForms: [C#](csharp/winforms/KeyboardEventSimulation), [VB.NET](vbnet/winforms/KeyboardEventSimulation)
+* Simulate keyboard input in Avalonia: [C#](csharp/avalonia/KeyboardEventSimulation)
 * Work with Chromium DevTools: [C#](csharp/winforms/DevTools), [VB.NET](vbnet/winforms/DevTools)
 * Handle Full Screen mode: [C#](csharp/winforms/FullScreen), [VB.NET](vbnet/winforms/FullScreen)
 * Zoom web page on `Ctrl+Scroll` : [C#](csharp/wpf/Zoom), [VB.NET](vbnet/wpf/Zoom)
@@ -110,13 +114,15 @@ To learn more about the library please visit the [product page](https://www.team
 * Work with the web page via UI Automation (MSAA/UIA): [C#](csharp/wpf/UiAutomation), [VB.NET](vbnet/wpf/UiAutomation)
 * Display web page with transparent background in <br/>a transparent WPF window: [C#](csharp/wpf/TransparentWebPage), [VB.NET](vbnet/wpf/TransparentWebPage)
 * Intercept Drag & Drop events. Access `IDataObject`: [C#](csharp/wpf/DragAndDrop), [VB.NET](vbnet/wpf/DragAndDrop)
-* Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/wpf/Mvvm), [VB.NET](vbnet/wpf/Mvvm)
+* Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/wpf/Mvvm), [VB.NET](vbnet/wpf/Mvvm), [C#](csharp/avalonia/Mvvm),
+* Use DotNetBrowser with Avalonia data binding (MVVM): [C#](csharp/avalonia/Mvvm),
 
 #### Specific use-cases
 
 * Create custom HTML UI: [C#](csharp/wpf/CreateHtmlUi), [VB.NET](vbnet/wpf/CreateHtmlUi)
 * WPF kiosk application: [C#](csharp/wpf/Kiosk), [VB.NET](vbnet/wpf/Kiosk)
 * WinForms kiosk application: [C#](csharp/winforms/Kiosk), [VB.NET](vbnet/winforms/Kiosk)
+* Avalonia kiosk application: [C#](csharp/avalonia/Kiosk)
 * Integrate with Google Maps: [C#](csharp/winforms/GoogleMaps), [VB.NET](vbnet/winforms/GoogleMaps)
 * Integrate with Google Street View: [C#](csharp/winforms/GoogleStreetView), [VB.NET](vbnet/winforms/GoogleStreetView)
 * Integrate with Selenium Chrome Driver: [C#](csharp/selenium/SeleniumChromeDriver), [VB.NET](vbnet/selenium/SeleniumChromeDriver)
