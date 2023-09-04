@@ -114,7 +114,7 @@ To learn more about the library please visit the [product page](https://www.team
 * Work with the web page via UI Automation (MSAA/UIA): [C#](csharp/wpf/UiAutomation), [VB.NET](vbnet/wpf/UiAutomation)
 * Display web page with transparent background in <br/>a transparent WPF window: [C#](csharp/wpf/TransparentWebPage), [VB.NET](vbnet/wpf/TransparentWebPage)
 * Intercept Drag & Drop events. Access `IDataObject`: [C#](csharp/wpf/DragAndDrop), [VB.NET](vbnet/wpf/DragAndDrop)
-* Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/wpf/Mvvm), [VB.NET](vbnet/wpf/Mvvm), [C#](csharp/avalonia/Mvvm),
+* Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/wpf/Mvvm), [VB.NET](vbnet/wpf/Mvvm)
 * Use DotNetBrowser with Avalonia data binding (MVVM): [C#](csharp/avalonia/Mvvm),
 
 #### Specific use-cases
