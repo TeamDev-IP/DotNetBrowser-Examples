@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:a="clr-namespace:DotNetBrowser.AvaloniaUi;assembly=DotNetBrowser.AvaloniaUi" x:Class="Kiosk.MainWindow"
-        mc:Ignorable="d" Title="Kiosk" WindowState="Maximized" Topmost="True"
+        mc:Ignorable="d" Title="Kiosk" WindowState="FullScreen" Topmost="True"
         ShowInTaskbar="False" Closed="MainWindow_OnClosed" ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome" ExtendClientAreaTitleBarHeightHint="-1">
     <a:BrowserView Name="BrowserView" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
