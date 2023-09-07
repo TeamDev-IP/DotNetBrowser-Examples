@@ -50,6 +50,10 @@ namespace ContextMenu.SpellCheck
                          .ContinueWith(t =>
                           {
                               engine = t.Result;
+                              engine.Profiles.Default
+                                    .SpellChecker
+                                    .Languages
+                                    .Add(Language.EnglishUk);
                               browser = engine.CreateBrowser();
                               BrowserView.InitializeFrom(browser);
                               ConfigureContextMenu();
