@@ -50,6 +50,11 @@ Partial Public Class Form1
                                      }.Build()) _
         .ContinueWith(Sub(t)
             engine = t.Result
+            engine.Profiles.Default _
+            .SpellChecker _
+            .Languages _
+            .Add(Language.EnglishUk)
+
             browser = engine.CreateBrowser()
             webView.InitializeFrom(browser)
             ' #docfragment "ContextMenu.WinForms.Configuration"
