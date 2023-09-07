@@ -51,6 +51,10 @@ namespace ContextMenu.SpellCheck.Wpf
                          .ContinueWith(t =>
                           {
                               engine = t.Result;
+                              engine.Profiles.Default
+                                    .SpellChecker
+                                    .Languages
+                                    .Add(DotNetBrowser.SpellCheck.Language.EnglishUk);
                               browser = engine.CreateBrowser();
                               WebView.InitializeFrom(browser);
                               ConfigureContextMenu();

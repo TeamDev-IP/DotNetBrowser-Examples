@@ -59,6 +59,10 @@ namespace ContextMenu.SpellCheck.WinForms
                          .ContinueWith(t =>
                           {
                               engine = t.Result;
+                              engine.Profiles.Default
+                                    .SpellChecker
+                                    .Languages
+                                    .Add(Language.EnglishUk);
                               browser = engine.CreateBrowser();
                               webView.InitializeFrom(browser);
                               // #docfragment "ContextMenu.WinForms.Configuration"
