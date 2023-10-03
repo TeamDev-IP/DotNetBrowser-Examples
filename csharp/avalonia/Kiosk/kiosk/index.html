@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Kiosk</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type='text/css' href="css/stylesheet.css" />
+</head>
+<body class="default">
+	<div class="header">
+	  <div class="right default-margin" >
+		<input type="button" class="close" value="X" onclick="window.closeApplication()">
+	  </div>
+	</div>
+    <div class="main">
+        <h2>KIOSK APPLICATION</h2>
+        <p>This is an example of a kiosk application created with DotNetBrowser.</p>
+        <p>Select your action.</p>
+        <div id="output" class="default-margin"></div>
+    </div>
+	<div class="actions">
+	 <table>
+	  <tr>
+		<td>
+			<input type="button" class="action default-margin" value="  ACTION 1  ">
+		</td>
+		<td>
+			<input type="button" class="action right default-margin"  value="  ACTION 5  ">
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<input type="button" class="action default-margin" value="  ACTION 2  ">
+		</td>
+		<td>
+			<input type="button" class="action right default-margin"  value="  ACTION 6  ">
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<input type="button" class="action default-margin" value="  ACTION 3  ">
+		</td>
+		<td>
+			<input type="button" class="action right default-margin"  value="  ACTION 7  ">
+		</td>
+	  </tr>
+	  <tr>
+		<td>
+			<input type="button" class="action default-margin" value="  ACTION 4  ">
+		</td>
+		<td>
+			<input type="button" class="action right default-margin"  value="  ACTION 8  " >
+		</td>
+	  </tr>
+	</table> 
+	</div>
+	<script type="text/javascript">
+		function actionClicked(e) {
+		  // log id of current target element of the click event
+		  document.getElementById("output").innerText = e.currentTarget.value;
+		}
+		
+		Array.from(document.getElementsByClassName("action")).forEach(function(element) {
+		  element.addEventListener('click', actionClicked);
+		});
+	</script>
+</body>
+</html>

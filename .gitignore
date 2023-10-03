@@ -116,3 +116,5 @@ UpgradeLog*.htm
 /csharp/unity3d/DotNetBrowser_Unity/UserSettings/
 
 !/csharp/unity3d/DotNetBrowser_Unity/[Ll]ibrary/LastSceneManagerSetup.txt
+/csharp/wpf/.idea/
+.idea/
