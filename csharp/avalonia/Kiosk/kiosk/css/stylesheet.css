@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+	font: 14px/1.72 'Open Sans', Arial, sans-serif;
+	height: 100%;
+    width: 100%;
+	margin: 0;
+	background-color: rgb(143, 71, 155);
+	color: white;
+}
+
+.header {
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:100;
+
+}
+
+.main {
+	width: 75%;
+	height: 75%;
+	margin: auto;
+	padding: 50px;
+}
+
+.default-margin {
+	margin: 15px;
+}
+.right {
+    float: right;
+}
+
+.actions {
+  width: 100%;
+  bottom: 20px;
+  position: absolute;
+}
+
+form{
+	margin-top: 60px;
+}
+
+a{
+	text-transform: uppercase;
+	color: #B03060;
+	text-decoration: none;
+}
+a:visited {
+	color: rgb(136, 172, 136);
+}
+
+table {
+	width:100%;
+}
+
+input[type="button"] {
+	width: 250px;
+	height: 75px;
+	background: 0 0;
+	color: #fff;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .04em;
+	text-align: center;
+	white-space: nowrap;
+	border: 2px solid #fff;
+	border-radius: 4px;
+	padding: 0 30px 0;
+	vertical-align: middle;
+	cursor: pointer;
+	-webkit-transition: all .15s ease-in;
+	font: 14px/1 'Open Sans', Arial, sans-serif;
+}
+
+input[type="button"]:focus {
+	background: rgba(255, 255, 255, .1);
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+input[type="button"]:active {
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+input[type="button"]:hover {
+	color: #fff;
+	background: rgba(255, 255, 255, .1);
+}
+
+input[type="button"].close {
+	width: 75px;
+	padding: 0;
+}
+
+#output {
+  height: 50px;
+  width: 100%;
+  background: white;
+  color: black;
+}

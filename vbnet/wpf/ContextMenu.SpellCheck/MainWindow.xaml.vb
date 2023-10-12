@@ -44,6 +44,11 @@ Partial Public Class MainWindow
                                      }.Build()) _
         .ContinueWith(Sub(t)
             engine = t.Result
+            engine.Profiles.Default _
+            .SpellChecker _
+            .Languages _
+            .Add(DotNetBrowser.SpellCheck.Language.EnglishUk)
+
             browser = engine.CreateBrowser()
             WebView.InitializeFrom(browser)
             ConfigureContextMenu()

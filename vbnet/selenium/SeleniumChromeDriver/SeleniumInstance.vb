@@ -65,7 +65,7 @@ Public Class SeleniumInstance
     End Function
 
     Private Async Function RunScenarioAsync(webDriver As IWebDriver) As Task
-        Dim evaluateButton As IWebElement = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[1]/div/div/a"))
+        Dim evaluateButton As IWebElement = webDriver.FindElement(By.CssSelector(".nav-container > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)"))
         evaluateButton.Click()
 
         Dim nameTextbox As IWebElement = webDriver.FindElement(By.Name("name"))
