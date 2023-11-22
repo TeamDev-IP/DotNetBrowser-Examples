@@ -68,10 +68,10 @@ Public Class SeleniumInstance
         Dim evaluateButton As IWebElement = webDriver.FindElement(By.CssSelector(".nav-container > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)"))
         evaluateButton.Click()
 
-        Dim nameTextbox As IWebElement = webDriver.FindElement(By.Name("name"))
+        Dim nameTextbox As IWebElement = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[1]"))
         nameTextbox.SendKeys("John Doe")
 
-        Dim emailTextbox As IWebElement = webDriver.FindElement(By.Name("email"))
+        Dim emailTextbox As IWebElement = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[2]"))
         emailTextbox.SendKeys("sales@teamdev.com")
     End Function
 
