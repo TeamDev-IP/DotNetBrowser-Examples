@@ -1,4 +1,4 @@
-﻿namespace ObservePageChanges.WinForms
+namespace ObservePageChanges.WinForms
 {
     partial class Form1
     {

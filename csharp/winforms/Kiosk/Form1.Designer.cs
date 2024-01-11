@@ -1,4 +1,4 @@
-﻿namespace Kiosk.WinForms
+namespace Kiosk.WinForms
 {
     partial class Form1
     {

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts;
+using Assets.Scripts;
 using DotNetBrowser.Dom;
 using System;
 using DnbEventType = DotNetBrowser.Dom.Events.EventType;

@@ -1,4 +1,4 @@
-﻿namespace Popups.WinForms
+namespace Popups.WinForms
 {
     partial class Form1
     {

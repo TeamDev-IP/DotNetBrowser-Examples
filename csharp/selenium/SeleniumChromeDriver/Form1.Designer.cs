@@ -1,4 +1,4 @@
-﻿namespace SeleniumChromeDriver
+namespace SeleniumChromeDriver
 {
     partial class Form1
     {

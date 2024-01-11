@@ -1,4 +1,4 @@
-﻿namespace DotNetBrowser.WinForms.Demo
+namespace DotNetBrowser.WinForms.Demo
 {
     partial class MainForm
     {

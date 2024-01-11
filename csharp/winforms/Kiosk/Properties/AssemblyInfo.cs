@@ -1,6 +1,6 @@
-﻿#region Copyright
+#region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright © 2024, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("Kiosk.WinForms")]
-[assembly: AssemblyCopyright("Copyright © 2023, TeamDev. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2024, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
