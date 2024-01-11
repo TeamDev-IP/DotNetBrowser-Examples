@@ -1,4 +1,4 @@
-﻿Imports System.Reflection
+Imports System.Reflection
 Imports System.Runtime.InteropServices
 Imports System.Windows
 
@@ -10,7 +10,7 @@ Imports System.Windows
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("ChromiumBinariesResolver.Wpf")>
-<Assembly: AssemblyCopyright("Copyright © 2023, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2024, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

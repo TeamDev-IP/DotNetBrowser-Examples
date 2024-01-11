@@ -1,4 +1,4 @@
-﻿
+
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("KeyboardEventSimulation.WinForms")>
-<Assembly: AssemblyCopyright("Copyright ©  2023, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright ©  2024, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

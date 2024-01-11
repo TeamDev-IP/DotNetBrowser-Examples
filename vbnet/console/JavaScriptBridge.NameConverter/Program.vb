@@ -1,4 +1,4 @@
-﻿Imports System.Reflection
+Imports System.Reflection
 Imports System.Text
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Engine

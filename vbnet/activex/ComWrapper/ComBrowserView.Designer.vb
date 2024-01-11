@@ -1,4 +1,4 @@
-﻿Namespace ComWrapper.WinForms
+Namespace ComWrapper.WinForms
 	Partial Public Class ComBrowserView
 		''' <summary>
 		''' Required designer variable.
