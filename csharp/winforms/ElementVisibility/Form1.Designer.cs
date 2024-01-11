@@ -1,4 +1,4 @@
-﻿namespace ElementVisibility.WinForms
+namespace ElementVisibility.WinForms
 {
     partial class Form1
     {

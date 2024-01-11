@@ -1,4 +1,4 @@
-﻿Namespace Inspect.WinForms
+Namespace Inspect.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

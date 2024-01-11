@@ -1,4 +1,4 @@
-﻿Namespace Profiles.WinForms
+Namespace Profiles.WinForms
 	Partial Public Class BrowserForm
 		''' <summary>
 		''' Required designer variable.

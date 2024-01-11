@@ -1,4 +1,4 @@
-﻿namespace ContextMenu.WinForms
+namespace ContextMenu.WinForms
 {
     partial class Form1
     {

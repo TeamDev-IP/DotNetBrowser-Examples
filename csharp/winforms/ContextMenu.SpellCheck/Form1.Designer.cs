@@ -1,4 +1,4 @@
-﻿namespace ContextMenu.SpellCheck.WinForms
+namespace ContextMenu.SpellCheck.WinForms
 {
     partial class Form1
     {

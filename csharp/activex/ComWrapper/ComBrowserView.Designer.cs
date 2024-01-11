@@ -1,4 +1,4 @@
-﻿namespace ComWrapper.WinForms
+namespace ComWrapper.WinForms
 {
     partial class ComBrowserView
     {

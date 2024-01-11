@@ -1,4 +1,4 @@
-﻿
+
 namespace ElementHostEmbedding.WinForms
 {
     partial class Form1

@@ -1,4 +1,4 @@
-﻿Partial Class BrowserForm
+Partial Class BrowserForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.

@@ -1,4 +1,4 @@
-﻿Imports System.Reflection
+Imports System.Reflection
 Imports System.Runtime.CompilerServices
 Imports System.Runtime.InteropServices
 
@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("ElementHostEmbedding.WinForms")>
-<Assembly: AssemblyCopyright("Copyright © 2023, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2024, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

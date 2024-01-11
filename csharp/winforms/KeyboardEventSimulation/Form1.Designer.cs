@@ -1,4 +1,4 @@
-﻿namespace KeyboardEventSimulation.WinForms
+namespace KeyboardEventSimulation.WinForms
 {
     partial class Form1
     {

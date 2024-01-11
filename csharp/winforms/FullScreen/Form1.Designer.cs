@@ -1,4 +1,4 @@
-﻿namespace FullScreen.WinForms
+namespace FullScreen.WinForms
 {
     partial class Form1
     {

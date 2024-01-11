@@ -1,4 +1,4 @@
-﻿namespace GoogleMaps.WinForms
+namespace GoogleMaps.WinForms
 {
     partial class MainForm
     {

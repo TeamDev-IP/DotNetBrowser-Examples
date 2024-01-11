@@ -1,4 +1,4 @@
-﻿Namespace Dom.DragAndDrop.WinForms
+Namespace Dom.DragAndDrop.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

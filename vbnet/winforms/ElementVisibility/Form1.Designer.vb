@@ -1,4 +1,4 @@
-﻿Namespace ElementVisibility.WinForms
+Namespace ElementVisibility.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

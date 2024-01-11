@@ -1,4 +1,4 @@
-﻿namespace Inspect.WinForms
+namespace Inspect.WinForms
 {
     partial class Form1
     {

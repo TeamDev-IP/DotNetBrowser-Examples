@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using Unity.FPS.Game;
 using UnityEngine;
 using UnityEngine.Events;
