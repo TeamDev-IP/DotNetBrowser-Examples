@@ -60,17 +60,17 @@
     <Import Include="System.Windows.Shapes" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DotNetBrowser, Version=2.25.0.4075, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.25.0\lib\net45\DotNetBrowser.dll</HintPath>
+    <Reference Include="DotNetBrowser, Version=2.25.1.4127, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.2.25.1\lib\net45\DotNetBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Core, Version=2.25.0.4075, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.25.0\lib\net45\DotNetBrowser.Core.dll</HintPath>
+    <Reference Include="DotNetBrowser.Core, Version=2.25.1.4127, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.2.25.1\lib\net45\DotNetBrowser.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Logging, Version=2.25.0.4075, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.25.0\lib\net45\DotNetBrowser.Logging.dll</HintPath>
+    <Reference Include="DotNetBrowser.Logging, Version=2.25.1.4127, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.2.25.1\lib\net45\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Wpf, Version=2.25.0.4075, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.WPF.2.25.0\lib\net45\DotNetBrowser.Wpf.dll</HintPath>
+    <Reference Include="DotNetBrowser.Wpf, Version=2.25.1.4127, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.WPF.2.25.1\lib\net45\DotNetBrowser.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\protobuf-net.2.4.0\lib\net40\protobuf-net.dll</HintPath>
