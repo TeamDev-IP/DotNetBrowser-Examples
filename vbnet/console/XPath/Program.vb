@@ -38,7 +38,7 @@ Friend Class Program
 
                 browser.Size = New Size(1024, 768)
 
-                browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
+                browser.Navigation.LoadUrl("https://html5test.teamdev.com").Wait()
                 Dim document As IDocument = browser.MainFrame.Document
 
                 Try

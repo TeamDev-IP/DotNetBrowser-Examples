@@ -42,7 +42,7 @@ Namespace Mvvm.Wpf
 			Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build()
 			engine = EngineFactory.Create(engineOptions)
 
-			MyBrowser = New MyBrowserViewModel(engine.CreateBrowser()) With {.Url = "www.teamdev.com/dotnetbrowser"}
+			MyBrowser = New MyBrowserViewModel(engine.CreateBrowser()) With {.Url = "html5test.teamdev.com"}
 		End Sub
 
 		Private Sub MainWindow_OnClosed(ByVal sender As Object, ByVal e As EventArgs)
