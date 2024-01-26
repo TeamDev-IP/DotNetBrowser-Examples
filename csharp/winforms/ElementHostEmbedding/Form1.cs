@@ -32,7 +32,7 @@ namespace ElementHostEmbedding.WinForms
 {
     public partial class Form1 : Form
     {
-        private const string Url = "https://www.teamdev.com/dotnetbrowser";
+        private const string Url = "https://html5test.teamdev.com";
         private readonly IBrowser browser;
         private readonly IEngine engine;
         private readonly ElementHost host;

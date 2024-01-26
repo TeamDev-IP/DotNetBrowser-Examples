@@ -30,7 +30,7 @@ Namespace ElementHostEmbedding.WinForms
     Partial Public Class Form1
         Inherits Form
 
-        Private Const Url As String = "https://www.teamdev.com/dotnetbrowser"
+        Private Const Url As String = "https://html5test.teamdev.com"
         Private ReadOnly browser As IBrowser
         Private ReadOnly engine As IEngine
         Private ReadOnly host As ElementHost

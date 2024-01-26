@@ -46,7 +46,7 @@ Namespace Inspect.Wpf
 			browser.Mouse.Moved.Handler = New Handler(Of IMouseMovedEventArgs, InputEventResponse)(AddressOf OnMouseMoved)
 			InitializeComponent()
 			browserView1.InitializeFrom(browser)
-			browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser")
+			browser.Navigation.LoadUrl("https://html5test.teamdev.com")
 		End Sub
 
 		Private Sub GetNodeAtPoint(ByVal location As Point)

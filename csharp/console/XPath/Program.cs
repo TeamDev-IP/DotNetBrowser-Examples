@@ -45,7 +45,7 @@ namespace XPath
                     browser.Size = new Size(1024, 768);
 
                     browser.Navigation
-                           .LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                           .LoadUrl("https://html5test.teamdev.com")
                            .Wait();
 
                     IDocument document = browser.MainFrame.Document;

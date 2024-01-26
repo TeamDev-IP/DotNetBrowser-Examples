@@ -14,7 +14,7 @@ Please note that this project uses a dedicated local package to automate pulling
 
 The package will check and download the latest version of **DotNetBrowser** libraries on loading the Unity project. The same check is performed on recompiling the Unity project scripts.
 
-You must have a license key to make it work. You can use a [_dotnetbrowser.license_](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-key-through-a-license-file) file and put it in the [Editor](DotNetBrowser_Unity/Assets/Editor) directory of your project. It will be copied to the directory with executables automatically after the build. Or, you can set the license through the code by setting it in `EngineOptions` in the `BrowserScript` class. It looks like [this](DotNetBrowser_Unity/Assets/DnbSimple/Scripts/BrowserScript.cs#L82):
+You must have a license key to make it work. You can use a [_dotnetbrowser.license_](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-key-through-a-license-file) file and put it in the [Editor](DotNetBrowser_Unity/Assets/Editor) directory of your project. It will be copied to the directory with executables automatically after the build. Or, you can set the license through the code by setting it in `EngineOptions` in the `BrowserScript` class. It looks like [this](DotNetBrowser_Unity/Assets/DnbSimple/Scripts/BrowserScript.cs#L82):
 ```
   EngineOptions engineOptions = new EngineOptions.Builder
   {
@@ -22,7 +22,7 @@ You must have a license key to make it work. You can use a [_dotnetbrowser.licen
       RenderingMode = RenderingMode.OffScreen
   }.Build();
 ```
-More details how to install the license is in the [documentation](https://dotnetbrowser-support.teamdev.com/docs/guides/installation/license.html#installing-license).
+More details how to install the license is in the [documentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license).
 
 ### How it works
 The main idea consists of four classes located in [the Scripts folder](DotNetBrowser_Unity/Assets/DnbSimple/Scripts/):

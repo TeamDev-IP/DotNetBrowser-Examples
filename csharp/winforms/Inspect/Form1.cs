@@ -52,7 +52,7 @@ namespace Inspect.WinForms
             browser.Mouse.Moved.Handler = new Handler<IMouseMovedEventArgs, InputEventResponse>(OnMouseMoved);
             InitializeComponent();
             browserView1.InitializeFrom(browser);
-            browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser");
+            browser.Navigation.LoadUrl("https://html5test.teamdev.com");
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)

@@ -56,9 +56,9 @@ namespace HtmlToImage
                     browser.Size = browserSize;
 
                     // 2. Load the required web page and wait until it is loaded completely.
-                    Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser");
+                    Console.WriteLine("Loading https://html5test.teamdev.com");
                     browser.Navigation
-                           .LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                           .LoadUrl("https://html5test.teamdev.com")
                            .Wait();
 
                     // 3. Take the bitmap of the currently loaded web page. Its size will be 

@@ -59,7 +59,7 @@ public class MainWindowViewModel : ReactiveObject
         Browser = engine.CreateBrowser();
 
         Browser.Navigation.FrameLoadFinished += NavigationOnFrameLoadFinished;
-        Url = "www.teamdev.com/dotnetbrowser";
+        Url = "html5test.teamdev.com";
     }
 
     public void DisposeBrowser()

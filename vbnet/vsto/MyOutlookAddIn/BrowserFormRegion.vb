@@ -60,7 +60,7 @@ Namespace MyOutlookAddIn
 				browser = engine.CreateBrowser()
 			End Sub).ContinueWith(Sub(t)
 				browserView1.InitializeFrom(browser)
-				browser?.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser")
+				browser?.Navigation.LoadUrl("https://html5test.teamdev.com")
 			End Sub, TaskScheduler.FromCurrentSynchronizationContext())
 
 		End Sub
