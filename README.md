@@ -1,14 +1,14 @@
 # DotNetBrowser-Examples
-Examples of using [DotNetBrowser](https://www.teamdev.com/dotnetbrowser).
+Examples of using [DotNetBrowser](https://teamdev.com/dotnetbrowser).
 
 [![Nuget](https://img.shields.io/nuget/v/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://www.nuget.org/packages/DotNetBrowser/) ![Downloads](https://img.shields.io/nuget/dt/DotNetBrowser?color=%238f479b&style=for-the-badge) [![Twitter Follow](https://img.shields.io/twitter/follow/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://twitter.com/intent/follow?screen_name=DotNetBrowser)
 
 DotNetBrowser is a .NET library which allows embedding a Chromium-based browser into .NET applications to load and display web pages built with HTML5, CSS3, JavaScript, etc. DotNetBrowser supports both WPF and WinForms and provides UI controls which you can embed into your desktop application to display web pages. 
 
-To learn more about the library please visit the [product page](https://www.teamdev.com/dotnetbrowser) or the [help center](https://dotnetbrowser-support.teamdev.com/).
+To learn more about the library please visit the [product page](https://teamdev.com/dotnetbrowser) or the [help center](https://teamdev.com/dotnetbrowser/docs).
 
 ### How to run
-1. Open the `dotnetbrowser.license` file in the root directory with any text editor, copy and paste your license key and save the changes. [Get the evaluation key](https://www.teamdev.com/dotnetbrowser#evaluate)
+1. Open the `dotnetbrowser.license` file in the root directory with any text editor, copy and paste your license key and save the changes. [Get the evaluation key](https://teamdev.com/dotnetbrowser#evaluate)
 2. Open the solution in Visual Studio 2019.
 3. Right-click the solution in "Solution Explorer" and select "Restore NuGet Packages"
 4. Build the solution and run any of the example projects.
