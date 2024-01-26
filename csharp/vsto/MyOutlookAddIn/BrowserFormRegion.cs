@@ -55,7 +55,7 @@ namespace MyOutlookAddIn
                 .ContinueWith(t =>
                 {
                     browserView1.InitializeFrom(browser);
-                    browser?.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser");
+                    browser?.Navigation.LoadUrl("https://html5test.teamdev.com");
                 }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 

@@ -51,7 +51,7 @@ namespace Mvvm.Wpf
 
             MyBrowser = new MyBrowserViewModel(engine.CreateBrowser())
             {
-                Url = "www.teamdev.com/dotnetbrowser"
+                Url = "html5test.teamdev.com"
             };
         }
 
