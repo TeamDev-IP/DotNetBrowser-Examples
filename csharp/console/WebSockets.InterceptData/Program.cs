@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.IO;
 using System.Threading;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Handlers;
@@ -75,7 +76,7 @@ namespace WebSockets.InterceptData
                     //Configure JavaScript injection
                     browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
                     //Load web page for testing
-                    browser.Navigation.LoadUrl("https://www.websocket.org/echo.html").Wait();
+                    browser.Navigation.LoadUrl(Path.GetFullPath("echo.html")).Wait();
 
                     // Connect to the socket by clicking the button on the web page
                     browser.MainFrame.Document.GetElementById("connect")?.Click();
