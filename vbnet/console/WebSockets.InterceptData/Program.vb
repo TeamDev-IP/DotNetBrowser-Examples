@@ -20,6 +20,7 @@
 
 #End Region
 
+Imports System.IO
 Imports System.Threading
 Imports DotNetBrowser.Browser
 Imports DotNetBrowser.Browser.Handlers
@@ -72,7 +73,7 @@ Friend Class Program
                     'Configure JavaScript injection
                     browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
                     'Load web page for testing
-                    browser.Navigation.LoadUrl("https://www.websocket.org/echo.html").Wait()
+                    browser.Navigation.LoadUrl(Path.GetFullPath("echo.html")).Wait()
 
                     ' Connect to the socket by clicking the button on the web page
                     browser.MainFrame.Document.GetElementById("connect")?.Click()
