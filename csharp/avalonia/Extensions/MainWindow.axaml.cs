@@ -38,7 +38,7 @@ namespace Extensions.AvaloniaUi
     public partial class MainWindow : Window
     {
         private const string ExtensionUrl =
-            "https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en";
+            "https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en";
 
         public static readonly DirectProperty<MainWindow, IExtension> ExtensionProperty =
             AvaloniaProperty.RegisterDirect<MainWindow, IExtension>(
