@@ -37,7 +37,7 @@ namespace Extensions.Wpf
     public partial class MainWindow : Window
     {
         private const string ExtensionUrl =
-            "https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en";
+            "https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en";
         private IBrowser browser;
         private IEngine engine;
         private IExtension extension;
