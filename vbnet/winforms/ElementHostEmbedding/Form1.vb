@@ -1,6 +1,6 @@
-﻿#Region "Copyright"
+#Region "Copyright"
 
-' Copyright © 2023, TeamDev. All rights reserved.
+' Copyright © 2024, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -30,7 +30,7 @@ Namespace ElementHostEmbedding.WinForms
     Partial Public Class Form1
         Inherits Form
 
-        Private Const Url As String = "https://www.teamdev.com/dotnetbrowser"
+        Private Const Url As String = "https://html5test.teamdev.com"
         Private ReadOnly browser As IBrowser
         Private ReadOnly engine As IEngine
         Private ReadOnly host As ElementHost

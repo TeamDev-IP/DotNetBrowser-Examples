@@ -1,6 +1,6 @@
-﻿#Region "Copyright"
+#Region "Copyright"
 
-' Copyright © 2023, TeamDev. All rights reserved.
+' Copyright © 2024, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -46,7 +46,7 @@ Namespace Inspect.Wpf
 			browser.Mouse.Moved.Handler = New Handler(Of IMouseMovedEventArgs, InputEventResponse)(AddressOf OnMouseMoved)
 			InitializeComponent()
 			browserView1.InitializeFrom(browser)
-			browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser")
+			browser.Navigation.LoadUrl("https://html5test.teamdev.com")
 		End Sub
 
 		Private Sub GetNodeAtPoint(ByVal location As Point)

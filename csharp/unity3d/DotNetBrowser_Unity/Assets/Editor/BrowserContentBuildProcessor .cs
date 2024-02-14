@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 

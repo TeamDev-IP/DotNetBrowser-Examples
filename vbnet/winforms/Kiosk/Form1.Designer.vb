@@ -1,4 +1,4 @@
-﻿Namespace Kiosk.WinForms
+Namespace Kiosk.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

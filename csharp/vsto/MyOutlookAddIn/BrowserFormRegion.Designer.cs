@@ -1,4 +1,4 @@
-﻿namespace MyOutlookAddIn
+namespace MyOutlookAddIn
 {
     [System.ComponentModel.ToolboxItemAttribute(false)]
     partial class BrowserFormRegion : Microsoft.Office.Tools.Outlook.FormRegionBase

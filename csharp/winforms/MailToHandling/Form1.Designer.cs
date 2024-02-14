@@ -1,4 +1,4 @@
-﻿namespace MailToHandling.WinForms
+namespace MailToHandling.WinForms
 {
     partial class Form1
     {

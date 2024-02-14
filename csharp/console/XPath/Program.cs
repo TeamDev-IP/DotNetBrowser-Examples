@@ -1,6 +1,6 @@
-﻿#region Copyright
+#region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright © 2024, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -45,7 +45,7 @@ namespace XPath
                     browser.Size = new Size(1024, 768);
 
                     browser.Navigation
-                           .LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                           .LoadUrl("https://html5test.teamdev.com")
                            .Wait();
 
                     IDocument document = browser.MainFrame.Document;

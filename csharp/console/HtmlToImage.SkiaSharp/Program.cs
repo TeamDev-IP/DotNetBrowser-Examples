@@ -1,6 +1,6 @@
-﻿#region Copyright
+#region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright © 2024, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -52,9 +52,9 @@ using(IEngine engine = EngineFactory.Create(new EngineOptions.Builder
         browser.Size = browserSize;
 
         // 2. Load the required web page and wait until it is loaded completely.
-        Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser");
+        Console.WriteLine("Loading https://html5test.teamdev.com");
         browser.Navigation
-                .LoadUrl("https://www.teamdev.com/dotnetbrowser")
+                .LoadUrl("https://html5test.teamdev.com")
                 .Wait();
 
         // 3. Take the bitmap of the currently loaded web page. Its size will be 

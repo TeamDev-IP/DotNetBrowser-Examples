@@ -1,6 +1,6 @@
-﻿#Region "Copyright"
+#Region "Copyright"
 
-' Copyright © 2023, TeamDev. All rights reserved.
+' Copyright © 2024, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -53,8 +53,8 @@ Friend Class Program
                 browser.Size = browserSize
 
                 ' 2. Load the required web page and wait until it is loaded completely.
-                Console.WriteLine("Loading https://www.teamdev.com/dotnetbrowser")
-                browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser").Wait()
+                Console.WriteLine("Loading https://html5test.teamdev.com")
+                browser.Navigation.LoadUrl("https://html5test.teamdev.com").Wait()
 
                 ' 3. Take the bitmap of the currently loaded web page. Its size will be 
                 ' equal to the current browser's size.

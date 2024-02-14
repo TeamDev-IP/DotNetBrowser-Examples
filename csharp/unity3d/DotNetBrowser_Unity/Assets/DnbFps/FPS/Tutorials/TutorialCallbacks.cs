@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.Tutorials.Core.Editor;
 using UnityEditor;
 using UnityEngine.AI;

@@ -1,4 +1,4 @@
-﻿using Unity.FPS.AI;
+using Unity.FPS.AI;
 using UnityEngine;
 using UnityEngine.UI;
 

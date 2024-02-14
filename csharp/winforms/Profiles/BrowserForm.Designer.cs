@@ -1,4 +1,4 @@
-﻿
+
 namespace Profiles.WinForms
 {
     partial class BrowserForm

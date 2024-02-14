@@ -1,4 +1,4 @@
-﻿Namespace ElementHostEmbedding.WinForms
+Namespace ElementHostEmbedding.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

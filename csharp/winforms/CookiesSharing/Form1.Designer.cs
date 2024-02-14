@@ -1,4 +1,4 @@
-﻿
+
 namespace CookiesSharing.WinForms
 {
     partial class Form1

@@ -1,4 +1,4 @@
-﻿namespace CustomShortcuts.WinForms
+namespace CustomShortcuts.WinForms
 {
     partial class Form1
     {

@@ -1,4 +1,4 @@
-﻿
+
 Imports System.Windows
 
 Namespace DragAndDrop.Wpf

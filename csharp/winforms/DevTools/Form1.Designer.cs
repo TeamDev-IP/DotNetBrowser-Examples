@@ -1,4 +1,4 @@
-﻿namespace DevTools.WinForms
+namespace DevTools.WinForms
 {
     partial class Form1
     {

@@ -1,4 +1,4 @@
-﻿
+
 namespace SimulateUserInput.WinForms
 {
     partial class Form1

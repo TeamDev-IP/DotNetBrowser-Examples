@@ -1,4 +1,4 @@
-﻿Namespace GoogleMaps.WinForms
+Namespace GoogleMaps.WinForms
 	Partial Public Class MainForm
 		''' <summary>
 		''' Required designer variable.

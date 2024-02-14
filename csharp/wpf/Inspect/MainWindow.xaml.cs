@@ -1,6 +1,6 @@
-﻿#region Copyright
+#region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright © 2024, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -52,7 +52,7 @@ namespace Inspect.Wpf
             browser.Mouse.Moved.Handler = new Handler<IMouseMovedEventArgs, InputEventResponse>(OnMouseMoved);
             InitializeComponent();
             browserView1.InitializeFrom(browser);
-            browser.Navigation.LoadUrl("https://www.teamdev.com/dotnetbrowser");
+            browser.Navigation.LoadUrl("https://html5test.teamdev.com");
         }
 
         private void GetNodeAtPoint(Point location)

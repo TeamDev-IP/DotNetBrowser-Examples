@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright © 2024, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -59,7 +59,7 @@ public class MainWindowViewModel : ReactiveObject
         Browser = engine.CreateBrowser();
 
         Browser.Navigation.FrameLoadFinished += NavigationOnFrameLoadFinished;
-        Url = "www.teamdev.com/dotnetbrowser";
+        Url = "html5test.teamdev.com";
     }
 
     public void DisposeBrowser()

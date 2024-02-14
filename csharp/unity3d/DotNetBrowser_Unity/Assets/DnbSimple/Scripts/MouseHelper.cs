@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using DotNetBrowser.Geometry;
 using DotNetBrowser.Input.Mouse;
 using DotNetBrowser.Input.Mouse.Events;

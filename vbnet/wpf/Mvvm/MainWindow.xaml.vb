@@ -1,6 +1,6 @@
-﻿#Region "Copyright"
+#Region "Copyright"
 
-' Copyright © 2023, TeamDev. All rights reserved.
+' Copyright © 2024, TeamDev. All rights reserved.
 ' 
 ' Redistribution and use in source and/or binary forms, with or without
 ' modification, must retain the above copyright notice and the following
@@ -42,7 +42,7 @@ Namespace Mvvm.Wpf
 			Dim engineOptions As EngineOptions = New DotNetBrowser.Engine.EngineOptions.Builder With {.RenderingMode = RenderingMode.HardwareAccelerated} .Build()
 			engine = EngineFactory.Create(engineOptions)
 
-			MyBrowser = New MyBrowserViewModel(engine.CreateBrowser()) With {.Url = "www.teamdev.com/dotnetbrowser"}
+			MyBrowser = New MyBrowserViewModel(engine.CreateBrowser()) With {.Url = "html5test.teamdev.com"}
 		End Sub
 
 		Private Sub MainWindow_OnClosed(ByVal sender As Object, ByVal e As EventArgs)

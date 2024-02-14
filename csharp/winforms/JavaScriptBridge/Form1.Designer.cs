@@ -1,4 +1,4 @@
-﻿namespace JavaScriptBridge.WinForms
+namespace JavaScriptBridge.WinForms
 {
     partial class Form1
     {

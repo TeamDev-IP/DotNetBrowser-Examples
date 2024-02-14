@@ -1,4 +1,4 @@
-﻿Namespace Popups.WinForms
+Namespace Popups.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

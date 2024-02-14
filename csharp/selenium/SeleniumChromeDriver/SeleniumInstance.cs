@@ -1,6 +1,6 @@
-﻿#region Copyright
+#region Copyright
 
-// Copyright © 2023, TeamDev. All rights reserved.
+// Copyright © 2024, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -87,10 +87,10 @@ namespace SeleniumChromeDriver
                 IWebElement evaluateButton = webDriver.FindElement(By.CssSelector(".nav-container > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)"));
                 evaluateButton.Click();
 
-                IWebElement nameTextbox = webDriver.FindElement(By.Name("name"));
+                IWebElement nameTextbox = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[1]"));
                 nameTextbox.SendKeys("John Doe");
 
-                IWebElement emailTextbox = webDriver.FindElement(By.Name("email"));
+                IWebElement emailTextbox = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[2]"));
                 emailTextbox.SendKeys("sales@teamdev.com");
             });
         }

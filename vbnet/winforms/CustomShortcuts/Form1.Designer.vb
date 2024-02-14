@@ -1,4 +1,4 @@
-﻿Namespace CustomShortcuts.WinForms
+Namespace CustomShortcuts.WinForms
 	Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.

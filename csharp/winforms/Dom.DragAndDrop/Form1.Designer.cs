@@ -1,4 +1,4 @@
-﻿namespace Dom.DragAndDrop.WinForms
+namespace Dom.DragAndDrop.WinForms
 {
     partial class Form1
     {

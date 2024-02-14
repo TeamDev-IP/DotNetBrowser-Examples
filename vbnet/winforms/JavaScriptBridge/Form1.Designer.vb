@@ -1,4 +1,4 @@
-﻿Namespace JavaScriptBridge.WinForms
+Namespace JavaScriptBridge.WinForms
     Partial Public Class Form1
 		''' <summary>
 		''' Required designer variable.
