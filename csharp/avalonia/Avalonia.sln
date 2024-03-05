@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardEventSimulation", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Popups", "Popups\Popups.csproj", "{D2854942-BB6F-4195-A5A7-6A63E2C9B973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk", "Kiosk\Kiosk.csproj", "{CD83A9D6-610A-4775-9308-94DE0833CAD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kiosk", "Kiosk\Kiosk.csproj", "{CD83A9D6-610A-4775-9308-94DE0833CAD2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvvm", "Mvvm\Mvvm.csproj", "{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chromecast", "Chromecast\Chromecast.csproj", "{3B1AA2E3-C9DE-4DA1-B764-4694CF96A7DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B1AA2E3-C9DE-4DA1-B764-4694CF96A7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B1AA2E3-C9DE-4DA1-B764-4694CF96A7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B1AA2E3-C9DE-4DA1-B764-4694CF96A7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B1AA2E3-C9DE-4DA1-B764-4694CF96A7DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
