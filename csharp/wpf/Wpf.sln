@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Popups", "Popups\Popups.Wpf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContextMenu.SpellCheck", "ContextMenu.SpellCheck\ContextMenu.SpellCheck.Wpf.csproj", "{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chromecast", "Chromecast\Chromecast.Wpf.csproj", "{EC9F6280-6476-4C7E-A227-67B8B9C01B38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC9F6280-6476-4C7E-A227-67B8B9C01B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC9F6280-6476-4C7E-A227-67B8B9C01B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC9F6280-6476-4C7E-A227-67B8B9C01B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC9F6280-6476-4C7E-A227-67B8B9C01B38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
