@@ -116,6 +116,8 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Intercept Drag & Drop events. Access `IDataObject`: [C#](csharp/wpf/DragAndDrop), [VB.NET](vbnet/wpf/DragAndDrop)
 * Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/wpf/Mvvm), [VB.NET](vbnet/wpf/Mvvm)
 * Use DotNetBrowser with Avalonia data binding (MVVM): [C#](csharp/avalonia/Mvvm),
+* Use Chromecast with DotNetBrowser in Avalonia: [C#](csharp/avalonia/Chromecast), [VB.NET](vbnet/avalonia/Chromecast)
+* Use Chromecast with DotNetBrowser in WPF: [C#](csharp/wpf/Chromecast), [VB.NET](vbnet/wpf/Chromecast)
 
 #### Specific use-cases
 

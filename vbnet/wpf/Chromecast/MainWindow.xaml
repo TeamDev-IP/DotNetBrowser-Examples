@@ -1,0 +1,26 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="900" Closed="Window_Closed">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="90*"/>
+            <ColumnDefinition Width="270*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="navigationBar" TextWrapping="Wrap" VerticalContentAlignment="Center" TextAlignment="Left" HorizontalContentAlignment="Center" Text="TextBox" Margin="5"/>
+        <Button Grid.Column="1" x:Name="navigate" Content="Navigate" Margin="5" Click="Navigate_Click"/>
+        <Button Grid.Column="2" x:Name="receivers" Content="Get receivers" Margin="5" Click="Receivers_Click"/>
+        <ComboBox Grid.Column="3" x:Name="receiversBox"  Margin="5" SelectionChanged="ReceiversBox_SelectionChanged"/>
+        <wpf:BrowserView Grid.Row ="1" Grid.ColumnSpan="4"  Name="browserView"/>
+    </Grid>
+</Window>
