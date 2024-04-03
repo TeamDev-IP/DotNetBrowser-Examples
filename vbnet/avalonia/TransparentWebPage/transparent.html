@@ -1,0 +1,54 @@
+<!--
+*  Copyright © 2024, TeamDev. All rights reserved.
+*
+*  Redistribution and use in source and/or binary forms, with or without
+*  modification, must retain the above copyright notice and the following
+*  disclaimer.
+*
+*  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+*  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+*  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+*  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+*  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+*  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+*  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+*  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+*  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+*  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+*  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Transparency test page</title>
+</head>
+<body>
+	<p>This example shows how transparency works for the web pages in DotNetBrowser.</p>
+	<p>
+		The web page has no style specified for its &lt;body&gt; tag. When the transparency
+		is enabled, the web page background changes from white to transparent,
+		and you can see the underlying control background instead of the white background of the web page.
+	</p>
+	<p>
+		If this web page is loaded into a semi-transparent or a completely transparent window, and the transparency is enabled for the browser,
+		you can see the window transparency effects instead of the web page background.
+	</p>
+	<div style="background: yellow; opacity: 0.4;">
+
+		This text is in the yellow half-transparent div.
+
+	</div>
+	<div style="background: red;">
+
+		This text is in the red opaque div and should appear as is.
+
+	</div>
+	<div>
+
+		This text is in the non-styled div and should appear as a text
+		on the completely transparent background.
+
+	</div>
+</body>
+</html>
