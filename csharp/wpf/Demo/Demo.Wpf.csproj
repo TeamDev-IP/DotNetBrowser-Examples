@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="2.26.1" />
-    <PackageReference Include="DotNetBrowser.WPF" Version="2.26.1" />
+    <PackageReference Include="DotNetBrowser" Version="2.26.2" />
+    <PackageReference Include="DotNetBrowser.WPF" Version="2.26.2" />
     <PackageReference Include="protobuf-net" Version="2.4.0" />
     <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='netcoreapp3.0'" />

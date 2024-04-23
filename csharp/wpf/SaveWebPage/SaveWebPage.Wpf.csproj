@@ -39,22 +39,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetBrowser">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.26.1\lib\net45\DotNetBrowser.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.2.26.2\lib\net45\DotNetBrowser.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x86">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x86.Net45.2.26.1\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x86.Net45.2.26.2\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Chromium.Win-x64">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x64.Net45.2.26.1\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x64.Net45.2.26.2\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Core">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.26.1\lib\net45\DotNetBrowser.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.2.26.2\lib\net45\DotNetBrowser.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.Logging">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.26.1\lib\net45\DotNetBrowser.Logging.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.2.26.2\lib\net45\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.WPF">
-      <HintPath>..\..\..\packages\DotNetBrowser.WPF.2.26.1\lib\net45\DotNetBrowser.WPF.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.WPF.2.26.2\lib\net45\DotNetBrowser.WPF.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>
