@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="2.27.0" />
+    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="2.27.1" />
     <PackageReference Include="SkiaSharp" Version="2.88.6" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
   </ItemGroup>
