@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:app="clr-namespace:DotNetBrowser.AvaloniaUi;assembly=DotNetBrowser.AvaloniaUi"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Chromecast.MainWindow"
+        Title="Chromecast Example" Closed="Window_Closed">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="380*"/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="120*"/>
+            <ColumnDefinition Width="270*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="navigationBar" VerticalContentAlignment="Center" TextAlignment="Left" HorizontalContentAlignment="Left" Text="TextBox" Margin="10"/>
+        <Button Grid.Column="1" x:Name="navigate" Content="Navigate" HorizontalContentAlignment="Center" MinWidth="100" Margin="5" Click="Navigate_Click"/>
+        <Button Grid.Column="2" x:Name="receivers" Content="Get receivers" HorizontalContentAlignment="Center" MinWidth="100" Margin="5" Click="Receivers_Click"/>
+        <ComboBox Grid.Column="3" x:Name="receiversBox" MinWidth="200" Margin="8" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectionChanged="ReceiversBox_SelectionChanged"/>
+        <app:BrowserView Grid.Row ="1" Grid.ColumnSpan="4"  Name="browserView"/>
+    </Grid>
+</Window>
