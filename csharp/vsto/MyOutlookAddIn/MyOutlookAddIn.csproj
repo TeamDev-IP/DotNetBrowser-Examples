@@ -1,4 +1,4 @@
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--
     This section defines project-level properties.
@@ -31,6 +31,8 @@
     <DefineConstants>VSTO40</DefineConstants>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <BootstrapperComponentsLocation>HomeSite</BootstrapperComponentsLocation>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.VSTORuntime.4.0">
@@ -100,23 +102,17 @@
   -->
   <ItemGroup>
     <Reference Include="Accessibility" />
-    <Reference Include="DotNetBrowser">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.27.3\lib\net45\DotNetBrowser.dll</HintPath>
+    <Reference Include="DotNetBrowser, Version=3.0.0.2, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.3.0.0-eap.2\lib\netstandard2.0\DotNetBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium.Win-x86">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x86.Net45.2.27.3\lib\net45\DotNetBrowser.Chromium.Win-x86.dll</HintPath>
+    <Reference Include="DotNetBrowser.Core, Version=3.0.0.2, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.3.0.0-eap.2\lib\netstandard2.0\DotNetBrowser.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium.Win-x64">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-x64.Net45.2.27.3\lib\net45\DotNetBrowser.Chromium.Win-x64.dll</HintPath>
+    <Reference Include="DotNetBrowser.Logging, Version=3.0.0.2, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.3.0.0-eap.2\lib\netstandard2.0\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Core">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.27.3\lib\net45\DotNetBrowser.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetBrowser.Logging">
-      <HintPath>..\..\..\packages\DotNetBrowser.2.27.3\lib\net45\DotNetBrowser.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetBrowser.WinForms">
-      <HintPath>..\..\..\packages\DotNetBrowser.WinForms.2.27.3\lib\net45\DotNetBrowser.WinForms.dll</HintPath>
+    <Reference Include="DotNetBrowser.WinForms, Version=3.0.0.2, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\DotNetBrowser.WinForms.3.0.0-eap.2\lib\net462\DotNetBrowser.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\..\..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>
@@ -262,4 +258,15 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\..\..\packages\DotNetBrowser.Chromium.Win-arm64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-arm64.targets" Condition="Exists('..\..\..\packages\DotNetBrowser.Chromium.Win-arm64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-arm64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\DotNetBrowser.Chromium.Win-arm64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-arm64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\DotNetBrowser.Chromium.Win-arm64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-arm64.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\DotNetBrowser.Chromium.Win-x64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\DotNetBrowser.Chromium.Win-x64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x64.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\DotNetBrowser.Chromium.Win-x86.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\DotNetBrowser.Chromium.Win-x86.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x86.targets'))" />
+  </Target>
+  <Import Project="..\..\..\packages\DotNetBrowser.Chromium.Win-x64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x64.targets" Condition="Exists('..\..\..\packages\DotNetBrowser.Chromium.Win-x64.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x64.targets')" />
+  <Import Project="..\..\..\packages\DotNetBrowser.Chromium.Win-x86.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x86.targets" Condition="Exists('..\..\..\packages\DotNetBrowser.Chromium.Win-x86.3.0.0-eap.2\build\netstandard2.0\DotNetBrowser.Chromium.Win-x86.targets')" />
 </Project>
