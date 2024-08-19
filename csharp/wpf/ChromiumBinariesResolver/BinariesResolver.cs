@@ -30,7 +30,7 @@ namespace ChromiumBinariesResolver.Wpf
     public class BinariesResolver : BinariesResolverBase
     {
         private const string UriTemplate =
-            "https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/{0}/dotnetbrowser-net45-{0}.zip";
+            "https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/{0}/dotnetbrowser-net462-{0}.zip";
 
 
         public BinariesResolver() : base(UriTemplate)

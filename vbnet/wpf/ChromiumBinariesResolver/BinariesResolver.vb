@@ -29,7 +29,7 @@ Namespace ChromiumBinariesResolver.Wpf
 	Public Class BinariesResolver
 		Inherits BinariesResolverBase
 
-		Private Const UriTemplate As String = "https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/{0}/dotnetbrowser-net45-{0}.zip"
+		Private Const UriTemplate As String = "https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/{0}/dotnetbrowser-net462-{0}.zip"
 
 		Public Sub New()
 			MyBase.New(UriTemplate)
