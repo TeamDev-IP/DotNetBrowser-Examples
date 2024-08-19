@@ -40,7 +40,7 @@ Friend Class Program
                     New Handler(Of SendUploadDataParameters, SendUploadDataResponse)(AddressOf OnSendUploadData)
 
                 Dim parameters = New LoadUrlParameters("https://postman-echo.com/post") With {
-                        .PostData = "key=value",
+                        .UploadData = New TextData("key=value"),
                         .HttpHeaders = {New HttpHeader("Content-Type", "text/plain")}
                         }
 

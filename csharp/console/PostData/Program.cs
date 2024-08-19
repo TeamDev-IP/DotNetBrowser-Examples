@@ -50,7 +50,7 @@ namespace PostData
                     LoadUrlParameters parameters =
                         new LoadUrlParameters("https://postman-echo.com/post")
                         {
-                            PostData = "key=value",
+                            UploadData = new TextData("key=value"),
                             HttpHeaders = new[]
                             {
                                 new HttpHeader("Content-Type", "text/plain")
