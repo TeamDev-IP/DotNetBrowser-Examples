@@ -1,5 +1,5 @@
 ﻿<!-- 
- *  Copyright 2022, TeamDev. All rights reserved.
+ *  Copyright 2024, TeamDev. All rights reserved.
  *
  *  Redistribution and use in source and/or binary forms, with or without
  *  modification, must retain the above copyright notice and the following
@@ -25,6 +25,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Demo.Wpf"
              xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
+             xmlns:extensions="clr-namespace:Demo.Wpf.Extensions"
              mc:Ignorable="d" 
              FocusManager.FocusedElement="{Binding Source={x:Reference browserView}}"
              IsTabStop="False"
@@ -47,6 +48,7 @@
             <MenuItem Header="Google Maps" Click="LoadGoogleMaps" />
             <MenuItem Header="HTML5 Video" Click="LoadHtml5Video" />
             <MenuItem Header="CSS Cursors" Click="LoadCssCursorsUrl" />
+            <MenuItem Header="Web Store" Click="OpenWebStore" />
             <Separator/>
             <MenuItem Header="Print" Click="Print"/>
             <MenuItem Header="Take Screenshot" Click="TakeScreenshot" />
@@ -80,6 +82,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Button Name="BackButton" 
                     Grid.Column="0" Margin="2 2"
@@ -90,8 +93,9 @@
                     Click="OnForwardButtonClick"
                     Style="{StaticResource ForwardButtonStyle}"/>
                 <TextBox Name="AddressBar" Grid.Column="2" Margin="2 2" KeyUp="OnAddressBarKeyUp" VerticalContentAlignment="Center" Text="https://teamdev.com/dotnetbrowser"/>
+                <extensions:ExtensionActionsPanel x:Name="ExtensionActions" Grid.Column="3" />
                 <Button 
-                    Grid.Column="3" Margin="2 2" 
+                    Grid.Column="4" Margin="2 2" 
                     Click="OnMenuButtonClicked"
                     Style="{StaticResource MenuButtonStyle}"/>
             </Grid>

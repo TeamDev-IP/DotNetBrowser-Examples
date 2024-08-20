@@ -21,8 +21,10 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -30,8 +32,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Events;
+using DotNetBrowser.Extensions;
+using DotNetBrowser.Extensions.Events;
 using DotNetBrowser.Navigation.Events;
 using DotNetBrowser.Wpf;
+using DotNetBrowser.Wpf.Extensions;
 using Microsoft.Win32;
 
 namespace Demo.Wpf
@@ -54,8 +59,11 @@ namespace Demo.Wpf
                     browser.StatusChanged += Browser_StatusChanged;
                     browser.Navigation.FrameLoadFinished += Navigation_FrameLoadFinished;
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
+                    UpdateExtensions();
                     LoadUrl(AddressBar.Text);
                     isCaretBrowsingEnabled = Browser.Profile.Preferences.CaretBrowsingEnabled;
+                    Browser.Profile.Extensions.ExtensionInstalled += OnExtensionInstalled;
+                    Browser.Profile.Extensions.ExtensionUninstalled += OnExtensionUninstalled;
                 }
             }
         }
@@ -82,11 +90,25 @@ namespace Demo.Wpf
 
         public void CloseTab(bool raiseClosedEvent)
         {
-            Browser?.Dispose();
+            if (Browser != null)
+            {
+                Browser.Profile.Extensions.ExtensionInstalled -= OnExtensionInstalled;
+                Browser.Profile.Extensions.ExtensionUninstalled -= OnExtensionUninstalled;
+                Browser?.Dispose();
+            }
+
             if (raiseClosedEvent)
             {
                 Closed?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void UpdateExtensions()
+        {
+            IEnumerable<IExtensionAction> actions = Browser?.Profile.Extensions.All
+                                                            .Where(ex => ex.HasAction)
+                                                            .Select(ex => ex.GetAction(Browser));
+            Dispatcher.BeginInvoke((Action)(() => { ExtensionActions.Update(actions); }));
         }
 
         private void Browser_StatusChanged(object sender, StatusChangedEventArgs e)
@@ -203,6 +225,17 @@ namespace Demo.Wpf
             CloseTab(true);
         }
 
+        private void OnExtensionInstalled(object sender, ExtensionInstalledEventArgs e)
+        {
+            e.Extension.OpenExtensionPopupHandler = new DefaultOpenExtensionPopupHandler(browserView);
+            UpdateExtensions();
+        }
+
+        private void OnExtensionUninstalled(object sender, ExtensionUninstalledEventArgs e)
+        {
+            UpdateExtensions();
+        }
+
         private void OnForwardButtonClick(object sender, RoutedEventArgs e)
         {
             Browser?.Navigation.GoForward()
@@ -244,6 +277,11 @@ namespace Demo.Wpf
         private void OpenDevTools(object sender, RoutedEventArgs e)
         {
             Browser?.DevTools.Show();
+        }
+
+        private void OpenWebStore(object sender, RoutedEventArgs e)
+        {
+            LoadUrl("https://chromewebstore.google.com/");
         }
 
         private void Print(object sender, RoutedEventArgs e)

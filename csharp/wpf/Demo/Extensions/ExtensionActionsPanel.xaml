@@ -18,20 +18,17 @@
  *  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<Application x:Class="Demo.Wpf.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Demo.Wpf"
-             xmlns:extensions="clr-namespace:Demo.Wpf.Extensions"
-             StartupUri="MainWindow.xaml" Startup="Application_Startup">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Buttons.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <DataTemplate DataType="{x:Type extensions:ExtensionActionViewModel}">
-                <extensions:ExtensionActionView />
-            </DataTemplate>
-        </ResourceDictionary>
-    </Application.Resources>
-</Application>
+<ItemsControl  x:Class="Demo.Wpf.Extensions.ExtensionActionsPanel"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:extensions="clr-namespace:DotNetBrowser.Extensions;assembly=DotNetBrowser"
+                   mc:Ignorable="d" 
+                   d:DesignHeight="40" d:DesignWidth="150" ItemsSource="{Binding ExtensionActions}">
+    <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+            <UniformGrid Rows="1" />
+        </ItemsPanelTemplate>
+    </ItemsControl.ItemsPanel>
+</ItemsControl>
