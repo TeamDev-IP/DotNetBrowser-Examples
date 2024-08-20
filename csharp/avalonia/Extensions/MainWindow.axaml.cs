@@ -21,13 +21,12 @@
 #endregion
 
 using System;
+using System.IO;
 using Avalonia;
 using Avalonia.Controls;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Extensions;
-using DotNetBrowser.Extensions.Handlers;
-using DotNetBrowser.Handlers;
 
 namespace Extensions.AvaloniaUi
 {
@@ -37,8 +36,8 @@ namespace Extensions.AvaloniaUi
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string ExtensionUrl =
-            "https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en";
+        private static readonly string ExtensionPath =
+            Path.Combine(Directory.GetCurrentDirectory(), "cjpalhdlnbpafiamejdnhcphjbkeiagm.crx");
 
         public static readonly DirectProperty<MainWindow, IExtension> ExtensionProperty =
             AvaloniaProperty.RegisterDirect<MainWindow, IExtension>(
@@ -88,11 +87,7 @@ namespace Extensions.AvaloniaUi
             if (Extension == null)
             {
                 IExtensions extensions = engine.Profiles.Default.Extensions;
-                extensions.ValidatePermissionsHandler =
-                    new Handler<ValidatePermissionsParameters, ValidatePermissionsResponse>(
-                         p => ValidatePermissionsResponse.Grant()
-                        );
-                Extension = extensions.Install(ExtensionUrl).Result;
+                Extension = extensions.Install(ExtensionPath).Result;
             }
         }
 

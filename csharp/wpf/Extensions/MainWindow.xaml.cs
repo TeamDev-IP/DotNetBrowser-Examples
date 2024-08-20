@@ -27,6 +27,7 @@ using DotNetBrowser.Extensions.Handlers;
 using DotNetBrowser.Extensions;
 using DotNetBrowser.Handlers;
 using System;
+using System.IO;
 
 namespace Extensions.Wpf
 {
@@ -36,8 +37,8 @@ namespace Extensions.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string ExtensionUrl =
-            "https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm/related?hl=en";
+        private static readonly string ExtensionPath =
+            Path.Combine(Directory.GetCurrentDirectory(), "cjpalhdlnbpafiamejdnhcphjbkeiagm.crx");
         private IBrowser browser;
         private IEngine engine;
         private IExtension extension;
@@ -65,12 +66,8 @@ namespace Extensions.Wpf
         {
             if (extension == null)
             {
-                var extensions = engine.Profiles.Default.Extensions;
-                extensions.ValidatePermissionsHandler =
-                    new Handler<ValidatePermissionsParameters, ValidatePermissionsResponse>(
-                        p => ValidatePermissionsResponse.Grant()
-                   );
-                extension = extensions.Install(ExtensionUrl).Result;
+                IExtensions extensions = engine.Profiles.Default.Extensions;
+                extension = extensions.Install(ExtensionPath).Result;
             }
         }
 
