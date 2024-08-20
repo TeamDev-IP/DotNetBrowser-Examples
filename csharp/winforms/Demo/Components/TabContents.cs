@@ -21,16 +21,21 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
+using DotNetBrowser.Extensions;
+using DotNetBrowser.Extensions.Events;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
 using DotNetBrowser.WinForms.Dialogs;
+using DotNetBrowser.WinForms.Extensions;
 
 namespace DotNetBrowser.WinForms.Demo.Components
 {
@@ -55,6 +60,9 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     browser.ShowContextMenuHandler = browserView.ShowContextMenuHandler;
                     LoadUrl(AddressBar.Text);
                     UpdateContents();
+                    UpdateExtensions();
+                    Browser.Profile.Extensions.ExtensionInstalled += OnExtensionInstalled;
+                    Browser.Profile.Extensions.ExtensionUninstalled += OnExtensionUninstalled;
                 }
             }
         }
@@ -86,9 +94,27 @@ namespace DotNetBrowser.WinForms.Demo.Components
             }
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            UpdateExtensions();
+        }
+
         public void UpdateContents()
         {
             caretBrowsingToolStripMenuItem.Checked = Browser?.Profile.Preferences.CaretBrowsingEnabled ?? false;
+        }
+
+        public void UpdateExtensions()
+        {
+            if (Browser == null || !IsHandleCreated)
+            {
+                return;
+            }
+            IEnumerable<IExtensionAction> actions = Browser.Profile.Extensions.All
+                                                           .Where(ex => ex.HasAction)
+                                                           .Select(ex => ex.GetAction(Browser));
+            BeginInvoke((Action)(() => { extensionsPanel1.UpdateActions(actions); }));
         }
 
         private void AddressBar_KeyDown(object sender, KeyEventArgs e)
@@ -208,6 +234,17 @@ namespace DotNetBrowser.WinForms.Demo.Components
             }
         }
 
+        private void OnExtensionInstalled(object sender, ExtensionInstalledEventArgs e)
+        {
+            e.Extension.OpenExtensionPopupHandler = new DefaultOpenExtensionPopupHandler(browserView);
+            UpdateExtensions();
+        }
+
+        private void OnExtensionUninstalled(object sender, ExtensionUninstalledEventArgs e)
+        {
+            UpdateExtensions();
+        }
+
         private void pDFViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadUrl("http://www.orimi.com/pdf-test.pdf");
@@ -252,6 +289,11 @@ namespace DotNetBrowser.WinForms.Demo.Components
         private void uploadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadUrl("https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button");
+        }
+
+        private void webStoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadUrl("https://chromewebstore.google.com/");
         }
     }
 }

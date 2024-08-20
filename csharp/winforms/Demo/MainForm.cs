@@ -28,6 +28,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Extensions.Handlers;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
 using DotNetBrowser.Net;
@@ -96,6 +97,12 @@ namespace DotNetBrowser.WinForms.Demo
                 engine.Profiles.Default.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
                 engine.Profiles.Default.Permissions.RequestPermissionHandler =
                     new Handler<RequestPermissionParameters, RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
+                engine.Profiles.Default.Extensions.InstallExtensionHandler =
+                    new Handler<InstallExtensionParameters, InstallExtensionResponse>(p => InstallExtensionResponse
+                       .Install);
+                engine.Profiles.Default.Extensions.UninstallExtensionHandler =
+                    new Handler<UninstallExtensionParameters, UninstallExtensionResponse>(p => UninstallExtensionResponse
+                       .Uninstall);
                 engine.Disposed += (sender, args) =>
                 {
                     if (args.ExitCode != 0)
