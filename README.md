@@ -30,6 +30,7 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Walk through the hierarchy of frames on the web page: [C#](csharp/console/GetFrames/Program.cs), [VB.NET](vbnet/console/GetFrames/Program.vb)
 * Get selected text on the web page: [C#](csharp/console/GetSelectedText/Program.cs), [VB.NET](vbnet/console/GetSelectedText/Program.vb)
 * Find text on the web page: [C#](csharp/console/FindText/Program.cs), [VB.NET](vbnet/console/FindText/Program.vb)
+* Text search (WinForms): [C#](csharp/winforms/FindText), [VB.NET](vbnet/winforms/FindText)
 * Text search (WPF): [C#](csharp/wpf/FindText), [VB.NET](vbnet/wpf/FindText)
 * Save web page: [C#](csharp/wpf/SaveWebPage), [VB.NET](vbnet/wpf/SaveWebPage)
 * Save an image from the web page: [C#](csharp/console/SaveImageFromPage/Program.cs), [VB.NET](vbnet/console/SaveImageFromPage/Program.vb)
