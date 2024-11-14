@@ -120,3 +120,4 @@ UpgradeLog*.htm
 /csharp/wpf/.idea/
 .idea/
 /csharp/unity3d/DotNetBrowser_Unity/DotNetBrowser-*.log
+/csharp/unity3d/Builds/
