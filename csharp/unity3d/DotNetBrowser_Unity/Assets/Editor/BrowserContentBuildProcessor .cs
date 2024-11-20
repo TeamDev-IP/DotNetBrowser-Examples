@@ -11,14 +11,19 @@ namespace Assets.DnbSimple.Scripts
         public void OnPostprocessBuild(BuildReport report)
         {
             string outputPath = Path.GetDirectoryName(report.summary.outputPath);
-            File.Copy(@"Assets\Editor\dotnetbrowser.license", Path.Combine(outputPath, "dotnetbrowser.license"), true);
+            const string sourceLicenseFilePath = "Assets/Editor/dotnetbrowser.license";
+
+            if (File.Exists(sourceLicenseFilePath))
+            {
+                File.Copy(sourceLicenseFilePath, Path.Combine(outputPath, "dotnetbrowser.license"), true);
+            }
 
             CreateDirectories(outputPath);
-            CopyDirectory(@"Assets\DnbSimple\Html\Menu", Path.Combine(outputPath, @"DnbSimple\Html\Menu"));
-            CopyDirectory(@"Assets\DnbSimple\Html\Chat", Path.Combine(outputPath, @"DnbSimple\Html\Chat"));
-            CopyDirectory(@"Assets\DnbFps\Html\Menu", Path.Combine(outputPath, @"DnbFps\Html\Menu"));
-            CopyDirectory(@"Assets\DnbFps\Html\Menu\Images", Path.Combine(outputPath, @"DnbFps\Html\Menu\Images"));
-            CopyDirectory(@"Assets\DnbFps\Html\Chat", Path.Combine(outputPath, @"DnbFps\Html\Chat"));
+            CopyDirectory("Assets/DnbSimple/Html/Menu", Path.Combine(outputPath, "DnbSimple/Html/Menu"));
+            CopyDirectory("Assets/DnbSimple/Html/Chat", Path.Combine(outputPath, "DnbSimple/Html/Chat"));
+            CopyDirectory("Assets/DnbFps/Html/Menu", Path.Combine(outputPath, "DnbFps/Html/Menu"));
+            CopyDirectory("Assets/DnbFps/Html/Menu/Images", Path.Combine(outputPath, "DnbFps/Html/Menu/Images"));
+            CopyDirectory("Assets/DnbFps/Html/Chat", Path.Combine(outputPath, "DnbFps/Html/Chat"));
         }
 
         private void CreateDirectory(string outputPath, string dirName)

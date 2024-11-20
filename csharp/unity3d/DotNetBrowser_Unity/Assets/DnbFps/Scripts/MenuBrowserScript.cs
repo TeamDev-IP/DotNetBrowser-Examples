@@ -14,10 +14,10 @@ namespace Assets.DnbFps.Scripts
         protected override void Start()
         {
 #if UNITY_EDITOR
-            DefaultUrl = @"Assets\DnbFps\Html\Menu\MenuPage.html";
+            DefaultUrl = @"Assets/DnbFps/Html/Menu/MenuPage.html";
 #else
             DefaultUrl = System.IO.Path.Combine(Environment.CurrentDirectory,
-                                                @"DnbFps\Html\Menu\MenuPage.html");
+                                                @"DnbFps/Html/Menu/MenuPage.html");
 #endif
             base.Start();
         }

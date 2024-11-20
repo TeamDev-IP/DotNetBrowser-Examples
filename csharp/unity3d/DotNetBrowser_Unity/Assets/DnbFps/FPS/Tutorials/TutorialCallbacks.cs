@@ -1,7 +1,7 @@
 using UnityEngine;
 using Unity.Tutorials.Core.Editor;
 using UnityEditor;
-using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 namespace Unity.Tutorials
 {

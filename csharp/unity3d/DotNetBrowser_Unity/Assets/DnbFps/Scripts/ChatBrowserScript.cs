@@ -9,9 +9,9 @@ namespace Assets.DnbFps.Scripts {
         protected override void Start()
         {
 #if UNITY_EDITOR
-            DefaultUrl = @"Assets\DnbFps\Html\Chat\Chat.html";
+            DefaultUrl = @"Assets/DnbFps/Html/Chat/Chat.html";
 #else
-            DefaultUrl = System.IO.Path.Combine(System.Environment.CurrentDirectory, @"DnbFps\Html\Chat\Chat.html");
+            DefaultUrl = System.IO.Path.Combine(System.Environment.CurrentDirectory, @"DnbFps/Html/Chat/Chat.html");
 #endif
             base.Start();
         }
