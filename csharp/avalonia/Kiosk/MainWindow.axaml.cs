@@ -39,6 +39,8 @@ namespace Kiosk
     {
         private IBrowser? browser;
         private IEngine? engine;
+        static string relativePath = Path.Combine("kiosk", "index.html");
+        string fullPath = Path.GetFullPath(relativePath);
 
         public MainWindow()
         {
@@ -54,7 +56,7 @@ namespace Kiosk
                               //Disable default context menu
                               browser.ShowContextMenuHandler = null;
                               browser.Navigation
-                                     .LoadUrl(Path.GetFullPath("kiosk\\index.html"))
+                                     .LoadUrl(Path.GetFullPath(fullPath))
                                      .ContinueWith(t
                                                        =>
                                                    {
