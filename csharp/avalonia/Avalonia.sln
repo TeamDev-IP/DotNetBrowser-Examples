@@ -16,6 +16,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mvvm", "Mvvm\Mvvm.csproj", "{27CCA944-ADFA-4547-8B15-3CEE7A3E3E87}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Extensions.AvaloniaUi", "Extensions\Extensions.AvaloniaUi.csproj", "{061EDA4B-A578-4EDC-B3B0-CF8A83FBABB2}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chromecast", "Chromecast\Chromecast.csproj", "{3B1AA2E3-C9DE-4DA1-B764-4694CF96A7DC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransparentWebPage", "TransparentWebPage\TransparentWebPage.csproj", "{FFCD435F-C064-46E3-8A55-1D7E827EF989}"
