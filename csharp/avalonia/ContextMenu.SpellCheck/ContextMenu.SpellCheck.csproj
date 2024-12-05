@@ -19,11 +19,4 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.4" />
     <PackageReference Include="DotNetBrowser.AvaloniaUi" Version="2.27.7" />
   </ItemGroup>
-
-
-  <ItemGroup>
-    <None Update="..\..\..\dotnetbrowser.license">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 </Project>
