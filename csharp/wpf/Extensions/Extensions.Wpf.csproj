@@ -48,9 +48,6 @@
     <Reference Include="DotNetBrowser, Version=3.0.0.5171, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.3.0.0\lib\netstandard2.0\DotNetBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium.Win-arm64, Version=3.0.0.4222, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.Chromium.Win-arm64.Net45.3.0.0-b4222-eap\lib\net45\DotNetBrowser.Chromium.Win-arm64.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetBrowser.Core, Version=3.0.0.5171, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.3.0.0\lib\netstandard2.0\DotNetBrowser.Core.dll</HintPath>
     </Reference>
