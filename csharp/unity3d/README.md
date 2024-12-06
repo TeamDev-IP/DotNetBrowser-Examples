@@ -12,7 +12,7 @@ The folder of the Unity3D project is **DotNetBrowser_Unity**. It should be selec
   
 Please note that this project uses a dedicated local package to automate pulling and updating DotNetBrowser libraries. You can see it referenced in _DotNetBrowser_Unity\Packages\packages-lock.json_ and _DotNetBrowser_Unity\Packages\manifest.json_ as **com.teamdev.dotnetbrowser.deps** package. The package source code is located in a **Dependencies** folder.
 
-The package will check and download the latest version of **DotNetBrowser** libraries on loading the Unity project. The same check is performed on recompiling the Unity project scripts.
+The package will check and download the latest version of **DotNetBrowser** libraries on loading the Unity project. The same check is performed on recompiling the Unity project scripts. Unity can say that there are errors to fix when you open that project for the first time and propose to load it in the safe mode. The packages won't load in the safe mode. Ignore this proposition and load in the normal mode.
 
 You must have a license key to make it work. You can use a [_dotnetbrowser.license_](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-key-through-a-license-file) file and put it in the [Editor](DotNetBrowser_Unity/Assets/Editor) directory of your project. It will be copied to the directory with executables automatically after the build. Or, you can set the license through the code by setting it in `EngineOptions` in the `BrowserScript` class. It looks like [this](DotNetBrowser_Unity/Assets/DnbSimple/Scripts/BrowserScript.cs#L82):
 ```
