@@ -40,7 +40,7 @@ namespace Assets.Scripts
     /// </summary>
     public class BrowserScript : MonoBehaviour
     {
-        public string DefaultUrl = "www.google.com";
+        public string DefaultUrl = "tenor.com";
         public Vector2 Size = new Vector2(1024, 768);
 
         /// <summary>
@@ -80,7 +80,8 @@ namespace Assets.Scripts
             EngineOptions engineOptions = new EngineOptions.Builder
             {
                 // LicenseKey = "your_license_key",
-                RenderingMode = RenderingMode.OffScreen
+                RenderingMode = RenderingMode.OffScreen,
+                ProprietaryFeatures = ProprietaryFeatures.Aac | ProprietaryFeatures.H264 | ProprietaryFeatures.Widevine
             }.Build();
             Engine = EngineFactory.Create(engineOptions);
 

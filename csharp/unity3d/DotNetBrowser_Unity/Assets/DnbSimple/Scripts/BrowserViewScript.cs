@@ -61,7 +61,7 @@ namespace Assets.Scripts
 
         public bool PauseUpdating { get; set; }
 
-        protected void Dispatch((EventHandler, object, EventArgs) eventHamdler) => actions.Enqueue(eventHamdler);
+        protected void Dispatch((EventHandler, object, EventArgs) eventHandler) => actions.Enqueue(eventHandler);
 
         protected virtual void Start()
         {
