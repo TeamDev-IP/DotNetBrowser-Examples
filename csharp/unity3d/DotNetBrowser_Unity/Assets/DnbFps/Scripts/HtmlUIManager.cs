@@ -1,8 +1,11 @@
 using Assets.DnbFps.Scripts;
-using System.Collections;
+using DotNetBrowser.Dom;
+using DotNetBrowser.Input.Mouse;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.FPS.Game;
 using UnityEngine;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class HtmlUIManager : MonoBehaviour
 {
@@ -24,14 +27,49 @@ public class HtmlUIManager : MonoBehaviour
             var htmlChat = ChatRawImage.GetComponent<RawImageViewScript>();
             if (!MenuRawImage.activeInHierarchy)
             {
-                htmlChat.PauseUpdating = true;
+                htmlChat.Unfocus();
                 MenuRawImage.SetActive(true);
             }
             else
             {
                 MenuRawImage.SetActive(false);
-                htmlChat.PauseUpdating = false;
+                htmlChat.Focus();
             }
         }
+
+        UpdateChat();
+    }
+
+    private void UpdateChat()
+    {
+        var htmlChat = ChatRawImage.GetComponent<RawImageViewScript>();
+        if (Input.GetKeyDown(KeyCode.Return) && htmlChat.IsFocused)
+        {
+            htmlChat.Unfocus();
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (htmlChat.IsFocused)
+            {
+                htmlChat.Unfocus();
+            }
+            else
+            {
+                htmlChat.Focus();
+                ClickTextArea();
+            }
+        }
+    }
+
+    private void ClickTextArea()
+    {
+        var htmlChat = ChatRawImage.GetComponent<RawImageViewScript>();
+        DotNetBrowser.Frames.IFrame frame = htmlChat.Browser.MainFrame;
+        IDocument document = frame.Document;
+        IElement documentElement = document.DocumentElement;
+        IEnumerable<IElement> elements = documentElement?.GetElementsByTagName("textarea");
+        htmlChat.Browser.Mouse.SimulateClick(DotNetBrowser.Input.Mouse.Events.MouseButton.Left, elements.First());
     }
 }

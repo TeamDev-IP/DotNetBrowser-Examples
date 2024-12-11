@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <style>
- /* Chat containers */
+        /* Chat containers */
         .container {
             border: 2px solid #dedede;
             background-color: #f1f1f1;
@@ -35,12 +35,12 @@
             border-radius: 50%;
         }
 
-        /* Style the right image */
-        .container img.right {
-            float: right;
-            margin-left: 20px;
-            margin-right:0;
-        }
+            /* Style the right image */
+            .container img.right {
+                float: right;
+                margin-left: 20px;
+                margin-right: 0;
+            }
 
         /* Style time text */
         .time-right {
@@ -59,43 +59,97 @@
             background-color: burlywood;
             width: 98%;
         }
+
+        .chat-items {
+            max-height: 500px; /* Adjust this as per your layout */
+            overflow-y: auto;
+            overflow-x: hidden; /* Hide horizontal scroll */
+        }
     </style>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title></title>
 </head>
 <body>
 
-<h1>Chat design example</h1>
+    <h1>Chat design example</h1>
 
-<div class="container">
-    <img src="../../Avatars/Avatar1.png" alt="Avatar">
-    <p>Hello. How are you today?</p>
-    <span class="time-right">11:00</span>
-</div>
+    <div class="chat-items" id="chatItems">
+        <div class="container">
+            <img src="../../Avatars/Avatar1.png" alt="Avatar">
+            <p>Hello. How are you today?</p>
+            <span class="time-right">11:00</span>
+        </div>
 
-<div class="container darker">
-    <img src="../../Avatars/Avatar2.png" alt="Avatar" class="right">
-    <p>Hey! I'm fine. Thanks for asking!</p>
-    <span class="time-left">11:01</span>
-</div>
+        <div class="container darker">
+            <img src="../../Avatars/Avatar2.png" alt="Avatar" class="right">
+            <p>Hey! I'm fine. Thanks for asking!</p>
+            <span class="time-left">11:01</span>
+        </div>
 
-<div class="container">
-    <img src="../../Avatars/Avatar1.png" alt="Avatar">
-    <p>Sweet! So, what do you wanna do today?</p>
-    <span class="time-right">11:02</span>
-</div>
+        <div class="container">
+            <img src="../../Avatars/Avatar1.png" alt="Avatar">
+            <p>Sweet! So, what do you wanna do today?</p>
+            <span class="time-right">11:02</span>
+        </div>
 
-<div class="container darker">
-    <img src="../../Avatars/Avatar2.png" alt="Avatar" class="right">
-    <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-    <span class="time-left">11:05</span>
-</div>
-    
-<br/>
-<div style="padding-right: 5px">
-    <textarea rows="3" class="container inputChat">
-</textarea>
-</div>
+        <div class="container darker">
+            <img src="../../Avatars/Avatar2.png" alt="Avatar" class="right">
+            <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+            <span class="time-left">11:05</span>
+        </div>
+    </div>
+
+    <br />
+    <div style="padding-right: 5px">
+        <textarea rows="3" class="container inputChat" id="chatInput"></textarea>
+    </div>
+
+    <script>
+        document.getElementById('chatInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+
+                const input = event.target;
+                const message = input.value.trim();
+
+                if (message) {
+                    const chatItems = document.getElementById('chatItems');
+
+                    // Create a new chat container
+                    const chatItem = document.createElement('div');
+                    chatItem.className = 'container';
+
+                    // Add avatar image
+                    const avatar = document.createElement('img');
+                    avatar.src = '../../Avatars/Avatar2.png';
+                    avatar.alt = 'Avatar';
+                    avatar.className = 'right';
+                    chatItem.appendChild(avatar);
+
+                    // Add text
+                    const messageText = document.createElement('p');
+                    messageText.textContent = message;
+                    chatItem.appendChild(messageText);
+
+                    // Add time
+                    const timeSpan = document.createElement('span');
+                    timeSpan.className = 'time-right';
+                    const now = new Date();
+                    timeSpan.textContent = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                    chatItem.appendChild(timeSpan);
+
+                    // Append to chat items
+                    chatItems.appendChild(chatItem);
+
+                    // Scroll to the bottom
+                    chatItems.scrollTop = chatItems.scrollHeight;
+
+                    // Clear the input
+                    input.value = '';
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>

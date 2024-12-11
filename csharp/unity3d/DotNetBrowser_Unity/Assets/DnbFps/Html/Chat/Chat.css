@@ -64,10 +64,11 @@ body {
     font-weight: 500; }
 
 .chat-items {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden auto;
-  margin-right: 8px; }
+    flex: 1;
+    min-height: 0;
+    overflow: hidden auto;
+    margin-right: 8px;
+}
   .chat-items .chat-item {
     padding: 6px 24px;
     font-size: 12px;

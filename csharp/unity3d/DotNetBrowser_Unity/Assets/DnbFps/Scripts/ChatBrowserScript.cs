@@ -1,6 +1,4 @@
 using Assets.Scripts;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.DnbFps.Scripts {
@@ -11,10 +9,9 @@ namespace Assets.DnbFps.Scripts {
 #if UNITY_EDITOR
             DefaultUrl = @"Assets/DnbFps/Html/Chat/Chat.html";
 #else
-            DefaultUrl = System.IO.Path.Combine(System.Environment.CurrentDirectory, @"DnbFps/Html/Chat/Chat.html");
+            DefaultUrl = $"{Application.dataPath}/../DnbFps/Html/Chat/Chat.html";
 #endif
             base.Start();
         }
-
     }
 }
