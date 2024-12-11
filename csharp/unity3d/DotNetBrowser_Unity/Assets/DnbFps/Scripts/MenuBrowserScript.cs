@@ -1,7 +1,9 @@
 using Assets.Scripts;
 using DotNetBrowser.Dom;
 using System;
+using System.Text;
 using DnbEventType = DotNetBrowser.Dom.Events.EventType;
+using UnityEngine;
 
 namespace Assets.DnbFps.Scripts
 {
@@ -13,11 +15,11 @@ namespace Assets.DnbFps.Scripts
 
         protected override void Start()
         {
+            StringBuilder s = new StringBuilder();
 #if UNITY_EDITOR
             DefaultUrl = @"Assets/DnbFps/Html/Menu/MenuPage.html";
 #else
-            DefaultUrl = System.IO.Path.Combine(Environment.CurrentDirectory,
-                                                @"DnbFps/Html/Menu/MenuPage.html");
+            DefaultUrl = $"{Application.dataPath}/../DnbFps/Html/Menu/MenuPage.html";
 #endif
             base.Start();
         }

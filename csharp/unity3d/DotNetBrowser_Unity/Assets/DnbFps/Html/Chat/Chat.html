@@ -1,58 +1,146 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Chat.css"/>
+    <link rel="stylesheet" href="Chat.css" />
+    <style>
+        .chat-item {
+            display: none; /* Initially hidden */
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<div class="chat">
-    <div class="header">
-        <h3>Html Chat</h3>
+    <div class="chat">
+        <div class="header">
+            <h3>Html Chat</h3>
+        </div>
+        <div class="chat-items" id="chatItems" style="overflow-y: scroll;">
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Alex</span>
+                    <span class="time">[11:00]</span>
+                </div>
+                <p>Guys! I've spotted an enemy droid on the low stage.</p>
+            </div>
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Rachel</span>
+                    <span class="time">[11:01]</span>
+                </div>
+                <p>Got it! Boby, baby, can you deal with it?</p>
+            </div>
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Boby</span>
+                    <span class="time">[11:02]</span>
+                </div>
+                <p>I can't. I'm still in the respawn area.</p>
+            </div>
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Rachel</span>
+                    <span class="time">[11:05]</span>
+                </div>
+                <p>Mark?</p>
+            </div>
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Mark</span>
+                    <span class="time">[11:06]</span>
+                </div>
+                <p>Ahh, let me think...</p>
+            </div>
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Rachel</span>
+                    <span class="time">[11:06]</span>
+                </div>
+                <p>Nevermind</p>
+            </div>
+            <div class="chat-item">
+                <div class="name-holder">
+                    <span class="name">Rachel</span>
+                    <span class="time">[11:06]</span>
+                </div>
+                <p>I need a tough guy who can just go and do it.</p>
+            </div>
+        </div>
+        <div class="reply">
+            <textarea class="textarea" id="chatInput" placeholder="Reply..." rows="1"></textarea>
+        </div>
     </div>
-    <div class="chat-items">
-        <div class="chat-item">
-            <div class="name-holder">
-                <span class="name">Alex</span>
-                <span class="time">[11:00]</span>
-            </div>
-            <p>Hello. How are you today?</p>
-        </div>
-        <div class="chat-item">
-            <div class="name-holder">
-                <span class="name">Rachel</span>
-                <span class="time">[11:01]</span>
-            </div>
-            <p>Hey! I'm fine. Thanks for asking!</p>
-        </div>
-        <div class="chat-item">
-            <div class="name-holder">
-                <span class="name">Alex</span>
-                <span class="time">[11:02]</span>
-            </div>
-            <p>Sweet! So, what do you wanna do today?</p>
-        </div>
-        <div class="chat-item">
-            <div class="name-holder">
-                <span class="name">Rachel</span>
-                <span class="time">[11:05]</span>
-            </div>
-            <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-        </div>
-        <div class="chat-item">
-            <div class="name-holder">
-                <span class="name">Rachel</span>
-                <span class="time">[11:06]</span>
-            </div>
-            <p>What do you think?</p>
-        </div>
-    </div>
-    <div class="reply">
-        <textarea class="textarea" placeholder="Reply..." rows="1"></textarea>
-    </div>
-</div>
+
+    <script>
+        // Function to reveal chat items one by one
+        const chatItems = document.querySelectorAll('#chatItems .chat-item');
+        const chat = document.getElementById('chatItems');
+        let currentIndex = 0;
+
+        function revealChatItem() {
+            if (currentIndex < chatItems.length) {
+                chatItems[currentIndex].style.display = 'block';
+                currentIndex++;
+                chat.scrollTop = chat.scrollHeight;
+                setTimeout(revealChatItem, 3000); // 3-second delay
+            }
+        }
+
+        // Start revealing chat items
+        setTimeout(revealChatItem, 3000);
+
+
+        document.getElementById('chatInput').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+
+                const input = event.target;
+                const message = input.value.trim();
+
+                if (message) {
+                    // Create a new chat item
+                    const chatItem = document.createElement('div');
+                    chatItem.className = 'chat-item';
+                    chatItem.style.display = 'block'; // Show new messages immediately
+
+                    // Add name and time
+                    const nameHolder = document.createElement('div');
+                    nameHolder.className = 'name-holder';
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'name';
+                    nameSpan.textContent = 'You';
+
+                    const timeSpan = document.createElement('span');
+                    timeSpan.className = 'time';
+                    const now = new Date();
+                    timeSpan.textContent = `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}]`;
+
+                    nameHolder.appendChild(nameSpan);
+                    nameHolder.appendChild(timeSpan);
+
+                    // Add message text
+                    const messageText = document.createElement('p');
+                    messageText.textContent = message;
+
+                    chatItem.appendChild(nameHolder);
+                    chatItem.appendChild(messageText);
+
+                    // Append to chat
+                    chat.appendChild(chatItem);
+
+                    // Scroll to the bottom
+                    chat.scrollTop = chat.scrollHeight;
+
+                    // Clear the textarea
+                    input.value = '';
+                }
+            }
+        });
+    </script>
 </body>
 </html>

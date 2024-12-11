@@ -1932,7 +1932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebf19587e179b34fb8487c985b669d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultUrl: www.youtube.com
+  DefaultUrl: https://www.dailymotion.com/category/content-entertainment
   Size: {x: 1024, y: 768}
 --- !u!4 &1342580131
 Transform:
