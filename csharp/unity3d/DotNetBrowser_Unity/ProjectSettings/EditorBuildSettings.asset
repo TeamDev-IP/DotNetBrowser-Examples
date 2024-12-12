@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/DnbSimple/Scenes/DotNetBrowserScene.unity
+    guid: c90caf2eeacfcec40a0bde57b6c6d17a
+  - enabled: 1
+    path: Assets/DnbFps/FPS/Scenes/MainScene.unity
+    guid: d794a2ef8ba31d847ad3c19d03e2ddb9
+  - enabled: 1
     path: Assets/DnbFps/FPS/Scenes/IntroMenu.unity
     guid: 56e3faabc5bb30f49a68bb8f1292f988
   - enabled: 1
@@ -14,11 +20,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DnbFps/FPS/Scenes/LoseScene.unity
     guid: 72e5c65a45893714484002914e3fd521
-  - enabled: 1
-    path: Assets/DnbFps/FPS/Scenes/MainScene/MainScene.unity
-    guid: d794a2ef8ba31d847ad3c19d03e2ddb9
-  - enabled: 1
-    path: Assets/DnbSimple/Scenes/DotNetBrowserScene.unity
-    guid: c90caf2eeacfcec40a0bde57b6c6d17a
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

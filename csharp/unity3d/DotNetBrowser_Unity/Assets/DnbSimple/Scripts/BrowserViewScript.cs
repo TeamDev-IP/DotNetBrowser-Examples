@@ -22,14 +22,11 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Geometry;
 using DotNetBrowser.Ui;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -46,7 +43,6 @@ namespace Assets.Scripts
         public GameObject BrowserGameObject;
 
         protected BrowserScript browserScript;
-        private bool isFocused;
         private bool isMouseOver;
         private KeyboardHelper keyboardHelper;
         private RectTransform rectTransform;
@@ -59,9 +55,21 @@ namespace Assets.Scripts
         /// </summary>
         public IBrowser Browser => browserScript.Browser;
 
-        public bool PauseUpdating { get; set; }
+        public bool IsFocused { get; private set; } = true;
 
-        protected void Dispatch((EventHandler, object, EventArgs) eventHamdler) => actions.Enqueue(eventHamdler);
+        public virtual void Focus()
+        {
+            Browser.Focus();
+            IsFocused = true;
+        }
+
+        public virtual void Unfocus()
+        {
+            Browser.Unfocus();
+            IsFocused = false;
+        }
+
+        protected void Dispatch((EventHandler, object, EventArgs) eventHandler) => actions.Enqueue(eventHandler);
 
         protected virtual void Start()
         {
@@ -73,9 +81,6 @@ namespace Assets.Scripts
 
         protected virtual void Update()
         {
-            if (PauseUpdating)
-                return;
-
             while(actions.TryDequeue(out (EventHandler, object, EventArgs) action))
             {
                 action.Item1.Invoke(action.Item2, action.Item3);
@@ -90,10 +95,9 @@ namespace Assets.Scripts
             }
             else
             {
-                if (isFocused && Input.GetMouseButtonDown(0))
+                if (IsFocused && Input.GetMouseButtonDown(0))
                 {
-                    Browser.Unfocus();
-                    isFocused = false;
+                    Unfocus();
                 }
             }
 
@@ -106,7 +110,7 @@ namespace Assets.Scripts
 
         private void OnGUI()
         {
-            if (isFocused)
+            if (IsFocused)
             {
                 keyboardHelper?.HandleKeyboardEvents();
             }
@@ -115,8 +119,7 @@ namespace Assets.Scripts
         private void OnMouseDown()
         {
             mouseHelper?.MouseDown();
-            Browser.Focus();
-            isFocused = true;
+            Focus();
         }
 
         private void OnMouseDrag() => mouseHelper?.MouseDrag();
@@ -153,8 +156,7 @@ namespace Assets.Scripts
         {
             SetPoint(eventData);
             mouseHelper?.MouseDown();
-            Browser.Focus();
-            isFocused = true;
+            Focus();
         }
 
         public void OnPointerUp(PointerEventData eventData)
