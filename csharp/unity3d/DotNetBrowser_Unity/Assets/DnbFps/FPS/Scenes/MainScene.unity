@@ -198,7 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultUrl: 
-  Size: {x: 250, y: 400}
+  Width: 250
+  Height: 400
 --- !u!4 &218425204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2320371260222401683, guid: 1357d534d67e44349a4b7c67840165c7,
@@ -496,7 +497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultUrl: 
-  Size: {x: 250, y: 400}
+  Width: 250
+  Height: 400
 --- !u!1001 &567189782
 PrefabInstance:
   m_ObjectHideFlags: 0

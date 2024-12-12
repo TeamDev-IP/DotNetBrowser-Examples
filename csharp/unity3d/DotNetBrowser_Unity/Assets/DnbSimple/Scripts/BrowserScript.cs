@@ -41,7 +41,8 @@ namespace Assets.Scripts
     public class BrowserScript : MonoBehaviour
     {
         public string DefaultUrl = "tenor.com";
-        public Vector2 Size = new Vector2(1024, 768);
+        public uint Width = 1024;
+        public uint Height = 768;
 
         /// <summary>
         ///     Gets the latest bitmap data of browser web page.
@@ -81,12 +82,11 @@ namespace Assets.Scripts
             {
                 // LicenseKey = "your_license_key",
                 RenderingMode = RenderingMode.OffScreen,
-                ProprietaryFeatures = ProprietaryFeatures.Aac | ProprietaryFeatures.H264 | ProprietaryFeatures.Widevine
             }.Build();
             Engine = EngineFactory.Create(engineOptions);
 
             Browser = Engine.CreateBrowser();
-            Browser.Size = new Size((uint)Size.x, (uint)Size.y);
+            Browser.Size = new Size(Width, Height);
             Browser.Settings.TransparentBackgroundEnabled = true;
             Browser.Settings.DefaultBackgroundColor = new Color(0, 0, 0, 0);
 

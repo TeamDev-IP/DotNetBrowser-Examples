@@ -22,14 +22,11 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Geometry;
 using DotNetBrowser.Ui;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
