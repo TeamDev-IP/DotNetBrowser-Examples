@@ -1,4 +1,4 @@
-﻿namespace FindText.WinForms
+namespace FindText.WinForms
 {
     partial class Form1
     {

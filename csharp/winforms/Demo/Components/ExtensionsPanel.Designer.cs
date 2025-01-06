@@ -1,4 +1,4 @@
-﻿namespace DotNetBrowser.WinForms.Demo.Components
+namespace DotNetBrowser.WinForms.Demo.Components
 {
     partial class ExtensionsPanel
     {

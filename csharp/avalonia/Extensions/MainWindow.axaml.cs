@@ -1,4 +1,4 @@
-﻿#region Copyright
+#region Copyright
 
 // Copyright © 2023, TeamDev. All rights reserved.
 // 
