@@ -22,8 +22,8 @@
 
 using System;
 using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using DotNetBrowser.Browser;
@@ -93,9 +93,11 @@ namespace ContextMenu
             Dispatcher.UIThread.InvokeAsync(() =>
             {
                 Avalonia.Controls.ContextMenu? cm = new();
-                cm.Placement = PlacementMode.Pointer;
-                Point point = new Point(parameters.Location.X, parameters.Location.Y);
-                cm.PlacementRect = new Rect(point, new Size(1, 1));
+                cm.Placement = PlacementMode.AnchorAndGravity;
+                cm.PlacementAnchor = PopupAnchor.TopLeft;
+                cm.PlacementGravity = PopupGravity.BottomRight;
+                cm.HorizontalOffset = parameters.Location.X;
+                cm.VerticalOffset = parameters.Location.Y;
 
                 if (!string.IsNullOrEmpty(parameters.LinkText))
                 {
@@ -124,7 +126,17 @@ namespace ContextMenu
                                   });
                 cm.Items.Add(reloadMenuItem);
 
-                cm.Closed += (s, a) => tcs.TrySetResult(ShowContextMenuResponse.Close());
+                browser.FocusRequested += (sender, args) =>
+                {
+                    Dispatcher.UIThread.InvokeAsync(() => cm.Close());
+                };
+
+                cm.Closed += (sender, args) =>
+                {
+                    browser.Focus();
+                    tcs.TrySetResult(ShowContextMenuResponse.Close());
+                };
+
                 cm.Open(BrowserView);
             });
 
