@@ -34,7 +34,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CreateHtmlUi.Wpf")]
-[assembly: AssemblyCopyright("Copyright ©  2025, TeamDev. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2025, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
