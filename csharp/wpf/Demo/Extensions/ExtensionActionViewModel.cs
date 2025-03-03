@@ -1,4 +1,4 @@
-#region Copyright
+﻿#region Copyright
 
 // Copyright © 2025, TeamDev. All rights reserved.
 // 
@@ -25,8 +25,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using DotNetBrowser.Browser;
 using DotNetBrowser.Extensions;
 using DotNetBrowser.Extensions.Events;
+using DotNetBrowser.Geometry;
 using DotNetBrowser.Ui;
 
 namespace Demo.Wpf.Extensions

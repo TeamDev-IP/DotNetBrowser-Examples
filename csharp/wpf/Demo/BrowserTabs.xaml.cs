@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright Â© 2025, TeamDev. All rights reserved.
+// Copyright © 2025, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -22,10 +22,13 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Extensions.Events;
 using DotNetBrowser.Extensions.Handlers;
 using DotNetBrowser.Handlers;
 using DotNetBrowser.Logging;
@@ -49,7 +52,12 @@ namespace Demo.Wpf
         public BrowserTabs()
         {
             InitializeComponent();
-            CreateEngine();
+            engine = CreateEngine();
+            if (engine == null)
+            {
+                Environment.Exit(0);
+            }
+            
             if (GetFirstTab() is BrowserTab tab)
             {
                 tab.Browser = engine?.CreateBrowser();
@@ -62,10 +70,11 @@ namespace Demo.Wpf
             engine?.Dispose();
         }
 
-        private void CreateEngine()
+        private IEngine CreateEngine()
         {
             string[] arguments = Environment.GetCommandLineArgs();
             renderingMode = RenderingMode.HardwareAccelerated;
+            ProprietaryFeatures proprietaryFeatures = ProprietaryFeatures.None;
             if (arguments.FirstOrDefault(arg => arg.ToLower().Contains("lightweight")) != null)
             {
                 renderingMode = RenderingMode.OffScreen;
@@ -77,19 +86,29 @@ namespace Demo.Wpf
                 string logFile = $"DotNetBrowser-Wpf-{Guid.NewGuid()}.log";
                 LoggerProvider.Instance.OutputFile = System.IO.Path.GetFullPath(logFile);
             }
+            if (arguments.FirstOrDefault(arg => arg.ToLower().Contains("proprietary")) != null)
+            {
+                proprietaryFeatures = ProprietaryFeatures.Aac | ProprietaryFeatures.H264 | ProprietaryFeatures.Widevine;
+            }
+
             try
             {
-                engine = EngineFactory.Create(new EngineOptions.Builder
+                IEngine engine = EngineFactory.Create(new EngineOptions.Builder
                 {
                     RenderingMode = renderingMode,
+                    ProprietaryFeatures = proprietaryFeatures,
                     Schemes =
                     {
-                        { Scheme.Http, new WpfInterceptRequestHandler() }
-                    }
+                        {Scheme.Http, new WpfInterceptRequestHandler()}
+                    },
+                    ChromiumSwitches = {"--force-renderer-accessibility"},
+                    TouchMenuDisabled = true
                 }.Build());
+
                 engine.Profiles.Default.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
-                engine.Profiles.Default.Permissions.RequestPermissionHandler = 
-                    new Handler<RequestPermissionParameters, RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
+                engine.Profiles.Default.Permissions.RequestPermissionHandler =
+                    new Handler<RequestPermissionParameters,
+                        RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
                 engine.Profiles.Default.Extensions.InstallExtensionHandler =
                     new Handler<InstallExtensionParameters, InstallExtensionResponse>(p => InstallExtensionResponse
                        .Install);
@@ -107,12 +126,32 @@ namespace Demo.Wpf
                                         MessageBoxImage.Warning);
                     }
                 };
+                return engine;
+            }
+            catch (NoLicenseException)
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine("Thank you for trying DotNetBrowser in WPF.")
+                   .AppendLine()
+                   .AppendLine("To run the demo, get the free trial license and insert it below:");
+                
+                return ShowLicenseDialog(msg.ToString()) ? CreateEngine() : null;
+            }
+            catch (InvalidLicenseException)
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine("The license key did not work. It may have an incorrect format, or is not suitable for this DotNetBrowser version.")
+                   .AppendLine()
+                   .AppendLine("Please enter the license key:");
+
+                return ShowLicenseDialog(msg.ToString()) ? CreateEngine() : null;
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e);
                 MessageBox.Show(e.Message, "DotNetBrowser Initialization Error", MessageBoxButton.OK,
                                 MessageBoxImage.Error);
+                return null;
             }
         }
 
@@ -169,6 +208,28 @@ namespace Demo.Wpf
             }
 
             Application.Current.Dispatcher.BeginInvoke((Action) UpdateTabsWidthsAction);
+        }
+
+        private bool ShowLicenseDialog(string message)
+        {
+            LicenseDialog dialog = new LicenseDialog(message);
+            bool? result = dialog.ShowDialog();
+
+            if (!result.HasValue || !result.Value)
+            {
+                return false;
+            }
+
+            string license = dialog.inputBox.Text;
+            if (!string.IsNullOrWhiteSpace(license))
+            {
+                string directory = Path.GetDirectoryName(typeof(MainWindow).Assembly.Location);
+                string path = Path.Combine(directory, "dotnetbrowser.license");
+                File.WriteAllText(Path.GetFullPath(path), license);
+                return true;
+            }
+
+            return false;
         }
     }
 }

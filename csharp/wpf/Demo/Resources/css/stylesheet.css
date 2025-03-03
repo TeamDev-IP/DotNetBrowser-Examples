@@ -1,0 +1,72 @@
+body { font: 14px/1.72 'Open Sans', Arial, sans-serif; }
+
+.default {
+    background-color: rgb(60, 60, 60);
+    color: white;
+}
+
+.main {
+    height: 75%;
+    margin: auto;
+    padding: 15px 50px;
+    width: 75%;
+}
+
+.popup {
+    border: 2px dashed #000000;
+    border-radius: 4px;
+    font-weight: 700;
+    height: 100%;
+    line-height: 100px;
+    margin: -5px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+form { margin-top: 60px; }
+
+a {
+    color: #B03060;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a:visited { color: rgb(136, 172, 136); }
+
+input[type="button"] {
+    -webkit-transition: all .15s ease-in;
+    background: 0 0;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font: 14px/1 'Open Sans', Arial, sans-serif;
+    font-weight: 700;
+    height: 46px;
+    letter-spacing: .04em;
+    padding: 0 30px 0;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 175px;
+}
+
+input[type="button"]:focus {
+    background: rgba(255, 255, 255, .1);
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+input[type="button"]:active {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    background-image: none;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    outline: 0;
+}
+
+input[type="button"]:hover {
+    background: rgba(255, 255, 255, .1);
+    color: #fff;
+}

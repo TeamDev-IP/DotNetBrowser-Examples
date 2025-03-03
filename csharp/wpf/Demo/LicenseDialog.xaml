@@ -1,0 +1,29 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        x:Class="Demo.Wpf.LicenseDialog"
+        Title="Configure DotNetBrowser license" 
+        Height="250" 
+        MinWidth="350"
+        WindowStartupLocation="CenterScreen" 
+        SizeToContent="WidthAndHeight"
+        ResizeMode="CanMinimize">
+    <Grid MinWidth="350">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="tbMessage" Margin="50 10 0 0"
+                   HorizontalAlignment="Left" MaxWidth="380"
+                   FontSize="14"
+                   TextWrapping="Wrap" />
+        <TextBox x:Name="inputBox" Grid.Row="1" Margin="15 0 15 10" Width="450" />
+
+        <StackPanel Grid.Row="2" Margin="15,10,15,10" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button MinWidth="100" MinHeight="25" 
+                    Click="ApplyButton_Click"
+                    IsDefault="True" Padding="10, 0, 10, 0"
+                    Content="Apply and start the demo" HorizontalContentAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>

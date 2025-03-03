@@ -1,6 +1,6 @@
 #region Copyright
 
-// Copyright Â© 2025, TeamDev. All rights reserved.
+// Copyright © 2025, TeamDev. All rights reserved.
 // 
 // Redistribution and use in source and/or binary forms, with or without
 // modification, must retain the above copyright notice and the following
@@ -150,7 +150,7 @@ namespace Demo.Wpf
         {
             LoadUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/cursor");
         }
-        
+
         private void LoadDownloadFileUrl(object sender, RoutedEventArgs e)
         {
             LoadUrl("https://storage.googleapis.com/cloud.teamdev.com/downloads/dotnetbrowser/2.7/dotnetbrowser-net45-2.7.zip");
@@ -173,22 +173,22 @@ namespace Demo.Wpf
 
         private void LoadPdf(object sender, RoutedEventArgs e)
         {
-            LoadUrl("http://www.orimi.com/pdf-test.pdf");
+            LoadUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
         }
 
         private void LoadPopupUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("http://www.popuptest.com/");
+            LoadUrl("http://internal.host/popups/index.html");
         }
 
         private void LoadSelectOptionUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_option");
+            LoadUrl("http://internal.host/select-option.html");
         }
 
         private void LoadUploadFileUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button");
+            LoadUrl("http://internal.host/file-upload.html");
         }
 
         private void LoadUrl(string url)
