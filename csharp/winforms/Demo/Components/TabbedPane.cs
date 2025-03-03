@@ -33,7 +33,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
     {
         private readonly List<Tab> tabs = new List<Tab>();
         private Tab selectedTab;
-        
 
         public RenderingMode RenderingMode { get; set; }
         internal IEngine Engine { get; set; }
@@ -48,7 +47,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
                     DeselectTab(selectedTab);
                     SelectTab(value);
                 }
-
                 selectedTab = value;
             }
         }
@@ -147,7 +145,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
             {
                 return;
             }
-
             int paddings = count * 25 + 37;
             int width = (Width - paddings) / count;
 
