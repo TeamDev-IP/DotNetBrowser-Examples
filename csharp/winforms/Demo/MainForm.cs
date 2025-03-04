@@ -24,7 +24,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
@@ -52,30 +53,31 @@ namespace DotNetBrowser.WinForms.Demo
             Closed += MainForm_Closed;
 
             Engine = CreateEngine();
+            if (Engine == null)
+            {
+                Environment.Exit(0);
+            }
 
             tabbedPane.RenderingMode = RenderingMode;
             tabbedPane.Engine = Engine;
 
             tabbedPane.SelectedTab.Contents.renderingMode.Text = RenderingMode.ToString();
 
-            Task.Run(() => Engine?.CreateBrowser())
-                .ContinueWith(t =>
-                              {
-                                  IBrowser browser = t.Result;
-                                  tabbedPane.SelectedTab.Contents.Browser = browser;
-                                  browser.Focus();
-                              },
-                              TaskScheduler.FromCurrentSynchronizationContext());
+            IBrowser browser = Engine?.CreateBrowser();
+            tabbedPane.SelectedTab.Contents.Browser = browser;
+            browser.Focus();
         }
 
         private IEngine CreateEngine()
         {
             string[] arguments = Environment.GetCommandLineArgs();
             RenderingMode = RenderingMode.HardwareAccelerated;
+            ProprietaryFeatures proprietaryFeatures = ProprietaryFeatures.None;
             if (arguments.FirstOrDefault(arg => arg.ToLower().Contains("lightweight")) != null)
             {
                 RenderingMode = RenderingMode.OffScreen;
             }
+
             if (arguments.FirstOrDefault(arg => arg.ToLower().Contains("enable-file-log")) != null)
             {
                 LoggerProvider.Instance.Level = SourceLevels.Verbose;
@@ -84,19 +86,31 @@ namespace DotNetBrowser.WinForms.Demo
                 LoggerProvider.Instance.OutputFile = Path.GetFullPath(logFile);
             }
 
+            if (arguments.FirstOrDefault(arg => arg.ToLower().Contains("proprietary")) != null)
+            {
+                proprietaryFeatures = ProprietaryFeatures.Aac
+                                      | ProprietaryFeatures.H264
+                                      | ProprietaryFeatures.Hevc
+                                      | ProprietaryFeatures.Widevine;
+            }
+
             try
             {
                 IEngine engine = EngineFactory.Create(new EngineOptions.Builder
                 {
                     RenderingMode = RenderingMode,
+                    ProprietaryFeatures = proprietaryFeatures,
                     Schemes =
                     {
-                        { Scheme.Http, new WinFormsInterceptRequestHandler() }
-                    }
+                        {Scheme.Http, new WinFormsInterceptRequestHandler()}
+                    },
+                    ChromiumSwitches = {"--force-renderer-accessibility"}
                 }.Build());
+
                 engine.Profiles.Default.Network.AuthenticateHandler = new DefaultAuthenticationHandler(this);
                 engine.Profiles.Default.Permissions.RequestPermissionHandler =
-                    new Handler<RequestPermissionParameters, RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
+                    new Handler<RequestPermissionParameters,
+                        RequestPermissionResponse>(p => RequestPermissionResponse.Grant());
                 engine.Profiles.Default.Extensions.InstallExtensionHandler =
                     new Handler<InstallExtensionParameters, InstallExtensionResponse>(p => InstallExtensionResponse
                        .Install);
@@ -116,10 +130,29 @@ namespace DotNetBrowser.WinForms.Demo
                 };
                 return engine;
             }
+            catch (NoLicenseException)
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine("Thank you for trying DotNetBrowser in Windows Forms.")
+                   .AppendLine()
+                   .AppendLine("To run the demo, get the free trial license and insert it below:");
+
+                return ShowLicenseDialog(msg.ToString()) ? CreateEngine() : null;
+            }
+            catch (InvalidLicenseException)
+            {
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine("The license key did not work. It may have an incorrect format, or is not suitable for this DotNetBrowser version.")
+                   .AppendLine()
+                   .AppendLine("Please enter the license key:");
+
+                return ShowLicenseDialog(msg.ToString()) ? CreateEngine() : null;
+            }
             catch (Exception e)
             {
                 Trace.WriteLine(e);
-                MessageBox.Show(e.Message, "DotNetBrowser Initialization Error", MessageBoxButtons.OK,
+                MessageBox.Show(e.Message, "DotNetBrowser Initialization Error",
+                                MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
                 return null;
             }
@@ -128,6 +161,26 @@ namespace DotNetBrowser.WinForms.Demo
         private void MainForm_Closed(object sender, EventArgs e)
         {
             Engine?.Dispose();
+        }
+
+        private bool ShowLicenseDialog(string message)
+        {
+            LicenseDialog dialog = new LicenseDialog(message);
+            if (dialog.ShowDialog(this) != DialogResult.OK)
+            {
+                return false;
+            }
+
+            string license = dialog.License;
+            if (string.IsNullOrWhiteSpace(license))
+            {
+                return false;
+            }
+
+            string directory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string path = Path.Combine(directory, "dotnetbrowser.license");
+            File.WriteAllText(Path.GetFullPath(path), license);
+            return true;
         }
     }
 }

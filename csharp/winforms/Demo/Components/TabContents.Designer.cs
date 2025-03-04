@@ -36,10 +36,10 @@ namespace DotNetBrowser.WinForms.Demo.Components
             this.browserView = new DotNetBrowser.WinForms.BrowserView();
             this.controlsPanel = new System.Windows.Forms.TableLayoutPanel();
             this.BackButton = new System.Windows.Forms.Button();
-            this.menuButton = new System.Windows.Forms.Button();
-            this.extensionsPanel1 = new DotNetBrowser.WinForms.Demo.Components.ExtensionsPanel();
             this.AddressBar = new System.Windows.Forms.TextBox();
             this.ForwardButton = new System.Windows.Forms.Button();
+            this.menuButton = new System.Windows.Forms.Button();
+            this.extensionsPanel1 = new DotNetBrowser.WinForms.Demo.Components.ExtensionsPanel();
             this.jsConsoleLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.jsConsoleOutput = new System.Windows.Forms.RichTextBox();
             this.jsConsoleInput = new System.Windows.Forms.TextBox();
@@ -145,9 +145,9 @@ namespace DotNetBrowser.WinForms.Demo.Components
             this.controlsPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.controlsPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.controlsPanel.Controls.Add(this.BackButton, 0, 0);
-            this.controlsPanel.Controls.Add(this.menuButton, 4, 0);
             this.controlsPanel.Controls.Add(this.AddressBar, 2, 0);
             this.controlsPanel.Controls.Add(this.ForwardButton, 1, 0);
+            this.controlsPanel.Controls.Add(this.menuButton, 4, 0);
             this.controlsPanel.Controls.Add(this.extensionsPanel1, 3, 0);
             this.controlsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlsPanel.Location = new System.Drawing.Point(3, 3);
@@ -173,21 +173,6 @@ namespace DotNetBrowser.WinForms.Demo.Components
             this.BackButton.Text = "<";
             this.BackButton.UseVisualStyleBackColor = true;
             this.BackButton.Click += new System.EventHandler(this.BackButton_Click);
-            // 
-            // menuButton
-            // 
-            this.menuButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.menuButton.FlatAppearance.BorderSize = 0;
-            this.menuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.menuButton.Location = new System.Drawing.Point(759, 4);
-            this.menuButton.MaximumSize = new System.Drawing.Size(38, 38);
-            this.menuButton.MinimumSize = new System.Drawing.Size(38, 38);
-            this.menuButton.Name = "menuButton";
-            this.menuButton.Size = new System.Drawing.Size(38, 38);
-            this.menuButton.TabIndex = 2;
-            this.menuButton.Text = "=";
-            this.menuButton.UseVisualStyleBackColor = true;
-            this.menuButton.Click += new System.EventHandler(this.menuButton_Click);
             // 
             // AddressBar
             // 
@@ -216,6 +201,21 @@ namespace DotNetBrowser.WinForms.Demo.Components
             this.ForwardButton.Text = ">";
             this.ForwardButton.UseVisualStyleBackColor = true;
             this.ForwardButton.Click += new System.EventHandler(this.ForwardButton_Click);
+            // 
+            // menuButton
+            // 
+            this.menuButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.menuButton.FlatAppearance.BorderSize = 0;
+            this.menuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.menuButton.Location = new System.Drawing.Point(759, 4);
+            this.menuButton.MaximumSize = new System.Drawing.Size(38, 38);
+            this.menuButton.MinimumSize = new System.Drawing.Size(38, 38);
+            this.menuButton.Name = "menuButton";
+            this.menuButton.Size = new System.Drawing.Size(38, 38);
+            this.menuButton.TabIndex = 2;
+            this.menuButton.Text = "=";
+            this.menuButton.UseVisualStyleBackColor = true;
+            this.menuButton.Click += new System.EventHandler(this.menuButton_Click);
             // 
             // extensionsPanel1
             // 
@@ -292,7 +292,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
             this.takeScreenshotToolStripMenuItem,
             this.developerToolsToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(202, 376);
+            this.contextMenuStrip.Size = new System.Drawing.Size(202, 400);
             // 
             // javaScriptConsoleToolStripMenuItem
             // 

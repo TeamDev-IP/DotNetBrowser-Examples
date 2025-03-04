@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Resources;
 using DotNetBrowser.Handlers;
@@ -35,9 +36,23 @@ namespace Demo.Wpf
 {
     internal class WpfInterceptRequestHandler : IHandler<InterceptRequestParameters, InterceptRequestResponse>
     {
-        private const string Domain = "http://www.popuptest.com/";
-        private const string Prefix = "Resources\\popups\\";
-        private static readonly TraceSource Log = new TraceSource("DotNetBrowser.Demo.Wpf");
+        private const string Domain = "http://internal.host/";
+        private const string PrefixTemplate = "{0}.Resources.";
+        private static readonly TraceSource Log = new TraceSource("DotNetBrowser.Wpf.Demo");
+
+        private readonly string prefix;
+
+        #region Constructors
+
+        public WpfInterceptRequestHandler()
+        {
+            prefix = string.Format(PrefixTemplate, Assembly.GetExecutingAssembly().GetName().Name);
+        }
+
+        #endregion
+
+
+        #region Methods
 
         public InterceptRequestResponse Handle(InterceptRequestParameters parameters)
         {
@@ -50,9 +65,11 @@ namespace Demo.Wpf
             UrlRequestJob urlRequestJob;
             try
             {
-                StreamResourceInfo content = FindResource(url);
+                string resourcePath = ConvertToResourcePath(url);
+                byte[] content = FindResource(resourcePath);
                 if (content != null)
                 {
+                    MimeType mimeType = GetMimeType(resourcePath);
                     urlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest,
                                                                            new UrlRequestJobOptions
                                                                            {
@@ -60,10 +77,10 @@ namespace Demo.Wpf
                                                                                Headers = new List<HttpHeader>
                                                                                {
                                                                                    new HttpHeader("Content-Type",
-                                                                                                  content.ContentType)
+                                                                                    mimeType.Value)
                                                                                }
                                                                            });
-                    urlRequestJob.Write(GetBytes(content.Stream));
+                    urlRequestJob.Write(content);
                 }
                 else
                 {
@@ -74,7 +91,6 @@ namespace Demo.Wpf
                                                                                HttpStatusCode = HttpStatusCode.NotFound
                                                                            });
                 }
-
 
                 urlRequestJob.Complete();
             }
@@ -94,7 +110,7 @@ namespace Demo.Wpf
             return InterceptRequestResponse.Intercept(urlRequestJob);
         }
 
-        private string ConvertToLocalPath(string url)
+        private string ConvertToResourcePath(string url)
         {
             string path = url.Replace(Domain, string.Empty);
             if (string.IsNullOrWhiteSpace(path) || Equals(path, "/"))
@@ -102,22 +118,31 @@ namespace Demo.Wpf
                 path = "index.html";
             }
 
-            string resourcePath = path.Replace("/", "\\");
-            resourcePath = Prefix + resourcePath;
+            string resourcePath = path.Replace("/", ".");
+            resourcePath = prefix + resourcePath;
             Debug.WriteLine("URL: " + url);
             Debug.WriteLine("Resource: " + resourcePath);
 
             return resourcePath;
         }
 
-        private StreamResourceInfo FindResource(string url)
+        private byte[] FindResource(string url)
         {
-            string localPath = ConvertToLocalPath(url);
-            Uri uri = new Uri(localPath, UriKind.Relative);
             try
             {
-                StreamResourceInfo streamResourceInfo = Application.GetResourceStream(uri);
-                return streamResourceInfo;
+                using (Stream resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream(url))
+                {
+                    if (resourceStream == null)
+                    {
+                        return null;
+                    }
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        resourceStream.CopyTo(ms);
+                        return ms.ToArray();
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -126,13 +151,32 @@ namespace Demo.Wpf
             }
         }
 
-        private byte[] GetBytes(Stream contentStream)
+        private MimeType GetMimeType(string url)
         {
-            using (MemoryStream ms = new MemoryStream())
+            string extension = Path.GetExtension(url);
+            if (extension.StartsWith("."))
             {
-                contentStream.CopyTo(ms);
-                return ms.ToArray();
+                extension = extension.Substring(1);
+            }
+
+            switch (extension.ToLower())
+            {
+                case "css":
+                    return MimeType.TextCss;
+                case "htm":
+                case "html":
+                    return MimeType.TextHtml;
+                case "ico":
+                    return MimeType.Create("image/x-icon");
+                case "js":
+                    return MimeType.TextJavascript;
+                case "json":
+                    return MimeType.ApplicationJson;
+                default:
+                    return MimeType.ApplicationOctetStream;
             }
         }
+
+        #endregion
     }
 }

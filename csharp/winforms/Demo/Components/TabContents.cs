@@ -29,12 +29,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Events;
-using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Extensions;
 using DotNetBrowser.Extensions.Events;
-using DotNetBrowser.Handlers;
 using DotNetBrowser.Navigation.Events;
-using DotNetBrowser.WinForms.Dialogs;
 using DotNetBrowser.WinForms.Extensions;
 
 namespace DotNetBrowser.WinForms.Demo.Components
@@ -174,7 +171,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void googleMapsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://maps.google.com");
+            LoadUrl("https://maps.google.com");
         }
 
         private void hideScrollbarsToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
@@ -247,12 +244,12 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void pDFViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://www.orimi.com/pdf-test.pdf");
+            LoadUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
         }
 
         private void popupWindowsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://www.popuptest.com/");
+            LoadUrl("http://internal.host/popups/index.html");
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
@@ -262,7 +259,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void selectOptionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_option");
+            LoadUrl("http://internal.host/select-option.html");
         }
 
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
@@ -288,7 +285,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void uploadFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("https://www.w3schools.com/howto/tryit.asp?filename=tryhow_html_file_upload_button");
+            LoadUrl("http://internal.host/file-upload.html");
         }
 
         private void webStoreToolStripMenuItem_Click(object sender, EventArgs e)
