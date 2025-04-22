@@ -27,7 +27,7 @@ using DotNetBrowser.Engine;
 using Microsoft.Playwright;
 using IBrowser = DotNetBrowser.Browser.IBrowser;
 
-namespace PlaywrightWpf
+namespace Playwright
 {
     public partial class MainWindow : Window
     {
@@ -63,7 +63,7 @@ namespace PlaywrightWpf
         {
             try
             {
-                using IPlaywright playwright = await Playwright.CreateAsync();
+                using IPlaywright playwright = await Microsoft.Playwright.Playwright.CreateAsync();
 
                 // Connect to the browser using CDP
                 Microsoft.Playwright.IBrowser playwrightBrowser =

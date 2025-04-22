@@ -22,7 +22,7 @@
 
 using System.Windows;
 
-namespace PlaywrightWpf;
+namespace Playwright;
 
 /// <summary>
 /// Interaction logic for App.xaml

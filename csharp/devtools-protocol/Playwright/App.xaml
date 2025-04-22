@@ -1,7 +1,6 @@
-﻿<Application x:Class="PlaywrightWpf.App"
+﻿<Application x:Class="Playwright.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:PlaywrightWpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 

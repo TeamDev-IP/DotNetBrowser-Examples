@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumChromeDriver", "Sel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Puppeteer", "Puppeteer\Puppeteer.csproj", "{EDF37B34-6B01-43EE-B563-FD3E21D27B55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaywrightWpf", "PlaywrightWpf\PlaywrightWpf.csproj", "{2C125B6C-E62F-43D1-92D8-4929F89C0D03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playwright", "Playwright\Playwright.csproj", "{2C125B6C-E62F-43D1-92D8-4929F89C0D03}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
