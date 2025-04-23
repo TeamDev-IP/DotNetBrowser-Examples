@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SeleniumChromeDriver", "SeleniumChromeDriver\SeleniumChromeDriver.vbproj", "{E57340FF-5E71-47D7-A7BA-43B92630B49D}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Playwright", "Playwright\Playwright.vbproj", "{8A856489-4847-426A-BF01-54AA6E5BB559}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Puppeteer", "Puppeteer\Puppeteer.vbproj", "{AF588A5A-FC41-4642-8EB0-1A0F20E2C355}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{E57340FF-5E71-47D7-A7BA-43B92630B49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E57340FF-5E71-47D7-A7BA-43B92630B49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E57340FF-5E71-47D7-A7BA-43B92630B49D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A856489-4847-426A-BF01-54AA6E5BB559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A856489-4847-426A-BF01-54AA6E5BB559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A856489-4847-426A-BF01-54AA6E5BB559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A856489-4847-426A-BF01-54AA6E5BB559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF588A5A-FC41-4642-8EB0-1A0F20E2C355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF588A5A-FC41-4642-8EB0-1A0F20E2C355}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF588A5A-FC41-4642-8EB0-1A0F20E2C355}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF588A5A-FC41-4642-8EB0-1A0F20E2C355}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

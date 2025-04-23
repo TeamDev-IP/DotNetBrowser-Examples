@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net9.0-windows</TargetFramework>
+        <RootNamespace>Playwright</RootNamespace>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Import Include="System.Windows"/>
+        <Import Include="System.Windows.Controls"/>
+        <Import Include="System.Windows.Data"/>
+        <Import Include="System.Windows.Documents"/>
+        <Import Include="System.Windows.Input"/>
+        <Import Include="System.Windows.Media"/>
+        <Import Include="System.Windows.Media.Imaging"/>
+        <Import Include="System.Windows.Navigation"/>
+        <Import Include="System.Windows.Shapes"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DotNetBrowser.Wpf" Version="3.1.2"/>
+        <PackageReference Include="Microsoft.Playwright" Version="1.51.0"/>
+    </ItemGroup>
+
+</Project>

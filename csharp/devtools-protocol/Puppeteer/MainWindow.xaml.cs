@@ -39,7 +39,6 @@ namespace Puppeteer
         private const string LocationUrl = "https://www.infobyip.com/browsergeolocation.php";
         private readonly IBrowser browser;
         private readonly IEngine engine;
-        private readonly string wsEndpoint;
 
         public MainWindow()
         {
