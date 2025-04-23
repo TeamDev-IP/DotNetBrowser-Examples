@@ -129,7 +129,7 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Avalonia kiosk application: [C#](csharp/avalonia/Kiosk)
 * Integrate with Google Maps: [C#](csharp/winforms/GoogleMaps), [VB.NET](vbnet/winforms/GoogleMaps)
 * Integrate with Google Street View: [C#](csharp/winforms/GoogleStreetView), [VB.NET](vbnet/winforms/GoogleStreetView)
-* Integrate with Selenium Chrome Driver: [C#](csharp/devtools-protocol/SeleniumChromeDriver), [VB.NET](vbnet/selenium/SeleniumChromeDriver)
+* Integrate with Selenium Chrome Driver: [C#](csharp/devtools-protocol/SeleniumChromeDriver), [VB.NET](vbnet/devtools-protocol/SeleniumChromeDriver)
 * Integrate with Playwright: [C#](csharp/devtools-protocol/Playwright), [VB.NET](vbnet/devtools-protocol/Playwright)
 * Integrate with Puppeteer: [C#](csharp/devtools-protocol/Puppeteer), [VB.NET](vbnet/devtools-protocol/Puppeteer)
 * VSTO Add-In for Microsoft Outlook: [C#](csharp/vsto/MyOutlookAddIn), [VB.NET](vbnet/vsto/MyOutlookAddIn)
