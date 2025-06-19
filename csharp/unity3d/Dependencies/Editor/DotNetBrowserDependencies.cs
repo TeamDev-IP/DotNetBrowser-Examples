@@ -29,7 +29,7 @@ using UnityEditor;
 public class DotNetBrowserDependencies
 {
     private static readonly string AssembliesPath = Path.Combine(Application.dataPath, "Assemblies");
-    private static readonly string Version = "3.2.1";
+    private static readonly string Version = "3.3.0";
     static DotNetBrowserDependencies()
     {
         Restore();
