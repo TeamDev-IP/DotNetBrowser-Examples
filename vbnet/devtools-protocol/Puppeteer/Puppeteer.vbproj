@@ -20,8 +20,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DotNetBrowser.Wpf" Version="3.1.2"/>
-        <PackageReference Include="PuppeteerSharp" Version="20.1.3"/>
+        <PackageReference Include="DotNetBrowser.WPF" Version="3.3.3"/>
+        <PackageReference Include="PuppeteerSharp" Version="20.2.2" />
     </ItemGroup>
 
 </Project>

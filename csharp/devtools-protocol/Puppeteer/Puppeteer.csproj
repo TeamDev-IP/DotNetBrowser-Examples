@@ -12,7 +12,7 @@
         <PackageReference Include="DotNetBrowser.WPF" Version="3.3.3" />
         <PackageReference Include="protobuf-net" Version="2.4.4" />
         <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
-        <PackageReference Include="PuppeteerSharp" Version="20.0.5" />
+        <PackageReference Include="PuppeteerSharp" Version="20.2.2" />
     </ItemGroup>
 
 </Project>
