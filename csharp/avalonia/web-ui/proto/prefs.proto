@@ -1,0 +1,121 @@
+/*
+ *  Copyright (c) 2025 TeamDev
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *  SOFTWARE.
+ */
+
+syntax = "proto3";
+
+package com.teamdev.dotnetbrowser.prefs;
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+// Allows managing app preferences.
+service PrefsService {
+  rpc GetAccount(google.protobuf.Empty) returns (Account);
+  rpc SetAccount(Account) returns (google.protobuf.Empty);
+
+  rpc SetProfilePicture(ProfilePicture) returns (google.protobuf.Empty);
+  rpc GetProfilePicture(google.protobuf.Empty) returns (ProfilePicture);
+
+  rpc SetGeneral(General) returns (google.protobuf.Empty);
+  rpc GetGeneral(google.protobuf.Empty) returns (General);
+
+  rpc SetAppearance(Appearance) returns (google.protobuf.Empty);
+  rpc GetAppearance(google.protobuf.Empty) returns (Appearance);
+
+  rpc SetNotifications(Notifications) returns (google.protobuf.Empty);
+  rpc GetNotifications(google.protobuf.Empty) returns (Notifications);
+}
+
+// A user account.
+message Account {
+  // The user's email address.
+  string email = 1;
+  // The user's full name.
+  string full_name = 2;
+  // The method of two-factor authentication.
+  TwoFactorAuthentication two_factor_authentication = 3;
+  // Indicates if biometric authentication is enabled.
+  bool biometric_authentication = 4;
+}
+
+// Contains data for a user's profile picture.
+message ProfilePicture {
+  // The binary content of the profile picture.
+  bytes content = 1;
+}
+
+// The list of supported two-factor authentication types.
+enum TwoFactorAuthentication {
+  // Two-factor authentication via email.
+  EMAIL = 0;
+  // Two-factor authentication via SMS.
+  SMS = 1;
+  // Two-factor authentication via passkey.
+  PASS_KEY = 2;
+}
+
+// General application preferences configured by the user.
+message General {
+  // Indicates if the application should launch at system startup.
+  bool launch_at_startup = 1;
+  // The preferred language for the application.
+  Language language = 2;
+  // Indicates if the application should automatically check for updates.
+  bool check_for_updates = 3;
+}
+
+// The available languages for the application.
+enum Language {
+  ENGLISH = 0;
+  GERMAN = 1;
+  FRENCH = 2;
+}
+
+// Preferences for the application's appearance.
+message Appearance {
+  // The font size for the application's interface.
+  FontSize font_size = 1;
+  // The theme for the application.
+  Theme theme = 2;
+}
+
+// The font sizes available in the application.
+enum FontSize {
+  SMALL = 0;
+  DEFAULT = 1;
+  LARGE = 2;
+}
+
+// The themes available in the application.
+enum Theme {
+  LIGHT = 0;
+  DARK = 1;
+  SYSTEM = 2;
+}
+
+// Preferences for receiving notifications.
+message Notifications {
+  // Indicates if email notifications are enabled.
+  bool email_enabled = 1;
+  // Indicates if desktop notifications are enabled.
+  bool desktop_enabled = 2;
+}
