@@ -18,9 +18,9 @@ This folder contains a cross-platform desktop and web application combining a Re
 
 ### Setting up DotNetBrowser license key
 
-You must have a license key to make it work. You can edit the [_dotnetbrowser.license_](../../../../dotnetbrowser.license) file and put your license key there.
+You must have a license key to make it work. You can edit the [dotnetbrowser.license](./../../../dotnetbrowser.license) file and put your license key there.
 
-As an alternative, you can specify the license directly [in the `EngineService` code](/ReactExample.Desktop/EngineService.cs#L74):
+As an alternative, you can specify the license directly [in the `EngineService` code](./ReactExample.Desktop/EngineService.cs#L74):
 ```
   EngineOptions engineOptions = new EngineOptions.Builder
   {
@@ -28,7 +28,7 @@ As an alternative, you can specify the license directly [in the `EngineService` 
       LicenseKey = "your_license_key",
   }.Build();
 ```
-More details on installing the license can be found in the [officialdocumentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license).
+More details on installing the license can be found in the [official documentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license).
 
 
 
