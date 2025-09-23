@@ -16,21 +16,23 @@ This folder contains a cross-platform desktop and web application combining a Re
 
 ## Build Instructions
 
-### Setting up DotNetBrowser license key
+### Setup the DotNetBrowser license key
 
-You must have a license key to make it work. You can edit the [dotnetbrowser.license](./../../../dotnetbrowser.license) file and put your license key there.
+You must have a license key to make everything work. [Get the evaluation key](https://teamdev.com/dotnetbrowser#evaluate)
+
+You can edit the [dotnetbrowser.license](./../../../dotnetbrowser.license) file with any text editor and put your license key there.
 
 As an alternative, you can specify the license directly [in the `EngineService` code](./ReactExample.Desktop/EngineService.cs#L74):
-```
+
+```csharp
   EngineOptions engineOptions = new EngineOptions.Builder
   {
       RenderingMode = RenderingMode.HardwareAccelerated,
       LicenseKey = "your_license_key",
   }.Build();
 ```
-More details on installing the license can be found in the [official documentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license).
 
-
+More details on installing the license can be found in the [official documentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license)
 
 ### Build Projects
 
@@ -44,9 +46,13 @@ This will build both frontend and desktop parts, restoring dependencies using `n
 
 ## Launch Desktop Application
 
+You can launch the desktop application from the source code with one command.
+
 ```bash
 dotnet run --project ReactExample.Desktop
 ```
+
+This will build both frontend and desktop parts, restoring dependencies using `npm` if needed. After that, the desktop application will be launched.
 
 ## Packaging
 
