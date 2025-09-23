@@ -7,6 +7,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <RootNamespace>ReactExample.Desktop</RootNamespace>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

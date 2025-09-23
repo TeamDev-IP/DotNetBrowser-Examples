@@ -1,6 +1,6 @@
-# ReactExample
+# .NET desktop app with Shadcn UI
 
-A cross-platform desktop and web application combining a React + TypeScript frontend (using Vite) and a .NET Avalonia UI desktop app wrapping this React frontend as its UI.
+This folder contains a cross-platform desktop and web application combining a React + TypeScript frontend (using Vite) and a .NET Avalonia UI desktop app wrapping this React frontend as its UI.
 
 ## Prerequisites
 
@@ -18,8 +18,19 @@ A cross-platform desktop and web application combining a React + TypeScript fron
 
 ### Setting up DotNetBrowser license key
 
-TBD
-/ReactExample.Desktop/EngineService.cs, line 36
+You must have a license key to make it work. You can edit the [_dotnetbrowser.license_](../../../../dotnetbrowser.license) file and put your license key there.
+
+As an alternative, you can specify the license directly [in the `EngineService` code](/ReactExample.Desktop/EngineService.cs#L74):
+```
+  EngineOptions engineOptions = new EngineOptions.Builder
+  {
+      RenderingMode = RenderingMode.HardwareAccelerated,
+      LicenseKey = "your_license_key",
+  }.Build();
+```
+More details on installing the license can be found in the [officialdocumentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license).
+
+
 
 ### Build Projects
 
