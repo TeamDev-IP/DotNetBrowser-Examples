@@ -123,7 +123,8 @@ To learn more about the library please visit the [product page](https://teamdev.
 
 #### Specific use-cases
 
-* Create custom HTML UI: [C#](csharp/wpf/CreateHtmlUi), [VB.NET](vbnet/wpf/CreateHtmlUi)
+* Create a custom HTML UI: [C#](csharp/wpf/CreateHtmlUi), [VB.NET](vbnet/wpf/CreateHtmlUi)
+* Create a custom web UI with TypeScript, React, and Shadcn UI: [C#](csharp/avalonia/web-ui)
 * WPF kiosk application: [C#](csharp/wpf/Kiosk), [VB.NET](vbnet/wpf/Kiosk)
 * WinForms kiosk application: [C#](csharp/winforms/Kiosk), [VB.NET](vbnet/winforms/Kiosk)
 * Avalonia kiosk application: [C#](csharp/avalonia/Kiosk)
