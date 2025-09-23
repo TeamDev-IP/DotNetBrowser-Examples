@@ -1,35 +1,55 @@
+#region Copyright
+
+// Copyright © 2025, TeamDev. All rights reserved.
+// 
+// Redistribution and use in source and/or binary forms, with or without
+// modification, must retain the above copyright notice and the following
+// disclaimer.
+// 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Controls;
 using DotNetBrowser.AvaloniaUi;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Handlers;
-using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
-using DotNetBrowser.Net;
-using DotNetBrowser.Net.Handlers;
-using Microsoft.Extensions.Logging;
-
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace ReactExample.Desktop
 {
     public partial class MainWindow : Window
     {
         private const string Url = ResourceRequestHandler.Domain;
+
+        public ICollection<string>? Addresses => ServiceProvider?.GetService<IServer>()
+          ?.Features.Get<IServerAddressesFeature>()
+          ?.Addresses.ToList();
+
         public IBrowser? Browser { get; set; }
+        public IServiceProvider ServiceProvider { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
         }
-
-        public ICollection<string>? Addresses => ServiceProvider?.GetService<IServer>()?.Features.Get<IServerAddressesFeature>()?.Addresses.ToList();
-        public IServiceProvider ServiceProvider { get; set; }
 
         private void OnInjectJs(InjectJsParameters p)
         {
@@ -56,6 +76,7 @@ namespace ReactExample.Desktop
                 Close();
                 return;
             }
+
             // Initialize the Avalonia UI BrowserView control.
             BrowserView.InitializeFrom(Browser);
 
