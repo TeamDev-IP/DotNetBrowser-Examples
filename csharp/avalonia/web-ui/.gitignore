@@ -30,7 +30,6 @@ obj/
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
 
 # Build output
