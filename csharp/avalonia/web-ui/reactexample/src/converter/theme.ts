@@ -42,7 +42,7 @@ function fromTheme(value: Theme): ThemeOption {
     } else if (value === Theme.SYSTEM) {
         return systemTheme;
     } else {
-        throw new TypeError("Incorrect two-factor authentication.");
+        throw new TypeError("Incorrect theme.");
     }
 }
 
