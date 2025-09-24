@@ -1,0 +1,49 @@
+# Node.js / Vite / React
+node_modules/
+dist/
+dist-ssr/
+*.local
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# .NET / Avalonia / C#
+bin/
+obj/
+*.user
+*.lock
+*.dll
+*.exe
+*.pdb
+*.nuget/
+*.csproj.nuget.*
+*.vs/
+*.esproj.user
+
+# OS / Editor / Misc
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
+
+# Build output
+ReactExample.Desktop/bin/
+ReactExample.Desktop/obj/
+reactexample/dist/
+reactexample/node_modules/
+reactexample/obj/
+reactexample/bin/
+
+# Others
+*.tgz
+*.zip
+*.tar
+*.gz
+*.7z
+/reactexample/src/gen

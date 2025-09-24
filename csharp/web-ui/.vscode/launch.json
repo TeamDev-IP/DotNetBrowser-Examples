@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch ReactExample.Desktop",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build ReactExample.Desktop",
+            "program": "${workspaceFolder}/ReactExample.Desktop/bin/Debug/net8.0/ReactExample.Desktop.exe",
+            "args": [],
+            "cwd": "${workspaceFolder}/ReactExample.Desktop",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        }
+    ]
+}
