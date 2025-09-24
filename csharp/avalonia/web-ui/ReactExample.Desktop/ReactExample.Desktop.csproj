@@ -45,7 +45,7 @@
     </ProjectReference>
 
     <!-- Take everything from React build and embed it -->
-    <EmbeddedResource Include="../ReactExample/dist/**/*" />
+    <EmbeddedResource Include="../reactexample/dist/**/*" />
   </ItemGroup>
 
   <ItemGroup>
