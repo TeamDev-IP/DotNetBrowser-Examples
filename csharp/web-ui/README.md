@@ -32,11 +32,11 @@ As an alternative, you can specify the license directly [in the `EngineService` 
   }.Build();
 ```
 
-More details on installing the license can be found in the [official documentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license)
+More details on installing the license can be found in the [official documentation](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html#installing-license).
 
 ### Build Projects
 
-Run the following command from the repository root:
+Run the following command from the `ReactWebUi.sln` solution location:
 
 ```
 dotnet build
