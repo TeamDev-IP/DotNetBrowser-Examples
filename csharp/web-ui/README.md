@@ -20,7 +20,7 @@ This folder contains a cross-platform desktop and web application combining a Re
 
 You must have a license key to make everything work. [Get the evaluation key](https://teamdev.com/dotnetbrowser#evaluate)
 
-You can edit the [dotnetbrowser.license](./../../../dotnetbrowser.license) file with any text editor and put your license key there.
+You can edit the [dotnetbrowser.license](./../../dotnetbrowser.license) file with any text editor and put your license key there.
 
 As an alternative, you can specify the license directly [in the `EngineService` code](./ReactExample.Desktop/EngineService.cs#L74):
 
