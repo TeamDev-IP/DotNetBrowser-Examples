@@ -16,6 +16,15 @@ This folder contains a cross-platform desktop and web application combining a Re
 
 ## Build Instructions
 
+### Download Node.js dependencies
+
+After cloning the repository, you need to run `npm install` in the `reactexample` directory to download all the necessary dependencies listed in its `package.json` file.
+
+```
+cd reactexample
+npm install
+```
+
 ### Setup the DotNetBrowser license key
 
 You must have a license key to make everything work. [Get the evaluation key](https://teamdev.com/dotnetbrowser#evaluate)
