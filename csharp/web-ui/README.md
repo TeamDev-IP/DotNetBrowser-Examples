@@ -4,9 +4,9 @@ This folder contains a cross-platform desktop and web application combining a Re
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [Node.js](https://nodejs.org/) (v22+ required)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [.NET SDK](https://dotnet.microsoft.com/download) (v8.0+ recommended)
+- [.NET SDK](https://dotnet.microsoft.com/download) (v8.0 required)
 
 ## Project Structure
 
@@ -15,6 +15,15 @@ This folder contains a cross-platform desktop and web application combining a Re
 - `proto` — shared Protobuf declarations for communicating between JavaScript and .NET via gRPC.
 
 ## Build Instructions
+
+### Download Node.js dependencies
+
+After cloning the repository, you need to run `npm install` in the `reactexample` directory to download all the necessary dependencies listed in its `package.json` file.
+
+```
+cd reactexample
+npm install
+```
 
 ### Setup the DotNetBrowser license key
 

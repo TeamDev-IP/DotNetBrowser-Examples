@@ -5,6 +5,6 @@
         xmlns:app="clr-namespace:DotNetBrowser.AvaloniaUi;assembly=DotNetBrowser.AvaloniaUi"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ReactExample.Desktop.MainWindow"
-        Title="ReactExample.Desktop" Closed="Window_Closed" Opened="Window_Opened">
+        Title="Preferences" Closed="Window_Closed" Opened="Window_Opened">
     <app:BrowserView x:Name="BrowserView" />
 </Window>
