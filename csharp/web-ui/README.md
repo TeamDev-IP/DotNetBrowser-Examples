@@ -4,9 +4,9 @@ This folder contains a cross-platform desktop and web application combining a Re
 
 ## Prerequisites
 
-- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [Node.js](https://nodejs.org/) (v22+ required)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [.NET SDK](https://dotnet.microsoft.com/download) (v8.0+ recommended)
+- [.NET SDK](https://dotnet.microsoft.com/download) (v8.0 required)
 
 ## Project Structure
 
