@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DotNetBrowser.WPF" Version="3.3.4"/>
+        <PackageReference Include="DotNetBrowser.WPF" Version="3.3.5"/>
         <PackageReference Include="Microsoft.Playwright" Version="1.51.0"/>
     </ItemGroup>
 
