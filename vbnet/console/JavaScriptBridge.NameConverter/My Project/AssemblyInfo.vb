@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("JavaScriptBridge.NameConverter")>
-<Assembly: AssemblyCopyright("Copyright © 2025")>
+<Assembly: AssemblyCopyright("Copyright © 2026")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

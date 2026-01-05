@@ -10,7 +10,7 @@ Imports System.Windows
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("Popups.Wpf")>
-<Assembly: AssemblyCopyright("Copyright © 2025, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2026, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 
