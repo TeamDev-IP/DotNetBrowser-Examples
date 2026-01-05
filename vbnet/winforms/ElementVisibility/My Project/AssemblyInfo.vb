@@ -10,7 +10,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("TeamDev")>
 <Assembly: AssemblyProduct("ElementVisibility.WinForms")>
-<Assembly: AssemblyCopyright("Copyright © 2025, TeamDev. All rights reserved.")>
+<Assembly: AssemblyCopyright("Copyright © 2026, TeamDev. All rights reserved.")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

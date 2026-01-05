@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("TeamDev")]
 [assembly: AssemblyProduct("Printing.WebPageToPdf")]
-[assembly: AssemblyCopyright("Copyright © 2025, TeamDev. All rights reserved.")]
+[assembly: AssemblyCopyright("Copyright © 2026, TeamDev. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
