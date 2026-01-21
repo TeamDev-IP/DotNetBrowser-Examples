@@ -16,7 +16,7 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.5" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.3.5" />
-    <PackageReference Include="DotNetBrowser.AvaloniaUi" Version="3.3.7" />
+    <PackageReference Include="DotNetBrowser.AvaloniaUi" Version="3.4.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.8" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
   </ItemGroup>
