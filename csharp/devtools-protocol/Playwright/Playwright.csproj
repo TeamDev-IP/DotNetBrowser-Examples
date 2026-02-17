@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="DotNetBrowser" Version="3.4.0" />
-        <PackageReference Include="DotNetBrowser.Wpf" Version="3.4.0" />
+        <PackageReference Include="DotNetBrowser" Version="3.5.0" />
+        <PackageReference Include="DotNetBrowser.Wpf" Version="3.5.0" />
         <PackageReference Include="Microsoft.Playwright" Version="1.51.0" />
     </ItemGroup>
 
