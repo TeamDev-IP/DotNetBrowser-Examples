@@ -40,6 +40,7 @@ public partial class MainWindow : Window
         engine = EngineFactory.Create(new EngineOptions.Builder
         {
             LicenseKey = "",
+            SandboxDisabled = true,
             RenderingMode = RenderingMode.HardwareAccelerated,
             RemoteDebuggingPort = RemoteDebuggingPort,
             ChromiumSwitches =
