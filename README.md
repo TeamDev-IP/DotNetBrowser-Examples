@@ -136,6 +136,7 @@ To learn more about the library please visit the [product page](https://teamdev.
 * VSTO Add-In for Microsoft Outlook: [C#](csharp/vsto/MyOutlookAddIn), [VB.NET](vbnet/vsto/MyOutlookAddIn)
 * COM/ActiveX wrapper: [C#](csharp/activex/ComWrapper), [VB.NET](vbnet/activex/ComWrapper)
 * Integrate with Unity3D: [C#](csharp/unity3d)
+* Integrate with Docker: [C#](csharp/docker)
 
 #### Examples for tutorials
 * Нow to deploy Chromium binaries over network: [C#](csharp/wpf/ChromiumBinariesResolver), [VB.NET](vbnet/wpf/ChromiumBinariesResolver)
