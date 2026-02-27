@@ -39,7 +39,7 @@ public partial class MainWindow : Window
         // Create and initialize the IEngine instance.
         engine = EngineFactory.Create(new EngineOptions.Builder
         {
-            LicenseKey = "YOUR_LICENSE_KEY",
+            LicenseKey = "",
             RenderingMode = RenderingMode.HardwareAccelerated,
             RemoteDebuggingPort = RemoteDebuggingPort,
             ChromiumSwitches =
