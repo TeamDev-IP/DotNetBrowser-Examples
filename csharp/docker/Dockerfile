@@ -32,4 +32,4 @@ RUN chmod +x startup.sh
 COPY out/ .
 
 # Set the entrypoint.
-ENTRYPOINT ["/Example.Docker/startup.sh"]
+ENTRYPOINT ["/bin/sh", "/Example.Docker/startup.sh"]
