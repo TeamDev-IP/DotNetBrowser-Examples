@@ -25,8 +25,8 @@ WORKDIR /Example.Docker
 # Copy a script that starts a virtual X11 server and launches the application.
 COPY startup.sh .
 
-# Make sure the script is executable.
-RUN chmod +x startup.sh
+# Normalize CRLF line endings and make script executable
+RUN sed -i 's/\r$//' startup.sh && chmod +x startup.sh
 
 # Copy the project files.
 COPY out/ .
