@@ -10,11 +10,12 @@ DotNetBrowser and runs a local browser-based AI feature with Transformers.js.
 
 ## Project structure
 
-- `MainWindow.axaml.cs` initializes DotNetBrowser and loads the local app URL.
+- `MainWindow.axaml` declares the app layout and the `BrowserView` control that displays the browser content.
+- `MainWindow.axaml.cs` creates the Chromium engine and loads the local app URL.
 - `LocalAppSchemeHandler.cs` serves bundled files from the `web/` directory.
-- `web/index.html` contains the browser UI.
-- `web/app.js` loads the local model and handles the user actions.
-- `web/styles.css` styles the sample UI.
+- `web/index.html` contains the web app UI.
+- `web/app.js` loads the local model and handles user actions.
+- `web/styles.css` styles the web app UI.
 
 ## Set the license key
 
