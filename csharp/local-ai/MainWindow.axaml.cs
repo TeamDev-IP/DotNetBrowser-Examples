@@ -43,6 +43,7 @@ namespace LocalAiAssistant
                 RenderingMode = RenderingMode.HardwareAccelerated,
                 Schemes =
                 {
+                    // Register the custom scheme handler to serve local app files.
                     { LocalAppSchemeHandler.Scheme, new LocalAppSchemeHandler() }
                 }
             }.Build());

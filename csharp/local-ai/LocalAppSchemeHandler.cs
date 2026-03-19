@@ -39,15 +39,20 @@ internal sealed class LocalAppSchemeHandler
     public InterceptRequestResponse Handle(InterceptRequestParameters parameters)
     {
         string url = parameters.UrlRequest.Url;
+
+        // Only handle requests to the app domain.
         if (!url.StartsWith(Domain, StringComparison.Ordinal))
         {
             return InterceptRequestResponse.Proceed();
         }
 
+        // Map the URL path to a local file under the "web" folder.
         string relativePath = GetRelativePath(url);
         string fullPath = Path.Combine(AppContext.BaseDirectory, "web", relativePath);
 
         UrlRequestJob job;
+
+        // Return 404 if the requested file does not exist on disk.
         if (!File.Exists(fullPath))
         {
             job = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest,
@@ -59,6 +64,7 @@ internal sealed class LocalAppSchemeHandler
             return InterceptRequestResponse.Intercept(job);
         }
 
+        // Serve the file content with the appropriate MIME type.
         job = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest,
             new UrlRequestJobOptions
             {

@@ -36,8 +36,7 @@ From this directory:
 dotnet run
 ```
 
-Or open `LocalAiAssistant.sln` in your IDE and run the `LocalAiAssistant`
-project.
+Or open `LocalAiAssistant.sln` in your IDE and run the `LocalAiAssistant` project.
 
 When the window opens, wait for the model to load. Then type some text into
 the input field and click one of the actions. The app runs the model locally
