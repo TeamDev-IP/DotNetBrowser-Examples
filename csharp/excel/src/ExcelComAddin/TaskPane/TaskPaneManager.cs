@@ -33,7 +33,7 @@ namespace ExcelComAddin.TaskPane
             {
                 _pane = _paneFactory();
                 _pane.HostControl.SetJavaScriptCallbacks(ReadCellA1, WriteCellA1);
-                _pane.HostControl.InitializeBrowser(_engineManager.Start(), null, "app://excelcomaddin/index.html");
+                _pane.HostControl.InitializeBrowser(_engineManager.Start(), "app://excelcomaddin/index.html");
             }
             _pane.Visible = true;
         }

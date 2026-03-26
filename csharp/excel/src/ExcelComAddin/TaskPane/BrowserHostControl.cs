@@ -58,7 +58,7 @@ namespace ExcelComAddin.TaskPane
         /// control, and navigates to <paramref name="initialUrl"/>. Also registers the JS injection
         /// handler that exposes this control as <c>window.excelBridge</c>.
         /// </summary>
-        public void InitializeBrowser(object engine, Func<Control> browserViewFactory, string initialUrl)
+        public void InitializeBrowser(object engine, string initialUrl)
         {
             if (_disposed)
                 throw new ObjectDisposedException(nameof(BrowserHostControl));
