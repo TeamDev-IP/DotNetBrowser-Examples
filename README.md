@@ -135,6 +135,7 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Integrate with Playwright: [C#](csharp/devtools-protocol/Playwright), [VB.NET](vbnet/devtools-protocol/Playwright)
 * Integrate with Puppeteer: [C#](csharp/devtools-protocol/Puppeteer), [VB.NET](vbnet/devtools-protocol/Puppeteer)
 * VSTO Add-In for Microsoft Outlook: [C#](csharp/vsto/MyOutlookAddIn), [VB.NET](vbnet/vsto/MyOutlookAddIn)
+* COM Add-In for Excel: [C#](chsharp/excel)
 * COM/ActiveX wrapper: [C#](csharp/activex/ComWrapper), [VB.NET](vbnet/activex/ComWrapper)
 * Integrate with Unity3D: [C#](csharp/unity3d)
 * Integrate with Docker: [C#](csharp/docker)
