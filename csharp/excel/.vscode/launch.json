@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Excel Add-in: Launch Excel",
+            "type": "clr",
+            "request": "launch",
+            "program": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "justMyCode": false
+        },
+        {
+            "name": "Excel Add-in: Attach to Excel",
+            "type": "clr",
+            "request": "attach",
+            "processName": "EXCEL",
+            "justMyCode": false
+        }
+    ]
+}
