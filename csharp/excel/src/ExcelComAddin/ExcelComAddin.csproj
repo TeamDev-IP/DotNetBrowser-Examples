@@ -50,10 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DotNetBrowser">
-      <Version>3.5.0</Version>
+      <Version>3.5.1</Version>
     </PackageReference>
     <PackageReference Include="DotNetBrowser.WinForms">
-      <Version>3.5.0</Version>
+      <Version>3.5.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Office.Interop.Excel">
       <Version>15.0.4795.1001</Version>
