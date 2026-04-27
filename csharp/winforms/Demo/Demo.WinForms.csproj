@@ -18,8 +18,10 @@
     <EmbeddedResource Include="Resources\**\*.*" />
   </ItemGroup>
 
+  <ItemGroup>
     <PackageReference Include="DotNetBrowser" Version="4.0.0" />
     <PackageReference Include="DotNetBrowser.WinForms" Version="4.0.0" />
-<PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='net6-windows'" />
+    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='net6-windows'" />
   </ItemGroup>
 </Project>
