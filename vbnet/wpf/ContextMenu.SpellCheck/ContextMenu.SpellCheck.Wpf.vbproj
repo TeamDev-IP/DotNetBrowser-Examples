@@ -6,8 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{65FB5E3B-F27C-4A1E-BB45-805116D3C6BB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <AssemblyName>ContextMenu.SpellCheck.Wpf</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -19,8 +18,7 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -69,7 +67,6 @@
     <Reference Include="DotNetBrowser, Version=4.0.0.6930, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.4.0.0\lib\netstandard2.0\DotNetBrowser.dll</HintPath>
     </Reference>
-
     <Reference Include="DotNetBrowser.Core, Version=4.0.0.6930, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.4.0.0\lib\netstandard2.0\DotNetBrowser.Core.dll</HintPath>
     </Reference>
@@ -78,12 +75,6 @@
     </Reference>
     <Reference Include="DotNetBrowser.Wpf, Version=4.0.0.6930, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.WPF.4.0.0\lib\net462\DotNetBrowser.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net, Version=2.4.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net.Reflection, Version=2.3.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\protobuf-net.Reflection.2.3.17\lib\net40\protobuf-net.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -101,6 +92,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\..\packages\Google.Protobuf.3.32.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="Application.xaml">

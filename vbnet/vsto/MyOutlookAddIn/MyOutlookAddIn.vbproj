@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--
@@ -24,8 +25,7 @@
     <ProjectGuid>{B9201727-1838-43C3-8507-203B3F0E6B8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <AssemblyName>MyOutlookAddIn</AssemblyName>
     <LoadBehavior>3</LoadBehavior>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
@@ -38,8 +38,7 @@
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -135,12 +134,6 @@
     <Reference Include="DotNetBrowser.WinForms, Version=4.0.0.6930, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.WinForms.4.0.0\lib\net462\DotNetBrowser.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>..\..\..\packages\protobuf-net.2.4.1\lib\net40\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net.Reflection">
-      <HintPath>..\..\..\packages\protobuf-net.Reflection.2.3.17\lib\net40\protobuf-net.Reflection.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -153,6 +146,9 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\..\packages\Google.Protobuf.3.32.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Office.Tools.v4.0.Framework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

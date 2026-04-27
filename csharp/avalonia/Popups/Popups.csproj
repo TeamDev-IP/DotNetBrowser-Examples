@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -16,8 +17,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
-
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.2.0" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.0" />
@@ -26,5 +25,6 @@
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.0" />
     <PackageReference Include="DotNetBrowser.AvaloniaUi" Version="4.0.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
   </ItemGroup>
 </Project>
