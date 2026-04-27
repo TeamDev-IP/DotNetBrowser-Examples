@@ -88,7 +88,7 @@ namespace Demo.Wpf
             }
             if (arguments.FirstOrDefault(arg => arg.ToLower().Contains("proprietary")) != null)
             {
-                proprietaryFeatures = ProprietaryFeatures.Aac | ProprietaryFeatures.H264 | ProprietaryFeatures.Widevine;
+                proprietaryFeatures = ProprietaryFeatures.Aac | ProprietaryFeatures.H264;
             }
 
             try
