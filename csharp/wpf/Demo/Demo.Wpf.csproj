@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>net471;net6-windows</TargetFrameworks>
@@ -8,23 +8,18 @@
     <RootNamespace>Demo.Wpf</RootNamespace>
     <ImportDirectoryBuildTargets>false</ImportDirectoryBuildTargets>
   </PropertyGroup>
-
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Resources\**\*.*" Exclude="Resources\**\Icon.ico" />
     <Resource Include="Resources\**\Icon.ico" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="3.5.1" />
-    <PackageReference Include="DotNetBrowser.WPF" Version="3.5.1" />
-    <PackageReference Include="protobuf-net" Version="2.4.0" />
+    <PackageReference Include="DotNetBrowser" Version="4.0.0" />
+    <PackageReference Include="DotNetBrowser.WPF" Version="4.0.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='net6-windows'" />
-    
+    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
   </ItemGroup>
-
 </Project>

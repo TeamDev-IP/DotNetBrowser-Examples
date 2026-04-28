@@ -1,18 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net7.0-windows</TargetFramework>
-        <UseWpf>true</UseWpf>
-        <RootNamespace>Puppeteer</RootNamespace>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <PackageReference Include="DotNetBrowser" Version="3.5.1" />
-        <PackageReference Include="DotNetBrowser.WPF" Version="3.5.1" />
-        <PackageReference Include="protobuf-net" Version="2.4.4" />
-        <PackageReference Include="protobuf-net.Reflection" Version="2.3.17" />
-        <PackageReference Include="PuppeteerSharp" Version="20.2.2" />
-    </ItemGroup>
-
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWpf>true</UseWpf>
+    <RootNamespace>Puppeteer</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetBrowser" Version="4.0.0" />
+    <PackageReference Include="DotNetBrowser.WPF" Version="4.0.0" />
+    <PackageReference Include="PuppeteerSharp" Version="20.2.2" />
+    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+  </ItemGroup>
 </Project>

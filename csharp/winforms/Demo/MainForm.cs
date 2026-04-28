@@ -90,8 +90,7 @@ namespace DotNetBrowser.WinForms.Demo
             {
                 proprietaryFeatures = ProprietaryFeatures.Aac
                                       | ProprietaryFeatures.H264
-                                      | ProprietaryFeatures.Hevc
-                                      | ProprietaryFeatures.Widevine;
+                                      | ProprietaryFeatures.Hevc;
             }
 
             try

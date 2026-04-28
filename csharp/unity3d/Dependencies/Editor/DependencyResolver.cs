@@ -47,7 +47,7 @@ internal class DependencyResolver
             "DotNetBrowser.Chromium.macOS-x64.dll",
             "DotNetBrowser.Chromium.Win-x86.dll",
             "DotNetBrowser.Chromium.Win-x64.dll",
-            "protobuf-net.dll",
+            "Google.Protobuf.dll",
         };
 
     public DependencyResolver()
