@@ -51,7 +51,7 @@
       <HintPath>..\..\..\packages\DotNetBrowser.4.1.0\lib\netstandard2.0\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
     <Reference Include="DotNetBrowser.WinForms, Version=4.1.0.7128, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\DotNetBrowser.WinForms.4.1.0\lib\netstandard2.0\DotNetBrowser.WinForms.dll</HintPath>
+      <HintPath>..\..\..\packages\DotNetBrowser.WinForms.4.1.0\lib\net462\DotNetBrowser.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
