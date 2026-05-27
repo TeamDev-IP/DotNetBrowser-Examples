@@ -7,8 +7,8 @@
     <RootNamespace>Puppeteer</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="4.0.1" />
-    <PackageReference Include="DotNetBrowser.WPF" Version="4.0.1" />
+    <PackageReference Include="DotNetBrowser" Version="4.1.0" />
+    <PackageReference Include="DotNetBrowser.WPF" Version="4.1.0" />
     <PackageReference Include="PuppeteerSharp" Version="20.2.2" />
     <PackageReference Include="Google.Protobuf" Version="3.32.0" />
   </ItemGroup>
