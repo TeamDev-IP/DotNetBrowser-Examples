@@ -5,7 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.1.0" />
+    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.1.1" />
     <PackageReference Include="SkiaSharp" Version="2.88.6" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.6" />
     <PackageReference Include="Google.Protobuf" Version="3.32.0" />
