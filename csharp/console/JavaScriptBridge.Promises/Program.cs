@@ -22,6 +22,7 @@
 
 using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
@@ -69,22 +70,22 @@ namespace JavaScriptBridge.Promises
                                               .ExecuteJavaScript<IJsObject>("window")
                                               .Result;
 
-                    //Prepare promise handlers
+                    // Prepare promise handlers.
                     Action<object> promiseResolvedHandler =
                         o => Console.WriteLine($"Success: {o}");
                     Action<object> promiseRejectedHandler =
                         o => Console.Error.WriteLine($"Error: {o}");
 
-                    //Create a promise that is fulfilled
+                    // Create a promise that is fulfilled.
                     Console.WriteLine("Create a promise that is fulfilled...");
                     IJsObject promise1 = window.Invoke<IJsObject>("CreatePromise", true);
-                    //Append fulfillment and rejection handlers to the promise
+                    // Append fulfillment and rejection handlers to the promise.
                     promise1.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
 
-                    //Create a promise that is rejected
+                    // Create a promise that is rejected.
                     Console.WriteLine("Create a promise that is rejected...");
                     IJsObject promise2 = window.Invoke<IJsObject>("CreatePromise", false);
-                    //Append fulfillment and rejection handlers to the promise
+                    // Append fulfillment and rejection handlers to the promise.
                     promise2.Invoke("then", promiseResolvedHandler, promiseRejectedHandler);
 
                     CreatePromiseAsync(window).Wait();
@@ -95,31 +96,30 @@ namespace JavaScriptBridge.Promises
             Console.ReadKey();
         }
 
+        // #docfragment "JavaScriptBridge.Promises.Async"
         private static async Task CreatePromiseAsync(IJsObject window)
         {
-            //It is also possible to create a wrapper class for IJsObject that simplifies appending the
-            //handlers and type checks. Such approach can be used to integrate JavaScript promises
-            //with async/await in the .NET application.
+            // IJsPromise can be integrated with async/await using TaskCompletionSource.
 
-            //Create a promise that is fulfilled and wrap this promise
+            // Create a promise that is fulfilled.
             Console.WriteLine("\nCreate another promise that is fulfilled...");
-            JsPromise promise3 = window.Invoke<IJsObject>("CreatePromise", true).AsPromise();
-            JsPromise.Result result = await promise3.Then(o =>
-                                                     {
-                                                         Console.WriteLine($"Callback:Success: {o}");
-                                                         return o;
-                                                     })
-                                                    .ResolveAsync();
-            Console.WriteLine($"Result state:{result?.State}");
-            Console.WriteLine($"Result type:{(result?.Data?.GetType().ToString() ?? "null")}");
+            var tcs = new TaskCompletionSource<object>(TaskCreationOptions.RunContinuationsAsynchronously);
+            IJsPromise promise3 = window.Invoke<IJsPromise>("CreatePromise", true);
+            promise3.Then(
+                o => { Console.WriteLine($"Callback:Success: {o}"); tcs.SetResult(o); },
+                e => tcs.SetException(new Exception(e?.ToString())));
+            object result = await tcs.Task;
+            Console.WriteLine($"Result: {result}");
 
-            //Create a promise that is rejected and wrap this promise
+            // Create a promise that is rejected.
             Console.WriteLine("\nCreate another promise that is rejected...");
-            JsPromise promise4 = window.Invoke<IJsObject>("CreatePromise", false).AsPromise();
-            result = await promise4.ResolveAsync();
-
-            Console.WriteLine($"Result state:{result?.State}");
-            Console.WriteLine($"Result type:{(result?.Data?.GetType().ToString() ?? "null")}");
+            var tcs2 = new TaskCompletionSource<object>(TaskCreationOptions.RunContinuationsAsynchronously);
+            IJsPromise promise4 = window.Invoke<IJsPromise>("CreatePromise", false);
+            promise4.Then(
+                o => tcs2.SetResult(o),
+                e => { Console.WriteLine($"Callback:Error: {e}"); tcs2.SetResult(null); });
+            await tcs2.Task;
         }
+        // #enddocfragment "JavaScriptBridge.Promises.Async"
     }
 }

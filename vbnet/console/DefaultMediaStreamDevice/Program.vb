@@ -31,8 +31,7 @@ Imports DotNetBrowser.Media.Handlers
 '''     register own SelectMediaDeviceHandler to provide Chromium with default audio/video capture
 '''     device to be used on a web page for working with webcam and accessing microphone.
 ''' </summary>
-Public Class WindowMain
-    Inherits Window
+Friend Class Program
 
     Public Shared Sub Main()
         Using engine As IEngine = EngineFactory.Create()

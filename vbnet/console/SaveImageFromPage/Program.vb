@@ -20,7 +20,6 @@
 
 #End Region
 
-Imports System.Drawing.Imaging
 Imports System.IO
 Imports System.Runtime.InteropServices
 Imports DotNetBrowser.Browser
@@ -28,6 +27,7 @@ Imports DotNetBrowser.Dom
 Imports DotNetBrowser.Engine
 Imports DotNetBrowser.Geometry
 Imports DotNetBrowser.Ui
+Imports SkiaSharp
 
 Namespace SaveImageFromPage
     ''' <summary>
@@ -37,9 +37,9 @@ Namespace SaveImageFromPage
     Friend Class Program
         Public Shared Sub Main(args() As String)
             Dim browserSize As New Size(500, 500)
-            Dim builder  = New EngineOptions.Builder With {
+            Dim builder = New EngineOptions.Builder With {
                     .RenderingMode = RenderingMode.OffScreen,
-                    .FileAccessFromFilesAllowed = true
+                    .FileAccessFromFilesAllowed = True
             }
             Using engine As IEngine = EngineFactory.Create(builder.Build())
                 Using browser As IBrowser = engine.CreateBrowser()
@@ -55,8 +55,13 @@ Namespace SaveImageFromPage
                     Dim contents As Bitmap = img.Contents
 
                     ' 4. Convert the bitmap to the required format and save it.
-                    Dim bitmap As Drawing.Bitmap = ToBitmap(contents)
-                    bitmap.Save("image.png", ImageFormat.Png)
+                    ' #docfragment "SaveImageFromPage.SKBitmap.Conversion"
+                    Dim skBitmap As SKBitmap = ToSKBitmap(contents)
+                    Using stream = File.OpenWrite(Path.GetFullPath("image.png"))
+                        Dim d As SKData = SKImage.FromBitmap(skBitmap).Encode(SKEncodedImageFormat.Png, 100)
+                        d.SaveTo(stream)
+                    End Using
+                    ' #enddocfragment "SaveImageFromPage.SKBitmap.Conversion"
 
                     Console.WriteLine("Image saved.")
                 End Using
@@ -66,20 +71,20 @@ Namespace SaveImageFromPage
             Console.ReadKey()
         End Sub
 
-        Private Shared Function ToBitmap(contents As Bitmap) As Drawing.Bitmap
-            Dim width = CInt(contents.Size.Width)
-            Dim height = CInt(contents.Size.Height)
+        Private Shared Function ToSKBitmap(browserBitmap As Bitmap) As SKBitmap
+            Dim width = CInt(browserBitmap.Size.Width)
+            Dim height = CInt(browserBitmap.Size.Height)
 
-            Dim data() As Byte = contents.Pixels.ToArray()
-            Dim bmp As New Drawing.Bitmap(width, height, PixelFormat.Format32bppArgb)
+            Dim data() As Byte = browserBitmap.Pixels.ToArray()
+            Dim bitmap As New SKBitmap()
+            Dim gcHandle As GCHandle = GCHandle.Alloc(data, GCHandleType.Pinned)
+            Dim info As New SKImageInfo(width, height, SKColorType.Bgra8888, SKAlphaType.Premul)
 
-            Dim bmpData As BitmapData = bmp.LockBits(
-                New Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly,
-                bmp.PixelFormat)
+            Dim ptr As IntPtr = gcHandle.AddrOfPinnedObject()
+            Dim rowBytes = info.RowBytes
+            bitmap.InstallPixels(info, ptr, rowBytes, Sub() gcHandle.Free())
 
-            Marshal.Copy(data, 0, bmpData.Scan0, data.Length)
-            bmp.UnlockBits(bmpData)
-            Return bmp
+            Return bitmap
         End Function
     End Class
 End Namespace
