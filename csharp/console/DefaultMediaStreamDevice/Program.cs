@@ -23,7 +23,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
@@ -37,7 +36,7 @@ namespace DefaultMediaStreamDevice
     ///     register own SelectMediaDeviceHandler to provide Chromium with default audio/video capture
     ///     device to be used on a web page for working with webcam and accessing microphone.
     /// </summary>
-    public class WindowMain : Window
+    internal class Program
     {
         public static void Main()
         {
