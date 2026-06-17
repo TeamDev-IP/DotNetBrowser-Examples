@@ -54,12 +54,19 @@ namespace CustomRequestHandling
 
                     UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
 
-                    Task.Run(() =>
+                    Task.Run(async () =>
                     {
                         // The request processing is performed in a worker thread
                         // in order to avoid freezing the web page.
-                        job.Write(Encoding.UTF8.GetBytes("Hello world!"));
-                        job.Complete();
+                        try
+                        {
+                            await job.WriteAsync(Encoding.UTF8.GetBytes("Hello world!"));
+                            job.Complete();
+                        }
+                        catch
+                        {
+                            job.Fail();
+                        }
                     });
 
                     return InterceptRequestResponse.Intercept(job);
@@ -67,7 +74,7 @@ namespace CustomRequestHandling
 
             EngineOptions engineOptions = new EngineOptions.Builder
             {
-                Schemes = 
+                Schemes =
                 {
                     { Scheme.Create("myscheme"), handler }
                 }

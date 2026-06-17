@@ -36,27 +36,31 @@ Friend Class Program
     Public Shared Sub Main()
         ' #docfragment "CustomRequestHandling"
         Dim interceptRequestHandler =
-                New Handler(Of InterceptRequestParameters, InterceptRequestResponse)(
-                    Function(p)
-                        Dim options = New UrlRequestJobOptions With {
-                                .Headers = New List(Of HttpHeader) From {
-                                New HttpHeader("Content-Type", "text/html",
-                                               "charset=utf-8")
-                                }
-                                }
+        New Handler(Of InterceptRequestParameters, InterceptRequestResponse)(
+            Function(p)
+                Dim options = New UrlRequestJobOptions With {
+                        .Headers = New List(Of HttpHeader) From {
+                        New HttpHeader("Content-Type", "text/html",
+                                       "charset=utf-8")
+                        }
+                        }
 
-                        Dim job As UrlRequestJob =
-                                p.Network.CreateUrlRequestJob(p.UrlRequest, options)
+                Dim job As UrlRequestJob =
+                        p.Network.CreateUrlRequestJob(p.UrlRequest, options)
 
-                        Task.Run(Sub()
-                                     ' The request processing is performed in a worker thread
-                                     ' in order to avoid freezing the web page.
-                                     job.Write(Encoding.UTF8.GetBytes("Hello world!"))
-                                     job.Complete()
-                                 End Sub)
+                Task.Run(Async Function()
+                             ' The request processing is performed in a worker thread
+                             ' in order to avoid freezing the web page.
+                             Try
+                                 Await job.WriteAsync(Encoding.UTF8.GetBytes("Hello world!"))
+                                 job.Complete()
+                             Catch
+                                 job.Fail()
+                             End Try
+                         End Function)
 
-                        Return InterceptRequestResponse.Intercept(job)
-                    End Function)
+                Return InterceptRequestResponse.Intercept(job)
+            End Function)
 
 
         Dim engineOptionsBuilder = new EngineOptions.Builder
