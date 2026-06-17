@@ -21,14 +21,14 @@
 #endregion
 
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Dom;
 using DotNetBrowser.Engine;
+using DotNetBrowser.Ui;
+using SkiaSharp;
 using Size = DotNetBrowser.Geometry.Size;
 
 namespace SaveImageFromPage
@@ -60,11 +60,15 @@ namespace SaveImageFromPage
                     IImageElement img =
                         browser.MainFrame.Document
                                .GetElementByTagName("img") as IImageElement;
-                    DotNetBrowser.Ui.Bitmap contents = img.Contents;
+                    Bitmap contents = img.Contents;
 
                     // 4. Convert the bitmap to the required format and save it.
-                    Bitmap bitmap = ToBitmap(contents);
-                    bitmap.Save("image.png", ImageFormat.Png);
+                    SKBitmap skBitmap = ToSKBitmap(contents);
+                    using (var stream = File.OpenWrite(Path.GetFullPath("image.png")))
+                    {
+                        SKData d = SKImage.FromBitmap(skBitmap).Encode(SKEncodedImageFormat.Png, 100);
+                        d.SaveTo(stream);
+                    }
 
                     Console.WriteLine("Image saved.");
                 }
@@ -74,22 +78,23 @@ namespace SaveImageFromPage
             Console.ReadKey();
         }
 
-        private static Bitmap ToBitmap(DotNetBrowser.Ui.Bitmap contents)
+        // #docfragment "SaveImageFromPage.SKBitmap.Conversion"
+        private static SKBitmap ToSKBitmap(Bitmap browserBitmap)
         {
-            int width = (int) contents.Size.Width;
-            int height = (int) contents.Size.Height;
+            int width = (int) browserBitmap.Size.Width;
+            int height = (int) browserBitmap.Size.Height;
 
-            byte[] data = contents.Pixels.ToArray();
-            Bitmap bmp = new Bitmap(width,
-                                    height,
-                                    PixelFormat.Format32bppArgb);
+            byte[] data = browserBitmap.Pixels.ToArray();
+            SKBitmap bitmap = new SKBitmap();
+            GCHandle gcHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
+            SKImageInfo info = new SKImageInfo(width, height, SKColorType.Bgra8888, SKAlphaType.Premul);
 
-            BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
-                                              ImageLockMode.WriteOnly, bmp.PixelFormat);
+            IntPtr ptr = gcHandle.AddrOfPinnedObject();
+            int rowBytes = info.RowBytes;
+            bitmap.InstallPixels(info, ptr, rowBytes, delegate { gcHandle.Free(); });
 
-            Marshal.Copy(data, 0, bmpData.Scan0, data.Length);
-            bmp.UnlockBits(bmpData);
-            return bmp;
+            return bitmap;
         }
+        // #enddocfragment "SaveImageFromPage.SKBitmap.Conversion"
     }
 }
