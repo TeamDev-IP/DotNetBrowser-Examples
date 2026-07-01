@@ -1,0 +1,10 @@
+version: 2
+updates:
+  # Keep npm dependencies up to date
+  - package-ecosystem: "npm"
+    directories:
+      - "**/*"
+    schedule:
+      interval: "weekly"
+    assignees:
+      - "anna-dolbina"
