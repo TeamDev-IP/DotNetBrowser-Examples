@@ -4,10 +4,10 @@
     <TargetFramework>net462</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="4.1.1" />
-    <PackageReference Include="DotNetBrowser.Chromium.Win-arm64" Version="4.1.1" />
-    <PackageReference Include="DotNetBrowser.Chromium.Win-x64" Version="4.1.1" />
-    <PackageReference Include="DotNetBrowser.Chromium.Win-x86" Version="4.1.1" />
+    <PackageReference Include="DotNetBrowser" Version="4.2.0" />
+    <PackageReference Include="DotNetBrowser.Chromium.Win-arm64" Version="4.2.0" />
+    <PackageReference Include="DotNetBrowser.Chromium.Win-x64" Version="4.2.0" />
+    <PackageReference Include="DotNetBrowser.Chromium.Win-x86" Version="4.2.0" />
     <PackageReference Include="Google.Protobuf" Version="3.32.0" />
   </ItemGroup>
 </Project>

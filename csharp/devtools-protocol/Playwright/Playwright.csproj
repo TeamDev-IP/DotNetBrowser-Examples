@@ -8,8 +8,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="4.1.1" />
-    <PackageReference Include="DotNetBrowser.Wpf" Version="4.1.1" />
+    <PackageReference Include="DotNetBrowser" Version="4.2.0" />
+    <PackageReference Include="DotNetBrowser.Wpf" Version="4.2.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.51.0" />
     <PackageReference Include="Google.Protobuf" Version="3.32.0" />
   </ItemGroup>
