@@ -35,7 +35,7 @@ Task("Build-Solutions")
     .IsDependentOn("Locate-Solutions")
     .DoesForEach(GetFiles($"./{lang}/**/*.sln"), (slnFile) =>
 {  
-    if (!slnFile.ToString().Contains("MyOutlookAddIn"))
+    if (!slnFile.ToString().Contains("MyOutlookAddIn") && !slnFile.ToString().Contains("ExcelComAddin"))
     {    
         Console.WriteLine($"--- Building solution: {slnFile}");
 
