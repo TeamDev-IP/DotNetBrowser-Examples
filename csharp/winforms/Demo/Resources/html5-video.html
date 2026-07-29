@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 Video</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+	<style>
+		.video-player {
+			display: block;
+			margin-top: 25px;
+			max-width: 100%;
+		}
+
+		.video-buttons {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 15px;
+			margin-top: 20px;
+		}
+
+		.video-status {
+			background-color: rgb(45, 45, 45);
+			border-radius: 4px;
+			margin-top: 20px;
+			padding: 15px;
+		}
+	</style>
+</head>
+<body class="default">
+<div class="main">
+	<h2>HTML5 VIDEO</h2>
+	<p>This page demonstrates HTML5 video playback and media events.</p>
+
+	<video id="video" class="video-player" width="640" controls preload="none">
+		<source src="big-buck-bunny.webm" type="video/webm">
+		Your browser does not support HTML5 video.
+	</video>
+
+	<div class="video-buttons">
+		<input type="button" value="PLAY" onclick="playVideo()">
+		<input type="button" value="PAUSE" onclick="video.pause()">
+		<input type="button" value="RESTART" onclick="restartVideo()">
+		<input type="button" value="BACK 10 SEC" onclick="skipVideo(-10)">
+		<input type="button" value="AHEAD 10 SEC" onclick="skipVideo(10)">
+		<input type="button" value="MUTE / UNMUTE" onclick="video.muted = !video.muted">
+	</div>
+
+	<div id="status" class="video-status">Waiting for media events.</div>
+
+	<form>
+		<input type="button" value="  BACK  " onclick="history.go(-1)">
+	</form>
+</div>
+
+<script>
+	var video = document.getElementById("video");
+	var status = document.getElementById("status");
+	var mediaEvents = ["loadedmetadata", "play", "playing", "pause", "seeking", "seeked", "ended", "error"];
+
+	mediaEvents.forEach(function (eventName) {
+		video.addEventListener(eventName, function () {
+			var currentTime = isNaN(video.currentTime) ? 0 : video.currentTime;
+			var duration = isNaN(video.duration) ? 0 : video.duration;
+			status.textContent = "Event: " + eventName + " | Time: " +
+				currentTime.toFixed(1) + " / " + duration.toFixed(1) + " seconds";
+		});
+	});
+
+	function playVideo() {
+		video.play();
+	}
+
+	function restartVideo() {
+		video.currentTime = 0;
+		video.play();
+	}
+
+	function skipVideo(seconds) {
+		if (!isNaN(video.duration)) {
+			video.currentTime = Math.max(0, Math.min(video.duration, video.currentTime + seconds));
+		}
+	}
+</script>
+</body>
+</html>

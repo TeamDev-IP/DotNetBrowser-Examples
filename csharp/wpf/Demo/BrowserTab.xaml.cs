@@ -148,7 +148,7 @@ namespace Demo.Wpf
 
         private void LoadCssCursorsUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/cursor");
+            LoadUrl("http://internal.host/css-cursors.html");
         }
 
         private void LoadDownloadFileUrl(object sender, RoutedEventArgs e)
@@ -163,17 +163,17 @@ namespace Demo.Wpf
 
         private void LoadHtml5Video(object sender, RoutedEventArgs e)
         {
-            LoadUrl("http://www.w3.org/2010/05/video/mediaevents.html");
+            LoadUrl("http://internal.host/html5-video.html");
         }
 
         private void LoadJsDialogsUrl(object sender, RoutedEventArgs e)
         {
-            LoadUrl("http://www.javascripter.net/faq/alert.htm");
+            LoadUrl("http://internal.host/javascript-dialogs.html");
         }
 
         private void LoadPdf(object sender, RoutedEventArgs e)
         {
-            LoadUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+            LoadUrl("http://internal.host/pdf-viewer.pdf");
         }
 
         private void LoadPopupUrl(object sender, RoutedEventArgs e)

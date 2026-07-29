@@ -23,7 +23,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using DotNetBrowser.Handlers;
@@ -61,17 +63,43 @@ namespace DotNetBrowser.WinForms.Demo
                 if (content != null)
                 {
                     MimeType mimeType = GetMimeType(resourcePath);
+                    List<HttpHeader> headers = new List<HttpHeader>
+                    {
+                        new HttpHeader("Content-Type", mimeType.Value),
+                        new HttpHeader("Accept-Ranges", "bytes")
+                    };
+                    HttpStatusCode statusCode = HttpStatusCode.OK;
+                    int offset = 0;
+                    int count = content.Length;
+
+                    RangeResult rangeResult = ParseRange(parameters.Headers, content.Length,
+                                                         out int rangeStart, out int rangeEnd);
+                    if (rangeResult == RangeResult.Satisfiable)
+                    {
+                        statusCode = HttpStatusCode.PartialContent;
+                        offset = rangeStart;
+                        count = rangeEnd - rangeStart + 1;
+                        headers.Add(new HttpHeader("Content-Range",
+                                                   $"bytes {rangeStart}-{rangeEnd}/{content.Length}"));
+                    }
+                    else if (rangeResult == RangeResult.NotSatisfiable)
+                    {
+                        statusCode = HttpStatusCode.RequestedRangeNotSatisfiable;
+                        count = 0;
+                        headers.Add(new HttpHeader("Content-Range", $"bytes */{content.Length}"));
+                    }
+
+                    headers.Add(new HttpHeader("Content-Length", count.ToString(CultureInfo.InvariantCulture)));
                     urlRequestJob = parameters.Network.CreateUrlRequestJob(parameters.UrlRequest,
                                                                            new UrlRequestJobOptions
                                                                            {
-                                                                               HttpStatusCode = HttpStatusCode.OK,
-                                                                               Headers = new List<HttpHeader>
-                                                                               {
-                                                                                   new HttpHeader("Content-Type",
-                                                                                    mimeType.Value)
-                                                                               }
+                                                                               HttpStatusCode = statusCode,
+                                                                               Headers = headers
                                                                            });
-                    urlRequestJob.Write(content);
+                    if (count > 0)
+                    {
+                        urlRequestJob.Write(content, offset, count);
+                    }
                 }
                 else
                 {
@@ -117,6 +145,79 @@ namespace DotNetBrowser.WinForms.Demo
             return resourcePath;
         }
 
+        private RangeResult ParseRange(IEnumerable<IHttpHeader> headers, int contentLength,
+                                       out int rangeStart, out int rangeEnd)
+        {
+            rangeStart = 0;
+            rangeEnd = contentLength - 1;
+
+            IHttpHeader rangeHeader = headers.FirstOrDefault(
+                header => header.Name.Equals("Range", StringComparison.OrdinalIgnoreCase));
+            string rangeValue = rangeHeader?.Values.FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(rangeValue) ||
+                !rangeValue.StartsWith("bytes=", StringComparison.OrdinalIgnoreCase))
+            {
+                return RangeResult.None;
+            }
+
+            string range = rangeValue.Substring("bytes=".Length).Trim();
+            if (range.Contains(","))
+            {
+                return RangeResult.None;
+            }
+
+            string[] boundaries = range.Split('-');
+            if (boundaries.Length != 2)
+            {
+                return RangeResult.None;
+            }
+
+            if (string.IsNullOrWhiteSpace(boundaries[0]))
+            {
+                if (!long.TryParse(boundaries[1], NumberStyles.None, CultureInfo.InvariantCulture,
+                                   out long suffixLength))
+                {
+                    return RangeResult.None;
+                }
+
+                if (suffixLength <= 0 || contentLength == 0)
+                {
+                    return RangeResult.NotSatisfiable;
+                }
+
+                rangeStart = (int) Math.Max(0, contentLength - suffixLength);
+                return RangeResult.Satisfiable;
+            }
+
+            if (!long.TryParse(boundaries[0], NumberStyles.None, CultureInfo.InvariantCulture,
+                               out long requestedStart))
+            {
+                return RangeResult.None;
+            }
+
+            if (requestedStart >= contentLength)
+            {
+                return RangeResult.NotSatisfiable;
+            }
+
+            if (string.IsNullOrWhiteSpace(boundaries[1]))
+            {
+                rangeStart = (int) requestedStart;
+                return RangeResult.Satisfiable;
+            }
+
+            if (!long.TryParse(boundaries[1], NumberStyles.None, CultureInfo.InvariantCulture,
+                               out long requestedEnd) ||
+                requestedStart > requestedEnd)
+            {
+                return RangeResult.None;
+            }
+
+            rangeStart = (int) requestedStart;
+            rangeEnd = (int) Math.Min(requestedEnd, contentLength - 1);
+            return RangeResult.Satisfiable;
+        }
+
         private byte[] FindResource(string url)
         {
             try
@@ -157,15 +258,31 @@ namespace DotNetBrowser.WinForms.Demo
                 case "htm":
                 case "html":
                     return MimeType.TextHtml;
+                case "cur":
                 case "ico":
                     return MimeType.Create("image/x-icon");
+                case "gif":
+                    return MimeType.ImageGif;
                 case "js":
                     return MimeType.TextJavascript;
                 case "json":
                     return MimeType.ApplicationJson;
+                case "pdf":
+                    return MimeType.ApplicationPdf;
+                case "png":
+                    return MimeType.ImagePng;
+                case "webm":
+                    return MimeType.Create("video/webm");
                 default:
                     return MimeType.ApplicationOctetStream;
             }
+        }
+
+        private enum RangeResult
+        {
+            None,
+            Satisfiable,
+            NotSatisfiable
         }
     }
 }

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript Dialogs</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+	<style>
+		.dialog-buttons {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 15px;
+			margin-top: 30px;
+		}
+
+		.result {
+			background-color: rgb(45, 45, 45);
+			border-radius: 4px;
+			margin-top: 30px;
+			min-height: 24px;
+			padding: 15px;
+		}
+	</style>
+</head>
+<body class="default">
+<div class="main">
+	<h2>JAVASCRIPT DIALOGS</h2>
+	<p>Use the buttons below to open the standard JavaScript dialogs.</p>
+
+	<div class="dialog-buttons">
+		<input type="button" value="ALERT" onclick="showAlert()">
+		<input type="button" value="CONFIRM" onclick="showConfirm()">
+		<input type="button" value="PROMPT" onclick="showPrompt()">
+	</div>
+
+	<div id="result" class="result">The result of the last dialog will appear here.</div>
+
+	<form>
+		<input type="button" value="  BACK  " onclick="history.go(-1)">
+	</form>
+</div>
+
+<script>
+	function showAlert() {
+		alert("This is a JavaScript alert dialog.");
+		showResult("The alert dialog was closed.");
+	}
+
+	function showConfirm() {
+		var confirmed = confirm("Do you want to confirm this action?");
+		showResult("The confirmation result is: " + confirmed + ".");
+	}
+
+	function showPrompt() {
+		var value = prompt("Enter a value:", "DotNetBrowser");
+		showResult(value === null ? "The prompt was canceled." : "The prompt value is: " + value);
+	}
+
+	function showResult(message) {
+		document.getElementById("result").textContent = message;
+	}
+</script>
+</body>
+</html>
