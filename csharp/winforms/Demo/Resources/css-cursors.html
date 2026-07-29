@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- Custom cursor cases and assets are based on http://elektronotdienst-nuernberg.de/bugs/cursor.html. -->
+<html>
+<head>
+	<title>CSS Cursors</title>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css"/>
+	<style>
+		.cursor-grid {
+			display: grid;
+			gap: 12px;
+			grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+			margin-top: 15px;
+		}
+
+		.cursor-sample {
+			background-color: rgb(45, 45, 45);
+			border: 1px solid rgb(105, 105, 105);
+			border-radius: 4px;
+			padding: 18px 10px;
+			text-align: center;
+		}
+
+		.cursor-section {
+			margin-top: 25px;
+		}
+
+		.custom-cursor-sample {
+			min-height: 75px;
+		}
+
+		.custom-cursor-sample img {
+			background-color: white;
+			border: 1px solid rgb(105, 105, 105);
+			height: 32px;
+			image-rendering: pixelated;
+			margin: 0 4px;
+			width: 32px;
+		}
+
+		.custom-cursor-sample code {
+			display: block;
+			margin-top: 10px;
+			overflow-wrap: anywhere;
+		}
+	</style>
+</head>
+<body class="default">
+<div class="main">
+	<h2>CSS CURSORS</h2>
+	<p>Move the mouse pointer over each item to see the corresponding CSS cursor.</p>
+
+	<div class="cursor-section">
+		<h3>Keyword cursors</h3>
+		<div class="cursor-grid">
+			<div class="cursor-sample" style="cursor: auto;">auto</div>
+			<div class="cursor-sample" style="cursor: default;">default</div>
+			<div class="cursor-sample" style="cursor: none;">none</div>
+			<div class="cursor-sample" style="cursor: pointer;">pointer</div>
+			<div class="cursor-sample" style="cursor: context-menu;">context-menu</div>
+			<div class="cursor-sample" style="cursor: help;">help</div>
+			<div class="cursor-sample" style="cursor: progress;">progress</div>
+			<div class="cursor-sample" style="cursor: wait;">wait</div>
+			<div class="cursor-sample" style="cursor: cell;">cell</div>
+			<div class="cursor-sample" style="cursor: crosshair;">crosshair</div>
+			<div class="cursor-sample" style="cursor: text;">text</div>
+			<div class="cursor-sample" style="cursor: vertical-text;">vertical-text</div>
+			<div class="cursor-sample" style="cursor: alias;">alias</div>
+			<div class="cursor-sample" style="cursor: copy;">copy</div>
+			<div class="cursor-sample" style="cursor: move;">move</div>
+			<div class="cursor-sample" style="cursor: no-drop;">no-drop</div>
+			<div class="cursor-sample" style="cursor: not-allowed;">not-allowed</div>
+			<div class="cursor-sample" style="cursor: grab;">grab</div>
+			<div class="cursor-sample" style="cursor: grabbing;">grabbing</div>
+			<div class="cursor-sample" style="cursor: all-scroll;">all-scroll</div>
+			<div class="cursor-sample" style="cursor: col-resize;">col-resize</div>
+			<div class="cursor-sample" style="cursor: row-resize;">row-resize</div>
+			<div class="cursor-sample" style="cursor: n-resize;">n-resize</div>
+			<div class="cursor-sample" style="cursor: ne-resize;">ne-resize</div>
+			<div class="cursor-sample" style="cursor: e-resize;">e-resize</div>
+			<div class="cursor-sample" style="cursor: se-resize;">se-resize</div>
+			<div class="cursor-sample" style="cursor: s-resize;">s-resize</div>
+			<div class="cursor-sample" style="cursor: sw-resize;">sw-resize</div>
+			<div class="cursor-sample" style="cursor: w-resize;">w-resize</div>
+			<div class="cursor-sample" style="cursor: nw-resize;">nw-resize</div>
+			<div class="cursor-sample" style="cursor: nwse-resize;">nwse-resize</div>
+			<div class="cursor-sample" style="cursor: nesw-resize;">nesw-resize</div>
+			<div class="cursor-sample" style="cursor: ew-resize;">ew-resize</div>
+			<div class="cursor-sample" style="cursor: ns-resize;">ns-resize</div>
+			<div class="cursor-sample" style="cursor: zoom-in;">zoom-in</div>
+			<div class="cursor-sample" style="cursor: zoom-out;">zoom-out</div>
+		</div>
+	</div>
+
+	<div class="cursor-section">
+		<h3>Custom image cursors</h3>
+		<p>These samples demonstrate image formats, fallback lists, and custom hotspot coordinates.</p>
+		<div class="cursor-grid">
+			<div class="cursor-sample custom-cursor-sample" style="cursor: url('red.gif'), help;">
+				<img src="red.gif" alt="Red GIF cursor">
+				<code>url(red.gif), help</code>
+			</div>
+			<div class="cursor-sample custom-cursor-sample" style="cursor: url('blue.cur'), pointer;">
+				<img src="blue.cur" alt="Blue CUR cursor">
+				<code>url(blue.cur), pointer</code>
+			</div>
+			<div class="cursor-sample custom-cursor-sample"
+				 style="cursor: url('red.gif'), url('blue.cur'), auto;">
+				<img src="red.gif" alt="Red GIF cursor">
+				<img src="blue.cur" alt="Blue CUR fallback cursor">
+				<code>url(red.gif), url(blue.cur), auto</code>
+			</div>
+			<div class="cursor-sample custom-cursor-sample"
+				 style="cursor: url('green.png'), url('blue.cur'), pointer;">
+				<img src="green.png" alt="Green PNG cursor">
+				<img src="blue.cur" alt="Blue CUR fallback cursor">
+				<code>url(green.png), url(blue.cur), pointer</code>
+			</div>
+			<div class="cursor-sample custom-cursor-sample" style="cursor: url('green.png') 5 2, pointer;">
+				<img src="green.png" alt="Green PNG cursor">
+				<code>url(green.png) 5 2, pointer</code>
+			</div>
+			<div class="cursor-sample custom-cursor-sample" style="cursor: url('green.png') 5 2, auto;">
+				<img src="green.png" alt="Green PNG cursor">
+				<code>url(green.png) 5 2, auto</code>
+			</div>
+			<div class="cursor-sample custom-cursor-sample"
+				 style="cursor: url('green.png') 5 2, url('blue.cur'), pointer;">
+				<img src="green.png" alt="Green PNG cursor">
+				<img src="blue.cur" alt="Blue CUR fallback cursor">
+				<code>url(green.png) 5 2, url(blue.cur), pointer</code>
+			</div>
+		</div>
+	</div>
+
+	<form>
+		<input type="button" value="  BACK  " onclick="history.go(-1)">
+	</form>
+</div>
+</body>
+</html>

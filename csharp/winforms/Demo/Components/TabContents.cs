@@ -151,7 +151,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void cssCursorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("https://developer.mozilla.org/en-US/docs/Web/CSS/cursor");
+            LoadUrl("http://internal.host/css-cursors.html");
         }
 
         private void developerToolsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -184,7 +184,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void hTML5VideoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://www.w3.org/2010/05/video/mediaevents.html");
+            LoadUrl("http://internal.host/html5-video.html");
         }
 
         private void javaScriptConsoleToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
@@ -194,7 +194,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void javaScriptDialogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("http://www.javascripter.net/faq/alert.htm");
+            LoadUrl("http://internal.host/javascript-dialogs.html");
         }
 
         private void jsConsoleInput_KeyDown(object sender, KeyEventArgs e)
@@ -244,7 +244,7 @@ namespace DotNetBrowser.WinForms.Demo.Components
 
         private void pDFViewerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadUrl("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+            LoadUrl("http://internal.host/pdf-viewer.pdf");
         }
 
         private void popupWindowsToolStripMenuItem_Click(object sender, EventArgs e)
