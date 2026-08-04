@@ -14,7 +14,7 @@
     "@bufbuild/protobuf": "2.12.1",
     "@connectrpc/connect": "2.1.2",
     "@connectrpc/connect-web": "2.1.2",
-    "@hookform/resolvers": "3.9.1",
+    "@hookform/resolvers": "5.6.0",
     "@radix-ui/react-aspect-ratio": "1.1.15",
     "@radix-ui/react-avatar": "1.1.1",
     "@radix-ui/react-dialog": "1.1.20",
