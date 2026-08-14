@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.2.2" />
+    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.2.3" />
     <PackageReference Include="Google.Protobuf" Version="3.32.0" />
   </ItemGroup>
 </Project>
