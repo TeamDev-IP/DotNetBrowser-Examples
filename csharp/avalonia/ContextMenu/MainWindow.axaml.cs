@@ -27,6 +27,7 @@ using Avalonia.Controls.Primitives.PopupPositioning;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
 using DotNetBrowser.Browser;
+using DotNetBrowser.Browser.Events;
 using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
@@ -126,10 +127,14 @@ namespace ContextMenu
                                   });
                 cm.Items.Add(reloadMenuItem);
 
-                browser.FocusRequested += (sender, args) =>
+                // Close context menu when the browser requests focus back.
+                EventHandler<FocusRequestedEventArgs> onFocusRequested = null;
+                onFocusRequested = (sender, args) =>
                 {
                     Dispatcher.UIThread.InvokeAsync(() => cm.Close());
+                    browser.FocusRequested -= onFocusRequested;
                 };
+                browser.FocusRequested += onFocusRequested;
 
                 cm.Closed += (sender, args) =>
                 {

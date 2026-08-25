@@ -73,7 +73,7 @@ Friend Class Program
                     Dim printer = parameters.Printers.Pdf
                     Dim job = printer.PrintJob
 
-                    ' Generate a random name for PDF file.
+                    ' Generate a random name for the PDF file.
                     Dim guid As Guid = Guid.NewGuid()
                     Dim path As String = IO.Path.GetFullPath($"{guid}.pdf")
                     job.Settings.PdfFilePath = path
@@ -82,7 +82,15 @@ Friend Class Program
                     job.Settings.PageMargins = PageMargins.None
                     ' Remove default browser headers and footers.
                     job.Settings.PrintingHeaderFooterEnabled = False
-                    AddHandler job.PrintCompleted, Sub(o, e) whenCompleted.SetResult(path)
+                    AddHandler job.PrintCompleted,
+                        Sub(o, e)
+                            If e.IsCompletedSuccessfully Then
+                                whenCompleted.SetResult(path)
+                            Else
+                                whenCompleted.SetException(
+                                    New InvalidOperationException("Printing to PDF has failed."))
+                            End If
+                        End Sub
 
                     ' Proceed with printing using the PDF printer.
                     Return PrintHtmlContentResponse.Print(printer)
