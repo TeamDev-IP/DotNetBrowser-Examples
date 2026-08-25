@@ -78,7 +78,7 @@ namespace Printing.WebPageToPdf
                     var printer = parameters.Printers.Pdf;
                     var job = printer.PrintJob;
 
-                    // Generate a random name for PDF file.
+                    // Generate a random name for the PDF file.
                     var guid = Guid.NewGuid();
                     var path = Path.GetFullPath($"{guid}.pdf");
                     job.Settings.PdfFilePath = path;
@@ -87,7 +87,18 @@ namespace Printing.WebPageToPdf
                     job.Settings.PageMargins = PageMargins.None;
                     // Remove default browser headers and footers.
                     job.Settings.PrintingHeaderFooterEnabled = false;
-                    job.PrintCompleted += (_, _) => whenCompleted.SetResult(path);
+                    job.PrintCompleted += (_, e) =>
+                    {
+                        if (e.IsCompletedSuccessfully)
+                        {
+                            whenCompleted.SetResult(path);
+                        }
+                        else
+                        {
+                            whenCompleted.SetException(
+                                new InvalidOperationException("Printing to PDF has failed."));
+                        }
+                    };
 
                     // Proceed with printing using the PDF printer.
                     return PrintHtmlContentResponse.Print(printer);
