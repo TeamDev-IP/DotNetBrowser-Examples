@@ -169,6 +169,7 @@ namespace ContextMenu.SpellCheck.WinForms
                             tcs.TrySetResult(ShowContextMenuResponse.Close());
                         }
 
+                        parameters.Browser.FocusRequested -= onFocusRequested;
                         popupMenu.Closed -= menuOnClosed;
                     };
                     popupMenu.Closed += menuOnClosed;
