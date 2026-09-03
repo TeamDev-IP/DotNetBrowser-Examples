@@ -58,6 +58,7 @@ Public Partial Class MainWindow
 
     Private Async Function ConnectAsync() As Task
         Try
+            ' #docfragment "Playwright.Connect"
             Using _
                 playwright As IPlaywright =
                     Await Microsoft.Playwright.Playwright.CreateAsync()
@@ -81,6 +82,7 @@ Public Partial Class MainWindow
                 ' Scroll the map into view
                 Await page.Locator("#map").ScrollIntoViewIfNeededAsync()
             End Using
+            ' #enddocfragment "Playwright.Connect"
         Catch e As Exception
             Debug.WriteLine(e)
             MessageBox.Show($"Failed to connect: {e.Message}", "Error",

@@ -48,6 +48,7 @@ Public Class SeleniumInstance
     End Function
 
     Private Async Function ConnectAsync() As Task(Of IWebDriver)
+        ' #docfragment "Selenium.Connect"
         Dim options As ChromeOptions = new ChromeOptions
         With options
             .BinaryLocation = ApplicationFullPath
@@ -58,6 +59,7 @@ Public Class SeleniumInstance
         With webDriver
             .Url = "https://www.teamdev.com/dotnetbrowser"
         End With
+        ' #enddocfragment "Selenium.Connect"
 
         RaiseEvent Connected
 

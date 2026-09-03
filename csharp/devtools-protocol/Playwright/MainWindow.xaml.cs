@@ -63,6 +63,7 @@ namespace Playwright
         {
             try
             {
+                // #docfragment "Playwright.Connect"
                 using IPlaywright playwright = await Microsoft.Playwright.Playwright.CreateAsync();
 
                 // Connect to the browser using CDP
@@ -84,6 +85,7 @@ namespace Playwright
 
                 // Scroll the map into view
                 await page.Locator("#map").ScrollIntoViewIfNeededAsync();
+                // #enddocfragment "Playwright.Connect"
             }
             catch (Exception e)
             {
