@@ -138,6 +138,7 @@ namespace ContextMenu
 
                 cm.Closed += (sender, args) =>
                 {
+                    browser.FocusRequested -= onFocusRequested;
                     browser.Focus();
                     tcs.TrySetResult(ShowContextMenuResponse.Close());
                 };

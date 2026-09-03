@@ -149,6 +149,7 @@ Partial Public Class Form1
                         tcs.TrySetResult(ShowContextMenuResponse.Close())
                     End If
 
+                    RemoveHandler parameters.Browser.FocusRequested, onFocusRequested
                     RemoveHandler popupMenu.Closed, menuOnClosed
                 End Sub
                 AddHandler popupMenu.Closed, menuOnClosed
