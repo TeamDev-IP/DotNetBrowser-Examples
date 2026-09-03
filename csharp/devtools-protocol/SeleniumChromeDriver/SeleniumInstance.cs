@@ -63,6 +63,7 @@ namespace SeleniumChromeDriver
         {
             return await Task.Run(() =>
             {
+                // #docfragment "Selenium.Connect"
                 ChromeOptions options = new ChromeOptions
                 {
                     BinaryLocation = ApplicationFullPath,
@@ -73,6 +74,7 @@ namespace SeleniumChromeDriver
                 {
                     Url = "https://www.teamdev.com/dotnetbrowser"
                 };
+                // #enddocfragment "Selenium.Connect"
 
                 OnConnected();
 

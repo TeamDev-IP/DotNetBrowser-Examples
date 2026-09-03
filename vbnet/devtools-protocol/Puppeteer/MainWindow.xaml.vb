@@ -54,11 +54,14 @@ Public Partial Class MainWindow
     End Sub
 
     Public Async Function Connect() As Task
+        ' #docfragment "Puppeteer.ConnectOptions"
         Dim options As New ConnectOptions With {
                 .BrowserURL = $"http://127.0.0.1:{RemoteDebuggingPort}"
                 }
+        ' #enddocfragment "Puppeteer.ConnectOptions"
 
         Try
+            ' #docfragment "Puppeteer.Connect"
             Dim puppeteerBrowser As IBrowser =
                     Await PuppeteerSharp.Puppeteer.ConnectAsync(options)
 
@@ -76,6 +79,7 @@ Public Partial Class MainWindow
                                               .Longitude = - 75.770045D
                                               })
             Await (Await page.QuerySelectorAsync("#map")).ScrollIntoViewAsync()
+            ' #enddocfragment "Puppeteer.Connect"
 
         Catch e As Exception
             Debug.WriteLine(e)

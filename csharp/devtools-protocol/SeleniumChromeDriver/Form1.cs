@@ -65,6 +65,7 @@ namespace SeleniumChromeDriver
 
         private void InitializeBrowser()
         {
+            // #docfragment "Selenium.EngineOptions"
             EngineOptions engineOptions = new EngineOptions.Builder
                 {
                     ChromiumSwitches =
@@ -78,6 +79,7 @@ namespace SeleniumChromeDriver
 
             engine = EngineFactory.Create(engineOptions);
             browser = engine.CreateBrowser();
+            // #enddocfragment "Selenium.EngineOptions"
 
             byte[] htmlBytes = Encoding.UTF8.GetBytes("<h1>Waiting for Selenium...</h1>");
             browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes));

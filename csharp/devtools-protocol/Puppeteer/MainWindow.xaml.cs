@@ -64,13 +64,16 @@ namespace Puppeteer
 
         public async Task Connect()
         {
+            // #docfragment "Puppeteer.ConnectOptions"
             ConnectOptions options = new ConnectOptions
             {
                 BrowserURL = $"http://127.0.0.1:{RemoteDebuggingPort}",
             };
+            // #enddocfragment "Puppeteer.ConnectOptions"
 
             try
             {
+                // #docfragment "Puppeteer.Connect"
                 PuppeteerSharp.IBrowser browser =
                     await PuppeteerSharp.Puppeteer.ConnectAsync(options);
 
@@ -88,6 +91,7 @@ namespace Puppeteer
                     Latitude = 42.746635M, Longitude = -75.770045M
                 });
                 await (await page.QuerySelectorAsync("#map")).ScrollIntoViewAsync();
+                // #enddocfragment "Puppeteer.Connect"
             }
             catch (Exception e)
             {

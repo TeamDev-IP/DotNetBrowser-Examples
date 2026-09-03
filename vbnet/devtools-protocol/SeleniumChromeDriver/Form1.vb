@@ -59,6 +59,7 @@ Public Class Form1
     End Sub
 
     Private Sub InitializeBrowser()
+        ' #docfragment "Selenium.EngineOptions"
         Dim engineOptionsBuilder As EngineOptions.Builder = new EngineOptions.Builder
         With engineOptionsBuilder
             .WebSecurityDisabled = True
@@ -70,6 +71,7 @@ Public Class Form1
 
         engine = EngineFactory.Create(engineOptions)
         browser = engine.CreateBrowser()
+        ' #enddocfragment "Selenium.EngineOptions"
 
         Dim htmlBytes() As Byte = Encoding.UTF8.GetBytes("<h1>Waiting for Selenium...</h1>")
         browser.Navigation.LoadUrl("data:text/html;base64," + Convert.ToBase64String(htmlBytes))
