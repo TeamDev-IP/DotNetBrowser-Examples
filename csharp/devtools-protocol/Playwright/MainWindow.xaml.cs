@@ -72,7 +72,7 @@ namespace Playwright
                                     .ConnectOverCDPAsync($"http://localhost:{RemoteDebuggingPort}");
 
                 IBrowserContext browserContext = playwrightBrowser.Contexts[0];
-                await browserContext.GrantPermissionsAsync(["geolocation"]);
+                await browserContext.GrantPermissionsAsync(new[] { "geolocation" });
                 await browserContext.SetGeolocationAsync(new Geolocation
                 {
                     Latitude = 42.746635f,
