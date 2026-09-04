@@ -21,6 +21,7 @@
 #endregion
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -30,6 +31,14 @@ namespace SeleniumChromeDriver
     public class SeleniumInstance
     {
         private string RemoteDebuggingAddress { get; }
+
+        /// <summary>
+        ///     The page shipped alongside the application, so that the
+        ///     scenario does not depend on an external web site.
+        /// </summary>
+        private static string StartPage =>
+            new Uri(Path.Combine(Directory.GetCurrentDirectory(), "home.html"))
+               .AbsoluteUri;
 
         public event Action Connected;
 
@@ -68,8 +77,12 @@ namespace SeleniumChromeDriver
 
                 IWebDriver webDriver = new ChromeDriver(options)
                 {
-                    Url = "https://www.teamdev.com/dotnetbrowser"
+                    Url = StartPage
                 };
+
+                // Give FindElement time to wait for the page to load.
+                webDriver.Manage().Timeouts().ImplicitWait =
+                    TimeSpan.FromSeconds(10);
                 // #enddocfragment "Selenium.Connect"
 
                 OnConnected();
@@ -82,13 +95,13 @@ namespace SeleniumChromeDriver
         {
             await Task.Run(() =>
             {
-                IWebElement evaluateButton = webDriver.FindElement(By.CssSelector(".nav-container > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)"));
-                evaluateButton.Click();
+                IWebElement evaluateLink = webDriver.FindElement(By.Id("evaluate"));
+                evaluateLink.Click();
 
-                IWebElement nameTextbox = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[1]"));
+                IWebElement nameTextbox = webDriver.FindElement(By.Id("name"));
                 nameTextbox.SendKeys("John Doe");
 
-                IWebElement emailTextbox = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[2]"));
+                IWebElement emailTextbox = webDriver.FindElement(By.Id("email"));
                 emailTextbox.SendKeys("sales@teamdev.com");
             });
         }
