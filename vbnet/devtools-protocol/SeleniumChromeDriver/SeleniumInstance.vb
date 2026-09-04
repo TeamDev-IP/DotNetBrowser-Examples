@@ -20,12 +20,25 @@
 
 #End Region
 
+Imports System.IO
 Imports OpenQA.Selenium
 Imports OpenQA.Selenium.Chrome
 
 Public Class SeleniumInstance
     
     Private RemoteDebuggingAddress as String
+
+    ''' <summary>
+    '''     The page shipped alongside the application, so that the scenario
+    '''     does not depend on an external web site.
+    ''' </summary>
+    Private Shared ReadOnly Property StartPage As String
+        Get
+            Return New Uri(
+                Path.Combine(Directory.GetCurrentDirectory(), "home.html")
+                ).AbsoluteUri
+        End Get
+    End Property
 
     Public Event Connected As Action
 
@@ -54,8 +67,11 @@ Public Class SeleniumInstance
 
         Dim webDriver As IWebDriver = new ChromeDriver(options)
         With webDriver
-            .Url = "https://www.teamdev.com/dotnetbrowser"
+            .Url = StartPage
         End With
+
+        ' Give FindElement time to wait for the page to load.
+        webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10)
         ' #enddocfragment "Selenium.Connect"
 
         RaiseEvent Connected
@@ -64,13 +80,13 @@ Public Class SeleniumInstance
     End Function
 
     Private Async Function RunScenarioAsync(webDriver As IWebDriver) As Task
-        Dim evaluateButton As IWebElement = webDriver.FindElement(By.CssSelector(".nav-container > nav:nth-child(2) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)"))
-        evaluateButton.Click()
+        Dim evaluateLink As IWebElement = webDriver.FindElement(By.Id("evaluate"))
+        evaluateLink.Click()
 
-        Dim nameTextbox As IWebElement = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[1]"))
+        Dim nameTextbox As IWebElement = webDriver.FindElement(By.Id("name"))
         nameTextbox.SendKeys("John Doe")
 
-        Dim emailTextbox As IWebElement = webDriver.FindElement(By.XPath("/html/body/div[1]/div[1]/div[11]/div[1]/div/div[2]/form/input[2]"))
+        Dim emailTextbox As IWebElement = webDriver.FindElement(By.Id("email"))
         emailTextbox.SendKeys("sales@teamdev.com")
     End Function
 
