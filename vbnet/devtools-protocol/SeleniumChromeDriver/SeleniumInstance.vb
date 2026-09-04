@@ -25,13 +25,11 @@ Imports OpenQA.Selenium.Chrome
 
 Public Class SeleniumInstance
     
-    Private ApplicationFullPath as String
     Private RemoteDebuggingAddress as String
 
     Public Event Connected As Action
 
     Public Sub New(debuggingPort As Integer)
-        ApplicationFullPath = Process.GetCurrentProcess().MainModule.FileName
         RemoteDebuggingAddress = $"localhost:{debuggingPort}"
     End Sub
 
@@ -51,7 +49,6 @@ Public Class SeleniumInstance
         ' #docfragment "Selenium.Connect"
         Dim options As ChromeOptions = new ChromeOptions
         With options
-            .BinaryLocation = ApplicationFullPath
             .DebuggerAddress = RemoteDebuggingAddress
         End With
 

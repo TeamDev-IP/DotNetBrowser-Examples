@@ -68,11 +68,6 @@ namespace SeleniumChromeDriver
             // #docfragment "Selenium.EngineOptions"
             EngineOptions engineOptions = new EngineOptions.Builder
                 {
-                    ChromiumSwitches =
-                    {
-                        "--enable-automation"
-                    },
-                    WebSecurityDisabled = true,
                     RemoteDebuggingPort = RemoteDebuggingPort
                 }
                .Build();

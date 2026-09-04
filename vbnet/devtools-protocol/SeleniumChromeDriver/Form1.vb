@@ -62,9 +62,7 @@ Public Class Form1
         ' #docfragment "Selenium.EngineOptions"
         Dim engineOptionsBuilder As EngineOptions.Builder = new EngineOptions.Builder
         With engineOptionsBuilder
-            .WebSecurityDisabled = True
             .RemoteDebuggingPort = RemoteDebuggingPort
-            .ChromiumSwitches.Add("--enable-automation")
         End With
 
         Dim engineOptions = engineOptionsBuilder.Build()
