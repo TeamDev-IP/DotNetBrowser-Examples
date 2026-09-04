@@ -21,7 +21,6 @@
 #endregion
 
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -30,14 +29,12 @@ namespace SeleniumChromeDriver
 {
     public class SeleniumInstance
     {
-        private string ApplicationFullPath { get; }
         private string RemoteDebuggingAddress { get; }
 
         public event Action Connected;
 
         public SeleniumInstance(int debuggingPort)
         {
-            ApplicationFullPath = Process.GetCurrentProcess()?.MainModule?.FileName;
             RemoteDebuggingAddress = $"localhost:{debuggingPort}";
         }
 
@@ -66,7 +63,6 @@ namespace SeleniumChromeDriver
                 // #docfragment "Selenium.Connect"
                 ChromeOptions options = new ChromeOptions
                 {
-                    BinaryLocation = ApplicationFullPath,
                     DebuggerAddress = RemoteDebuggingAddress
                 };
 
