@@ -108,8 +108,16 @@ namespace GoogleMaps.WinForms
         /// </summary>
         public void OnLocationFailed(string message)
         {
+            // Chromium reports an empty message when it cannot determine the
+            // position because the Google API keys are not configured.
+            string details = string.IsNullOrWhiteSpace(message)
+                ? "The current position could not be determined. Make sure the "
+                  + "Google Maps Geolocation API is enabled and the Google API "
+                  + "keys are configured through EngineOptions."
+                : message;
+
             BeginInvoke((Action) (() => MessageBox.Show(this,
-                                                        message,
+                                                        details,
                                                         "Geolocation is unavailable",
                                                         MessageBoxButtons.OK,
                                                         MessageBoxIcon.Warning)));
