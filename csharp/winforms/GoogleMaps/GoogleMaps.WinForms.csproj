@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoogleMap.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

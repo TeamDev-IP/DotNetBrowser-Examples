@@ -19,78 +19,179 @@
 ' OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #End Region
-
+Imports System
+Imports System.Diagnostics
 Imports System.IO
+Imports System.Threading.Tasks
+Imports System.Windows.Forms
 Imports DotNetBrowser.Browser
+Imports DotNetBrowser.Browser.Handlers
 Imports DotNetBrowser.Engine
-Imports DotNetBrowser.WinForms
+Imports DotNetBrowser.Handlers
+Imports DotNetBrowser.Js
+Imports DotNetBrowser.Permissions
+Imports DotNetBrowser.Permissions.Handlers
 
 Namespace GoogleMaps.WinForms
-    ''' <summary>
-    '''     This example demonstrates how to use Google Maps with DotNetBrowser.
-    '''     To make this sample work, please configure the valid Google API key in map.html(line 11)
-    ''' </summary>
-    Partial Public Class MainForm
-        Inherits Form
+	''' <summary>
+	'''     This example demonstrates how to display Google Maps in a WinForms
+	'''     application and drive the Maps JavaScript API from .NET: change the
+	'''     zoom level, put markers on the map, and center the map on the
+	'''     current location.
+	''' </summary>
+	''' <remarks>
+	'''     To make this example work, configure a valid Google API key in
+	'''     map.html. Because the page is loaded from the local file system, the
+	'''     key must not be restricted by HTTP referrer.
+	'''     The "My location" button additionally requires the Google Maps
+	'''     Geolocation API to be enabled for the Chromium engine. See
+	'''     https://teamdev.com/dotnetbrowser/docs/guides/gs/engine/#google-apis
+	''' </remarks>
+	Partial Public Class MainForm
+		Inherits Form
 
-        Private Const MinZoomLevel As Integer = 0
-        Private Const MaxZoomLevel As Integer = 21
+		Private ReadOnly browser As IBrowser
+		Private ReadOnly engine As IEngine
 
-        Private zoomLevel As Integer = 4 'The default value for Google Maps zoom
+		''' <summary>
+		'''     The wrapper for the map displayed on the page. Stays <c>Nothing</c>
+		'''     until map.html reports that the Maps JavaScript API has loaded.
+		''' </summary>
+		Private map As GoogleMap
 
-        Private ReadOnly Property Browser() As IBrowser
-        Private ReadOnly Property BrowserView() As BrowserView
+		Private Shared ReadOnly Property PathToMapFile() As String
+			Get
+				Return (New Uri(Path.GetFullPath("map.html"))).AbsoluteUri
+			End Get
+		End Property
 
-        Private Property CurrentZoomLevel() As Integer
-            Get
-                Return zoomLevel
-            End Get
+		Public Sub New()
+			InitializeComponent()
 
-            Set
-                If value <> zoomLevel AndAlso value > MinZoomLevel AndAlso value < MaxZoomLevel Then
-                    If Not Browser.IsDisposed Then
-                        zoomLevel = value
-                        Browser.MainFrame.ExecuteJavaScript($"map.setZoom({zoomLevel})")
-                    End If
-                End If
-            End Set
-        End Property
+			engine = EngineFactory.Create()
 
-        Private ReadOnly Property Engine() As IEngine
+			' #docfragment "GoogleMaps.Geolocation"
+			' navigator.geolocation asks for a permission, which is denied
+			' unless a permission handler grants it.
+			engine.Profiles.Default.Permissions.RequestPermissionHandler =
+				New Handler(Of RequestPermissionParameters, RequestPermissionResponse)(
+					Function(p)
+						If p.Type = PermissionType.Geolocation Then
+							Return RequestPermissionResponse.Grant()
+						End If
+						Return RequestPermissionResponse.Deny()
+					End Function)
+			' #enddocfragment "GoogleMaps.Geolocation"
 
-        Private ReadOnly Property PathToMapFile() As String
-            Get
-                Return Path.GetFullPath("map.html")
-            End Get
-        End Property
+			browser = engine.CreateBrowser()
 
-        Public Sub New()
-            InitializeComponent()
+			' #docfragment "GoogleMaps.InjectExternal"
+			' Inject this form into the page as window.external, so that
+			' map.html can call back into .NET.
+			browser.InjectJsHandler = New Handler(Of InjectJsParameters)(AddressOf OnInjectJs)
+			' #enddocfragment "GoogleMaps.InjectExternal"
 
-            Engine = EngineFactory.Create()
-            Browser = Engine.CreateBrowser()
-            BrowserView = New BrowserView With {.Dock = DockStyle.Fill}
+			browserView.InitializeFrom(browser)
+			browser.Navigation.LoadUrl(PathToMapFile)
 
-            BrowserView.InitializeFrom(Browser)
-            Controls.Add(BrowserView)
+			AddHandler Me.FormClosed, AddressOf MainForm_FormClosed
+		End Sub
 
-            Browser.Navigation.LoadUrl(PathToMapFile)
+		''' <summary>
+		'''     Called from map.html when the current position has been determined.
+		''' </summary>
+		Public Sub OnLocationDetected(latitude As Double, longitude As Double)
+			BeginInvoke(New Action(Sub()
+									   latitudeValue.Value = CDec(latitude)
+									   longitudeValue.Value = CDec(longitude)
+								   End Sub))
+		End Sub
 
-            AddHandler Me.Closed, AddressOf MainForm_Closed
-        End Sub
+		''' <summary>
+		'''     Called from map.html when the current position cannot be determined.
+		''' </summary>
+		Public Sub OnLocationFailed(message As String)
+			' Chromium reports an empty message when it cannot determine the
+			' position because the Google API keys are not configured.
+			Dim details As String = If(String.IsNullOrWhiteSpace(message),
+									   "The current position could not be determined. Make sure the " &
+									   "Google Maps Geolocation API is enabled and the Google API " &
+									   "keys are configured through EngineOptions.",
+									   message)
 
-        Private Sub MainForm_Closed(ByVal sender As Object, ByVal e As EventArgs)
-            Browser.Dispose()
-            Engine.Dispose()
-        End Sub
+			BeginInvoke(New Action(Sub()
+									   MessageBox.Show(Me,
+													   details,
+													   "Geolocation is unavailable",
+													   MessageBoxButtons.OK,
+													   MessageBoxIcon.Warning)
+								   End Sub))
+		End Sub
 
-        Private Sub ZoomInBtn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ZoomInBtn.Click
-            CurrentZoomLevel += 1
-        End Sub
+		' #docfragment "GoogleMaps.MapInitialized"
+		''' <summary>
+		'''     Called from map.html once the Maps JavaScript API has loaded and
+		'''     the map has been created.
+		''' </summary>
+		Public Sub OnMapInitialized(jsMap As IJsObject)
+			map = New GoogleMap(jsMap)
+			BeginInvoke(New Action(Sub() mapControls.Enabled = True))
+		End Sub
+		' #enddocfragment "GoogleMaps.MapInitialized"
 
-        Private Sub ZoomOutBtn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles ZoomOutBtn.Click
-            CurrentZoomLevel -= 1
-        End Sub
+		Private Sub AddMarkerBtn_Click(sender As Object, e As EventArgs) Handles AddMarkerBtn.Click
+			Dim latitude As Double = Decimal.ToDouble(latitudeValue.Value)
+			Dim longitude As Double = Decimal.ToDouble(longitudeValue.Value)
+			InvokeOnMap(Sub(m)
+							m.SetCenter(latitude, longitude)
+							m.AddMarker(latitude, longitude)
+						End Sub)
+		End Sub
 
-    End Class
+		''' <summary>
+		'''     Runs the given action on the map from a background thread.
+		''' </summary>
+		''' <remarks>
+		'''     The JavaScript calls the action makes block the calling thread
+		'''     until the browser returns the result, so they must not be made
+		'''     on the UI thread.
+		''' </remarks>
+		Private Sub InvokeOnMap(action As Action(Of GoogleMap))
+			Dim currentMap As GoogleMap = map
+			If currentMap Is Nothing Then
+				Return
+			End If
+
+			Task.Run(Sub()
+						 Try
+							 action(currentMap)
+						 Catch exception As Exception
+							 Debug.WriteLine(exception)
+						 End Try
+					 End Sub)
+		End Sub
+
+		Private Sub MainForm_FormClosed(sender As Object, e As FormClosedEventArgs)
+			browser?.Dispose()
+			engine?.Dispose()
+		End Sub
+
+		Private Sub MyLocationBtn_Click(sender As Object, e As EventArgs) Handles MyLocationBtn.Click
+			browser.MainFrame?.ExecuteJavaScript("showMyLocation()")
+		End Sub
+
+		Private Sub OnInjectJs(parameters As InjectJsParameters)
+			' Inject window.external into the HTML page.
+			Dim window As IJsObject = parameters.Frame.ExecuteJavaScript(Of IJsObject)("window").Result
+			window.Properties("external") = Me
+		End Sub
+
+		Private Sub ZoomInBtn_Click(sender As Object, e As EventArgs) Handles ZoomInBtn.Click
+			InvokeOnMap(Sub(m) m.Zoom += 1)
+		End Sub
+
+		Private Sub ZoomOutBtn_Click(sender As Object, e As EventArgs) Handles ZoomOutBtn.Click
+			InvokeOnMap(Sub(m) m.Zoom -= 1)
+		End Sub
+	End Class
 End Namespace

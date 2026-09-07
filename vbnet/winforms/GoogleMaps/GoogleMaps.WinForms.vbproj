@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoogleMap.vb" />
     <Compile Include="MainForm.vb">
       <SubType>Form</SubType>
     </Compile>

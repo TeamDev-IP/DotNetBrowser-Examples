@@ -19,81 +19,188 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #endregion
-
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using DotNetBrowser.Browser;
+using DotNetBrowser.Browser.Handlers;
 using DotNetBrowser.Engine;
-using DotNetBrowser.WinForms;
+using DotNetBrowser.Handlers;
+using DotNetBrowser.Js;
+using DotNetBrowser.Permissions;
+using DotNetBrowser.Permissions.Handlers;
 
 namespace GoogleMaps.WinForms
 {
     /// <summary>
-    ///     This example demonstrates how to use Google Maps with DotNetBrowser.
-    ///     To make this sample work, please configure the valid Google API key in map.html(line 11)
+    ///     This example demonstrates how to display Google Maps in a WinForms
+    ///     application and drive the Maps JavaScript API from .NET: change the
+    ///     zoom level, put markers on the map, and center the map on the
+    ///     current location.
     /// </summary>
+    /// <remarks>
+    ///     To make this example work, configure a valid Google API key in
+    ///     map.html. Because the page is loaded from the local file system, the
+    ///     key must not be restricted by HTTP referrer.
+    ///     The "My location" button additionally requires the Google Maps
+    ///     Geolocation API to be enabled for the Chromium engine. See
+    ///     https://teamdev.com/dotnetbrowser/docs/guides/gs/engine/#google-apis
+    /// </remarks>
     public partial class MainForm : Form
     {
-        private const int MinZoomLevel = 0;
-        private const int MaxZoomLevel = 21;
+        private readonly IBrowser browser;
+        private readonly IEngine engine;
 
-        private int currentZoomLevel = 4; //The default value for Google Maps zoom
+        /// <summary>
+        ///     The wrapper for the map displayed on the page. Stays <c>null</c>
+        ///     until map.html reports that the Maps JavaScript API has loaded.
+        /// </summary>
+        private GoogleMap map;
 
-        private IBrowser Browser { get; }
-        private BrowserView BrowserView { get; }
-
-        private int CurrentZoomLevel
-        {
-            get { return currentZoomLevel; }
-
-            set
-            {
-                if (value != currentZoomLevel && value > MinZoomLevel && value < MaxZoomLevel)
-                {
-                    if (!Browser.IsDisposed)
-                    {
-                        currentZoomLevel = value;
-                        Browser.MainFrame.ExecuteJavaScript($"map.setZoom({currentZoomLevel})");
-                    }
-                }
-            }
-        }
-
-        private IEngine Engine { get; }
-
-        private string PathToMapFile => Path.GetFullPath("map.html");
+        private static string PathToMapFile => new Uri(Path.GetFullPath("map.html")).AbsoluteUri;
 
         public MainForm()
         {
             InitializeComponent();
 
-            Engine = EngineFactory.Create();
-            Browser = Engine.CreateBrowser();
-            BrowserView = new BrowserView {Dock = DockStyle.Fill};
+            engine = EngineFactory.Create();
 
-            BrowserView.InitializeFrom(Browser);
-            Controls.Add(BrowserView);
+            // #docfragment "GoogleMaps.Geolocation"
+            // navigator.geolocation asks for a permission, which is denied
+            // unless a permission handler grants it.
+            engine.Profiles.Default.Permissions.RequestPermissionHandler =
+                new Handler<RequestPermissionParameters, RequestPermissionResponse>(p =>
+                    p.Type == PermissionType.Geolocation
+                        ? RequestPermissionResponse.Grant()
+                        : RequestPermissionResponse.Deny());
+            // #enddocfragment "GoogleMaps.Geolocation"
 
-            Browser.Navigation.LoadUrl(PathToMapFile);
+            browser = engine.CreateBrowser();
 
-            Closed += MainForm_Closed;
+            // #docfragment "GoogleMaps.InjectExternal"
+            // Inject this form into the page as window.external, so that
+            // map.html can call back into .NET.
+            browser.InjectJsHandler = new Handler<InjectJsParameters>(OnInjectJs);
+            // #enddocfragment "GoogleMaps.InjectExternal"
+
+            browserView.InitializeFrom(browser);
+            browser.Navigation.LoadUrl(PathToMapFile);
+
+            FormClosed += MainForm_FormClosed;
         }
 
-        private void MainForm_Closed(object sender, EventArgs e)
+        /// <summary>
+        ///     Called from map.html when the current position has been determined.
+        /// </summary>
+        public void OnLocationDetected(double latitude, double longitude)
         {
-            Browser.Dispose();
-            Engine.Dispose();
+            BeginInvoke((Action) (() =>
+                                     {
+                                         latitudeValue.Value = (decimal) latitude;
+                                         longitudeValue.Value = (decimal) longitude;
+                                     }));
+        }
+
+        /// <summary>
+        ///     Called from map.html when the current position cannot be determined.
+        /// </summary>
+        public void OnLocationFailed(string message)
+        {
+            // Chromium reports an empty message when it cannot determine the
+            // position because the Google API keys are not configured.
+            string details = string.IsNullOrWhiteSpace(message)
+                ? "The current position could not be determined. Make sure the "
+                  + "Google Maps Geolocation API is enabled and the Google API "
+                  + "keys are configured through EngineOptions."
+                : message;
+
+            BeginInvoke((Action) (() => MessageBox.Show(this,
+                                                        details,
+                                                        "Geolocation is unavailable",
+                                                        MessageBoxButtons.OK,
+                                                        MessageBoxIcon.Warning)));
+        }
+
+        // #docfragment "GoogleMaps.MapInitialized"
+        /// <summary>
+        ///     Called from map.html once the Maps JavaScript API has loaded and
+        ///     the map has been created.
+        /// </summary>
+        public void OnMapInitialized(IJsObject jsMap)
+        {
+            map = new GoogleMap(jsMap);
+            BeginInvoke((Action) (() => mapControls.Enabled = true));
+        }
+        // #enddocfragment "GoogleMaps.MapInitialized"
+
+        private void AddMarkerBtn_Click(object sender, EventArgs e)
+        {
+            double latitude = decimal.ToDouble(latitudeValue.Value);
+            double longitude = decimal.ToDouble(longitudeValue.Value);
+            InvokeOnMap(m =>
+                           {
+                               m.SetCenter(latitude, longitude);
+                               m.AddMarker(latitude, longitude);
+                           });
+        }
+
+        /// <summary>
+        ///     Runs the given action on the map from a background thread.
+        /// </summary>
+        /// <remarks>
+        ///     The JavaScript calls the action makes block the calling thread
+        ///     until the browser returns the result, so they must not be made
+        ///     on the UI thread.
+        /// </remarks>
+        private void InvokeOnMap(Action<GoogleMap> action)
+        {
+            GoogleMap currentMap = map;
+            if (currentMap == null)
+            {
+                return;
+            }
+
+            Task.Run(() =>
+                        {
+                            try
+                            {
+                                action(currentMap);
+                            }
+                            catch (Exception exception)
+                            {
+                                Debug.WriteLine(exception);
+                            }
+                        });
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            browser?.Dispose();
+            engine?.Dispose();
+        }
+
+        private void MyLocationBtn_Click(object sender, EventArgs e)
+        {
+            browser.MainFrame?.ExecuteJavaScript("showMyLocation()");
+        }
+
+        private void OnInjectJs(InjectJsParameters parameters)
+        {
+            // Inject window.external into the HTML page.
+            IJsObject window = parameters.Frame.ExecuteJavaScript<IJsObject>("window").Result;
+            window.Properties["external"] = this;
         }
 
         private void ZoomInBtn_Click(object sender, EventArgs e)
         {
-            CurrentZoomLevel++;
+            InvokeOnMap(m => m.Zoom++);
         }
 
         private void ZoomOutBtn_Click(object sender, EventArgs e)
         {
-            CurrentZoomLevel--;
+            InvokeOnMap(m => m.Zoom--);
         }
     }
 }
