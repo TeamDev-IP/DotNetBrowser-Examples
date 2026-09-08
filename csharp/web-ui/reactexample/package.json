@@ -44,7 +44,7 @@
     "zod": "4.4.3"
   },
   "devDependencies": {
-    "@bufbuild/buf": "1.46.0",
+    "@bufbuild/buf": "1.72.0",
     "@bufbuild/protoc-gen-es": "2.13.0",
     "@types/cors": "2.8.19",
     "@types/express": "5.0.6",
