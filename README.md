@@ -21,7 +21,7 @@ See the [system requirements](https://teamdev.com/dotnetbrowser/docs/guides/requ
 
    A few examples set the key in code through `EngineOptions` instead and describe it in their own README: [Docker](csharp/docker), [Local AI](csharp/local-ai), [Excel add-in](csharp/excel), and [Unity3D](csharp/unity3d).
 
-2. There is no single solution for the whole repository. Each folder under `csharp/` and `vbnet/` has its own, such as `csharp/console/Console.sln`, `csharp/wpf/Wpf.sln`, or `csharp/avalonia/Avalonia.sln`. Open the one you need in Visual Studio 2022 or JetBrains Rider.
+2. Each folder under `csharp/` and `vbnet/` has its own solution, such as `csharp/console/Console.sln`, `csharp/wpf/Wpf.sln`, or `csharp/avalonia/Avalonia.sln`. Open the one you need in Visual Studio 2022 or JetBrains Rider.
 
 3. Most examples are SDK-style projects targeting .NET 6 or later, so you can also run them from the command line without an IDE:
 
