@@ -1,17 +1,39 @@
 # DotNetBrowser-Examples
 Examples of using [DotNetBrowser](https://teamdev.com/dotnetbrowser).
 
-[![Nuget](https://img.shields.io/nuget/v/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://www.nuget.org/packages/DotNetBrowser/) ![Downloads](https://img.shields.io/nuget/dt/DotNetBrowser?color=%238f479b&style=for-the-badge) [![Twitter Follow](https://img.shields.io/twitter/follow/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://twitter.com/intent/follow?screen_name=DotNetBrowser)
+[![Nuget](https://img.shields.io/nuget/v/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://www.nuget.org/packages/DotNetBrowser/) ![Downloads](https://img.shields.io/nuget/dt/DotNetBrowser?color=%238f479b&style=for-the-badge) [![Follow @DotNetBrowser](https://img.shields.io/badge/Follow-%40DotNetBrowser-8f479b?style=for-the-badge&logo=x&logoColor=white)](https://x.com/DotNetBrowser)
 
-DotNetBrowser is a .NET library which allows embedding a Chromium-based browser into .NET applications to load and display web pages built with HTML5, CSS3, JavaScript, etc. DotNetBrowser supports both WPF and WinForms and provides UI controls which you can embed into your desktop application to display web pages. 
+DotNetBrowser is a .NET library which allows embedding a Chromium-based browser into .NET applications to load and display web pages built with HTML5, CSS3, JavaScript, etc. It provides UI controls for **WPF**, **WinForms**, **WinUI 3**, and **Avalonia UI** that you can embed into your desktop application, and an off-screen rendering mode for console, headless, and server-side scenarios. It runs on **Windows**, **macOS**, and **Linux**.
 
 To learn more about the library please visit the [product page](https://teamdev.com/dotnetbrowser) or the [help center](https://teamdev.com/dotnetbrowser/docs).
 
+### Requirements
+
+* .NET 5 - 10, or .NET Framework 4.6.2 - 4.8.1 (Windows only)
+* Windows, macOS, or Linux, on x64 or ARM64 (x86 is also supported on Windows)
+* A DotNetBrowser [license key](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html). [Get the evaluation key](https://teamdev.com/dotnetbrowser#evaluate)
+
+See the [system requirements](https://teamdev.com/dotnetbrowser/docs/guides/requirements/) for the full list of supported operating systems and .NET versions.
+
 ### How to run
-1. Open the `dotnetbrowser.license` file in the root directory with any text editor, copy and paste your license key and save the changes. [Get the evaluation key](https://teamdev.com/dotnetbrowser#evaluate)
-2. Open the solution in Visual Studio 2019.
-3. Right-click the solution in "Solution Explorer" and select "Restore NuGet Packages"
-4. Build the solution and run any of the example projects.
+
+1. Open the `dotnetbrowser.license` file in the root directory with any text editor, copy and paste your license key and save the changes. The file is copied to the output directory of every example by `csharp/Directory.Build.props` and `vbnet/Directory.Build.props`.
+
+   A few examples set the key in code through `EngineOptions` instead and describe it in their own README: [Docker](csharp/docker), [Local AI](csharp/local-ai), [Excel add-in](csharp/excel), and [Unity3D](csharp/unity3d).
+
+2. Each folder under `csharp/` and `vbnet/` has its own solution, such as `csharp/console/Console.sln`, `csharp/wpf/Wpf.sln`, or `csharp/avalonia/Avalonia.sln`. Open the one you need in Visual Studio 2022 or JetBrains Rider.
+
+3. Most examples are SDK-style projects targeting .NET 6 or later, so you can also run them from the command line without an IDE:
+
+   ```bash
+   dotnet run --project csharp/console/GetHtml
+   ```
+
+   The console, Avalonia, Docker, and web UI examples build on macOS and Linux with the .NET SDK alone.
+
+4. The WinForms, WPF, VSTO, and ActiveX examples are .NET Framework 4.6.2 projects that use `packages.config`. They need Visual Studio on Windows and an explicit restore: right-click the solution in "Solution Explorer" and select "Restore NuGet Packages", or run `nuget restore <solution>.sln`.
+
+To build every solution for one language in a single pass, use the [`build.cake`](build.cake) script in the root directory with `--lang=csharp` or `--lang=vbnet`. It requires [Cake](https://cakebuild.net/) and MSBuild.
 
 ### List of examples
 
@@ -62,6 +84,7 @@ To learn more about the library please visit the [product page](https://teamdev.
 #### JS-.NET bridge
 
 * Execute any JavaScript on the web page. Get JavaScript return value.: [C#](csharp/console/JavaScript/Program.cs), [VB.NET](vbnet/console/JavaScript/Program.vb)
+* Read a value from the loaded web page with JavaScript: [C#](csharp/console/ExecuteJavaScript/Program.cs), [VB.NET](vbnet/console/ExecuteJavaScript/Program.vb)
 * Work with JavaScript objects, update their properties and <br/>invoke methods.: [C#](csharp/console/JavaScriptObjects/Program.cs), [VB.NET](vbnet/console/JavaScriptObjects/Program.vb)
 * Work with JavaScript arrays: [C#](csharp/console/JavaScriptBridge.Arrays/Program.cs), [VB.NET](vbnet/console/JavaScriptBridge.Arrays/Program.vb)
 * Work with JavaScript name converting: [C#](csharp/console/JavaScriptBridge.NameConverter/Program.cs), [VB.NET](vbnet/console/JavaScriptBridge.NameConverter/Program.vb)
@@ -108,6 +131,8 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Simulate keyboard input in WinForms: [C#](csharp/winforms/KeyboardEventSimulation), [VB.NET](vbnet/winforms/KeyboardEventSimulation)
 * Simulate keyboard input in Avalonia: [C#](csharp/avalonia/KeyboardEventSimulation)
 * Work with Chromium DevTools: [C#](csharp/winforms/DevTools), [VB.NET](vbnet/winforms/DevTools)
+* Install and manage Chrome extensions in WPF: [C#](csharp/wpf/Extensions)
+* Install and manage Chrome extensions in Avalonia: [C#](csharp/avalonia/Extensions)
 * Handle Full Screen mode: [C#](csharp/winforms/FullScreen), [VB.NET](vbnet/winforms/FullScreen)
 * Zoom web page on `Ctrl+Scroll` : [C#](csharp/wpf/Zoom), [VB.NET](vbnet/wpf/Zoom)
 * WPF Demo application with tabs: [C#](csharp/wpf/Demo)
@@ -117,7 +142,7 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Display web page with transparent background in <br/>a transparent Avalonia window: [C#](csharp/avalonia/TransparentWebPage), [VB.NET](vbnet/avalonia/TransparentWebPage)
 * Intercept Drag & Drop events. Access `IDataObject`: [C#](csharp/wpf/DragAndDrop), [VB.NET](vbnet/wpf/DragAndDrop)
 * Use DotNetBrowser with WPF data binding (MVVM): [C#](csharp/wpf/Mvvm), [VB.NET](vbnet/wpf/Mvvm)
-* Use DotNetBrowser with Avalonia data binding (MVVM): [C#](csharp/avalonia/Mvvm),
+* Use DotNetBrowser with Avalonia data binding (MVVM): [C#](csharp/avalonia/Mvvm)
 * Use Chromecast with DotNetBrowser in Avalonia: [C#](csharp/avalonia/Chromecast), [VB.NET](vbnet/avalonia/Chromecast)
 * Use Chromecast with DotNetBrowser in WPF: [C#](csharp/wpf/Chromecast), [VB.NET](vbnet/wpf/Chromecast)
 
@@ -135,13 +160,13 @@ To learn more about the library please visit the [product page](https://teamdev.
 * Integrate with Playwright: [C#](csharp/devtools-protocol/Playwright), [VB.NET](vbnet/devtools-protocol/Playwright)
 * Integrate with Puppeteer: [C#](csharp/devtools-protocol/Puppeteer), [VB.NET](vbnet/devtools-protocol/Puppeteer)
 * VSTO Add-In for Microsoft Outlook: [C#](csharp/vsto/MyOutlookAddIn), [VB.NET](vbnet/vsto/MyOutlookAddIn)
-* COM Add-In for Excel: [C#](chsharp/excel)
+* COM Add-In for Excel: [C#](csharp/excel)
 * COM/ActiveX wrapper: [C#](csharp/activex/ComWrapper), [VB.NET](vbnet/activex/ComWrapper)
 * Integrate with Unity3D: [C#](csharp/unity3d)
 * Integrate with Docker: [C#](csharp/docker)
 
 #### Examples for tutorials
-* Нow to deploy Chromium binaries over network: [C#](csharp/wpf/ChromiumBinariesResolver), [VB.NET](vbnet/wpf/ChromiumBinariesResolver)
+* How to deploy Chromium binaries over network: [C#](csharp/wpf/ChromiumBinariesResolver), [VB.NET](vbnet/wpf/ChromiumBinariesResolver)
 
 ### Contact us
 Feel free to [submit request](https://dotnetbrowser.support.teamdev.com/support/tickets/new) to our support team if you own a commercial license with an active support subscription. If you have any questions regarding using DotNetBrowser or the examples in this repository, [contact us via email](mailto:customer-care@teamdev.com?subject=[GitHub]%20Question%20on%20DotNetBrowser%20Examples).
