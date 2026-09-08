@@ -1,7 +1,7 @@
 # DotNetBrowser-Examples
 Examples of using [DotNetBrowser](https://teamdev.com/dotnetbrowser).
 
-[![Nuget](https://img.shields.io/nuget/v/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://www.nuget.org/packages/DotNetBrowser/) ![Downloads](https://img.shields.io/nuget/dt/DotNetBrowser?color=%238f479b&style=for-the-badge) [![Twitter Follow](https://img.shields.io/twitter/follow/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://twitter.com/intent/follow?screen_name=DotNetBrowser)
+[![Nuget](https://img.shields.io/nuget/v/DotNetBrowser?color=%238f479b&style=for-the-badge)](https://www.nuget.org/packages/DotNetBrowser/) ![Downloads](https://img.shields.io/nuget/dt/DotNetBrowser?color=%238f479b&style=for-the-badge) [![Follow @DotNetBrowser](https://img.shields.io/badge/Follow-%40DotNetBrowser-8f479b?style=for-the-badge&logo=x&logoColor=white)](https://x.com/DotNetBrowser)
 
 DotNetBrowser is a .NET library which allows embedding a Chromium-based browser into .NET applications to load and display web pages built with HTML5, CSS3, JavaScript, etc. It provides UI controls for **WPF**, **WinForms**, **WinUI 3**, and **Avalonia UI** that you can embed into your desktop application, and an off-screen rendering mode for console, headless, and server-side scenarios. It runs on **Windows**, **macOS**, and **Linux**.
 
