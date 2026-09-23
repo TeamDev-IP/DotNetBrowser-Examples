@@ -92,9 +92,8 @@ at the project root:
 
 ### VS Code
 
-[UNVERIFIED: not run with VS Code; the format follows the VS Code
-documentation.] Put the configuration in `.vscode/mcp.json`. VS Code uses the
-`servers` key:
+Put the configuration in `.vscode/mcp.json`. VS Code uses the `servers` key
+and starts workspace servers only after you trust the workspace:
 
 ```json
 {
