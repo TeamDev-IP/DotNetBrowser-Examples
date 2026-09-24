@@ -125,10 +125,12 @@ The new row appears in the application window as the agent submits the form.
 
 ## Limitations
 
-- The agent works with the page the application displays. Opening a new tab
-  fails with both servers, because DotNetBrowser does not create pages over
-  CDP. A page can still open a pop-up with `window.open`: the `BrowserView`
-  shows it in a separate window, and both servers list it as a new tab.
+- The agent works with the page the application displays. DotNetBrowser does
+  not support opening a new tab from either server, because browsers are
+  created in other ways: the application creates them, and pages open
+  pop-ups. A page can still open a pop-up with `window.open`: the
+  `BrowserView` shows it in a separate window, and both servers list it as a
+  new tab.
 - Playwright MCP blocks navigation to `file://` URLs unless it is started with
   `--allow-unrestricted-file-access`. The page the application loads is
   available without it.
