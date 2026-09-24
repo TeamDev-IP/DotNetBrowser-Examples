@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Orders</title>
+    <style>
+        body { font-family: sans-serif; margin: 2rem; color: #222; }
+        table { border-collapse: collapse; margin-bottom: 2rem; }
+        th, td { border: 1px solid #ccc; padding: 0.4rem 0.8rem; text-align: left; }
+        form { display: grid; grid-template-columns: max-content 16rem; gap: 0.5rem 1rem; }
+        button { grid-column: 2; justify-self: start; }
+    </style>
+</head>
+<body>
+<h1>Orders</h1>
+<p>
+    This page runs in the browser embedded in the application. An MCP server
+    is attached to it over the DevTools Protocol.
+</p>
+<table id="orders">
+    <caption>Recent orders</caption>
+    <thead>
+    <tr><th>Order</th><th>Customer</th><th>Email</th><th>Product</th><th>Quantity</th></tr>
+    </thead>
+    <tbody>
+    <tr><td>1001</td><td>Alice Johnson</td><td>alice@example.com</td><td>Keyboard</td><td>2</td></tr>
+    <tr><td>1002</td><td>Bob Smith</td><td>bob@example.com</td><td>Monitor</td><td>1</td></tr>
+    <tr><td>1003</td><td>Carol White</td><td>carol@example.com</td><td>Mouse</td><td>3</td></tr>
+    </tbody>
+</table>
+<h2>New order</h2>
+<form id="order-form">
+    <label for="customer">Customer</label>
+    <input id="customer" name="customer" required>
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required>
+    <label for="product">Product</label>
+    <select id="product" name="product">
+        <option>Keyboard</option>
+        <option>Monitor</option>
+        <option>Mouse</option>
+        <option>Headset</option>
+    </select>
+    <label for="quantity">Quantity</label>
+    <input id="quantity" name="quantity" type="number" min="1" value="1" required>
+    <button type="submit">Add order</button>
+</form>
+<p id="status" role="status"></p>
+<script>
+    const form = document.getElementById('order-form');
+    const rows = document.querySelector('#orders tbody');
+    let nextId = 1004;
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const order = new FormData(form);
+        const row = rows.insertRow();
+        const values = [nextId, order.get('customer'), order.get('email'),
+            order.get('product'), order.get('quantity')];
+        for (const value of values) {
+            row.insertCell().textContent = value;
+        }
+        const message = `Order ${nextId} added for ${order.get('customer')}.`;
+        document.getElementById('status').textContent = message;
+        console.log(message);
+        nextId++;
+        form.reset();
+    });
+</script>
+</body>
+</html>

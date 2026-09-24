@@ -159,6 +159,7 @@ To build every solution for one language in a single pass, use the [`build.cake`
 * Integrate with Selenium Chrome Driver: [C#](csharp/devtools-protocol/SeleniumChromeDriver), [VB.NET](vbnet/devtools-protocol/SeleniumChromeDriver)
 * Integrate with Playwright: [C#](csharp/devtools-protocol/Playwright), [VB.NET](vbnet/devtools-protocol/Playwright)
 * Integrate with Puppeteer: [C#](csharp/devtools-protocol/Puppeteer), [VB.NET](vbnet/devtools-protocol/Puppeteer)
+* Connect AI-agent MCP servers: [C#](csharp/devtools-protocol/McpServers), [VB.NET](vbnet/devtools-protocol/McpServers)
 * VSTO Add-In for Microsoft Outlook: [C#](csharp/vsto/MyOutlookAddIn), [VB.NET](vbnet/vsto/MyOutlookAddIn)
 * COM Add-In for Excel: [C#](csharp/excel)
 * COM/ActiveX wrapper: [C#](csharp/activex/ComWrapper), [VB.NET](vbnet/activex/ComWrapper)
