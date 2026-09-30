@@ -41,7 +41,7 @@
     "tailwind-merge": "3.6.0",
     "tailwindcss-animate": "1.0.7",
     "tsx": "4.23.11",
-    "zod": "4.4.3"
+    "zod": "4.6.5"
   },
   "devDependencies": {
     "@bufbuild/buf": "1.73.0",
