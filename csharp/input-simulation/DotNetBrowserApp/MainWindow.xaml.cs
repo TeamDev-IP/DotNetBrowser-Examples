@@ -33,6 +33,9 @@ using DotNetBrowser.Input.Mouse.Events;
 
 namespace DotNetBrowserApp
 {
+    /// <summary>
+    ///     This example demonstrates how to simulate keyboard and mouse input with DotNetBrowser.
+    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly IEngine engine;

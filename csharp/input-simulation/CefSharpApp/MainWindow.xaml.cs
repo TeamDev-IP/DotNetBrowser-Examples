@@ -28,6 +28,9 @@ using CefSharp;
 
 namespace CefSharpApp
 {
+    /// <summary>
+    ///     This example demonstrates how to simulate keyboard and mouse input with CefSharp.
+    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
