@@ -13,6 +13,7 @@ The tutorial is available on the
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - A DotNetBrowser [license key](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html)
+- [Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) 2019 or later, required by CefSharp
 
 ## Project structure
 
@@ -26,8 +27,8 @@ The tutorial is available on the
 ## Set the license key
 
 Put your license key into the `dotnetbrowser.license` file in the root
-directory of this repository. The build copies it to the output directory of
-`DotNetBrowserApp`.
+directory of this repository. The build copies it to the output directories of
+both applications.
 
 ## Run the example
 

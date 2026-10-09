@@ -55,7 +55,7 @@ namespace DotNetBrowserApp
         {
             browser.Focus();
             browser.MainFrame.Document.GetElementById("task").Focus();
-            TypeText("Learn to surf");
+            TypeText(browser.Keyboard, "Learn to surf");
         }
 
         private void ClickAdd_Click(object sender, RoutedEventArgs e)
@@ -64,9 +64,8 @@ namespace DotNetBrowserApp
             browser.Mouse.SimulateClick(MouseButton.Left, addButton);
         }
 
-        private void TypeText(string text)
+        private static void TypeText(IKeyboard keyboard, string text)
         {
-            IKeyboard keyboard = browser.Keyboard;
             foreach (char c in text)
             {
                 // Key codes of letters, digits, and space equal their
