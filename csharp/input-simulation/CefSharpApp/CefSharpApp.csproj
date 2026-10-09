@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -8,14 +7,12 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <SelfContained>false</SelfContained>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="152.0.100" />
   </ItemGroup>
-
   <ItemGroup>
-    <None Include="..\shared\bucket-list.html" Link="bucket-list.html"
-          CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\shared\bucket-list.html" Link="bucket-list.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-
 </Project>
