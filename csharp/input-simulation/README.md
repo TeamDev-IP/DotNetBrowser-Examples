@@ -13,7 +13,7 @@ The tutorial is available on the
 
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - A DotNetBrowser [license key](https://teamdev.com/dotnetbrowser/docs/guides/installation/license.html)
-- [Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) 2019 or later, required by CefSharp
+- [Visual C++ Redistributable](https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist) 2022 (x64), required by CefSharp
 
 ## Project structure
 
