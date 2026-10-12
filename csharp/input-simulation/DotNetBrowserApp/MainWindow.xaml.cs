@@ -43,7 +43,10 @@ namespace DotNetBrowserApp
 
         public MainWindow()
         {
-            engine = EngineFactory.Create();
+            engine = EngineFactory.Create(new EngineOptions.Builder
+            {
+                RenderingMode = RenderingMode.HardwareAccelerated
+            }.Build());
             browser = engine.CreateBrowser();
 
             InitializeComponent();
