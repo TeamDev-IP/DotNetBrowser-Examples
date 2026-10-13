@@ -1,0 +1,16 @@
+﻿<Window x:Class="CefSharpApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        Title="Bucket list — CefSharp" Height="480" Width="640">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+                    HorizontalAlignment="Center" Margin="8">
+            <Button Content="Type task" Width="120" Margin="4"
+                    Click="TypeTask_Click" />
+            <Button Content="Click Add" Width="120" Margin="4"
+                    Click="ClickAdd_Click" />
+        </StackPanel>
+        <cef:ChromiumWebBrowser Name="browser" />
+    </DockPanel>
+</Window>

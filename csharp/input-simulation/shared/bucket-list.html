@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bucket list</title>
+  <style>
+    body { font-family: sans-serif; margin: 24px; }
+    input { width: 240px; padding: 6px; }
+    button { padding: 6px 14px; }
+    li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <h1>Bucket list</h1>
+  <input id="task" type="text" placeholder="What do you want to do?" autofocus>
+  <button id="add" disabled>Add</button>
+  <ul id="list"></ul>
+  <script>
+    const input = document.getElementById('task');
+    const addButton = document.getElementById('add');
+    const list = document.getElementById('list');
+
+    // The button is enabled by real input events, not by setting input.value.
+    input.addEventListener('input', () => {
+      addButton.disabled = input.value.trim() === '';
+    });
+
+    addButton.addEventListener('click', () => {
+      const item = document.createElement('li');
+      item.textContent = input.value.trim();
+      list.appendChild(item);
+      input.value = '';
+      addButton.disabled = true;
+      input.focus();
+    });
+  </script>
+</body>
+</html>
