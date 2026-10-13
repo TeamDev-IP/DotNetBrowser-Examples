@@ -1,0 +1,39 @@
+/*
+ *  Copyright (c) 2026 TeamDev
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *  SOFTWARE.
+ */
+
+body { font-family: "Segoe UI", sans-serif; margin: 0; color: #1f2933; background: #f5f7fa; }
+header { background: #243b53; color: #fff; padding: 12px 24px; display: flex; gap: 24px; align-items: center; }
+header a { color: #d9e2ec; text-decoration: none; }
+header .brand { font-weight: 600; font-size: 18px; color: #fff; }
+main { max-width: 760px; margin: 24px auto; background: #fff; padding: 24px 32px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+h1 { margin-top: 0; font-size: 22px; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e4e7eb; }
+th { color: #52606d; font-weight: 600; }
+label { display: block; margin: 12px 0 4px; color: #52606d; }
+input, textarea { width: 100%; box-sizing: border-box; padding: 8px; border: 1px solid #cbd2d9; border-radius: 4px; font: inherit; }
+button { margin-top: 16px; padding: 8px 18px; background: #2f80ed; color: #fff; border: 0; border-radius: 4px; font: inherit; cursor: pointer; }
+.notice { background: #fff4e5; border: 1px solid #f0b429; padding: 8px 12px; border-radius: 4px; }
+.blocked { text-align: center; padding: 48px 24px; }
+.blocked h1 { color: #ab091e; }
+.blocked code { word-break: break-all; }
+.links a { margin-right: 16px; }
