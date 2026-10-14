@@ -110,6 +110,7 @@ namespace AssistantAgent
             string report = "";
             long inputTokens = 0, outputTokens = 0;
             int turns = 0;
+            bool wantsTools = false;
             BetaToolRunner runner =
                 client.Beta.Messages.ToolRunner(parameters, tools, maxIterations: 40);
             await foreach (BetaMessage turn in runner.WithCancellation(cancellationToken))
@@ -123,6 +124,7 @@ namespace AssistantAgent
                 log.Record("usage", $"Turn {turns}: {turnInput} input, "
                                     + $"{turn.Usage.OutputTokens} output tokens");
 
+                wantsTools = false;
                 foreach (BetaContentBlock block in turn.Content)
                 {
                     if (block.TryPickText(out BetaTextBlock? text))
@@ -133,6 +135,7 @@ namespace AssistantAgent
                     }
                     else if (block.TryPickToolUse(out BetaToolUseBlock? toolUse))
                     {
+                        wantsTools = true;
                         string input = JsonSerializer.Serialize(toolUse.Input);
                         log.Record("assistant", $"Tool call {toolUse.Name} {input}");
                         Status($"Calling {toolUse.Name}…");
@@ -142,6 +145,12 @@ namespace AssistantAgent
 
             log.Record("usage", $"Run total: {turns} turns, {inputTokens} input, "
                                 + $"{outputTokens} output tokens");
+            if (wantsTools)
+            {
+                // The runner stops quietly when it reaches maxIterations.
+                report = $"Stopped after {turns} turns without finishing the task.";
+                log.Record("assistant", report);
+            }
             Status("Done.");
             return report;
         }

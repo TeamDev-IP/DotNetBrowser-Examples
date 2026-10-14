@@ -21,8 +21,8 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
-            <Button Content="Decline" Width="90" IsCancel="True" />
-            <Button Content="Submit" Width="90" Margin="8,0,0,0" IsDefault="True" Click="Submit_Click" />
+            <Button Content="Decline" Width="90" IsCancel="True" IsDefault="True" />
+            <Button Content="Submit" Width="90" Margin="8,0,0,0" Click="Submit_Click" />
         </StackPanel>
     </StackPanel>
 </Window>

@@ -111,6 +111,10 @@ namespace AgentBrowser
             }
             finally
             {
+                // The run is over, so the page belongs to the user again.
+                gate.TakeOver();
+                takeOverButton.IsEnabled = false;
+                handBackButton.IsEnabled = false;
                 runButton.IsEnabled = true;
             }
         }

@@ -82,7 +82,8 @@ namespace GuardedBrowser
                     return StartNavigationResponse.Start();
                 });
 
-            // Site allowlist, second layer: covers redirects, frames, scripts, XHR.
+            // Site allowlist, second layer: every request the page makes, such as
+            // frames, scripts, images, and XHR.
             browser.Profile.Network.SendUrlRequestHandler =
                 new Handler<SendUrlRequestParameters, SendUrlRequestResponse>(p =>
                 {
@@ -95,10 +96,14 @@ namespace GuardedBrowser
                 });
 
             // A cancelled main-frame request would show Chromium's error page.
+            // Other network errors on allowed sites keep it.
             navigation.ShowNetErrorPageHandler =
                 new Handler<ShowNetErrorPageParameters, ShowNetErrorPageResponse>(p =>
                 {
-                    ShowBlockedPage(p.Url);
+                    if (!policy.CanRead(p.Url))
+                    {
+                        ShowBlockedPage(p.Url);
+                    }
                     return ShowNetErrorPageResponse.ShowDefault();
                 });
 
@@ -185,6 +190,11 @@ namespace GuardedBrowser
 
         private void ShowBlockedPage(string blockedUrl)
         {
+            // A blocked page outside the allowlist would be blocked in turn.
+            if (policy.BlockedPageUrl == null || !policy.CanRead(policy.BlockedPageUrl))
+            {
+                return;
+            }
             // Handlers run synchronously, so the navigation is started elsewhere.
             string url = policy.BlockedPageUrl + "?url="
                          + System.Uri.EscapeDataString(blockedUrl);

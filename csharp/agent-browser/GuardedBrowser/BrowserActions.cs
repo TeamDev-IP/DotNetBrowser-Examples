@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DotNetBrowser.Browser;
@@ -133,10 +134,51 @@ namespace GuardedBrowser
         }
 
         /// <summary>
+        ///     Submits a form by clicking its submit element once the user
+        ///     approves the form data. Other actions wait meanwhile, so the
+        ///     form can't change between the approval and the click.
+        /// </summary>
+        public Task<string> Submit(int reference, Func<FormFields, Task<bool>> approve) => Exclusive(async () =>
+        {
+            log.Record("tool", $"submit_form [{reference}]");
+            if (!TryGetElement(reference, out _, out IElement? element, out string error))
+            {
+                return error;
+            }
+            FormFields? form = await ReadForm(reference);
+            if (form == null)
+            {
+                return $"[{reference}] does not belong to a form.";
+            }
+            if (!await approve(form))
+            {
+                return "The user declined the submission. "
+                       + "Stop and report what you prepared.";
+            }
+            // A page script could still change the form; send only what the user saw.
+            FormFields? current = await ReadForm(reference);
+            if (current == null || !current.Fields.SequenceEqual(form.Fields))
+            {
+                return "The form changed after the user approved it, so it was not sent. "
+                       + "Call read_page and submit it again.";
+            }
+            submitGuard.AllowNext = true;
+            try
+            {
+                await ClickAndWait(element);
+            }
+            finally
+            {
+                submitGuard.AllowNext = false;
+            }
+            return await Snapshot();
+        });
+
+        /// <summary>
         ///     Reads the fields of the form a submit element belongs to, so the
         ///     user can see what would be sent.
         /// </summary>
-        public async Task<FormFields?> ReadForm(int reference)
+        private async Task<FormFields?> ReadForm(int reference)
         {
             string json = await browser.MainFrame.ExecuteJavaScript<string>($@"
                 (() => {{
@@ -163,28 +205,6 @@ namespace GuardedBrowser
             }
             return new FormFields(browser.Url, doc.RootElement.GetProperty("title").GetString() ?? "", fields);
         }
-
-        /// <summary>
-        ///     Submits an approved form by clicking its submit element.
-        /// </summary>
-        public Task<string> Submit(int reference) => Exclusive(async () =>
-        {
-            log.Record("tool", $"submit_form [{reference}] approved");
-            if (!TryGetElement(reference, out _, out IElement? element, out string error))
-            {
-                return error;
-            }
-            submitGuard.AllowNext = true;
-            try
-            {
-                await ClickAndWait(element);
-            }
-            finally
-            {
-                submitGuard.AllowNext = false;
-            }
-            return await Snapshot();
-        });
 
         private async Task<string> Snapshot()
         {

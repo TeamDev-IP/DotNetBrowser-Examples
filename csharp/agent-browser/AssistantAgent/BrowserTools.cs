@@ -74,21 +74,11 @@ namespace AssistantAgent
                      "Submits the form that a submit element belongs to. The user "
                      + "sees the form data and approves or declines.",
                      new { @ref = Int("The number of the form's submit button.") },
-                     async (input, ct) =>
-                     {
-                         int reference = input.GetInt("ref");
-                         FormFields? form = await actions.ReadForm(reference);
-                         if (form == null)
-                         {
-                             return $"[{reference}] does not belong to a form.";
-                         }
-                         SubmitRequest request = new(form.Url, form.Title, form.Fields);
-                         bool approved = await session.RequestApproval(request, ct);
-                         return approved
-                             ? await actions.Submit(reference)
-                             : "The user declined the submission. "
-                               + "Stop and report what you prepared.";
-                     }, "ref"),
+                     (input, ct) => actions.Submit(
+                         input.GetInt("ref"),
+                         form => session.RequestApproval(
+                             new SubmitRequest(form.Url, form.Title, form.Fields), ct)),
+                     "ref"),
 
                 Tool(session, "hand_over",
                      "Gives the page to the user, for example to sign in. "

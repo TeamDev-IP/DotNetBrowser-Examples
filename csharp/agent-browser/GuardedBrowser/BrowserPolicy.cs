@@ -48,9 +48,10 @@ namespace GuardedBrowser
             new(StringComparer.OrdinalIgnoreCase) { "https" };
 
         /// <summary>
-        ///     The page shown instead of a blocked destination.
+        ///     The page shown instead of a blocked destination. It must be on an
+        ///     allowed site. When null, the browser stays on the current page.
         /// </summary>
-        public string BlockedPageUrl { get; set; } = "about:blank";
+        public string? BlockedPageUrl { get; set; }
 
         public bool CanRead(string url)
         {

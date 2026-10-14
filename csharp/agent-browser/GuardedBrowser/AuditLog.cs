@@ -38,6 +38,7 @@ namespace GuardedBrowser
     {
         private readonly StreamWriter writer;
         private readonly object guard = new();
+        private bool disposed;
 
         public event Action<AuditEntry>? EntryAdded;
 
@@ -55,6 +56,11 @@ namespace GuardedBrowser
             AuditEntry entry = new(DateTime.Now, category, message);
             lock (guard)
             {
+                // A run that is still finishing may record after the window closed.
+                if (disposed)
+                {
+                    return;
+                }
                 writer.WriteLine($"{entry.Time:HH:mm:ss.fff} [{entry.Category}] {entry.Message}");
             }
             EntryAdded?.Invoke(entry);
@@ -90,6 +96,7 @@ namespace GuardedBrowser
         {
             lock (guard)
             {
+                disposed = true;
                 writer.Dispose();
             }
         }
