@@ -143,7 +143,13 @@ namespace GuardedBrowser
         public byte[] Screenshot()
         {
             log.Record("tool", "screenshot");
-            return encodePng(browser.TakeImage());
+            Bitmap image = browser.TakeImage();
+            if (image.Size.Width == 0 || image.Size.Height == 0)
+            {
+                // The tool runner returns the message to the model as a tool error.
+                throw new InvalidOperationException("The page has no visible area to capture.");
+            }
+            return encodePng(image);
         }
 
         /// <summary>
@@ -154,9 +160,13 @@ namespace GuardedBrowser
         public Task<string> Submit(int reference, Func<FormFields, Task<bool>> approve) => Exclusive(async () =>
         {
             log.Record("tool", $"submit_form [{reference}]");
-            if (!TryGetElement(reference, out _, out IElement? element, out string error))
+            if (!TryGetElement(reference, out SnapshotElement? info, out IElement? element, out string error))
             {
                 return error;
+            }
+            if (!info.IsSubmit)
+            {
+                return $"[{reference}] is not a submit button. Pass the form's submit button.";
             }
             FormFields? form = await ReadForm(reference);
             if (form == null)

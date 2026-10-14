@@ -162,18 +162,19 @@ namespace AgentBrowser
             session?.Resume();
         }
 
-        private byte[] EncodePng(Bitmap image) => Dispatcher.Invoke(() =>
+        private static byte[] EncodePng(Bitmap image)
         {
+            // DotNetBrowser bitmaps hold pre-multiplied BGRA pixels.
             int width = (int) image.Size.Width;
             int height = (int) image.Size.Height;
-            BitmapSource source = BitmapSource.Create(width, height, 96, 96, PixelFormats.Bgra32,
+            BitmapSource source = BitmapSource.Create(width, height, 96, 96, PixelFormats.Pbgra32,
                                                       null, image.Pixels.ToArray(), width * 4);
             PngBitmapEncoder encoder = new();
             encoder.Frames.Add(BitmapFrame.Create(source));
             using MemoryStream stream = new();
             encoder.Save(stream);
             return stream.ToArray();
-        });
+        }
 
         private void Window_Closed(object sender, EventArgs e)
         {
