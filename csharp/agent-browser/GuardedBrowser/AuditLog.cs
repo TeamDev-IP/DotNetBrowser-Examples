@@ -27,6 +27,9 @@ using DotNetBrowser.Navigation;
 
 namespace GuardedBrowser
 {
+    /// <summary>
+    ///     One line of the audit log.
+    /// </summary>
     public sealed record AuditEntry(DateTime Time, string Category, string Message);
 
     /// <summary>

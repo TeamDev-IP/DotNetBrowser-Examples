@@ -52,7 +52,7 @@ namespace AssistantAgent
         /// <summary>
         ///     Raised when the model wants to submit a form. Return true to allow it.
         /// </summary>
-        public Func<SubmitRequest, Task<bool>>? ApprovalRequested { get; set; }
+        public Func<FormFields, Task<bool>>? ApprovalRequested { get; set; }
 
         /// <summary>
         ///     Raised when the model hands the page to the user. The session is
@@ -97,14 +97,14 @@ namespace AssistantAgent
                 Model = Anthropic.Models.Messages.Model.ClaudeOpus5_5,
                 MaxTokens = 2048,
                 System = SystemPrompt,
-                // If a safety classifier declines a turn, the API retries it
-                // on a fallback model instead of failing the run.
-                Betas = [AnthropicBeta.ServerSideFallback2026_07_01],
-                Fallbacks = new Default(),
                 Messages = new List<BetaMessageParam>
                 {
                     new() { Role = Role.User, Content = task }
-                }
+                },
+                // If a safety classifier declines a turn, the API retries it
+                // on a fallback model instead of failing the run.
+                Betas = [AnthropicBeta.ServerSideFallback2026_07_01],
+                Fallbacks = new Default()
             };
 
             string report = "";
@@ -158,7 +158,7 @@ namespace AssistantAgent
         internal Task WaitWhilePaused(CancellationToken cancellationToken) =>
             resumed.Task.WaitAsync(cancellationToken);
 
-        internal async Task<bool> RequestApproval(SubmitRequest request, CancellationToken cancellationToken)
+        internal async Task<bool> RequestApproval(FormFields request, CancellationToken cancellationToken)
         {
             await WaitWhilePaused(cancellationToken);
             log.Record("approval",

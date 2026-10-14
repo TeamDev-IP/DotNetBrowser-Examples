@@ -1,9 +1,10 @@
 # Agent browser
 
 This example shows how to give an AI assistant in a WPF application a browser
-that cannot leave the limits the application sets. The assistant, Claude,
+that stays within the limits the application sets. The assistant, Claude,
 drives a visible `BrowserView` while the user watches. The application enforces
-the limits through DotNetBrowser handlers, whatever the model or the page tries:
+the limits in-process through DotNetBrowser handlers, independently of the
+model:
 
 - a site allowlist with read-only and read-write sites, covering redirects,
   frames, and every request;

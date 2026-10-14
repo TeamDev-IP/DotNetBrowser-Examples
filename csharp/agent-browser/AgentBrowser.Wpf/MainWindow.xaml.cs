@@ -21,14 +21,19 @@
 #endregion
 
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using AgentBrowser.Portal;
 using Anthropic;
 using AssistantAgent;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Profile;
+using DotNetBrowser.Ui;
 using GuardedBrowser;
 
 namespace AgentBrowser
@@ -70,7 +75,7 @@ namespace AgentBrowser
             gate = new InputGate(browser, log);
             SubmitGuard submitGuard = new(browser, gate, log);
             PolicyEnforcer enforcer = new(browser, policy, gate, submitGuard, log);
-            actions = new BrowserActions(browser, policy, gate, submitGuard, log);
+            actions = new BrowserActions(browser, policy, gate, submitGuard, log, EncodePng);
 
             log.Attach(browser);
             gate.Attach();
@@ -112,6 +117,7 @@ namespace AgentBrowser
             finally
             {
                 // The run is over, so the page belongs to the user again.
+                session?.Resume();
                 gate.TakeOver();
                 takeOverButton.IsEnabled = false;
                 handBackButton.IsEnabled = false;
@@ -155,6 +161,19 @@ namespace AgentBrowser
             statusText.Text = "The assistant has the page.";
             session?.Resume();
         }
+
+        private byte[] EncodePng(Bitmap image) => Dispatcher.Invoke(() =>
+        {
+            int width = (int) image.Size.Width;
+            int height = (int) image.Size.Height;
+            BitmapSource source = BitmapSource.Create(width, height, 96, 96, PixelFormats.Bgra32,
+                                                      null, image.Pixels.ToArray(), width * 4);
+            PngBitmapEncoder encoder = new();
+            encoder.Frames.Add(BitmapFrame.Create(source));
+            using MemoryStream stream = new();
+            encoder.Save(stream);
+            return stream.ToArray();
+        });
 
         private void Window_Closed(object sender, EventArgs e)
         {

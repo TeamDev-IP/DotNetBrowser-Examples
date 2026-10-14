@@ -32,10 +32,16 @@ using DotNetBrowser.Input.Keyboard.Events;
 using DotNetBrowser.Input.Mouse;
 using DotNetBrowser.Input.Mouse.Events;
 using DotNetBrowser.Navigation.Events;
+using DotNetBrowser.Ui;
 
 namespace GuardedBrowser
 {
-    public sealed record FormFields(string Url, string Title, IReadOnlyList<KeyValuePair<string, string>> Fields);
+    /// <summary>
+    ///     The labels and values of a form the assistant wants to submit,
+    ///     shown to the user for approval.
+    /// </summary>
+    public sealed record FormFields(string Url, string Title,
+                                    IReadOnlyList<KeyValuePair<string, string>> Fields);
 
     /// <summary>
     ///     The assistant's hands: every action goes through the policy, the
@@ -53,16 +59,23 @@ namespace GuardedBrowser
         private readonly InputGate gate;
         private readonly SubmitGuard submitGuard;
         private readonly AuditLog log;
+        private readonly Func<Bitmap, byte[]> encodePng;
         private PageSnapshot snapshot = new();
 
+        /// <param name="encodePng">
+        ///     Turns a screenshot into PNG bytes. The library has no UI
+        ///     dependencies, so the application provides the encoder.
+        /// </param>
         public BrowserActions(IBrowser browser, BrowserPolicy policy, InputGate gate,
-                              SubmitGuard submitGuard, AuditLog log)
+                              SubmitGuard submitGuard, AuditLog log,
+                              Func<Bitmap, byte[]> encodePng)
         {
             this.browser = browser;
             this.policy = policy;
             this.gate = gate;
             this.submitGuard = submitGuard;
             this.log = log;
+            this.encodePng = encodePng;
         }
 
         public Task<string> Navigate(string url) => Exclusive(async () =>
@@ -130,13 +143,13 @@ namespace GuardedBrowser
         public byte[] Screenshot()
         {
             log.Record("tool", "screenshot");
-            return PngEncoder.Encode(browser.TakeImage());
+            return encodePng(browser.TakeImage());
         }
 
         /// <summary>
         ///     Submits a form by clicking its submit element once the user
-        ///     approves the form data. Other actions wait meanwhile, so the
-        ///     form can't change between the approval and the click.
+        ///     approves the form data. Other assistant actions wait meanwhile,
+        ///     and the form is read again before the click.
         /// </summary>
         public Task<string> Submit(int reference, Func<FormFields, Task<bool>> approve) => Exclusive(async () =>
         {
@@ -156,6 +169,10 @@ namespace GuardedBrowser
                        + "Stop and report what you prepared.";
             }
             // A page script could still change the form; send only what the user saw.
+            if (!TryGetElement(reference, out _, out element, out error))
+            {
+                return error;
+            }
             FormFields? current = await ReadForm(reference);
             if (current == null || !current.Fields.SequenceEqual(form.Fields))
             {

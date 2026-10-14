@@ -76,8 +76,7 @@ namespace AssistantAgent
                      new { @ref = Int("The number of the form's submit button.") },
                      (input, ct) => actions.Submit(
                          input.GetInt("ref"),
-                         form => session.RequestApproval(
-                             new SubmitRequest(form.Url, form.Title, form.Fields), ct)),
+                         form => session.RequestApproval(form, ct)),
                      "ref"),
 
                 Tool(session, "hand_over",

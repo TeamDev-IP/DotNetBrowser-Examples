@@ -21,7 +21,7 @@
 #endregion
 
 using System.Windows;
-using AssistantAgent;
+using GuardedBrowser;
 
 namespace AgentBrowser
 {
@@ -31,7 +31,7 @@ namespace AgentBrowser
     /// </summary>
     public partial class ApprovalDialog : Window
     {
-        public ApprovalDialog(SubmitRequest request)
+        public ApprovalDialog(FormFields request)
         {
             InitializeComponent();
             pageText.Text = $"{request.Title} ({request.Url})";

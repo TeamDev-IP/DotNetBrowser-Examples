@@ -31,6 +31,9 @@ using DotNetBrowser.Frames;
 
 namespace GuardedBrowser
 {
+    /// <summary>
+    ///     An interactive element of the page, numbered for the model.
+    /// </summary>
     public sealed class SnapshotElement
     {
         [JsonPropertyName("ref")] public int Ref { get; set; }
