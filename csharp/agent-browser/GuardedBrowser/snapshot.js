@@ -51,7 +51,7 @@
         : type === 'submit' || type === 'image' || type === 'button' ? 'button' : 'textbox')
       : (el.getAttribute('role') || tag);
     const isSubmit = (tag === 'button' && type !== 'button' && type !== 'reset' && !!el.form)
-      || (tag === 'input' && (type === 'submit' || type === 'image'));
+      || (tag === 'input' && (type === 'submit' || type === 'image') && !!el.form);
     elements.push({
       ref, role,
       text: role === 'textbox' || role === 'combobox' ? labelOf(el) : (textOf(el) || labelOf(el)),
