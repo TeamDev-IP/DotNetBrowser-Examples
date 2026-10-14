@@ -164,9 +164,9 @@ namespace AgentBrowser
 
         private static byte[] EncodePng(Bitmap image)
         {
-            // DotNetBrowser bitmaps hold pre-multiplied BGRA pixels.
             int width = (int) image.Size.Width;
             int height = (int) image.Size.Height;
+            // DotNetBrowser bitmaps hold pre-multiplied BGRA pixels.
             BitmapSource source = BitmapSource.Create(width, height, 96, 96, PixelFormats.Pbgra32,
                                                       null, image.Pixels.ToArray(), width * 4);
             PngBitmapEncoder encoder = new();

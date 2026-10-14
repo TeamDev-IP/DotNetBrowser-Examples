@@ -48,9 +48,10 @@
     const type = (el.getAttribute('type') || '').toLowerCase();
     let role = tag === 'a' ? 'link' : tag === 'button' ? 'button' : tag === 'select' ? 'combobox'
       : tag === 'textarea' ? 'textbox' : tag === 'input' ? (type === 'checkbox' || type === 'radio' ? type
-        : type === 'submit' || type === 'button' ? 'button' : 'textbox') : (el.getAttribute('role') || tag);
+        : type === 'submit' || type === 'image' || type === 'button' ? 'button' : 'textbox')
+      : (el.getAttribute('role') || tag);
     const isSubmit = (tag === 'button' && type !== 'button' && type !== 'reset' && !!el.form)
-      || (tag === 'input' && type === 'submit');
+      || (tag === 'input' && (type === 'submit' || type === 'image'));
     elements.push({
       ref, role,
       text: role === 'textbox' || role === 'combobox' ? labelOf(el) : (textOf(el) || labelOf(el)),

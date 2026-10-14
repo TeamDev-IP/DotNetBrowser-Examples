@@ -146,8 +146,10 @@ namespace GuardedBrowser
             Bitmap image = browser.TakeImage();
             if (image.Size.Width == 0 || image.Size.Height == 0)
             {
+                const string message = "The page has no visible area to capture.";
+                log.Record("tool", $"screenshot refused: {message}");
                 // The tool runner returns the message to the model as a tool error.
-                throw new InvalidOperationException("The page has no visible area to capture.");
+                throw new InvalidOperationException(message);
             }
             return encodePng(image);
         }
