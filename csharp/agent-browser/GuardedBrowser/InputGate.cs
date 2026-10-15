@@ -114,8 +114,8 @@ namespace GuardedBrowser
                     : InputEventResponse.Suppress);
         }
 
-        // In hardware-accelerated mode, the engine reports simulated input
-        // back to the handlers a moment after Raise() returns.
+        // In our tests in hardware-accelerated mode, simulated input reached
+        // the handlers a moment after Raise() returned.
         private bool IsAgentTurn =>
             agentTurn || DateTime.UtcNow.Ticks < Interlocked.Read(ref graceEndsAt);
 
