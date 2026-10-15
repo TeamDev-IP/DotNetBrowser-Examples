@@ -7,7 +7,7 @@ the limits in-process through DotNetBrowser handlers, independently of the
 model:
 
 - a site allowlist with read-only and read-write sites, covering redirects,
-  frames, and every request;
+  frames, and the requests a page loads;
 - no downloads, pop-ups, printing, file dialogs, external apps, or permissions;
 - human input suppressed while the assistant acts, with **Take over** and
   **Hand back** buttons;
