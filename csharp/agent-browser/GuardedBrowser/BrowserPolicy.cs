@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GuardedBrowser
 {
@@ -34,18 +35,20 @@ namespace GuardedBrowser
         /// <summary>
         ///     Hosts the assistant may open and read, but not act on.
         /// </summary>
-        public HashSet<string> ReadOnlyHosts { get; } = new(StringComparer.OrdinalIgnoreCase);
+        public HashSet<string> ReadOnlyHosts { get; } =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         ///     Hosts the assistant may read, click, type into, and submit forms on.
         /// </summary>
-        public HashSet<string> ReadWriteHosts { get; } = new(StringComparer.OrdinalIgnoreCase);
+        public HashSet<string> ReadWriteHosts { get; } =
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         ///     URL schemes the assistant may navigate to.
         /// </summary>
         public HashSet<string> AllowedSchemes { get; } =
-            new(StringComparer.OrdinalIgnoreCase) { "https" };
+            new HashSet<string>(StringComparer.OrdinalIgnoreCase) { "https" };
 
         /// <summary>
         ///     The page shown instead of a blocked destination. It must be on an
@@ -68,9 +71,9 @@ namespace GuardedBrowser
                    && ReadWriteHosts.Contains(uri.Host);
         }
 
-        private static bool TryParse(string url, out Uri uri)
+        private static bool TryParse(string url, [NotNullWhen(true)] out Uri? uri)
         {
-            return Uri.TryCreate(url, UriKind.Absolute, out uri!)
+            return Uri.TryCreate(url, UriKind.Absolute, out uri)
                    && !string.IsNullOrEmpty(uri.Host);
         }
     }

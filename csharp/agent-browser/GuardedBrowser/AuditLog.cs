@@ -40,7 +40,7 @@ namespace GuardedBrowser
     public sealed class AuditLog : IDisposable
     {
         private readonly StreamWriter writer;
-        private readonly object guard = new();
+        private readonly object guard = new object();
         private bool disposed;
 
         public event Action<AuditEntry>? EntryAdded;
@@ -49,14 +49,16 @@ namespace GuardedBrowser
 
         public AuditLog(string? filePath = null)
         {
-            FilePath = filePath ?? Path.Combine(AppContext.BaseDirectory, "agent-browser.log");
-            FileStream file = new(FilePath, FileMode.Append, FileAccess.Write, FileShare.Read);
+            FilePath = filePath
+                       ?? Path.Combine(AppContext.BaseDirectory, "agent-browser.log");
+            FileStream file = new FileStream(FilePath, FileMode.Append, FileAccess.Write,
+                                             FileShare.Read);
             writer = new StreamWriter(file) { AutoFlush = true };
         }
 
         public void Record(string category, string message)
         {
-            AuditEntry entry = new(DateTime.Now, category, message);
+            AuditEntry entry = new AuditEntry(DateTime.Now, category, message);
             lock (guard)
             {
                 // A run that is still finishing may record after the window closed.
@@ -64,7 +66,8 @@ namespace GuardedBrowser
                 {
                     return;
                 }
-                writer.WriteLine($"{entry.Time:HH:mm:ss.fff} [{entry.Category}] {entry.Message}");
+                writer.WriteLine(
+                    $"{entry.Time:HH:mm:ss.fff} [{entry.Category}] {entry.Message}");
             }
             EntryAdded?.Invoke(entry);
         }
@@ -82,12 +85,15 @@ namespace GuardedBrowser
                     Record("navigation", $"Started {e.Url}");
                 }
             };
-            navigation.NavigationRedirected += (_, e) => Record("navigation", $"Redirected to {e.Url}");
+            navigation.NavigationRedirected += (_, e) =>
+                Record("navigation", $"Redirected to {e.Url}");
             navigation.NavigationFinished += (_, e) =>
             {
                 if (e.HasCommitted && !e.IsSameDocument)
                 {
-                    string status = e.IsErrorPage ? $"error {e.ErrorCode}" : $"HTTP {e.ResponseCode}";
+                    string status = e.IsErrorPage
+                        ? $"error {e.ErrorCode}"
+                        : $"HTTP {e.ResponseCode}";
                     Record("navigation", $"Finished {e.Url} ({status})");
                 }
             };

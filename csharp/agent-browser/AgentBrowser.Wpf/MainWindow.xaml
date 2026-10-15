@@ -14,10 +14,10 @@
         <wpf:BrowserView Name="browserView" Grid.Column="0" />
 
         <DockPanel Grid.Column="1" Margin="12">
-            <TextBlock DockPanel.Dock="Top" Text="Task for the assistant" FontWeight="SemiBold" />
+            <TextBlock DockPanel.Dock="Top" Text="Task for the assistant"
+                       FontWeight="SemiBold" />
             <TextBox DockPanel.Dock="Top" Name="taskBox" Margin="0,4,0,8" Height="72"
-                     TextWrapping="Wrap" AcceptsReturn="True"
-                     Text="On the supplier portal, find the lead time for part X-42 and the seal material from the manufacturer datasheet, then place a reorder of 50 units to Warehouse 2." />
+                     TextWrapping="Wrap" AcceptsReturn="True" />
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
                 <Button Name="runButton" Content="Run" Width="90" Click="Run_Click" />
                 <Button Name="takeOverButton" Content="Take over" Width="90" Margin="8,0,0,0"

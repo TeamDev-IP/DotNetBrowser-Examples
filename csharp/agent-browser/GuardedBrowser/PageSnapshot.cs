@@ -20,6 +20,7 @@
 
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -56,7 +57,9 @@ namespace GuardedBrowser
 
         [JsonPropertyName("title")] public string Title { get; set; } = "";
         [JsonPropertyName("url")] public string Url { get; set; } = "";
-        [JsonPropertyName("elements")] public List<SnapshotElement> Elements { get; set; } = new();
+        [JsonPropertyName("elements")]
+        public List<SnapshotElement> Elements { get; set; } = new List<SnapshotElement>();
+
         [JsonPropertyName("text")] public string Text { get; set; } = "";
 
         public static async Task<PageSnapshot> Capture(IFrame frame)
@@ -65,23 +68,41 @@ namespace GuardedBrowser
             return JsonSerializer.Deserialize<PageSnapshot>(json) ?? new PageSnapshot();
         }
 
-        public SnapshotElement? Find(int reference) => Elements.Find(e => e.Ref == reference);
+        public SnapshotElement? Find(int reference)
+        {
+            return Elements.Find(e => e.Ref == reference);
+        }
 
         /// <summary>
         ///     The compact text form sent to the model.
         /// </summary>
         public override string ToString()
         {
-            StringBuilder text = new();
+            StringBuilder text = new StringBuilder();
             text.AppendLine($"Page: {Title} ({Url})");
             foreach (SnapshotElement e in Elements)
             {
                 text.Append($"[{e.Ref}] {e.Role} \"{e.Text}\"");
-                if (e.Value is { Length: > 0 }) text.Append($" value=\"{e.Value}\"");
-                if (e.Href != null) text.Append($" -> {e.Href}");
-                if (e.IsPassword) text.Append(" (password)");
-                if (e.IsSubmit) text.Append(" (submits a form)");
-                if (e.Disabled) text.Append(" (disabled)");
+                if (!string.IsNullOrEmpty(e.Value))
+                {
+                    text.Append($" value=\"{e.Value}\"");
+                }
+                if (e.Href != null)
+                {
+                    text.Append($" -> {e.Href}");
+                }
+                if (e.IsPassword)
+                {
+                    text.Append(" (password)");
+                }
+                if (e.IsSubmit)
+                {
+                    text.Append(" (submits a form)");
+                }
+                if (e.Disabled)
+                {
+                    text.Append(" (disabled)");
+                }
                 text.AppendLine();
             }
             text.AppendLine("Text:");
@@ -92,8 +113,10 @@ namespace GuardedBrowser
         private static string LoadScript()
         {
             Assembly assembly = typeof(PageSnapshot).Assembly;
-            using Stream stream = assembly.GetManifestResourceStream("GuardedBrowser.snapshot.js")!;
-            using StreamReader reader = new(stream);
+            using Stream stream =
+                assembly.GetManifestResourceStream("GuardedBrowser.snapshot.js")
+                ?? throw new InvalidOperationException("The snapshot script is missing.");
+            using StreamReader reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
     }

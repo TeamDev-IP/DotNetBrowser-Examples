@@ -26,18 +26,43 @@
 (() => {
   const selector = 'a[href], button, input, select, textarea, '
     + '[role="button"], [role="link"]';
+
   const visible = el => {
     const r = el.getBoundingClientRect();
     const s = getComputedStyle(el);
-    return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none';
+    return r.width > 0 && r.height > 0
+      && s.visibility !== 'hidden' && s.display !== 'none';
   };
+
   const labelOf = el => {
     if (el.labels && el.labels.length) return el.labels[0].innerText.trim();
     return el.getAttribute('aria-label') || el.placeholder || el.name || '';
   };
-  const textOf = el => (el.innerText || el.value || el.alt || '').trim().replace(/\s+/g, ' ').slice(0, 80);
 
-  document.querySelectorAll('[data-agent-ref]').forEach(el => el.removeAttribute('data-agent-ref'));
+  const textOf = el => (el.innerText || el.value || el.alt || '')
+    .trim().replace(/\s+/g, ' ').slice(0, 80);
+
+  const roleOf = (el, tag, type) => {
+    if (tag === 'a') return 'link';
+    if (tag === 'button') return 'button';
+    if (tag === 'select') return 'combobox';
+    if (tag === 'textarea') return 'textbox';
+    if (tag === 'input') {
+      if (type === 'checkbox' || type === 'radio') return type;
+      if (type === 'submit' || type === 'image' || type === 'button') return 'button';
+      return 'textbox';
+    }
+    return el.getAttribute('role') || tag;
+  };
+
+  const isSubmitButton = (el, tag, type) => {
+    if (!el.form) return false;
+    if (tag === 'button') return type !== 'button' && type !== 'reset';
+    return tag === 'input' && (type === 'submit' || type === 'image');
+  };
+
+  document.querySelectorAll('[data-agent-ref]')
+    .forEach(el => el.removeAttribute('data-agent-ref'));
   const elements = [];
   let ref = 0;
   for (const el of document.querySelectorAll(selector)) {
@@ -46,22 +71,20 @@
     el.setAttribute('data-agent-ref', ref);
     const tag = el.tagName.toLowerCase();
     const type = (el.getAttribute('type') || '').toLowerCase();
-    let role = tag === 'a' ? 'link' : tag === 'button' ? 'button' : tag === 'select' ? 'combobox'
-      : tag === 'textarea' ? 'textbox' : tag === 'input' ? (type === 'checkbox' || type === 'radio' ? type
-        : type === 'submit' || type === 'image' || type === 'button' ? 'button' : 'textbox')
-      : (el.getAttribute('role') || tag);
-    const isSubmit = (tag === 'button' && type !== 'button' && type !== 'reset' && !!el.form)
-      || (tag === 'input' && (type === 'submit' || type === 'image') && !!el.form);
+    const role = roleOf(el, tag, type);
+    const isField = role === 'textbox' || role === 'combobox';
     elements.push({
-      ref, role,
-      text: role === 'textbox' || role === 'combobox' ? labelOf(el) : (textOf(el) || labelOf(el)),
+      ref,
+      role,
+      text: isField ? labelOf(el) : (textOf(el) || labelOf(el)),
       value: role === 'textbox' ? (type === 'password' ? '' : el.value) : undefined,
       href: tag === 'a' ? el.href : undefined,
       isPassword: type === 'password',
-      isSubmit,
+      isSubmit: isSubmitButton(el, tag, type),
       disabled: !!el.disabled
     });
   }
-  const text = (document.body ? document.body.innerText : '').replace(/\n{3,}/g, '\n\n').slice(0, 3000);
+  const text = (document.body ? document.body.innerText : '')
+    .replace(/\n{3,}/g, '\n\n').slice(0, 3000);
   return JSON.stringify({ title: document.title, url: location.href, elements, text });
 })()

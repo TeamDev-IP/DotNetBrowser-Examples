@@ -66,15 +66,16 @@ namespace AgentBrowser
             browser = profile.CreateBrowser();
 
             log = new AuditLog();
-            BrowserPolicy policy = new()
+            BrowserPolicy policy = new BrowserPolicy
             {
                 AllowedSchemes = { "dnb" },
                 ReadWriteHosts = { "portal" },
                 BlockedPageUrl = PortalSchemeHandler.Origin + "blocked.html"
             };
             gate = new InputGate(browser, log);
-            SubmitGuard submitGuard = new(browser, gate, log);
-            PolicyEnforcer enforcer = new(browser, policy, gate, submitGuard, log);
+            SubmitGuard submitGuard = new SubmitGuard(browser, gate, log);
+            PolicyEnforcer enforcer =
+                new PolicyEnforcer(browser, policy, gate, submitGuard, log);
             actions = new BrowserActions(browser, policy, gate, submitGuard, log, EncodePng);
 
             log.Attach(browser);
@@ -84,10 +85,14 @@ namespace AgentBrowser
 
             InitializeComponent();
             browserView.InitializeFrom(browser);
+            taskBox.Text = "On the supplier portal, find the lead time for part X-42 and "
+                           + "the seal material from the manufacturer datasheet, then "
+                           + "place a reorder of 50 units to Warehouse 2.";
             log.EntryAdded += entry => Dispatcher.BeginInvoke(() =>
             {
-                logList.Items.Add($"{entry.Time:HH:mm:ss} [{entry.Category}] {entry.Message}");
-                logList.ScrollIntoView(logList.Items[logList.Items.Count - 1]);
+                string line = $"{entry.Time:HH:mm:ss} [{entry.Category}] {entry.Message}";
+                logList.Items.Add(line);
+                logList.ScrollIntoView(line);
             });
 
             browser.Navigation.LoadUrl(PortalSchemeHandler.Origin);
@@ -125,15 +130,27 @@ namespace AgentBrowser
             }
         }
 
-        private AssistantSession Session => session ??= CreateSession();
+        private AssistantSession Session
+        {
+            get
+            {
+                if (session == null)
+                {
+                    session = CreateSession();
+                }
+                return session;
+            }
+        }
 
         private AssistantSession CreateSession()
         {
             // The client reads the API key from the ANTHROPIC_API_KEY environment variable.
             return new AssistantSession(new AnthropicClient(), actions, log)
             {
-                StatusChanged = status => Dispatcher.BeginInvoke(() => statusText.Text = status),
-                HandOverRequested = reason => Dispatcher.BeginInvoke(() => GiveToHuman(reason)),
+                StatusChanged = status =>
+                    Dispatcher.BeginInvoke(() => statusText.Text = status),
+                HandOverRequested = reason =>
+                    Dispatcher.BeginInvoke(() => GiveToHuman(reason)),
                 ApprovalRequested = request => Dispatcher.InvokeAsync(() =>
                     new ApprovalDialog(request) { Owner = this }.ShowDialog() == true).Task
             };
@@ -164,14 +181,15 @@ namespace AgentBrowser
 
         private static byte[] EncodePng(Bitmap image)
         {
-            int width = (int) image.Size.Width;
-            int height = (int) image.Size.Height;
+            int width = (int)image.Size.Width;
+            int height = (int)image.Size.Height;
             // DotNetBrowser bitmaps hold pre-multiplied BGRA pixels.
-            BitmapSource source = BitmapSource.Create(width, height, 96, 96, PixelFormats.Pbgra32,
-                                                      null, image.Pixels.ToArray(), width * 4);
-            PngBitmapEncoder encoder = new();
+            BitmapSource source = BitmapSource.Create(width, height, 96, 96,
+                                                      PixelFormats.Pbgra32, null,
+                                                      image.Pixels.ToArray(), width * 4);
+            PngBitmapEncoder encoder = new PngBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(source));
-            using MemoryStream stream = new();
+            using MemoryStream stream = new MemoryStream();
             encoder.Save(stream);
             return stream.ToArray();
         }

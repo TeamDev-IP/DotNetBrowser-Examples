@@ -24,10 +24,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Anthropic;
-using System.Text.Json;
+using Anthropic.Core;
 using Anthropic.Helpers.Beta;
 using Anthropic.Models.Beta;
 using Anthropic.Models.Beta.Messages;
@@ -92,23 +93,27 @@ namespace AssistantAgent
             Status("Thinking…");
 
             IReadOnlyList<IBetaRunnableTool> tools = BrowserTools.Create(actions, this);
-            MessageCreateParams parameters = new()
+            MessageCreateParams parameters = new MessageCreateParams
             {
                 Model = Anthropic.Models.Messages.Model.ClaudeOpus5_5,
                 MaxTokens = 2048,
                 System = SystemPrompt,
                 Messages = new List<BetaMessageParam>
                 {
-                    new() { Role = Role.User, Content = task }
+                    new BetaMessageParam { Role = Role.User, Content = task }
                 },
                 // If a safety classifier declines a turn, the API retries it
                 // on a fallback model instead of failing the run.
-                Betas = [AnthropicBeta.ServerSideFallback2026_07_01],
+                Betas = new List<ApiEnum<string, AnthropicBeta>>
+                {
+                    AnthropicBeta.ServerSideFallback2026_07_01
+                },
                 Fallbacks = new Default()
             };
 
             string report = "";
-            long inputTokens = 0, outputTokens = 0;
+            long inputTokens = 0;
+            long outputTokens = 0;
             int turns = 0;
             bool wantsTools = false;
             BetaToolRunner runner =
@@ -155,21 +160,26 @@ namespace AssistantAgent
             return report;
         }
 
-        internal Task WaitWhilePaused(CancellationToken cancellationToken) =>
-            resumed.Task.WaitAsync(cancellationToken);
+        internal Task WaitWhilePaused(CancellationToken cancellationToken)
+        {
+            return resumed.Task.WaitAsync(cancellationToken);
+        }
 
-        internal async Task<bool> RequestApproval(FormFields request, CancellationToken cancellationToken)
+        internal async Task<bool> RequestApproval(FormFields request,
+                                                  CancellationToken cancellationToken)
         {
             await WaitWhilePaused(cancellationToken);
             log.Record("approval",
                        $"Requested for {request.Title}: {string.Join(", ", request.Fields)}");
             Status("Waiting for your approval…");
             bool approved = ApprovalRequested != null && await ApprovalRequested(request);
-            log.Record("approval", approved ? "Approved by the user" : "Declined by the user");
+            log.Record("approval",
+                       approved ? "Approved by the user" : "Declined by the user");
             return approved;
         }
 
-        internal async Task RequestHandOver(string reason, CancellationToken cancellationToken)
+        internal async Task RequestHandOver(string reason,
+                                            CancellationToken cancellationToken)
         {
             log.Record("assistant", $"Hand over: {reason}");
             Pause();
@@ -178,11 +188,14 @@ namespace AssistantAgent
             await WaitWhilePaused(cancellationToken);
         }
 
-        private void Status(string status) => StatusChanged?.Invoke(status);
+        private void Status(string status)
+        {
+            StatusChanged?.Invoke(status);
+        }
 
         private static TaskCompletionSource<bool> Completed()
         {
-            TaskCompletionSource<bool> source = new();
+            TaskCompletionSource<bool> source = new TaskCompletionSource<bool>();
             source.SetResult(true);
             return source;
         }
@@ -191,8 +204,9 @@ namespace AssistantAgent
         {
             Assembly assembly = typeof(AssistantSession).Assembly;
             using Stream stream =
-                assembly.GetManifestResourceStream("AssistantAgent.SystemPrompt.md")!;
-            using StreamReader reader = new(stream);
+                assembly.GetManifestResourceStream("AssistantAgent.SystemPrompt.md")
+                ?? throw new InvalidOperationException("The system prompt is missing.");
+            using StreamReader reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
     }

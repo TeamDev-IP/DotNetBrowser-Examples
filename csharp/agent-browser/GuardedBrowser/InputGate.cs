@@ -104,7 +104,10 @@ namespace GuardedBrowser
         ///     Marks the assistant's own simulated input, which passes through
         ///     the same handlers as human input.
         /// </summary>
-        public AgentTurnScope BeginAgentTurn() => new(this);
+        public AgentTurnScope BeginAgentTurn()
+        {
+            return new AgentTurnScope(this);
+        }
 
         private Handler<T, InputEventResponse> Gate<T>()
         {

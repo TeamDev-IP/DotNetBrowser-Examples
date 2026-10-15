@@ -2,10 +2,13 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Approve submission" Width="460" SizeToContent="Height"
-        WindowStartupLocation="CenterOwner" ResizeMode="NoResize" ShowInTaskbar="False">
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        ShowInTaskbar="False">
     <StackPanel Margin="16">
-        <TextBlock Text="The assistant wants to submit this form:" FontWeight="SemiBold" />
-        <TextBlock Name="pageText" Margin="0,4,0,12" Foreground="#52606D" TextWrapping="Wrap" />
+        <TextBlock Text="The assistant wants to submit this form:"
+                   FontWeight="SemiBold" />
+        <TextBlock Name="pageText" Margin="0,4,0,12" Foreground="#52606D"
+                   TextWrapping="Wrap" />
         <ItemsControl Name="fieldsList">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
@@ -15,14 +18,17 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Key}" Foreground="#52606D" />
-                        <TextBlock Grid.Column="1" Text="{Binding Value}" FontWeight="SemiBold" TextWrapping="Wrap" />
+                        <TextBlock Grid.Column="1" Text="{Binding Value}"
+                                   FontWeight="SemiBold" TextWrapping="Wrap" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                    Margin="0,16,0,0">
             <Button Content="Decline" Width="90" IsCancel="True" IsDefault="True" />
-            <Button Content="Submit" Width="90" Margin="8,0,0,0" Click="Submit_Click" />
+            <Button Content="Submit" Width="90" Margin="8,0,0,0"
+                    Click="Submit_Click" />
         </StackPanel>
     </StackPanel>
 </Window>

@@ -20,6 +20,7 @@
 
 #endregion
 
+using System;
 using System.Threading.Tasks;
 using DotNetBrowser.Browser;
 using DotNetBrowser.Browser.Dialogs;
@@ -198,7 +199,7 @@ namespace GuardedBrowser
             // Handlers run synchronously, so the navigation is started elsewhere;
             // the handler returns its response before this navigation begins.
             string url = policy.BlockedPageUrl + "?url="
-                         + System.Uri.EscapeDataString(blockedUrl);
+                         + Uri.EscapeDataString(blockedUrl);
             Task.Run(() => browser.Navigation.LoadUrl(url));
         }
     }

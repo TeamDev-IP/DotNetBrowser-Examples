@@ -38,7 +38,8 @@ namespace AssistantAgent
     /// </summary>
     public static class BrowserTools
     {
-        public static IReadOnlyList<IBetaRunnableTool> Create(BrowserActions actions, AssistantSession session)
+        public static IReadOnlyList<IBetaRunnableTool> Create(BrowserActions actions,
+                                                              AssistantSession session)
         {
             return new IBetaRunnableTool[]
             {
@@ -67,7 +68,10 @@ namespace AssistantAgent
 
                 Tool(session, "scroll",
                      "Scrolls the page up or down by one screen.",
-                     new { direction = new { type = "string", @enum = new[] { "up", "down" } } },
+                     new
+                     {
+                         direction = new { type = "string", @enum = new[] { "up", "down" } }
+                     },
                      (input, _) => actions.Scroll(input.Get("direction")), "direction"),
 
                 Tool(session, "submit_form",
@@ -119,7 +123,8 @@ namespace AssistantAgent
 
         private static BetaRunnableTool Tool(
             AssistantSession session, string name, string description, object properties,
-            Func<IReadOnlyDictionary<string, JsonElement>, CancellationToken, Task<string>> run,
+            Func<IReadOnlyDictionary<string, JsonElement>, CancellationToken,
+                Task<string>> run,
             params string[] required)
         {
             return new BetaRunnableTool
@@ -138,8 +143,9 @@ namespace AssistantAgent
         private static BetaTool Definition(string name, string description, object properties,
                                            params string[] required)
         {
-            Dictionary<string, JsonElement> schema = new();
-            foreach (var property in JsonSerializer.SerializeToElement(properties).EnumerateObject())
+            Dictionary<string, JsonElement> schema = new Dictionary<string, JsonElement>();
+            JsonElement serialized = JsonSerializer.SerializeToElement(properties);
+            foreach (JsonProperty property in serialized.EnumerateObject())
             {
                 schema[property.Name] = property.Value.Clone();
             }
@@ -151,13 +157,28 @@ namespace AssistantAgent
             };
         }
 
-        private static object Str(string description) => new { type = "string", description };
-        private static object Int(string description) => new { type = "integer", description };
+        private static object Str(string description)
+        {
+            return new { type = "string", description };
+        }
 
-        private static string Get(this IReadOnlyDictionary<string, JsonElement> input, string name) =>
-            input.TryGetValue(name, out JsonElement value) ? value.GetString() ?? "" : "";
+        private static object Int(string description)
+        {
+            return new { type = "integer", description };
+        }
 
-        private static int GetInt(this IReadOnlyDictionary<string, JsonElement> input, string name) =>
-            input.TryGetValue(name, out JsonElement value) ? value.GetInt32() : 0;
+        private static string Get(this IReadOnlyDictionary<string, JsonElement> input,
+                                  string name)
+        {
+            return input.TryGetValue(name, out JsonElement value)
+                ? value.GetString() ?? ""
+                : "";
+        }
+
+        private static int GetInt(this IReadOnlyDictionary<string, JsonElement> input,
+                                  string name)
+        {
+            return input.TryGetValue(name, out JsonElement value) ? value.GetInt32() : 0;
+        }
     }
 }

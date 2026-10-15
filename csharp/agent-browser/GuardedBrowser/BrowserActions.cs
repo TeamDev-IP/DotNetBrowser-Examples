@@ -22,7 +22,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using DotNetBrowser.Browser;
@@ -52,7 +54,7 @@ namespace GuardedBrowser
     {
         // One browser, one pair of hands: the model may call several tools at
         // once, but their keystrokes and clicks must not interleave.
-        private readonly SemaphoreSlim oneAtATime = new(1, 1);
+        private readonly SemaphoreSlim oneAtATime = new SemaphoreSlim(1, 1);
 
         private readonly IBrowser browser;
         private readonly BrowserPolicy policy;
@@ -60,7 +62,7 @@ namespace GuardedBrowser
         private readonly SubmitGuard submitGuard;
         private readonly AuditLog log;
         private readonly Func<Bitmap, byte[]> encodePng;
-        private PageSnapshot snapshot = new();
+        private PageSnapshot snapshot = new PageSnapshot();
 
         /// <param name="encodePng">
         ///     Turns a screenshot into PNG bytes. The library has no UI
@@ -78,67 +80,85 @@ namespace GuardedBrowser
             this.encodePng = encodePng;
         }
 
-        public Task<string> Navigate(string url) => Exclusive(async () =>
+        public Task<string> Navigate(string url)
         {
-            log.Record("tool", $"navigate {url}");
-            if (!policy.CanRead(url))
+            return Exclusive(async () =>
             {
-                return $"Blocked by policy: {url} is not an allowed site.";
-            }
-            await browser.Navigation.LoadUrl(url);
-            // A download or a blocked request is reported just after the load returns.
-            await Task.Delay(300);
-            return await Snapshot();
-        });
+                log.Record("tool", $"navigate {url}");
+                if (!policy.CanRead(url))
+                {
+                    return $"Blocked by policy: {url} is not an allowed site.";
+                }
+                await browser.Navigation.LoadUrl(url);
+                // A download or a blocked request is reported just after the load.
+                await Task.Delay(300);
+                return await Snapshot();
+            });
+        }
 
-        public Task<string> ReadPage() => Exclusive(Snapshot);
-
-        public Task<string> Click(int reference) => Exclusive(async () =>
+        public Task<string> ReadPage()
         {
-            log.Record("tool", $"click [{reference}]");
-            if (!TryGetElement(reference, out SnapshotElement? info, out IElement? element, out string error))
-            {
-                return error;
-            }
-            if (info.IsSubmit)
-            {
-                return $"[{reference}] submits a form. "
-                       + "Use submit_form instead, so the user can approve it.";
-            }
-            await ClickAndWait(element);
-            return await Snapshot();
-        });
+            return Exclusive(Snapshot);
+        }
 
-        public Task<string> Type(int reference, string text) => Exclusive(async () =>
+        public Task<string> Click(int reference)
         {
-            log.Record("tool", $"type [{reference}] \"{text}\"");
-            if (!TryGetElement(reference, out SnapshotElement? info, out IElement? element, out string error))
+            return Exclusive(async () =>
             {
-                return error;
-            }
-            if (info.IsPassword)
-            {
-                return "Refused: the assistant never types into password fields. "
-                       + "Ask the user to sign in.";
-            }
-            using (gate.BeginAgentTurn())
-            {
-                browser.Focus();
-                element.Focus();
-                await browser.MainFrame.ExecuteJavaScript(
-                    $"document.querySelector('[data-agent-ref=\"{reference}\"]').select()");
-                TypeText(browser.Keyboard, text);
-            }
-            return await Snapshot();
-        });
+                log.Record("tool", $"click [{reference}]");
+                if (!TryGetElement(reference, out SnapshotElement? info,
+                                   out IElement? element, out string error))
+                {
+                    return error;
+                }
+                if (info.IsSubmit)
+                {
+                    return $"[{reference}] submits a form. "
+                           + "Use submit_form instead, so the user can approve it.";
+                }
+                await ClickAndWait(element);
+                return await Snapshot();
+            });
+        }
 
-        public Task<string> Scroll(string direction) => Exclusive(async () =>
+        public Task<string> Type(int reference, string text)
         {
-            log.Record("tool", $"scroll {direction}");
-            int delta = direction == "up" ? -600 : 600;
-            await browser.MainFrame.ExecuteJavaScript($"window.scrollBy(0, {delta})");
-            return await Snapshot();
-        });
+            return Exclusive(async () =>
+            {
+                log.Record("tool", $"type [{reference}] \"{text}\"");
+                if (!TryGetElement(reference, out SnapshotElement? info,
+                                   out IElement? element, out string error))
+                {
+                    return error;
+                }
+                if (info.IsPassword)
+                {
+                    return "Refused: the assistant never types into password fields. "
+                           + "Ask the user to sign in.";
+                }
+                using (gate.BeginAgentTurn())
+                {
+                    browser.Focus();
+                    element.Focus();
+                    string select = "document.querySelector('[data-agent-ref=\""
+                                    + reference + "\"]').select()";
+                    await browser.MainFrame.ExecuteJavaScript(select);
+                    TypeText(browser.Keyboard, text);
+                }
+                return await Snapshot();
+            });
+        }
+
+        public Task<string> Scroll(string direction)
+        {
+            return Exclusive(async () =>
+            {
+                log.Record("tool", $"scroll {direction}");
+                int delta = direction == "up" ? -600 : 600;
+                await browser.MainFrame.ExecuteJavaScript($"window.scrollBy(0, {delta})");
+                return await Snapshot();
+            });
+        }
 
         public byte[] Screenshot()
         {
@@ -159,49 +179,55 @@ namespace GuardedBrowser
         ///     approves the form data. Other assistant actions wait meanwhile,
         ///     and the form is read again before the click.
         /// </summary>
-        public Task<string> Submit(int reference, Func<FormFields, Task<bool>> approve) => Exclusive(async () =>
+        public Task<string> Submit(int reference, Func<FormFields, Task<bool>> approve)
         {
-            log.Record("tool", $"submit_form [{reference}]");
-            if (!TryGetElement(reference, out SnapshotElement? info, out IElement? element, out string error))
+            return Exclusive(async () =>
             {
-                return error;
-            }
-            if (!info.IsSubmit)
-            {
-                return $"[{reference}] is not a submit button. Pass the form's submit button.";
-            }
-            FormFields? form = await ReadForm(reference);
-            if (form == null)
-            {
-                return $"[{reference}] does not belong to a form.";
-            }
-            if (!await approve(form))
-            {
-                return "The user declined the submission. "
-                       + "Stop and report what you prepared.";
-            }
-            // A page script could still change the form; send only what the user saw.
-            if (!TryGetElement(reference, out _, out element, out error))
-            {
-                return error;
-            }
-            FormFields? current = await ReadForm(reference);
-            if (current == null || !current.Fields.SequenceEqual(form.Fields))
-            {
-                return "The form changed after the user approved it, so it was not sent. "
-                       + "Call read_page and submit it again.";
-            }
-            submitGuard.AllowNext = true;
-            try
-            {
-                await ClickAndWait(element);
-            }
-            finally
-            {
-                submitGuard.AllowNext = false;
-            }
-            return await Snapshot();
-        });
+                log.Record("tool", $"submit_form [{reference}]");
+                if (!TryGetElement(reference, out SnapshotElement? info,
+                                   out IElement? element, out string error))
+                {
+                    return error;
+                }
+                if (!info.IsSubmit)
+                {
+                    return $"[{reference}] is not a submit button. "
+                           + "Pass the form's submit button.";
+                }
+                FormFields? form = await ReadForm(reference);
+                if (form == null)
+                {
+                    return $"[{reference}] does not belong to a form.";
+                }
+                if (!await approve(form))
+                {
+                    return "The user declined the submission. "
+                           + "Stop and report what you prepared.";
+                }
+                // A page script could still change the form; send only what
+                // the user saw.
+                if (!TryGetElement(reference, out _, out element, out error))
+                {
+                    return error;
+                }
+                FormFields? current = await ReadForm(reference);
+                if (current == null || !current.Fields.SequenceEqual(form.Fields))
+                {
+                    return "The form changed after the user approved it, "
+                           + "so it was not sent. Call read_page and submit it again.";
+                }
+                submitGuard.AllowNext = true;
+                try
+                {
+                    await ClickAndWait(element);
+                }
+                finally
+                {
+                    submitGuard.AllowNext = false;
+                }
+                return await Snapshot();
+            });
+        }
 
         /// <summary>
         ///     Reads the fields of the form a submit element belongs to, so the
@@ -217,8 +243,13 @@ namespace GuardedBrowser
                     const fields = [];
                     for (const [name, value] of new FormData(form)) {{
                         const input = form.elements[name];
-                        const label = input && input.labels && input.labels.length ? input.labels[0].innerText.trim() : name;
-                        fields.push([label, input && input.type === 'password' ? '••••' : String(value)]);
+                        const label = input && input.labels && input.labels.length
+                            ? input.labels[0].innerText.trim()
+                            : name;
+                        const shown = input && input.type === 'password'
+                            ? '••••'
+                            : String(value);
+                        fields.push([label, shown]);
                     }}
                     return JSON.stringify({{ title: document.title, fields }});
                 }})()");
@@ -226,13 +257,17 @@ namespace GuardedBrowser
             {
                 return null;
             }
-            using var doc = System.Text.Json.JsonDocument.Parse(json);
-            List<KeyValuePair<string, string>> fields = new();
-            foreach (var pair in doc.RootElement.GetProperty("fields").EnumerateArray())
+            using JsonDocument doc = JsonDocument.Parse(json);
+            List<KeyValuePair<string, string>> fields =
+                new List<KeyValuePair<string, string>>();
+            JsonElement pairs = doc.RootElement.GetProperty("fields");
+            foreach (JsonElement pair in pairs.EnumerateArray())
             {
-                fields.Add(new KeyValuePair<string, string>(pair[0].GetString() ?? "", pair[1].GetString() ?? ""));
+                fields.Add(new KeyValuePair<string, string>(pair[0].GetString() ?? "",
+                                                            pair[1].GetString() ?? ""));
             }
-            return new FormFields(browser.Url, doc.RootElement.GetProperty("title").GetString() ?? "", fields);
+            string title = doc.RootElement.GetProperty("title").GetString() ?? "";
+            return new FormFields(browser.Url, title, fields);
         }
 
         private async Task<string> Snapshot()
@@ -246,23 +281,31 @@ namespace GuardedBrowser
             await oneAtATime.WaitAsync();
             // Tell the model what the policy stopped during this action, so it
             // does not have to guess from an unchanged page.
-            List<string> blocked = new();
+            List<string> blocked = new List<string>();
+
             void OnEntry(AuditEntry entry)
             {
                 if (entry.Category == "blocked")
                 {
-                    lock (blocked) blocked.Add(entry.Message);
+                    lock (blocked)
+                    {
+                        blocked.Add(entry.Message);
+                    }
                 }
             }
+
             log.EntryAdded += OnEntry;
             try
             {
                 string result = await action();
                 lock (blocked)
                 {
-                    return blocked.Count == 0
-                        ? result
-                        : $"Blocked by policy during this action: {string.Join("; ", blocked)}\n\n{result}";
+                    if (blocked.Count == 0)
+                    {
+                        return result;
+                    }
+                    return "Blocked by policy during this action: "
+                           + $"{string.Join("; ", blocked)}\n\n{result}";
                 }
             }
             finally
@@ -272,14 +315,18 @@ namespace GuardedBrowser
             }
         }
 
-        private bool TryGetElement(int reference, out SnapshotElement info, out IElement element, out string error)
+        private bool TryGetElement(int reference,
+                                   [NotNullWhen(true)] out SnapshotElement? info,
+                                   [NotNullWhen(true)] out IElement? element,
+                                   out string error)
         {
-            info = snapshot.Find(reference)!;
-            element = null!;
+            info = snapshot.Find(reference);
+            element = null;
             error = "";
             if (info == null)
             {
-                error = $"No element [{reference}] in the current page. Call read_page for a fresh list.";
+                error = $"No element [{reference}] in the current page. "
+                        + "Call read_page for a fresh list.";
                 return false;
             }
             if (!policy.CanAct(browser.Url))
@@ -287,7 +334,8 @@ namespace GuardedBrowser
                 error = $"Blocked by policy: {browser.Url} is read-only for the assistant.";
                 return false;
             }
-            element = browser.MainFrame.Document.GetElementByCssSelector($"[data-agent-ref=\"{reference}\"]");
+            element = browser.MainFrame.Document.GetElementByCssSelector(
+                $"[data-agent-ref=\"{reference}\"]");
             if (element == null)
             {
                 error = $"Element [{reference}] is gone. Call read_page for a fresh list.";
@@ -298,11 +346,16 @@ namespace GuardedBrowser
 
         private async Task ClickAndWait(IElement element)
         {
-            TaskCompletionSource<bool> loaded = new();
-            void OnFinished(object? s, FrameLoadFinishedEventArgs e)
+            TaskCompletionSource<bool> loaded = new TaskCompletionSource<bool>();
+
+            void OnFinished(object? sender, FrameLoadFinishedEventArgs e)
             {
-                if (e.Frame.IsMain) loaded.TrySetResult(true);
+                if (e.Frame.IsMain)
+                {
+                    loaded.TrySetResult(true);
+                }
             }
+
             browser.Navigation.FrameLoadFinished += OnFinished;
             try
             {
@@ -328,9 +381,9 @@ namespace GuardedBrowser
             foreach (char c in text)
             {
                 bool simpleKey = char.IsAsciiLetterOrDigit(c) || c == ' ';
-                KeyCode key = simpleKey ? (KeyCode) char.ToUpperInvariant(c) : KeyCode.Unknown;
+                KeyCode key = simpleKey ? (KeyCode)char.ToUpperInvariant(c) : KeyCode.Unknown;
                 string keyChar = c.ToString();
-                KeyModifiers modifiers = new() { ShiftDown = char.IsUpper(c) };
+                KeyModifiers modifiers = new KeyModifiers { ShiftDown = char.IsUpper(c) };
 
                 keyboard.KeyPressed.Raise(new KeyPressedEventArgs
                 {

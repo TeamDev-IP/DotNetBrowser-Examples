@@ -22,16 +22,25 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><title>Blocked by policy</title><link rel="stylesheet" href="portal.css"></head>
+<head>
+  <meta charset="utf-8">
+  <title>Blocked by policy</title>
+  <link rel="stylesheet" href="portal.css">
+</head>
 <body>
-<header><span class="brand">Northwind Supply</span><a href="catalogue.html">Catalogue</a><a href="order.html">Orders</a></header>
+<header>
+  <span class="brand">Northwind Supply</span>
+  <a href="catalogue.html">Catalogue</a>
+  <a href="order.html">Orders</a>
+</header>
 <main class="blocked">
   <h1>Blocked by policy</h1>
   <p>The assistant may not open this address:</p>
   <p><code id="url"></code></p>
   <p>Only the sites on the application's allowlist are available.</p>
   <script>
-    document.getElementById('url').textContent = new URLSearchParams(location.search).get('url') || '';
+    const blockedUrl = new URLSearchParams(location.search).get('url');
+    document.getElementById('url').textContent = blockedUrl || '';
   </script>
 </main>
 </body>

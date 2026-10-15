@@ -36,16 +36,23 @@ namespace AgentBrowser.Portal
     ///     Serves the mock supplier portal from embedded resources at
     ///     dnb://portal/. Nothing is read from disk, so there is no path to escape.
     /// </summary>
-    internal sealed class PortalSchemeHandler : IHandler<InterceptRequestParameters, InterceptRequestResponse>
+    internal sealed class PortalSchemeHandler
+        : IHandler<InterceptRequestParameters, InterceptRequestResponse>
     {
         public const string Origin = "dnb://portal/";
         public static readonly Scheme Scheme = Scheme.Create("dnb");
 
         private const string ResourcePrefix = "AgentBrowser.Portal.";
-        private static readonly Dictionary<string, string> OrderLabels = new()
-        {
-            ["part"] = "Part number", ["quantity"] = "Quantity", ["warehouse"] = "Deliver to", ["notes"] = "Notes"
-        };
+
+        private static readonly Dictionary<string, string> OrderLabels =
+            new Dictionary<string, string>
+            {
+                ["part"] = "Part number",
+                ["quantity"] = "Quantity",
+                ["warehouse"] = "Deliver to",
+                ["notes"] = "Notes"
+            };
+
         private static readonly Assembly Assembly = typeof(PortalSchemeHandler).Assembly;
 
         // The demo "session": set by a successful login, held in memory only.
@@ -65,32 +72,36 @@ namespace AgentBrowser.Portal
             if (method == "POST" && path == "login")
             {
                 IReadOnlyDictionary<string, string> form = ReadForm(parameters.UploadData);
-                signedIn = form.GetValueOrDefault("user") == "demo" && form.GetValueOrDefault("password") == "demo";
-                return signedIn
-                    ? Redirect(parameters, "order.html")
-                    : Html(parameters, Resource("login.html").Replace("<!--notice-->",
-                        "<p class=\"notice\">Wrong user name or password.</p>"));
+                signedIn = form.GetValueOrDefault("user") == "demo"
+                           && form.GetValueOrDefault("password") == "demo";
+                if (signedIn)
+                {
+                    return Redirect(parameters, "order.html");
+                }
+                return Html(parameters, LoginPage("Wrong user name or password."));
             }
             if (method == "POST" && path == "order")
             {
                 IReadOnlyDictionary<string, string> form = ReadForm(parameters.UploadData);
                 string rows = "";
-                foreach (var pair in form)
+                foreach (KeyValuePair<string, string> pair in form)
                 {
                     string label = OrderLabels.GetValueOrDefault(pair.Key, pair.Key);
-                    rows += $"<tr><th>{WebUtility.HtmlEncode(label)}</th><td>{WebUtility.HtmlEncode(pair.Value)}</td></tr>";
+                    rows += $"<tr><th>{WebUtility.HtmlEncode(label)}</th>"
+                            + $"<td>{WebUtility.HtmlEncode(pair.Value)}</td></tr>";
                 }
-                return Html(parameters, Resource("confirmation.html").Replace("<!--rows-->", rows));
+                string page = Resource("confirmation.html").Replace("<!--rows-->", rows);
+                return Html(parameters, page);
             }
             if (path == "order.html" && !signedIn)
             {
-                return Html(parameters, Resource("login.html").Replace("<!--notice-->",
-                    "<p class=\"notice\">Sign in to place orders.</p>"));
+                return Html(parameters, LoginPage("Sign in to place orders."));
             }
             if (path == "spec-x42.pdf")
             {
-                return Content(parameters, Encoding.ASCII.GetBytes("%PDF-1.4\n% demo spec sheet\n%%EOF\n"),
-                               "application/pdf", "attachment; filename=\"spec-x42.pdf\"");
+                byte[] pdf = Encoding.ASCII.GetBytes("%PDF-1.4\n% demo spec sheet\n%%EOF\n");
+                return Content(parameters, pdf, "application/pdf",
+                               "attachment; filename=\"spec-x42.pdf\"");
             }
 
             if (path.Length == 0)
@@ -105,13 +116,23 @@ namespace AgentBrowser.Portal
             return Content(parameters, Encoding.UTF8.GetBytes(body), MimeTypeOf(path));
         }
 
-        private static InterceptRequestResponse Html(InterceptRequestParameters p, string html) =>
-            Content(p, Encoding.UTF8.GetBytes(html), "text/html");
-
-        private static InterceptRequestResponse Content(InterceptRequestParameters p, byte[] bytes,
-                                                        string contentType, string? disposition = null)
+        private static string LoginPage(string notice)
         {
-            UrlRequestJobOptions options = new()
+            return Resource("login.html").Replace(
+                "<!--notice-->", $"<p class=\"notice\">{notice}</p>");
+        }
+
+        private static InterceptRequestResponse Html(InterceptRequestParameters p,
+                                                     string html)
+        {
+            return Content(p, Encoding.UTF8.GetBytes(html), "text/html");
+        }
+
+        private static InterceptRequestResponse Content(InterceptRequestParameters p,
+                                                        byte[] bytes, string contentType,
+                                                        string? disposition = null)
+        {
+            UrlRequestJobOptions options = new UrlRequestJobOptions
             {
                 HttpStatusCode = HttpStatusCode.OK,
                 Headers = { new HttpHeader("Content-Type", contentType) }
@@ -126,46 +147,58 @@ namespace AgentBrowser.Portal
             return InterceptRequestResponse.Intercept(job);
         }
 
-        private static InterceptRequestResponse Redirect(InterceptRequestParameters p, string location)
+        private static InterceptRequestResponse Redirect(InterceptRequestParameters p,
+                                                         string location)
         {
-            UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, new UrlRequestJobOptions
+            UrlRequestJobOptions options = new UrlRequestJobOptions
             {
                 HttpStatusCode = HttpStatusCode.Found,
                 Headers = { new HttpHeader("Location", Origin + location) }
-            });
+            };
+            UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
             job.Complete();
             return InterceptRequestResponse.Intercept(job);
         }
 
-        private static InterceptRequestResponse Status(InterceptRequestParameters p, HttpStatusCode code)
+        private static InterceptRequestResponse Status(InterceptRequestParameters p,
+                                                       HttpStatusCode code)
         {
-            UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest,
-                                                               new UrlRequestJobOptions { HttpStatusCode = code });
+            UrlRequestJobOptions options = new UrlRequestJobOptions { HttpStatusCode = code };
+            UrlRequestJob job = p.Network.CreateUrlRequestJob(p.UrlRequest, options);
             job.Complete();
             return InterceptRequestResponse.Intercept(job);
         }
 
         private static IReadOnlyDictionary<string, string> ReadForm(IUploadData? data)
         {
-            Dictionary<string, string> form = new();
+            Dictionary<string, string> form = new Dictionary<string, string>();
             switch (data)
             {
                 case FormData formData:
-                    foreach (var pair in formData.Data) form[pair.Key] = pair.Value;
+                    foreach (KeyValuePair<string, string> pair in formData.Data)
+                    {
+                        form[pair.Key] = pair.Value;
+                    }
                     break;
                 case TextData text:
-                    foreach (string part in text.Data.Split('&', StringSplitOptions.RemoveEmptyEntries))
+                    string[] parts =
+                        text.Data.Split('&', StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string part in parts)
                     {
                         string[] kv = part.Split('=', 2);
-                        form[WebUtility.UrlDecode(kv[0])] = kv.Length > 1 ? WebUtility.UrlDecode(kv[1]) : "";
+                        string value = kv.Length > 1 ? WebUtility.UrlDecode(kv[1]) : "";
+                        form[WebUtility.UrlDecode(kv[0])] = value;
                     }
                     break;
             }
             return form;
         }
 
-        private static string Resource(string name) => TryResource(name)
-            ?? throw new FileNotFoundException($"Missing portal resource {name}");
+        private static string Resource(string name)
+        {
+            return TryResource(name)
+                   ?? throw new FileNotFoundException($"Missing portal resource {name}");
+        }
 
         private static string? TryResource(string name)
         {
@@ -174,17 +207,25 @@ namespace AgentBrowser.Portal
             {
                 return null;
             }
-            using StreamReader reader = new(stream);
+            using StreamReader reader = new StreamReader(stream);
             return reader.ReadToEnd();
         }
 
-        private static string MimeTypeOf(string path) => Path.GetExtension(path) switch
+        private static string MimeTypeOf(string path)
         {
-            ".html" => "text/html",
-            ".css" => "text/css",
-            ".js" => "text/javascript",
-            ".svg" => "image/svg+xml",
-            _ => "application/octet-stream"
-        };
+            switch (Path.GetExtension(path))
+            {
+                case ".html":
+                    return "text/html";
+                case ".css":
+                    return "text/css";
+                case ".js":
+                    return "text/javascript";
+                case ".svg":
+                    return "image/svg+xml";
+                default:
+                    return "application/octet-stream";
+            }
+        }
     }
 }
