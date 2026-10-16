@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWpf>true</UseWpf>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AgentBrowser</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DotNetBrowser.Wpf" Version="4.3.3" />
+    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GuardedBrowser\GuardedBrowser.csproj" />
+    <ProjectReference Include="..\AssistantAgent\AssistantAgent.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Portal\*.html;Portal\*.css;Portal\*.js;Portal\*.svg" />
+  </ItemGroup>
+</Project>

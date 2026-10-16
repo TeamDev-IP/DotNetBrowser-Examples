@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Anthropic" Version="12.55.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GuardedBrowser\GuardedBrowser.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SystemPrompt.md" />
+  </ItemGroup>
+</Project>

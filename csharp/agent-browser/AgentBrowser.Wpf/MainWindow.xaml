@@ -1,0 +1,42 @@
+﻿<Window x:Class="AgentBrowser.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpf="clr-namespace:DotNetBrowser.Wpf;assembly=DotNetBrowser.Wpf"
+        Title="Agent Browser" Height="660" Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Closed="Window_Closed">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="380" />
+        </Grid.ColumnDefinitions>
+
+        <wpf:BrowserView Name="browserView" Grid.Column="0" />
+
+        <DockPanel Grid.Column="1" Margin="12">
+            <TextBlock DockPanel.Dock="Top" Text="Task for the assistant"
+                       FontWeight="SemiBold" />
+            <TextBox DockPanel.Dock="Top" Name="taskBox" Margin="0,4,0,8" Height="72"
+                     TextWrapping="Wrap" AcceptsReturn="True" />
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <Button Name="runButton" Content="Run" Width="90" Click="Run_Click" />
+                <Button Name="takeOverButton" Content="Take over" Width="90" Margin="8,0,0,0"
+                        Click="TakeOver_Click" />
+                <Button Name="handBackButton" Content="Hand back" Width="90" Margin="8,0,0,0"
+                        Click="HandBack_Click" IsEnabled="False" />
+            </StackPanel>
+            <TextBlock DockPanel.Dock="Top" Name="statusText" Margin="0,8,0,8" Text="Idle"
+                       TextWrapping="Wrap" Foreground="#52606D" />
+
+            <TextBlock DockPanel.Dock="Top" Text="Audit log" FontWeight="SemiBold" />
+            <ListBox Name="logList" Margin="0,4,0,0" FontFamily="Consolas" FontSize="11"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </Grid>
+</Window>
