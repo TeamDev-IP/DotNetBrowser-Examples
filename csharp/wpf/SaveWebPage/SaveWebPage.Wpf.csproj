@@ -40,16 +40,16 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetBrowser, Version=4.3.4.8541, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+    <Reference Include="DotNetBrowser, Version=4.3.4.8551, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.4.3.4\lib\netstandard2.0\DotNetBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Core, Version=4.3.4.8541, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+    <Reference Include="DotNetBrowser.Core, Version=4.3.4.8551, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.4.3.4\lib\netstandard2.0\DotNetBrowser.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Logging, Version=4.3.4.8541, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+    <Reference Include="DotNetBrowser.Logging, Version=4.3.4.8551, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.4.3.4\lib\netstandard2.0\DotNetBrowser.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetBrowser.Wpf, Version=4.3.4.8541, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+    <Reference Include="DotNetBrowser.Wpf, Version=4.3.4.8551, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\DotNetBrowser.WPF.4.3.4\lib\net462\DotNetBrowser.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
