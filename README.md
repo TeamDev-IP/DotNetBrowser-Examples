@@ -170,6 +170,7 @@ To build every solution for one language in a single pass, use the [`build.cake`
 * How to deploy Chromium binaries over network: [C#](csharp/wpf/ChromiumBinariesResolver), [VB.NET](vbnet/wpf/ChromiumBinariesResolver)
 * Simulate mouse and keyboard input, compared with CefSharp: [C#](csharp/input-simulation)
 * Build a guard-railed browser for an AI assistant: [C#](csharp/agent-browser)
+* Run a Chromium browser in a Windows service: [C#](csharp/windows-service)
 
 ### Contact us
 Feel free to [submit request](https://dotnetbrowser.support.teamdev.com/support/tickets/new) to our support team if you own a commercial license with an active support subscription. If you have any questions regarding using DotNetBrowser or the examples in this repository, [contact us via email](mailto:customer-care@teamdev.com?subject=[GitHub]%20Question%20on%20DotNetBrowser%20Examples).
