@@ -73,7 +73,8 @@ exe.
 
 ## Run the example in the console
 
-Try the example as a console application first. From this directory:
+Try the example as a console application first. From this directory, in
+a terminal that is not running as administrator:
 
 ```powershell
 dotnet run --project DnbReportService
@@ -86,6 +87,18 @@ and the files appear in `%ProgramData%\DnbReportService\Output`. Press
 **Ctrl+C** to stop. Stop the console instance before you start the service:
 the two would share one Chromium profile, and a profile can be used by one
 engine at a time.
+
+Since Chromium 138, a browser that starts with administrator rights drops
+them and restarts itself. DotNetBrowser does not support that restart, so in
+a terminal or IDE running as administrator, the engine fails with `Failed to
+establish RPC connection to the Chromium engine.`
+
+If you need administrator rights, add
+`ChromiumSwitches = { "--do-not-de-elevate" }` to the `EngineOptions.Builder`
+in `BrowserEngineHost.cs`, as the
+[troubleshooting guide](https://teamdev.com/dotnetbrowser/docs/guides/troubleshoot/common-issues/#running-as-admin-on-windows)
+shows. The service is not affected: in our tests, it ran under LocalSystem and
+under an administrator account.
 
 To write to other folders, override the settings on the command line:
 
