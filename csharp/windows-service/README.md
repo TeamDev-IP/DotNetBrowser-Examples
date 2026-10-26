@@ -88,17 +88,22 @@ and the files appear in `%ProgramData%\DnbReportService\Output`. Press
 the two would share one Chromium profile, and a profile can be used by one
 engine at a time.
 
-Since Chromium 138, a browser that starts with administrator rights drops
-them and restarts itself. DotNetBrowser does not support that restart, so in
-a terminal or IDE running as administrator, the engine fails with `Failed to
-establish RPC connection to the Chromium engine.`
+Since Chromium 138, a Chromium process that starts with administrator rights
+drops them and restarts itself. DotNetBrowser does not support that restart,
+so in a terminal or IDE running as administrator, the engine fails with
+`Failed to establish RPC connection to the Chromium engine.`
 
 If you need administrator rights, add
 `ChromiumSwitches = { "--do-not-de-elevate" }` to the `EngineOptions.Builder`
 in `BrowserEngineHost.cs`, as the
 [troubleshooting guide](https://teamdev.com/dotnetbrowser/docs/guides/troubleshoot/common-issues/#running-as-admin-on-windows)
-shows. The service is not affected: in our tests, it ran under LocalSystem and
-under an administrator account.
+shows.
+
+The service is a different case: in our tests, it ran under LocalSystem and
+under an administrator account without this switch. Chromium restarts only
+when UAC split the administrator's rights at sign-in into a full set and
+a standard one. A service does not sign in that way, so Chromium starts
+normally.
 
 To write to other folders, override the settings on the command line:
 
