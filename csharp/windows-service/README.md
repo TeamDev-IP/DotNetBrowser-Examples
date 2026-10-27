@@ -105,7 +105,9 @@ when UAC split the administrator's rights at sign-in into a full set and
 a standard one. A service does not sign in that way, so Chromium starts
 normally.
 
-To write to other folders, override the settings on the command line:
+After the service has run, its account owns the log file, so a console run
+cannot add lines to it; the console window still shows them. To write to
+other folders, override the settings on the command line:
 
 ```powershell
 dotnet run --project DnbReportService -- `
@@ -207,8 +209,9 @@ runs with full rights on the machine.
 
 ## Find the logs and the output
 
-The service logs to the Application event log, source `DnbReportService`, and
-to `DnbReportService.log` in the output folder:
+The service writes its start, its stop, warnings, and errors to the
+Application event log, source `DnbReportService`, and every line to
+`DnbReportService.log` in the output folder:
 
 ```powershell
 Get-EventLog -LogName Application -Source DnbReportService -Newest 20
@@ -217,9 +220,9 @@ Get-Content `
 Get-ChildItem "$env:ProgramData\DnbReportService\Output"
 ```
 
-The first lines after a start show the account, the session, whether the
-process runs as a service, and the Chromium and user data folders. Check them
-first when the service does not behave as in the console.
+The first lines of the log file after a start show the account, the session,
+whether the process runs as a service, and the Chromium and user data folders.
+Check them first when the service does not behave as in the console.
 
 ## Stop and delete the service
 
