@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text.Json;
 using System.Threading;
@@ -162,7 +163,10 @@ namespace DnbReportService
                 if (job.Png)
                 {
                     Bitmap image = browser.TakeImage();
-                    PngEncoder.Save(image, baseName + ".png");
+                    using (System.Drawing.Bitmap png = BitmapConverter.ToBitmap(image))
+                    {
+                        png.Save(baseName + ".png", ImageFormat.Png);
+                    }
                     LogFile(job, baseName + ".png");
                 }
                 if (job.Json)

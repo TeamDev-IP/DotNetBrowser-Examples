@@ -20,7 +20,7 @@ The tutorial is available on the
 ## Prerequisites
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0). For
-  .NET 8, change `TargetFramework` in `DnbReportService.csproj` to `net8.0`.
+  .NET 8, change `TargetFramework` in `DnbReportService.csproj` to `net8.0-windows`.
 - Windows 10 or later, or Windows Server 2016 or later, as listed in the
   DotNetBrowser
   [system requirements](https://teamdev.com/dotnetbrowser/docs/guides/requirements.html).
@@ -41,8 +41,8 @@ The tutorial is available on the
   - `ReportWorker.cs` runs the jobs: loads each page, waits until it is
     ready, and saves the PDF, PNG, and JSON files.
   - `PdfExport.cs` prints the page to a PDF file without a print preview.
-  - `PngEncoder.cs` saves a browser screenshot as PNG. The service
-    references neither WPF nor WinForms, so it encodes the PNG itself.
+  - `BitmapConverter.cs` converts a browser screenshot to
+    a `System.Drawing.Bitmap`, which is saved as PNG.
   - `ReportServiceOptions.cs` reads the `ReportService` section of
     `appsettings.json`.
   - `FileLoggerProvider.cs` writes the log to a text file.
@@ -83,7 +83,7 @@ dotnet run --project DnbReportService
 Or open `WindowsService.sln` in your IDE and run `DnbReportService`.
 
 After the first cycle, the console shows `Cycle finished: 2 ok, 0 failed.`
-and the files appear in `DnbReportService\bin\Debug\net10.0\win-x64\Data\Output`.
+and the files appear in `DnbReportService\bin\Debug\net10.0-windows\win-x64\Data\Output`.
 Press **Ctrl+C** to stop.
 
 Since Chromium 138, a Chromium process that starts with administrator rights
