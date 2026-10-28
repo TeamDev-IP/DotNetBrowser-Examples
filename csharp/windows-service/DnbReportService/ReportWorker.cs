@@ -163,7 +163,8 @@ namespace DnbReportService
                 if (job.Png)
                 {
                     Bitmap image = browser.TakeImage();
-                    using (System.Drawing.Bitmap png = BitmapConverter.ToBitmap(image))
+                    using (System.Drawing.Bitmap png =
+                               BitmapConverter.ToBitmap(image))
                     {
                         png.Save(baseName + ".png", ImageFormat.Png);
                     }
