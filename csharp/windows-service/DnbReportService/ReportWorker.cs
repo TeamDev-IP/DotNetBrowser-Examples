@@ -195,8 +195,11 @@ namespace DnbReportService
             Stopwatch stopwatch = Stopwatch.StartNew();
             while (stopwatch.Elapsed < ReadyTimeout)
             {
+                // A page busy in an endless script never answers, so the
+                // wait for an answer is limited too.
                 bool ready = await browser.MainFrame
-                                          .ExecuteJavaScript<bool>($"!!({script})");
+                                          .ExecuteJavaScript<bool>($"!!({script})")
+                                          .WaitAsync(ReadyTimeout);
                 if (ready)
                 {
                     return true;

@@ -48,8 +48,8 @@ The tutorial is available on the
   - `FileLoggerProvider.cs` writes the log to a text file.
   - `report.html` is the local report page.
 
-By default, the service keeps everything under
-`%ProgramData%\DnbReportService`:
+By default, the service keeps everything in the `Data` folder next to
+the exe:
 
 | Folder      | Contents                                                |
 |-------------|---------------------------------------------------------|
@@ -83,10 +83,8 @@ dotnet run --project DnbReportService
 Or open `WindowsService.sln` in your IDE and run `DnbReportService`.
 
 After the first cycle, the console shows `Cycle finished: 2 ok, 0 failed.`
-and the files appear in `%ProgramData%\DnbReportService\Output`. Press
-**Ctrl+C** to stop. Stop the console instance before you start the service:
-the two would share one Chromium profile, and a profile can be used by one
-engine at a time.
+and the files appear in `DnbReportService\bin\Debug\net10.0\win-x64\Data\Output`.
+Press **Ctrl+C** to stop.
 
 Since Chromium 138, a Chromium process that starts with administrator rights
 drops them and restarts itself. DotNetBrowser does not support that restart,
@@ -104,18 +102,6 @@ under an administrator account without this switch. Chromium restarts only
 when UAC split the administrator's rights at sign-in into a full set and
 a standard one. A service does not sign in that way, so Chromium starts
 normally.
-
-After you install the service, only administrators, SYSTEM, and the service
-account can use `%ProgramData%\DnbReportService`. To run the example in the
-console again, give it folders of your own on the command line:
-
-```powershell
-$dir = "$env:LOCALAPPDATA\DnbReportService"
-dotnet run --project DnbReportService -- `
-    --ReportService:UserDataDirectory=$dir\UserData `
-    --ReportService:ChromiumDirectory=$dir\Chromium `
-    --ReportService:OutputDirectory=$dir\Output
-```
 
 ## Publish the service
 
@@ -170,33 +156,24 @@ directory, in one window: the steps share variables. PowerShell 7 has no
    `Set-Content`.
 
 4. Give the service account access to its folders: Modify on the data
-   folder, Read & execute on the install folder:
+   folder, Read & execute on the rest of the install folder:
 
    ```powershell
    $account = "NT SERVICE\DnbReportService"
-   $dataDir = "$env:ProgramData\DnbReportService"
-   Remove-Item -Recurse -Force $dataDir -ErrorAction SilentlyContinue
-   if (Test-Path $dataDir) { throw "Close the programs that use $dataDir." }
+   $dataDir = "$installDir\Data"
    New-Item -ItemType Directory -Force $dataDir | Out-Null
    icacls $dataDir /inheritance:r /grant:r "*S-1-5-32-544:(OI)(CI)F" `
        "*S-1-5-18:(OI)(CI)F" "${account}:(OI)(CI)M"
-   icacls $dataDir /setowner "*S-1-5-32-544" /T /C
-   icacls "$dataDir\*" /reset /T /C
    icacls $installDir /grant "${account}:(OI)(CI)RX"
    ```
 
-   The service runs the Chromium binaries from the data folder, so no other
-   user may change them. These commands delete the folder that a console run
-   created, with its output, and create it again. If a program still uses
-   the folder, the delete fails and the step stops with an error: close that
-   program, for example the console run, and repeat the step. Files left in
-   the folder could have been changed by any user. The commands then replace
-   the permissions the folder inherits from `%ProgramData%`: only
-   administrators (`*S-1-5-32-544`), SYSTEM (`*S-1-5-18`), and the service
-   account keep access. The last two lines make the Administrators group
-   the owner of everything in the folder and remove permissions set on single
-   files. The SIDs work on every Windows language, where the group names
-   differ.
+   The service runs the Chromium binaries from the data folder. Other users
+   can't create or change files in `Program Files`, so they can't replace
+   them. The first `icacls` line also replaces the permissions the folder
+   inherits: only administrators (`*S-1-5-32-544`), SYSTEM (`*S-1-5-18`), and
+   the service account keep access, so other users can't read the Chromium
+   profile or the output. The SIDs work on every Windows language, where
+   the group names differ.
 
 5. Start the service:
 
@@ -206,8 +183,7 @@ directory, in one window: the steps share variables. PowerShell 7 has no
    ```
 
 The first start takes a few seconds longer, because Chromium is extracted
-into `%ProgramData%\DnbReportService\Chromium`. Later starts reuse that
-folder.
+into `Data\Chromium` in the install folder. Later starts reuse that folder.
 
 ### Choose the account
 
@@ -219,8 +195,8 @@ We recommend a low-privileged account:
 - **LocalService.** Use `obj= "NT AUTHORITY\LocalService"` with `sc.exe`,
   and grant the folder permissions to `NT AUTHORITY\LOCAL SERVICE`.
 
-Whichever account you choose, it needs Modify on
-`%ProgramData%\DnbReportService` and Read & execute on the install folder.
+Whichever account you choose, it needs Modify on the `Data` folder and
+Read & execute on the install folder.
 
 LocalSystem also works and needs no folder permissions, but the service then
 runs with full rights on the machine.
@@ -234,9 +210,9 @@ the output folder, so use the administrator window:
 
 ```powershell
 Get-EventLog -LogName Application -Source DnbReportService -Newest 20
-Get-Content `
-    "$env:ProgramData\DnbReportService\Output\DnbReportService.log" -Tail 20
-Get-ChildItem "$env:ProgramData\DnbReportService\Output"
+$output = "$env:ProgramFiles\DnbReportService\Data\Output"
+Get-Content "$output\DnbReportService.log" -Tail 20
+Get-ChildItem $output
 ```
 
 The first lines of the log file after a start show the account, the session,
@@ -257,5 +233,4 @@ To remove the files as well:
 
 ```powershell
 Remove-Item -Recurse -Force "$env:ProgramFiles\DnbReportService"
-Remove-Item -Recurse -Force "$env:ProgramData\DnbReportService"
 ```
