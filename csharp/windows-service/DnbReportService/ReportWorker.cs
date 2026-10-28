@@ -103,8 +103,14 @@ namespace DnbReportService
                 // A failed job is logged; the service keeps running.
                 try
                 {
-                    await RunJobAsync(job);
+                    await RunJobAsync(job, stoppingToken);
                     ok++;
+                }
+                catch (Exception) when (stoppingToken.IsCancellationRequested)
+                {
+                    logger.LogInformation(
+                        "Job {Job} canceled: the service is stopping.", job.Name);
+                    break;
                 }
                 catch (Exception e)
                 {
@@ -116,7 +122,8 @@ namespace DnbReportService
                                   ok, failed);
         }
 
-        private async Task RunJobAsync(ReportJob job)
+        private async Task RunJobAsync(ReportJob job,
+                                       CancellationToken stoppingToken)
         {
             string url = job.ResolveUrl();
             string stamp = DateTime.Now.ToString("yyyyMMdd-HHmmss");
@@ -126,6 +133,8 @@ namespace DnbReportService
 
             IEngine engine = await engineHost.GetEngineAsync();
             using (IBrowser browser = engine.CreateBrowser())
+            // On stop, closing the browser ends a load that is still running.
+            using (stoppingToken.Register(browser.Dispose))
             {
                 // Off-screen browsers have no window, so set the viewport.
                 browser.Size = ViewportSize;
@@ -147,7 +156,8 @@ namespace DnbReportService
                 logger.LogInformation(
                     "Job {Job}: loaded {Url} in {Ms} ms; ready={Ready}.",
                     job.Name, url, stopwatch.ElapsedMilliseconds, ready);
-                await Task.Delay(Math.Max(0, options.CaptureDelayMs));
+                await Task.Delay(Math.Max(0, options.CaptureDelayMs),
+                                 stoppingToken);
 
                 if (job.Png)
                 {
@@ -163,7 +173,7 @@ namespace DnbReportService
                 if (job.Pdf)
                 {
                     await PdfExport.SaveAsync(browser, baseName + ".pdf")
-                                   .WaitAsync(PrintTimeout);
+                                   .WaitAsync(PrintTimeout, stoppingToken);
                     LogFile(job, baseName + ".pdf");
                 }
             }

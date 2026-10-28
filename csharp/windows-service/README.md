@@ -176,21 +176,27 @@ directory, in one window: the steps share variables. PowerShell 7 has no
    $account = "NT SERVICE\DnbReportService"
    $dataDir = "$env:ProgramData\DnbReportService"
    Remove-Item -Recurse -Force $dataDir -ErrorAction SilentlyContinue
+   if (Test-Path $dataDir) { throw "Close the programs that use $dataDir." }
    New-Item -ItemType Directory -Force $dataDir | Out-Null
    icacls $dataDir /inheritance:r /grant:r "*S-1-5-32-544:(OI)(CI)F" `
        "*S-1-5-18:(OI)(CI)F" "${account}:(OI)(CI)M"
    icacls $dataDir /setowner "*S-1-5-32-544" /T /C
+   icacls "$dataDir\*" /reset /T /C
    icacls $installDir /grant "${account}:(OI)(CI)RX"
    ```
 
    The service runs the Chromium binaries from the data folder, so no other
    user may change them. These commands delete the folder that a console run
-   created, with its output, and create it again. They replace the permissions
-   it inherits from `%ProgramData%`: only administrators (`*S-1-5-32-544`),
-   SYSTEM (`*S-1-5-18`), and the service account keep access. The last line
-   makes the Administrators group the owner of everything in it, in case
-   the delete failed: an owner can always change the permissions. The SIDs
-   work on every Windows language, where the group names differ.
+   created, with its output, and create it again. If a program still uses
+   the folder, the delete fails and the step stops with an error: close that
+   program, for example the console run, and repeat the step. Files left in
+   the folder could have been changed by any user. The commands then replace
+   the permissions the folder inherits from `%ProgramData%`: only
+   administrators (`*S-1-5-32-544`), SYSTEM (`*S-1-5-18`), and the service
+   account keep access. The last two lines make the Administrators group
+   the owner of everything in the folder and remove permissions set on single
+   files. The SIDs work on every Windows language, where the group names
+   differ.
 
 5. Start the service:
 
