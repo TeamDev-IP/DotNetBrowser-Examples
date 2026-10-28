@@ -105,13 +105,16 @@ when UAC split the administrator's rights at sign-in into a full set and
 a standard one. A service does not sign in that way, so Chromium starts
 normally.
 
-After the service has run, its account owns the log file, so a console run
-cannot add lines to it; the console window still shows them. To write to
-other folders, override the settings on the command line:
+After you install the service, only administrators, SYSTEM, and the service
+account can use `%ProgramData%\DnbReportService`. To run the example in the
+console again, give it folders of your own on the command line:
 
 ```powershell
+$dir = "$env:LOCALAPPDATA\DnbReportService"
 dotnet run --project DnbReportService -- `
-    --ReportService:OutputDirectory=C:\Temp\DnbReportService\Output
+    --ReportService:UserDataDirectory=$dir\UserData `
+    --ReportService:ChromiumDirectory=$dir\Chromium `
+    --ReportService:OutputDirectory=$dir\Output
 ```
 
 ## Publish the service
@@ -133,10 +136,12 @@ Run these commands in Windows PowerShell 5.1 as administrator, from this
 directory, in one window: the steps share variables. PowerShell 7 has no
 `*-EventLog` commands.
 
-1. Copy the published files to the install folder:
+1. Copy the published files to the install folder. Only administrators can
+   change files in `Program Files`, so no other user can replace the exe that
+   the service runs:
 
    ```powershell
-   $installDir = "C:\Services\DnbReportService"
+   $installDir = "$env:ProgramFiles\DnbReportService"
    New-Item -ItemType Directory -Force $installDir | Out-Null
    Copy-Item -Recurse -Force publish\* $installDir
    ```
@@ -152,22 +157,17 @@ directory, in one window: the steps share variables. PowerShell 7 has no
 
    ```powershell
    New-Service -Name DnbReportService -DisplayName DnbReportService `
-       -BinaryPathName "$installDir\DnbReportService.exe" `
+       -BinaryPathName "`"$installDir\DnbReportService.exe`"" `
        -StartupType Automatic
    sc.exe config DnbReportService obj= "NT SERVICE\DnbReportService"
    ```
 
-   `New-Service` creates the service under LocalSystem. The `sc.exe config`
-   line switches it to the virtual account `NT SERVICE\DnbReportService`.
-   `sc.exe` needs the space after `obj=`. Type `sc.exe`, not `sc`: in
-   Windows PowerShell, `sc` means `Set-Content`.
-   You can do both in one `sc.exe` command:
-
-   ```powershell
-   sc.exe create DnbReportService start= auto `
-       binPath= "C:\Services\DnbReportService\DnbReportService.exe" `
-       obj= "NT SERVICE\DnbReportService"
-   ```
+   The path is in quotes because it contains a space; without them, Windows
+   could try to start `C:\Program.exe`. `New-Service` creates the service
+   under LocalSystem. The `sc.exe config` line switches it to the virtual
+   account `NT SERVICE\DnbReportService`. `sc.exe` needs the space after
+   `obj=`. Type `sc.exe`, not `sc`: in Windows PowerShell, `sc` means
+   `Set-Content`.
 
 4. Give the service account access to its folders: Modify on the data
    folder, Read & execute on the install folder:
@@ -175,10 +175,22 @@ directory, in one window: the steps share variables. PowerShell 7 has no
    ```powershell
    $account = "NT SERVICE\DnbReportService"
    $dataDir = "$env:ProgramData\DnbReportService"
+   Remove-Item -Recurse -Force $dataDir -ErrorAction SilentlyContinue
    New-Item -ItemType Directory -Force $dataDir | Out-Null
-   icacls $dataDir /grant "${account}:(OI)(CI)M"
+   icacls $dataDir /inheritance:r /grant:r "*S-1-5-32-544:(OI)(CI)F" `
+       "*S-1-5-18:(OI)(CI)F" "${account}:(OI)(CI)M"
+   icacls $dataDir /setowner "*S-1-5-32-544" /T /C
    icacls $installDir /grant "${account}:(OI)(CI)RX"
    ```
+
+   The service runs the Chromium binaries from the data folder, so no other
+   user may change them. These commands delete the folder that a console run
+   created, with its output, and create it again. They replace the permissions
+   it inherits from `%ProgramData%`: only administrators (`*S-1-5-32-544`),
+   SYSTEM (`*S-1-5-18`), and the service account keep access. The last line
+   makes the Administrators group the owner of everything in it, in case
+   the delete failed: an owner can always change the permissions. The SIDs
+   work on every Windows language, where the group names differ.
 
 5. Start the service:
 
@@ -188,8 +200,8 @@ directory, in one window: the steps share variables. PowerShell 7 has no
    ```
 
 The first start takes a few seconds longer, because Chromium is extracted
-into `%ProgramData%\DnbReportService\Chromium`. Later starts, under any
-account, reuse that folder.
+into `%ProgramData%\DnbReportService\Chromium`. Later starts reuse that
+folder.
 
 ### Choose the account
 
@@ -211,7 +223,8 @@ runs with full rights on the machine.
 
 The service writes its start, its stop, warnings, and errors to the
 Application event log, source `DnbReportService`, and every line to
-`DnbReportService.log` in the output folder:
+`DnbReportService.log` in the output folder. Only administrators can read
+the output folder, so use the administrator window:
 
 ```powershell
 Get-EventLog -LogName Application -Source DnbReportService -Newest 20
@@ -237,6 +250,6 @@ Remove-EventLog -Source DnbReportService
 To remove the files as well:
 
 ```powershell
-Remove-Item -Recurse -Force "C:\Services\DnbReportService"
+Remove-Item -Recurse -Force "$env:ProgramFiles\DnbReportService"
 Remove-Item -Recurse -Force "$env:ProgramData\DnbReportService"
 ```

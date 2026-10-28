@@ -44,6 +44,7 @@ namespace DnbReportService
     {
         private readonly ILogger<BrowserEngineHost> logger;
         private readonly ReportServiceOptions options;
+        private readonly object sync = new object();
         private IEngine engine;
         private volatile bool stopping;
 
@@ -92,12 +93,17 @@ namespace DnbReportService
         /// </summary>
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            stopping = true;
-            if (engine != null)
+            IEngine current;
+            lock (sync)
+            {
+                stopping = true;
+                current = engine;
+                engine = null;
+            }
+            if (current != null)
             {
                 Stopwatch stopwatch = Stopwatch.StartNew();
-                engine.Dispose();
-                engine = null;
+                current.Dispose();
                 logger.LogInformation("Engine disposed in {Ms} ms.",
                                       stopwatch.ElapsedMilliseconds);
             }
@@ -127,14 +133,33 @@ namespace DnbReportService
                                    stopwatch.ElapsedMilliseconds);
                 throw;
             }
-            engine.Disposed += OnEngineDisposed;
+
+            // If the service started to stop while Chromium was starting,
+            // StopAsync() may have missed this engine: dispose it here.
+            IEngine created;
+            IEngine orphan = null;
+            lock (sync)
+            {
+                created = engine;
+                if (stopping)
+                {
+                    orphan = engine;
+                    engine = null;
+                }
+            }
+            if (stopping)
+            {
+                orphan?.Dispose();
+                return;
+            }
+            created.Disposed += OnEngineDisposed;
 
             // The options now hold the binaries folder actually used,
             // with the platform subfolder appended.
             logger.LogInformation(
                 "Engine created in {Ms} ms: Chromium {Version} in {Folder}.",
                 stopwatch.ElapsedMilliseconds, ChromiumInfo.Version,
-                engine.Options.ChromiumDirectory);
+                created.Options.ChromiumDirectory);
         }
 
         private void OnEngineDisposed(object sender, EngineDisposedEventArgs e)
