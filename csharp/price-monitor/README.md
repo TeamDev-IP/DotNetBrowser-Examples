@@ -145,6 +145,11 @@ directory, in one window: the steps share variables. PowerShell 7 has no
 [windows-service](../windows-service) example explains each step and the
 choice of the account in detail.
 
+Keep the clone in a folder that only you and administrators can write to,
+such as your user profile. Otherwise another user could replace a file in
+`publish` before it's copied. `icacls .` shows who can write to the
+current folder.
+
 1. Publish the monitor and copy it to the install folder. Only
    administrators can change files in `Program Files`:
 
@@ -265,6 +270,10 @@ The commands below are for Ubuntu 24.04.
    sudo install -m 600 /dev/null /etc/price-monitor.env
    echo 'Discord__WebhookUrl=<your webhook URL>' | sudo tee /etc/price-monitor.env > /dev/null
    ```
+
+   Once the monitor has read the variable, it removes it from its
+   environment, so the Chromium processes that run the pages don't inherit
+   it.
 
 5. Create `/etc/systemd/system/price-monitor-xvfb.service`:
 

@@ -49,6 +49,11 @@ namespace PriceMonitor
         // Product data is small; a bigger response is not what we want.
         private const int MaxBodyBytes = 1024 * 1024;
 
+        // The page controls this text: keep log messages short and free
+        // of control characters such as terminal escape codes.
+        private static readonly Regex ControlChars =
+            new Regex(@"\p{C}", RegexOptions.CultureInvariant);
+
         // The first number, such as 1,299.00, in the price text.
         private static readonly Regex PriceNumber =
             new Regex(@"\d[\d,]*(\.\d+)?", RegexOptions.CultureInvariant);
@@ -134,8 +139,9 @@ namespace PriceMonitor
                     TaskCreationOptions.RunContinuationsAsynchronously);
 
             // Only requests to this exact address, from this browser or from
-            // a service worker, which has no browser: a script from another
-            // site can't pass off its own response as the product data.
+            // no known browser, as with a service worker: a script from
+            // another site can't pass off its own response as the product
+            // data.
             bool IsApiRequest(UrlRequest request)
             {
                 return (request.Browser == null || request.Browser == browser)
@@ -229,10 +235,20 @@ namespace PriceMonitor
             Match number = PriceNumber.Match(text);
             if (!number.Success)
             {
-                throw new FormatException($"No price in \"{text}\".");
+                throw new FormatException($"No price in \"{ForLog(text)}\".");
             }
             return decimal.Parse(number.Value.Replace(",", ""),
                                  CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        ///     Shortens text from the page for a log message and replaces
+        ///     its control characters.
+        /// </summary>
+        private static string ForLog(string text)
+        {
+            string shown = text.Length > 60 ? text.Substring(0, 60) + "..." : text;
+            return ControlChars.Replace(shown, "?");
         }
     }
 }

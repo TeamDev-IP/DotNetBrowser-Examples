@@ -96,6 +96,20 @@ namespace PriceMonitor
 
             // Environment variables win over both files.
             configuration.AddEnvironmentVariables();
+
+            // The value is in the configuration now. Remove the variable,
+            // so the Chromium processes, including the ones that run the
+            // pages, don't inherit the webhook URL.
+            foreach (string name in Environment.GetEnvironmentVariables().Keys)
+            {
+                if (name.Equals("Discord__WebhookUrl",
+                                StringComparison.OrdinalIgnoreCase)
+                    || name.Equals("Discord:WebhookUrl",
+                                   StringComparison.OrdinalIgnoreCase))
+                {
+                    Environment.SetEnvironmentVariable(name, null);
+                }
+            }
         }
     }
 }
