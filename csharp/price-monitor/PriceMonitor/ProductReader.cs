@@ -141,10 +141,12 @@ namespace PriceMonitor
             // Only requests to this exact address, from this browser or from
             // no known browser, as with a service worker: a script from
             // another site can't pass off its own response as the product
-            // data.
+            // data. Not the OPTIONS request that the browser sends first
+            // when the API is on another site: it has no product data.
             bool IsApiRequest(UrlRequest request)
             {
-                return (request.Browser == null || request.Browser == browser)
+                return request.Method != "OPTIONS"
+                       && (request.Browser == null || request.Browser == browser)
                        && Uri.TryCreate(request.Url, UriKind.Absolute, out Uri url)
                        && url.GetLeftPart(UriPartial.Path)
                        == apiUrl.GetLeftPart(UriPartial.Path);

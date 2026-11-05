@@ -59,6 +59,19 @@ namespace PriceMonitor
                 }
                 latest[snapshot.Url] = snapshot;
             }
+
+            // A broken last line has no line break either: add one, or the
+            // next snapshot would join that line and be skipped as well.
+            using FileStream stream = File.Open(file, FileMode.Open,
+                                                FileAccess.ReadWrite);
+            if (stream.Length > 0)
+            {
+                stream.Seek(-1, SeekOrigin.End);
+                if (stream.ReadByte() != '\n')
+                {
+                    stream.WriteByte((byte)'\n');
+                }
+            }
         }
 
         /// <summary>
