@@ -4,8 +4,8 @@
     <UserSecretsId>dotnetbrowser-price-monitor</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.3.5" />
-    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+    <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.4.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.36.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="10.0.13" />
     <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="10.0.13" />
   </ItemGroup>
