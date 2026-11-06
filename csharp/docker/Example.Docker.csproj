@@ -15,6 +15,6 @@
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.0" />
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.2.0" />
     <PackageReference Include="DotNetBrowser.AvaloniaUi" Version="4.4.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.36.2" />
   </ItemGroup>
 </Project>

@@ -8,6 +8,6 @@
     <PackageReference Include="DotNetBrowser.CrossPlatform" Version="4.4.0" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.3" />
-    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.36.2" />
   </ItemGroup>
 </Project>

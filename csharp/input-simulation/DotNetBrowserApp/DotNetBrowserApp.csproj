@@ -6,7 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DotNetBrowser.Wpf" Version="4.4.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.36.2" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shared\bucket-list.html" Link="bucket-list.html">

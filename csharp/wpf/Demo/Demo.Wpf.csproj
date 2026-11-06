@@ -20,6 +20,6 @@
     <PackageReference Include="DotNetBrowser" Version="4.4.0" />
     <PackageReference Include="DotNetBrowser.WPF" Version="4.4.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" Condition="'$(TargetFramework)'=='net6-windows'" />
-    <PackageReference Include="Google.Protobuf" Version="3.32.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.36.2" />
   </ItemGroup>
 </Project>
