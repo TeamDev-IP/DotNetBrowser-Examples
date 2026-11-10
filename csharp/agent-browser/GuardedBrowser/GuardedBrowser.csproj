@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DotNetBrowser" Version="4.4.0" />
+    <PackageReference Include="DotNetBrowser" Version="4.4.1" />
     <PackageReference Include="Google.Protobuf" Version="3.36.2" />
   </ItemGroup>
   <ItemGroup>
