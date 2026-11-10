@@ -12,7 +12,7 @@
             <Button Content="Underline" Click="Underline_Click" />
             <Button Content="Heading" Click="Heading_Click" />
             <Button Content="List" Click="List_Click" />
-            <Separator Width="16" />
+            <Rectangle Width="1" Margin="6,4" Fill="#C0C0C0" />
             <Button Content="Open..." Click="Open_Click" />
             <Button Content="Save..." Click="Save_Click" />
             <Button Content="Export PDF..." Click="ExportPdf_Click" />
