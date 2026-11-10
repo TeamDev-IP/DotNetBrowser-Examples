@@ -1,0 +1,26 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#editor {
+    flex: 1;
+    border: none;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 15px;
+}
+
+.ql-editor {
+    padding: 24px 32px;
+}
+
+@media print {
+    .ql-editor {
+        padding: 0;
+    }
+}

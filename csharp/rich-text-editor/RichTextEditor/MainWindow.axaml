@@ -1,0 +1,23 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:app=
+            "clr-namespace:DotNetBrowser.AvaloniaUi;assembly=DotNetBrowser.AvaloniaUi.v12"
+        x:Class="RichTextEditor.MainWindow"
+        Title="Rich text editor" Width="900" Height="640"
+        Closing="Window_Closing">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="4" Margin="8">
+            <Button Content="Bold" Click="Bold_Click" />
+            <Button Content="Italic" Click="Italic_Click" />
+            <Button Content="Underline" Click="Underline_Click" />
+            <Button Content="Heading" Click="Heading_Click" />
+            <Button Content="List" Click="List_Click" />
+            <Separator Width="16" />
+            <Button Content="Open..." Click="Open_Click" />
+            <Button Content="Save..." Click="Save_Click" />
+            <Button Content="Export PDF..." Click="ExportPdf_Click" />
+        </StackPanel>
+        <TextBlock x:Name="Status" DockPanel.Dock="Bottom" Margin="8,4" />
+        <app:BrowserView x:Name="BrowserView" />
+    </DockPanel>
+</Window>
