@@ -21,7 +21,7 @@ The tutorial is available on the
 
 ## Prerequisites
 
-- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or later.
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 - An operating system from the DotNetBrowser
   [system requirements](https://teamdev.com/dotnetbrowser/docs/guides/requirements/).
 - A DotNetBrowser
