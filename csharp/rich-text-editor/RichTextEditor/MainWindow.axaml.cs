@@ -74,6 +74,7 @@ namespace RichTextEditor
         private readonly EditorHost host = new EditorHost();
         private IJsObject? editor;
         private string? pdfPath;
+        private bool closing;
 
         public MainWindow()
         {
@@ -131,7 +132,7 @@ namespace RichTextEditor
                     await EnableSpellCheck();
                     await LoadEditor();
                 }
-                catch (ObjectDisposedException)
+                catch (Exception) when (closing)
                 {
                     // The window was closed while the editor was loading.
                 }
@@ -353,6 +354,7 @@ namespace RichTextEditor
 
         private void Window_Closing(object? sender, WindowClosingEventArgs e)
         {
+            closing = true;
             browser.Dispose();
             engine.Dispose();
         }
