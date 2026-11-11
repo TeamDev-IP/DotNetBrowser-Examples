@@ -135,10 +135,14 @@ namespace RichTextEditor
                 {
                     // The window was closed while the editor was loading.
                 }
+                catch (TimeoutException)
+                {
+                    Status.Text = "The editor page failed to load.";
+                }
             };
         }
 
-        // A new profile has no spell checking language on Windows and Linux.
+        // A new profile has no spell checking language on Windows.
         // Chromium downloads the dictionary the first time, so without a
         // network connection and without a copied dictionary, Add fails.
         private async Task EnableSpellCheck()

@@ -24,6 +24,7 @@ The tutorial is available on the
 - [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 - An operating system from the DotNetBrowser
   [system requirements](https://teamdev.com/dotnetbrowser/docs/guides/requirements/).
+  The example was tested on Windows 11.
 - A DotNetBrowser
   [license key](https://teamdev.com/dotnetbrowser/docs/guides/installation/license/).
 
@@ -63,7 +64,7 @@ Or open `RichTextEditor.sln` in your IDE and run `RichTextEditor`.
 
 Right-click a word with a red underline to see the suggestions.
 
-One copy of the app runs at a time. A second one exits with
+One copy of the app runs at a time. A second one fails with an unhandled
 `UserDataInUseException`, because the first one uses the user data
 directory.
 
