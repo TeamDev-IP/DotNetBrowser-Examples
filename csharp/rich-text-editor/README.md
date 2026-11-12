@@ -69,7 +69,7 @@ One copy of the app runs at a time. A second one fails with an unhandled
 directory.
 
 On Windows, Chromium doesn't start in an app that runs with administrator
-rights. If you need them, see
+rights, and the example exits without showing a window. If you need them, see
 [Running as admin on Windows](https://teamdev.com/dotnetbrowser/docs/guides/troubleshoot/common-issues/#running-as-admin-on-windows).
 
 ## Spell checking without a network connection
