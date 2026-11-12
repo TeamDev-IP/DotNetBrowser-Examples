@@ -16,5 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Editor\*.html;Editor\*.css;Editor\*.js" />
+    <None Include="Editor\quill.js.LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

@@ -20,6 +20,17 @@ body {
 }
 
 @media print {
+    /* Quill's editor scrolls inside a full-height page. Let it grow,
+       so a long document prints on as many pages as it needs. */
+    html, body, #editor, .ql-container, .ql-editor {
+        height: auto;
+        overflow: visible;
+    }
+
+    body {
+        display: block;
+    }
+
     .ql-editor {
         padding: 0;
     }
