@@ -1,0 +1,37 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#editor {
+    flex: 1;
+    border: none;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 15px;
+}
+
+.ql-editor {
+    padding: 24px 32px;
+}
+
+@media print {
+    /* Quill's editor scrolls inside a full-height page. Let it grow,
+       so a long document prints on as many pages as it needs. */
+    html, body, #editor, .ql-container, .ql-editor {
+        height: auto;
+        overflow: visible;
+    }
+
+    body {
+        display: block;
+    }
+
+    .ql-editor {
+        padding: 0;
+    }
+}
