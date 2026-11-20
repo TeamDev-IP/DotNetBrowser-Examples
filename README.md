@@ -114,6 +114,7 @@ To build every solution for one language in a single pass, use the [`build.cake`
 #### Media
 
 * List available audio and video devices. Select default media devices for <br/>the web page: [C#](csharp/console/DefaultMediaStreamDevice/Program.cs), [VB.NET](vbnet/console/DefaultMediaStreamDevice/Program.vb)
+* Handle WebRTC screen sharing requests with a custom source picker: [C#](csharp/screen-sharing)
 
 #### UI
 * Embed into Windows Forms ElementHost: [C#](csharp/winforms/ElementHostEmbedding), [VB.NET](vbnet/winforms/ElementHostEmbedding) 
