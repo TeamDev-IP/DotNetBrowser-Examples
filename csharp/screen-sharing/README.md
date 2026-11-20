@@ -26,7 +26,10 @@ describes the API.
   `getDisplayMedia()` and shows the stream in a `<video>` element.
 - `ScreenSharing/MainWindow.xaml.cs` handles the request in
   `ICapture.StartSessionHandler`, listens to `ICapture.SessionStarted` and
-  `ISession.Stopped`, and stops the session with `ISession.Stop()`.
+  `ISession.Stopped`, and stops the session with `ISession.Stop()`. In
+  DotNetBrowser 4.5.0, `Stopped` isn't raised when the user stops sharing in
+  the Chromium notification, so the page also reports the end of its video
+  track with a console message.
 - `ScreenSharing/SourcePicker.xaml.cs` lists the sources from
   `StartSessionParameters.Sources` with their thumbnails and builds the
   `StartSessionResponse`.

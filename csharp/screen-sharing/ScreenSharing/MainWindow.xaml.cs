@@ -40,6 +40,9 @@ namespace ScreenSharing
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Must match the message in share.html.
+        private const string TrackEndedMessage = "screen-sharing:track-ended";
+
         private readonly IEngine engine;
         private readonly IBrowser browser;
         private ISession session;
@@ -56,6 +59,11 @@ namespace ScreenSharing
             browser.Capture.StartSessionHandler =
                 new Handler<StartSessionParameters, StartSessionResponse>(OnStartSession);
             browser.Capture.SessionStarted += OnSessionStarted;
+
+            // In DotNetBrowser 4.5.0, the session doesn't raise Stopped when the
+            // user stops sharing in the Chromium notification, so the page
+            // reports the end of its video track in the console.
+            browser.ConsoleMessageReceived += OnConsoleMessageReceived;
 
             InitializeComponent();
             browserView.InitializeFrom(browser);
@@ -110,11 +118,27 @@ namespace ScreenSharing
             {
                 if (session == e.Session)
                 {
-                    session = null;
-                    stopButton.IsEnabled = false;
-                    statusText.Text = "Sharing stopped.";
+                    ClearSession();
                 }
             });
+        }
+
+        private void OnConsoleMessageReceived(object sender,
+                                              ConsoleMessageReceivedEventArgs e)
+        {
+            if (e.Message == TrackEndedMessage)
+            {
+                // Don't call Stop() on this session: in DotNetBrowser 4.5.0, it
+                // still reports IsActive, and Stop() on it breaks the browser.
+                Dispatcher.BeginInvoke(() => ClearSession());
+            }
+        }
+
+        private void ClearSession()
+        {
+            session = null;
+            stopButton.IsEnabled = false;
+            statusText.Text = "Sharing stopped.";
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)

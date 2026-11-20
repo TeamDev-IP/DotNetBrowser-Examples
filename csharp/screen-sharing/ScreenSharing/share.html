@@ -35,8 +35,11 @@
         const audio = stream.getAudioTracks().length > 0 ? ", with audio" : "";
         status.textContent = "Sharing" + audio + ".";
 
-        // The app stops the session, and the track ends.
+        // The track ends when the app stops the session or when sharing ends
+        // in another way, for example, from the Chromium notification. The
+        // app listens for this message.
         stream.getVideoTracks()[0].addEventListener("ended", () => {
+          console.log("screen-sharing:track-ended");
           video.srcObject = null;
           share.disabled = false;
           status.textContent = "Not sharing.";
