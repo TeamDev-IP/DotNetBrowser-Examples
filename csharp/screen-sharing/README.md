@@ -4,9 +4,8 @@ This example shows how to handle WebRTC screen sharing requests in a WPF
 application. When the page calls `navigator.mediaDevices.getDisplayMedia()`,
 the application shows its own source picker with the screens, application
 windows, and browsers that the page can share. The picker lets the user share
-audio, if the page asked for it, and hide the sharing notification. It can
-also hand the request over to the standard Chromium dialog. The application
-then shows the active session and stops it.
+audio, if the page asked for it, and hide the sharing notification. The
+application then shows the active session and stops it.
 
 The page only shows the captured video. A real application would send the
 stream to another peer over WebRTC, which is the same in any browser.

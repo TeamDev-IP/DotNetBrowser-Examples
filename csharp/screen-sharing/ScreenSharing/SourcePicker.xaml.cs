@@ -86,13 +86,6 @@ namespace ScreenSharing
             DialogResult = true;
         }
 
-        private void StandardDialog_Click(object sender, RoutedEventArgs e)
-        {
-            // Let Chromium show its own dialog instead.
-            Response = StartSessionResponse.ShowSelectSourceDialog();
-            DialogResult = true;
-        }
-
         /// <summary>
         ///     A row in the list: the source, its name, and its thumbnail.
         /// </summary>

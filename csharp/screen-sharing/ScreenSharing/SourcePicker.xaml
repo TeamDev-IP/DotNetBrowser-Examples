@@ -12,8 +12,6 @@
                       Content="Show the sharing notification" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                         Margin="0,12,0,0">
-                <Button Content="Standard dialog" Width="110" Margin="4,0"
-                        Click="StandardDialog_Click" />
                 <Button Content="Cancel" Width="80" Margin="4,0" IsCancel="True" />
                 <Button Name="shareButton" Content="Share" Width="80" Margin="4,0"
                         IsDefault="True" IsEnabled="False" Click="Share_Click" />
