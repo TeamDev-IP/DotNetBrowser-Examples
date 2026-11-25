@@ -31,6 +31,7 @@ using DotNetBrowser.Capture.Events;
 using DotNetBrowser.Capture.Handlers;
 using DotNetBrowser.Engine;
 using DotNetBrowser.Handlers;
+using DotNetBrowser.Navigation.Events;
 
 namespace ScreenSharing
 {
@@ -64,6 +65,9 @@ namespace ScreenSharing
             // user stops sharing in the Chromium notification, so the page
             // reports the end of its video track in the console.
             browser.ConsoleMessageReceived += OnConsoleMessageReceived;
+
+            // The same applies when the user reloads the page while sharing.
+            browser.Navigation.NavigationFinished += OnNavigationFinished;
 
             InitializeComponent();
             browserView.InitializeFrom(browser);
@@ -126,6 +130,8 @@ namespace ScreenSharing
         private void OnConsoleMessageReceived(object sender,
                                               ConsoleMessageReceivedEventArgs e)
         {
+            // Any script in the page can write this message. The example loads
+            // only its own page.
             if (e.Message == TrackEndedMessage)
             {
                 // Don't call Stop() on this session: in DotNetBrowser 4.5.0, it
@@ -134,8 +140,21 @@ namespace ScreenSharing
             }
         }
 
+        private void OnNavigationFinished(object sender, NavigationFinishedEventArgs e)
+        {
+            // A new document in the main frame ends the capture.
+            if (e.HasCommitted && !e.IsSameDocument && e.Frame.IsMain)
+            {
+                Dispatcher.BeginInvoke(() => ClearSession());
+            }
+        }
+
         private void ClearSession()
         {
+            if (session == null)
+            {
+                return;
+            }
             session = null;
             stopButton.IsEnabled = false;
             statusText.Text = "Sharing stopped.";

@@ -22,6 +22,8 @@
     const share = document.getElementById("share");
 
     share.addEventListener("click", async () => {
+      // One request at a time.
+      share.disabled = true;
       try {
         // The app decides what to share: the request goes to its
         // StartSessionHandler. A real page would send the stream to
@@ -31,7 +33,6 @@
           audio: document.getElementById("audio").checked
         });
         video.srcObject = stream;
-        share.disabled = true;
         const audio = stream.getAudioTracks().length > 0 ? ", with audio" : "";
         status.textContent = "Sharing" + audio + ".";
 
@@ -45,6 +46,7 @@
           status.textContent = "Not sharing.";
         });
       } catch (e) {
+        share.disabled = false;
         status.textContent = "Not shared: " + e.name + ".";
       }
     });
