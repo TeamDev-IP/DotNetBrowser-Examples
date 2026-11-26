@@ -78,8 +78,9 @@ namespace ScreenSharing
 
         private StartSessionResponse OnStartSession(StartSessionParameters parameters)
         {
-            // Always return a response. If the handler throws, the page gets an
-            // error, and the browser doesn't call the handler again.
+            // Always return a response. In DotNetBrowser 4.5.0, if the handler
+            // throws, the page gets an error, and the browser doesn't call the
+            // handler again.
             try
             {
                 // The handler is called on a background thread: show the
