@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Screen sharing</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 16px; }
+    video { display: block; width: 100%; max-height: 70vh; background: #222; }
+  </style>
+</head>
+<body>
+  <p>
+    <button id="share">Share screen</button>
+    <label><input id="audio" type="checkbox"> With audio</label>
+  </p>
+  <p id="status">Not sharing.</p>
+  <video id="video" autoplay muted></video>
+  <script>
+    const status = document.getElementById("status");
+    const video = document.getElementById("video");
+    const share = document.getElementById("share");
+
+    share.addEventListener("click", async () => {
+      // One request at a time.
+      share.disabled = true;
+      try {
+        // The app decides what to share: the request goes to its
+        // StartSessionHandler. A real page would send the stream to
+        // another peer over WebRTC; this one only shows it.
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: document.getElementById("audio").checked
+        });
+        video.srcObject = stream;
+        const audio = stream.getAudioTracks().length > 0 ? ", with audio" : "";
+        status.textContent = "Sharing" + audio + ".";
+
+        // The track ends when the app stops the session or when sharing ends
+        // in another way, for example, from the Chromium notification. The
+        // app listens for this message.
+        stream.getVideoTracks()[0].addEventListener("ended", () => {
+          console.log("screen-sharing:track-ended");
+          video.srcObject = null;
+          share.disabled = false;
+          status.textContent = "Not sharing.";
+        });
+      } catch (e) {
+        share.disabled = false;
+        status.textContent = "Not shared: " + e.name + ".";
+      }
+    });
+  </script>
+</body>
+</html>
